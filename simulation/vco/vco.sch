@@ -1,0 +1,285 @@
+EESchema Schematic File Version 4
+LIBS:vco-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Wire Wire Line
+	2250 1400 2350 1400
+$Comp
+L pspice:OPAMP U1
+U 1 1 5CEFFDD2
+P 1950 1400
+F 0 "U1" H 2100 1300 50  0000 L CNN
+F 1 "LM324" H 2050 1200 50  0000 L CNN
+F 2 "" H 1950 1400 50  0001 C CNN
+F 3 "~" H 1950 1400 50  0001 C CNN
+F 4 "X" H 1950 1400 50  0001 C CNN "Spice_Primitive"
+F 5 "LM324" H 1950 1400 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 1950 1400 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "1 2 4 5 3" H 1950 1400 50  0001 C CNN "Spice_Node_Sequence"
+F 8 "LM324.ti.lib" H 1950 1400 50  0001 C CNN "Spice_Lib_File"
+	1    1950 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 1750 1650 1750
+Wire Wire Line
+	1650 1750 1650 1500
+Wire Wire Line
+	2350 1400 2350 1750
+$Comp
+L power:+5V #PWR?
+U 1 1 5CF04190
+P 1450 800
+F 0 "#PWR?" H 1450 650 50  0001 C CNN
+F 1 "+5V" H 1465 973 50  0000 C CNN
+F 2 "" H 1450 800 50  0001 C CNN
+F 3 "" H 1450 800 50  0001 C CNN
+	1    1450 800 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5CF04A0E
+P 1450 1050
+F 0 "R1" H 1300 1100 50  0000 L CNN
+F 1 "100k" V 1450 950 50  0000 L CNN
+F 2 "" V 1380 1050 50  0001 C CNN
+F 3 "~" H 1450 1050 50  0001 C CNN
+	1    1450 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5CF0529A
+P 1450 1550
+F 0 "R2" H 1300 1600 50  0000 L CNN
+F 1 "100k" V 1450 1450 50  0000 L CNN
+F 2 "" V 1380 1550 50  0001 C CNN
+F 3 "~" H 1450 1550 50  0001 C CNN
+	1    1450 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1450 800  1450 850 
+Wire Wire Line
+	1450 1200 1450 1300
+Wire Wire Line
+	1450 1300 1650 1300
+Connection ~ 1450 1300
+Wire Wire Line
+	1450 1300 1450 1400
+$Comp
+L power:-5V #PWR?
+U 1 1 5CF05C0C
+P 1450 1900
+F 0 "#PWR?" H 1450 2000 50  0001 C CNN
+F 1 "-5V" H 1465 2073 50  0000 C CNN
+F 2 "" H 1450 1900 50  0001 C CNN
+F 3 "" H 1450 1900 50  0001 C CNN
+	1    1450 1900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1850 1850 1850 1700
+Wire Wire Line
+	1850 850  1850 1100
+Connection ~ 1450 850 
+Wire Wire Line
+	1450 850  1450 900 
+$Comp
+L power:GND #PWR?
+U 1 1 5CF06DC5
+P 2550 1550
+F 0 "#PWR?" H 2550 1300 50  0001 C CNN
+F 1 "GND" H 2555 1377 50  0000 C CNN
+F 2 "" H 2550 1550 50  0001 C CNN
+F 3 "" H 2550 1550 50  0001 C CNN
+	1    2550 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2550 1550 2550 1400
+Wire Wire Line
+	2550 1400 2350 1400
+Connection ~ 2350 1400
+Text Notes 2000 1100 0    50   ~ 0
+Rail splitter:\nVirtual Ground
+$Comp
+L pspice:VSOURCE V1
+U 1 1 5CF077E7
+P 1050 1350
+F 0 "V1" H 650 1450 50  0000 L CNN
+F 1 "9" H 650 1200 50  0000 L CNN
+F 2 "" H 1050 1350 50  0001 C CNN
+F 3 "~" H 1050 1350 50  0001 C CNN
+	1    1050 1350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1050 850  1050 1050
+Wire Wire Line
+	1050 1650 1050 1850
+Wire Wire Line
+	1450 850  1050 850 
+Wire Wire Line
+	1450 850  1850 850 
+Wire Wire Line
+	1450 1700 1450 1850
+Wire Wire Line
+	1050 1850 1450 1850
+Connection ~ 1450 1850
+Wire Wire Line
+	1450 1850 1450 1900
+Wire Wire Line
+	1850 1850 1450 1850
+$Comp
+L pspice:0 #GND?
+U 1 1 5CF017AB
+P 2850 850
+F 0 "#GND?" H 2850 750 50  0001 C CNN
+F 1 "0" H 2850 750 50  0000 C CNN
+F 2 "" H 2850 850 50  0001 C CNN
+F 3 "~" H 2850 850 50  0001 C CNN
+	1    2850 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5CF026EA
+P 2700 800
+F 0 "#PWR?" H 2700 550 50  0001 C CNN
+F 1 "GND" H 2705 627 50  0000 C CNN
+F 2 "" H 2700 800 50  0001 C CNN
+F 3 "" H 2700 800 50  0001 C CNN
+	1    2700 800 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2850 850  2850 700 
+Wire Wire Line
+	2850 700  2700 700 
+Wire Wire Line
+	2700 700  2700 800 
+$Comp
+L power:+5V #PWR?
+U 1 1 5CF04FF6
+P 1700 2450
+F 0 "#PWR?" H 1700 2300 50  0001 C CNN
+F 1 "+5V" H 1715 2623 50  0000 C CNN
+F 2 "" H 1700 2450 50  0001 C CNN
+F 3 "" H 1700 2450 50  0001 C CNN
+	1    1700 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5CF05313
+P 1700 2750
+F 0 "#PWR?" H 1700 2500 50  0001 C CNN
+F 1 "GND" H 1705 2577 50  0000 C CNN
+F 2 "" H 1700 2750 50  0001 C CNN
+F 3 "" H 1700 2750 50  0001 C CNN
+	1    1700 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5CF0559F
+P 1700 2600
+F 0 "R5" H 1550 2650 50  0000 L CNN
+F 1 "10k" V 1700 2500 50  0000 L CNN
+F 2 "" V 1630 2600 50  0001 C CNN
+F 3 "~" H 1700 2600 50  0001 C CNN
+	1    1700 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5CF06A87
+P 2100 2750
+F 0 "#PWR?" H 2100 2500 50  0001 C CNN
+F 1 "GND" H 2105 2577 50  0000 C CNN
+F 2 "" H 2100 2750 50  0001 C CNN
+F 3 "" H 2100 2750 50  0001 C CNN
+	1    2100 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 5CF06A91
+P 2100 2600
+F 0 "R6" H 1950 2650 50  0000 L CNN
+F 1 "10k" V 2100 2500 50  0000 L CNN
+F 2 "" V 2030 2600 50  0001 C CNN
+F 3 "~" H 2100 2600 50  0001 C CNN
+	1    2100 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:-5V #PWR?
+U 1 1 5CF07790
+P 2100 2450
+F 0 "#PWR?" H 2100 2550 50  0001 C CNN
+F 1 "-5V" H 2115 2623 50  0000 C CNN
+F 2 "" H 2100 2450 50  0001 C CNN
+F 3 "" H 2100 2450 50  0001 C CNN
+	1    2100 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5CF0805C
+P 3600 2100
+F 0 "#PWR?" H 3600 1850 50  0001 C CNN
+F 1 "GND" H 3605 1927 50  0000 C CNN
+F 2 "" H 3600 2100 50  0001 C CNN
+F 3 "" H 3600 2100 50  0001 C CNN
+	1    3600 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L pspice:VSOURCE V2
+U 1 1 5CF0849D
+P 3600 1750
+F 0 "V2" H 3828 1796 50  0000 L CNN
+F 1 "10" H 3828 1705 50  0000 L CNN
+F 2 "" H 3600 1750 50  0001 C CNN
+F 3 "~" H 3600 1750 50  0001 C CNN
+	1    3600 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 2050 3600 2100
+Wire Wire Line
+	3600 1350 3600 1450
+Wire Wire Line
+	3600 1050 3950 1050
+Wire Wire Line
+	3950 1050 3950 2100
+Wire Wire Line
+	3950 2100 3600 2100
+Connection ~ 3600 2100
+$Comp
+L Device:R R42
+U 1 1 5CF08CA9
+P 3600 1200
+F 0 "R42" H 3670 1246 50  0000 L CNN
+F 1 "100k" H 3670 1155 50  0000 L CNN
+F 2 "" V 3530 1200 50  0001 C CNN
+F 3 "~" H 3600 1200 50  0001 C CNN
+	1    3600 1200
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
