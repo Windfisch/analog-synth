@@ -4,6 +4,9 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
+#include <libopencm3/stm32/exti.h>
+#include <libopencm3/stm32/timer.h>
+#include <libopencm3/cm3/nvic.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <errno.h>
@@ -27,13 +30,77 @@ int _write(int file, char *ptr, int len)
 	return -1;
 }
 
+volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
+volatile uint16_t timer_start;
+volatile uint16_t timer_last;
+volatile uint32_t timer_count;
+
+void exti9_5_isr()
+{
+	uint16_t timer_val = timer_get_counter(TIM2);
+	if (exti_get_flag_status(EXTI7))
+	{
+		exti_reset_request(EXTI7);
+		switch(timer_state)
+		{
+			case WAITING:
+				timer_start = timer_val;
+				timer_last = timer_val;
+				timer_count = 0;
+				timer_state = RUNNING;
+				break;
+			case RUNNING:
+			{
+				uint16_t elapsed = timer_val - timer_start; // this may underflow. this is fine.
+
+				if (elapsed > 1000)
+				{
+					timer_state = IDLE;
+					uint16_t last_elapsed = timer_last-timer_start;
+					int freq = timer_count * 10000 / last_elapsed;
+					printf("measurement complete. %d periods in %d / 10 ms. that's %7.2d Hz\n", timer_count, last_elapsed, freq);
+				}
+				else
+				{
+					timer_last = timer_val;
+					timer_count++;
+				}
+			}
+
+		}
+		//printf("exti7! %d\n", timer_val);
+	}
+	else
+	{
+		//printf("exti???\n");
+	}
+}
+
+
 int main(void) {
 	rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
 
 	rcc_periph_clock_enable(RCC_GPIOE); // SPI4 for the dac
 	rcc_periph_clock_enable(RCC_GPIOA); // USART
 	rcc_periph_clock_enable(RCC_GPIOD); // LED
+	rcc_periph_clock_enable(RCC_SYSCFG); // for interrupts
+	
+	// interrupt pin
+	nvic_enable_irq(NVIC_EXTI9_5_IRQ);
+	gpio_mode_setup(GPIOE, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO7);
+	exti_select_source(EXTI7, GPIOE);
+	exti_set_trigger(EXTI7, EXTI_TRIGGER_RISING);
+	exti_enable_request(EXTI7);
 
+	// timer
+	rcc_periph_clock_enable(RCC_TIM2);
+	rcc_periph_reset_pulse(RST_TIM2);
+	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+	timer_set_prescaler(TIM2, 7800);
+	timer_disable_preload(TIM2);
+	timer_continuous_mode(TIM2);
+	timer_set_period(TIM2, 65535);
+	timer_enable_counter(TIM2);
 
 	// LED
 	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);
@@ -121,6 +188,8 @@ int main(void) {
 			gpio_clear(GPIOE, GPIO13); // slave select low
 			spi_xfer(SPI4, 0x0000 | 0x3000 | pitch_val);
 			gpio_set(GPIOE, GPIO13); // slave select high
+
+			timer_state = WAITING;
 		
 			pos = (pos + 1) % MUSIC_LEN;
 			iter = 0;
