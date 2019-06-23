@@ -4,6 +4,28 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/usart.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+
+
+// allow printf() to use the USART
+int _write(int file, char *ptr, int len)
+{
+	int i;
+
+	if (file == STDOUT_FILENO || file == STDERR_FILENO) {
+		for (i = 0; i < len; i++) {
+			if (ptr[i] == '\n') {
+				usart_send_blocking(USART2, '\r');
+			}
+			usart_send_blocking(USART2, ptr[i]);
+		}
+		return i;
+	}
+	errno = EIO;
+	return -1;
+}
 
 int main(void) {
 	rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
@@ -78,6 +100,7 @@ int main(void) {
 			// play next note
 			gpio_toggle(GPIOD, GPIO12);	/* LED on/off */
 			usart_send_blocking(USART2, pos + 'a'); /* USART2: Send byte. */
+			printf(" %d %d\n", music[pos], retrig[pos]);
 
 
 			pitch_val = (music[pos] + MUSIC_OFFSET) * MUSIC_V_PER_OCT * DAC_STEPS_PER_VOLT / 12;
