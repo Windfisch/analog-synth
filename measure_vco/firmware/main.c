@@ -50,27 +50,45 @@ int main(void) {
 
 	spi_enable(SPI4);
 
+	#define DAC_STEPS_PER_VOLT 2000
+	//int music[] = { 0, 2, 4, 5, 7, 5, 4, 2, 0, 0, 0, 0, 12, 12, 12, 12 };
+	//int music[] = {0,0,0,0,12,12,12,12};
+	int music[] = {
+		0, 0, -5, -4,    -2, -2, -4, -5,
+		-7, -7, -7, -4,   0, 0, -2, -4, 
+		-5, -5, -5, -4,   -2, -2, 0, 0, 
+		-4, -4, -7, -7,   -7, -7, -7, -7};
+	#define MUSIC_LEN (sizeof(music)/sizeof(music[0]))
+	#define MUSIC_OFFSET (12+7)
+	#define MUSIC_V_PER_OCT 1
 
-	int iter = 0;
+	int pos = 0;
 	while (1) {
-		if (iter % (4096/8) == 0)
-		{
-				gpio_toggle(GPIOD, GPIO12);	/* LED on/off */
-				usart_send_blocking(USART2, (iter/(4096/8)) + '0'); /* USART2: Send byte. */
-		}
+		gpio_toggle(GPIOD, GPIO12);	/* LED on/off */
+		usart_send_blocking(USART2, pos + 'a'); /* USART2: Send byte. */
 
-		uint16_t value = (iter & 0xff00) | ( (~iter & 0x00ff) );
+
+		int value = (music[pos] + MUSIC_OFFSET) * MUSIC_V_PER_OCT * DAC_STEPS_PER_VOLT / 12;
+		if (value < 0)
+		{
+			value = 0;
+			usart_send_blocking(USART2, '<');
+		}
+		else if (value >= 4096)
+		{
+			value = 4095;
+			usart_send_blocking(USART2, '>');
+		}
 
 		gpio_clear(GPIOE, GPIO13); // slave select low
 		spi_xfer(SPI4, 0x3000 | value);
 		gpio_set(GPIOE, GPIO13); // slave select high
 
-		for (volatile uint64_t i = 0; i < 3000; i++) {	/* Wait a bit. */
+		for (volatile uint64_t i = 0; i < 1000000; i++) {	/* Wait a bit. */
 			__asm__("NOP");
 		}
 		
-		iter++;
-		iter %= (1<<12);
+		pos = (pos + 1) % MUSIC_LEN;
 	}
 
 }
