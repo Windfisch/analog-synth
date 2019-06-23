@@ -1,3 +1,3 @@
-target extended-remote /dev/ttyACM1
+target extended-remote /dev/ttyACM0
 mon swd
 attach 1
