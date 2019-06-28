@@ -437,8 +437,6 @@ F 8 "1,2,4,5,3" H 5000 5300 50  0001 C CNN "Spice_Node_Sequence"
 	1    0    0    1   
 $EndComp
 Wire Wire Line
-	4700 5400 4650 5400
-Wire Wire Line
 	4600 5200 4650 5200
 Wire Wire Line
 	4650 5150 4650 5200
@@ -455,69 +453,57 @@ Wire Wire Line
 	5400 5300 5300 5300
 Wire Wire Line
 	4150 5200 4300 5200
-Wire Wire Line
-	4400 5900 4400 5400
 $Comp
 L power:GNDREF #PWR012
 U 1 1 5CF85DC5
-P 4650 5700
-F 0 "#PWR012" H 4650 5450 50  0001 C CNN
-F 1 "GNDREF" H 4655 5527 50  0001 C CNN
-F 2 "" H 4650 5700 50  0001 C CNN
-F 3 "" H 4650 5700 50  0001 C CNN
-	1    4650 5700
+P 4650 6100
+F 0 "#PWR012" H 4650 5850 50  0001 C CNN
+F 1 "GNDREF" H 4655 5927 50  0001 C CNN
+F 2 "" H 4650 6100 50  0001 C CNN
+F 3 "" H 4650 6100 50  0001 C CNN
+	1    4650 6100
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R R13
 U 1 1 5CF81086
-P 4650 5550
-F 0 "R13" V 4550 5550 50  0000 C CNN
-F 1 "100k" V 4650 5550 50  0000 C CNN
-F 2 "" V 4580 5550 50  0001 C CNN
-F 3 "~" H 4650 5550 50  0001 C CNN
-	1    4650 5550
-	1    0    0    1   
+P 4450 5400
+F 0 "R13" V 4350 5400 50  0000 C CNN
+F 1 "100k" V 4450 5400 50  0000 C CNN
+F 2 "" V 4380 5400 50  0001 C CNN
+F 3 "~" H 4450 5400 50  0001 C CNN
+	1    4450 5400
+	0    1    -1   0   
 $EndComp
-Wire Wire Line
-	4150 5900 4400 5900
-Connection ~ 4650 5400
-Wire Wire Line
-	4650 5400 4400 5400
-Wire Wire Line
-	3700 5550 3600 5550
 Text GLabel 5700 5300 2    50   Input ~ 0
 sawtooth
 Wire Wire Line
 	5700 5300 5400 5300
 Connection ~ 5400 5300
 Wire Wire Line
-	3500 6300 3600 6300
+	3500 6300 3800 6300
 Wire Wire Line
-	3600 5550 3600 5750
+	3800 6150 3800 6300
+Connection ~ 3800 6300
 Wire Wire Line
-	3600 6050 3600 6300
-Connection ~ 3600 6300
-Wire Wire Line
-	3600 6300 5650 6300
+	3800 6300 5650 6300
 $Comp
 L pspice:QNPN Q2
 U 1 1 5CF6A60E
-P 4000 5550
-F 0 "Q2" H 3700 5850 50  0000 L CNN
-F 1 "BC546" H 3700 5750 50  0000 L CNN
-F 2 "" H 4000 5550 50  0001 C CNN
-F 3 "~" H 4000 5550 50  0001 C CNN
-F 4 "Q" H 4000 5550 50  0001 C CNN "Spice_Primitive"
-F 5 "BC546B" H 4000 5550 50  0001 C CNN "Spice_Model"
-F 6 "Y" H 4000 5550 50  0001 C CNN "Spice_Netlist_Enabled"
-F 7 "BC546.lib" H 4000 5550 50  0001 C CNN "Spice_Lib_File"
-	1    4000 5550
+P 4500 5750
+F 0 "Q2" H 4200 5600 50  0000 L CNN
+F 1 "BC546" H 4050 5500 50  0000 L CNN
+F 2 "" H 4500 5750 50  0001 C CNN
+F 3 "~" H 4500 5750 50  0001 C CNN
+F 4 "Q" H 4500 5750 50  0001 C CNN "Spice_Primitive"
+F 5 "BC546B" H 4500 5750 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 4500 5750 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "BC546.lib" H 4500 5750 50  0001 C CNN "Spice_Lib_File"
+	1    4500 5750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	4150 5200 4150 4650
-Connection ~ 4150 5200
 Connection ~ 4150 4650
 Wire Wire Line
 	4150 4650 2900 4650
@@ -560,12 +546,12 @@ $EndComp
 $Comp
 L Device:R R10
 U 1 1 5CF9A0F2
-P 3600 5900
-F 0 "R10" V 3500 5900 50  0000 C CNN
-F 1 "10k" V 3600 5900 50  0000 C CNN
-F 2 "" V 3530 5900 50  0001 C CNN
-F 3 "~" H 3600 5900 50  0001 C CNN
-	1    3600 5900
+P 3800 6000
+F 0 "R10" V 3700 6000 50  0000 C CNN
+F 1 "10k" V 3800 6000 50  0000 C CNN
+F 2 "" V 3730 6000 50  0001 C CNN
+F 3 "~" H 3800 6000 50  0001 C CNN
+	1    3800 6000
 	1    0    0    -1  
 $EndComp
 Text Notes 3550 6850 0    50   ~ 0
@@ -1186,7 +1172,7 @@ L pspice:VSOURCE V2
 U 1 1 5CF0AB02
 P 7200 3350
 F 0 "V2" H 6800 3450 50  0000 L CNN
-F 1 "2" H 6800 3200 50  0000 L CNN
+F 1 "4" H 6800 3200 50  0000 L CNN
 F 2 "" H 7200 3350 50  0001 C CNN
 F 3 "~" H 7200 3350 50  0001 C CNN
 	1    7200 3350
@@ -1273,4 +1259,18 @@ Text Notes 3950 7750 0    50   ~ 0
 Note that V_expo should be at least 250mV above GND to\navoid a distorted shape and a wrong frequency. This is because\nQ1, when turned on, still has a voltage about 25mV between C and E.\nThis reduces the current through R5, and thus reduces the discharge\nrate of C1. As a mitigation, either use large-enough control voltages,\nor put Q1's emitter at GND - 25mV.\nOr, preferably, replace Q1 with a MOSFET like the 2N7000.
 Text Notes 800  6900 0    50   ~ 0
 use 2N7000\nMOSFET instead
+Wire Wire Line
+	4600 5400 4650 5400
+Wire Wire Line
+	4300 5400 4150 5400
+Wire Wire Line
+	4150 5400 4150 5200
+Connection ~ 4150 5200
+Connection ~ 4650 5400
+Wire Wire Line
+	4650 5400 4700 5400
+Wire Wire Line
+	4200 5750 3800 5750
+Wire Wire Line
+	3800 5750 3800 5850
 $EndSCHEMATC
