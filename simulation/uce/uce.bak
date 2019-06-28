@@ -1,0 +1,109 @@
+EESchema Schematic File Version 4
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L pspice:QNPN Q1
+U 1 1 5CFD14A0
+P 3950 3150
+F 0 "Q1" H 4177 3196 50  0000 L CNN
+F 1 "QNPN" H 4177 3105 50  0000 L CNN
+F 2 "" H 3950 3150 50  0001 C CNN
+F 3 "~" H 3950 3150 50  0001 C CNN
+F 4 "Q" H 3950 3150 50  0001 C CNN "Spice_Primitive"
+F 5 "BC546B" H 3950 3150 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 3950 3150 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/kicad/synth/simulation/lib/BC546.lib" H 3950 3150 50  0001 C CNN "Spice_Lib_File"
+	1    3950 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4100 2500 4100 2800
+Wire Wire Line
+	4100 3500 4100 3700
+Wire Wire Line
+	4100 3700 4950 3700
+Wire Wire Line
+	4950 3700 4950 3550
+$Comp
+L pspice:VSOURCE V1
+U 1 1 5CFD46CE
+P 3050 3150
+F 0 "V1" V 2547 3150 50  0000 C CNN
+F 1 "5" V 2638 3150 50  0000 C CNN
+F 2 "" H 3050 3150 50  0001 C CNN
+F 3 "~" H 3050 3150 50  0001 C CNN
+	1    3050 3150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2750 3150 2750 3700
+Wire Wire Line
+	2750 3700 4100 3700
+Connection ~ 4100 3700
+$Comp
+L pspice:VSOURCE V2
+U 1 1 5CFD5062
+P 4950 3250
+F 0 "V2" H 5178 3296 50  0000 L CNN
+F 1 "5" H 5178 3205 50  0000 L CNN
+F 2 "" H 4950 3250 50  0001 C CNN
+F 3 "~" H 4950 3250 50  0001 C CNN
+	1    4950 3250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4100 2500 4400 2500
+Wire Wire Line
+	4700 2500 4950 2500
+Wire Wire Line
+	4950 2500 4950 2950
+$Comp
+L pspice:0 #GND?
+U 1 1 5CFD607E
+P 4100 3850
+F 0 "#GND?" H 4100 3750 50  0001 C CNN
+F 1 "0" H 4100 3939 50  0000 C CNN
+F 2 "" H 4100 3850 50  0001 C CNN
+F 3 "~" H 4100 3850 50  0001 C CNN
+	1    4100 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4100 3850 4100 3700
+Text GLabel 4100 2500 1    50   Input ~ 0
+Vce
+$Comp
+L Device:R R2
+U 1 1 5CFD5882
+P 4550 2500
+F 0 "R2" V 4757 2500 50  0000 C CNN
+F 1 "100" V 4666 2500 50  0000 C CNN
+F 2 "" V 4480 2500 50  0001 C CNN
+F 3 "~" H 4550 2500 50  0001 C CNN
+	1    4550 2500
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5CFD3E62
+P 3500 3150
+F 0 "R1" V 3707 3150 50  0000 C CNN
+F 1 "10k" V 3616 3150 50  0000 C CNN
+F 2 "" V 3430 3150 50  0001 C CNN
+F 3 "~" H 3500 3150 50  0001 C CNN
+	1    3500 3150
+	0    1    -1   0   
+$EndComp
+$EndSCHEMATC
