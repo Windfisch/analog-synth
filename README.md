@@ -49,6 +49,34 @@ are detailed annotations on which part serves which purpose.
 Under `measure_vco/` you can find the tooling and test results for measuring
 the pitch deviation of the VCO.
 
+## Setup
+
+To build libopencm3:
+
+```
+git submodule update --init
+make -j8 -C libopencm3
+```
+
+To measure the vco frequency response:
+
+```
+cd measure_vco/firmware
+make
+```
+
+then do whatever is neccessary to flash the program onto your board. For my
+board, which has a non-standard blackmagic firmware on the STLINK chip, it is:
+
+```
+arm-none-eabi-gdb  # make sure it loads the .gdbinit file
+load
+run
+```
+
+Then record the output on pin A2 with an UART adapter (or using the blackmagic uart device)/.
+
+
 ## Licensing
 
 All software, firmware and schematics are released under the terms of the [GPL3 license](LICENSE.md).
