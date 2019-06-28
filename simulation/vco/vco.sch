@@ -677,7 +677,7 @@ Text GLabel 5700 4150 2    50   Input ~ 0
 pulse
 Wire Wire Line
 	5700 4150 5300 4150
-Text Notes 6100 4850 0    50   ~ 0
+Text Notes 5650 6250 0    50   ~ 0
 do not use
 Text GLabel 8600 2950 1    50   Input ~ 0
 V_pwm
@@ -1269,4 +1269,8 @@ F 3 "~" H 5350 1050 50  0001 C CNN
 	1    5350 1050
 	0    1    1    0   
 $EndComp
+Text Notes 3950 7750 0    50   ~ 0
+Note that V_expo should be at least 250mV above GND to\navoid a distorted shape and a wrong frequency. This is because\nQ1, when turned on, still has a voltage about 25mV between C and E.\nThis reduces the current through R5, and thus reduces the discharge\nrate of C1. As a mitigation, either use large-enough control voltages,\nor put Q1's emitter at GND - 25mV.\nOr, preferably, replace Q1 with a MOSFET like the 2N7000.
+Text Notes 800  6900 0    50   ~ 0
+use 2N7000\nMOSFET instead
 $EndSCHEMATC
