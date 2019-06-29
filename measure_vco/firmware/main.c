@@ -77,6 +77,15 @@ void exti9_5_isr()
 }
 
 
+void play_note(int code)
+{
+	gpio_clear(GPIOE, GPIO13); // slave select low
+	spi_xfer(SPI4, 0x0000 | 0x3000 | code);
+	gpio_set(GPIOE, GPIO13); // slave select high
+
+	for (volatile int i=0; i<100000; i++);
+}
+
 int main(void) {
 	rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
 
@@ -156,6 +165,14 @@ int main(void) {
 	#define MUSIC_LEN (sizeof(music)/sizeof(music[0]))
 	#define MUSIC_OFFSET (12+7)
 	#define MUSIC_V_PER_OCT 1
+
+
+
+	play_note(0);
+	play_note(2000/5);
+	play_note(4095);
+	play_note(4095 - 2000/5);
+
 
 	int pos = 0;
 	int iter = 1000001;
