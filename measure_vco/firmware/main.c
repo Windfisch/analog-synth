@@ -30,6 +30,7 @@ int _write(int file, char *ptr, int len)
 	return -1;
 }
 
+volatile int voltage_val;
 volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
 volatile uint16_t timer_start;
 volatile uint16_t timer_last;
@@ -53,12 +54,14 @@ void exti9_5_isr()
 			{
 				uint16_t elapsed = timer_val - timer_start; // this may underflow. this is fine.
 
-				if (elapsed > 1000)
+				if (elapsed > 2000)
 				{
 					timer_state = IDLE;
 					uint16_t last_elapsed = timer_last-timer_start;
 					int freq = timer_count * 10000 / last_elapsed;
-					printf("measurement complete. %d periods in %d / 10 ms. that's %7.2d Hz\n", timer_count, last_elapsed, freq);
+					//printf("measurement complete. %d periods in %d / 10 ms. that's %7.2d Hz\n", timer_count, last_elapsed, freq);
+					printf("%4d %10d %10d\n", voltage_val, timer_count, last_elapsed);
+
 				}
 				else
 				{
@@ -84,6 +87,17 @@ void play_note(int code)
 	gpio_set(GPIOE, GPIO13); // slave select high
 
 	for (volatile int i=0; i<100000; i++);
+}
+
+static unsigned reverse_bits(unsigned val, int n_bits)
+{
+	unsigned result = 0;
+	for (int i=0; i<n_bits; i++)
+	{
+		if (val & (1<<i))
+			result |= (1 << (n_bits-i-1));
+	}
+	return result;
 }
 
 int main(void) {
@@ -147,6 +161,24 @@ int main(void) {
 	spi_set_nss_high(SPI4);
 
 	spi_enable(SPI4);
+
+while(1)
+	for (int i=0; i<4096; i++)
+	{
+		int pitch_val = reverse_bits(i, 12);
+
+		gpio_clear(GPIOE, GPIO13); // slave select low
+		spi_xfer(SPI4, 0x0000 | 0x3000 | pitch_val);
+		gpio_set(GPIOE, GPIO13); // slave select high
+
+		voltage_val = pitch_val;
+		
+		for (volatile int j=0; j<300000; j++); // wait a bit
+
+		timer_state = WAITING;
+		//printf("%d\n",i);
+		while (timer_state != IDLE); // wait for the measurement to complete. the ISR will print the result
+	}
 
 	#define DAC_STEPS_PER_VOLT 2000
 	//int music[] = { 0, 2, 4, 5, 7, 5, 4, 2, 0, 0, 0, 0, 12, 12, 12, 12 };
