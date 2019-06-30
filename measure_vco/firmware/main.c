@@ -86,7 +86,7 @@ void play_note(int code)
 	spi_xfer(SPI4, 0x0000 | 0x3000 | code);
 	gpio_set(GPIOE, GPIO13); // slave select high
 
-	for (volatile int i=0; i<100000; i++);
+	for (volatile int i=0; i<1000000; i++);
 }
 
 static unsigned reverse_bits(unsigned val, int n_bits)
@@ -162,6 +162,12 @@ int main(void) {
 
 	spi_enable(SPI4);
 
+	play_note(0);
+	play_note(100);
+	play_note(4095);
+	play_note(4095 - 100);
+
+
 while(1)
 	for (int i=0; i<4096; i++)
 	{
@@ -198,12 +204,6 @@ while(1)
 	#define MUSIC_OFFSET (12+7)
 	#define MUSIC_V_PER_OCT 1
 
-
-
-	play_note(0);
-	play_note(2000/5);
-	play_note(4095);
-	play_note(4095 - 2000/5);
 
 
 	int pos = 0;

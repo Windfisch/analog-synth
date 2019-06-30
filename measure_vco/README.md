@@ -18,6 +18,11 @@ The output voltage calculates as "code point * 0.5mV".
 The time is given in 10'000ths of a second. Thus, the frequency is calculated
 as "(periods / (time/10000))".
 
+At the very beginning, two test tones close to the lowest and two close to the
+highest control voltage output are played. Use the tune pot R10 to set an
+offset at or close to a position where both test pairs can be heard at distinct
+pitches to avoid clamping.
+
 ## experiments
 
 [See also](experiments/20190525_1v_per_oct_response/README.md)
