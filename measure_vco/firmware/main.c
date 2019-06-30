@@ -34,7 +34,6 @@ volatile int voltage_val;
 volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
 volatile uint16_t timer_start;
 volatile uint32_t timer_count;
-volatile uint16_t timer_length = 20000;
 
 void exti9_5_isr()
 {
@@ -55,7 +54,7 @@ void exti9_5_isr()
 					
 				timer_count++;
 
-				if (elapsed > timer_length) // 0.2 sec
+				if (elapsed > 20000) // 20ms @ 1MHz
 				{
 					timer_state = IDLE;
 					//printf("measurement complete. %d periods in %d / 10 ms. that's %7.2d Hz\n", timer_count, last_elapsed, freq);
@@ -162,10 +161,10 @@ int main(void) {
 	play_note(4095 - 100);
 
 
-for (timer_length = 20000; ; timer_length /= 2)
+for (int waittime = 1000000; ; waittime /= 4)
 {
 	printf("----SNIP----\n");
-	printf("# timer_length = %d at 1MHz clock rate\n", timer_length);
+	printf("# waittime = %d\n", waittime);
 
 	for (int i=0; i<512; i++)
 	{
@@ -177,7 +176,7 @@ for (timer_length = 20000; ; timer_length /= 2)
 
 		voltage_val = pitch_val;
 		
-		for (volatile int j=0; j<1000000; j++); // wait an ample bit
+		for (volatile int j=0; j<waittime; j++); // wait an ample bit
 
 		timer_state = WAITING;
 		//printf("%d\n",i);
