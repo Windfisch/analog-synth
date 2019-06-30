@@ -113,7 +113,7 @@ int main(void) {
 	rcc_periph_clock_enable(RCC_TIM2);
 	rcc_periph_reset_pulse(RST_TIM2);
 	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
-	timer_set_prescaler(TIM2, 780);
+	timer_set_prescaler(TIM2, 78);
 	timer_disable_preload(TIM2);
 	timer_continuous_mode(TIM2);
 	timer_set_period(TIM2, 65535);
@@ -162,10 +162,10 @@ int main(void) {
 	play_note(4095 - 100);
 
 
-for (timer_length = 20000; ; timer_length /= 4)
+for (timer_length = 20000; ; timer_length /= 2)
 {
 	printf("----SNIP----\n");
-	printf("# timer_length = %d at 100kHz clock rate\n", timer_length);
+	printf("# timer_length = %d at 1MHz clock rate\n", timer_length);
 
 	for (int i=0; i<512; i++)
 	{
