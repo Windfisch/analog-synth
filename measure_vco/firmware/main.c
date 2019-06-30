@@ -33,8 +33,8 @@ int _write(int file, char *ptr, int len)
 volatile int voltage_val;
 volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
 volatile uint16_t timer_start;
-volatile uint16_t timer_last;
 volatile uint32_t timer_count;
+volatile uint16_t timer_length = 20000;
 
 void exti9_5_isr()
 {
@@ -46,27 +46,21 @@ void exti9_5_isr()
 		{
 			case WAITING:
 				timer_start = timer_val;
-				timer_last = timer_val;
 				timer_count = 0;
 				timer_state = RUNNING;
 				break;
 			case RUNNING:
 			{
 				uint16_t elapsed = timer_val - timer_start; // this may underflow. this is fine.
+					
+				timer_count++;
 
-				if (elapsed > 2000)
+				if (elapsed > timer_length) // 0.2 sec
 				{
 					timer_state = IDLE;
-					uint16_t last_elapsed = timer_last-timer_start;
-					int freq = timer_count * 10000 / last_elapsed;
 					//printf("measurement complete. %d periods in %d / 10 ms. that's %7.2d Hz\n", timer_count, last_elapsed, freq);
-					printf("%4d %10d %10d\n", voltage_val, timer_count, last_elapsed);
+					printf("%4d %10d %10d\n", voltage_val, timer_count, elapsed);
 
-				}
-				else
-				{
-					timer_last = timer_val;
-					timer_count++;
 				}
 			}
 
@@ -119,7 +113,7 @@ int main(void) {
 	rcc_periph_clock_enable(RCC_TIM2);
 	rcc_periph_reset_pulse(RST_TIM2);
 	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
-	timer_set_prescaler(TIM2, 7800);
+	timer_set_prescaler(TIM2, 780);
 	timer_disable_preload(TIM2);
 	timer_continuous_mode(TIM2);
 	timer_set_period(TIM2, 65535);
@@ -168,8 +162,12 @@ int main(void) {
 	play_note(4095 - 100);
 
 
-while(1)
-	for (int i=0; i<4096; i++)
+for (timer_length = 20000; ; timer_length /= 4)
+{
+	printf("----SNIP----\n");
+	printf("# timer_length = %d at 100kHz clock rate\n", timer_length);
+
+	for (int i=0; i<512; i++)
 	{
 		int pitch_val = reverse_bits(i, 12);
 
@@ -179,12 +177,13 @@ while(1)
 
 		voltage_val = pitch_val;
 		
-		for (volatile int j=0; j<300000; j++); // wait a bit
+		for (volatile int j=0; j<1000000; j++); // wait an ample bit
 
 		timer_state = WAITING;
 		//printf("%d\n",i);
 		while (timer_state != IDLE); // wait for the measurement to complete. the ISR will print the result
 	}
+}
 
 	#define DAC_STEPS_PER_VOLT 2000
 	//int music[] = { 0, 2, 4, 5, 7, 5, 4, 2, 0, 0, 0, 0, 12, 12, 12, 12 };
