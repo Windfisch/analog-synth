@@ -4,6 +4,7 @@ BUILD_DIR = bin
 #SHARED_DIR = ../my-common-code
 CFILES = main.c
 #AFILES = stuff.S
+LDLIBS = -lm
 
 DEVICE=stm32f411re
 OOCD_FILE = board/stm32f4discovery.cfg

@@ -10,7 +10,21 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <errno.h>
+#include <math.h>
 
+
+#define MCU_CLOCK  78000000 // 78 MHz
+
+#define LOWEST_FREQ 15
+#define HIGHEST_FREQ 4500
+
+int expected_frequency(int codepoint)
+{
+	float octaves = log2(HIGHEST_FREQ / (float) LOWEST_FREQ);
+	return LOWEST_FREQ * exp2(octaves * (((float)codepoint) / 4096.));
+}
+
+volatile int tim2_div = 1; // range: 1 - 65536. this equals tim2's prescaler plus 1. i.e. it's the number of mcu clocks per one timer tick
 
 // allow printf() to use the USART
 int _write(int file, char *ptr, int len)
@@ -30,10 +44,51 @@ int _write(int file, char *ptr, int len)
 	return -1;
 }
 
+void delay_us(int us)
+{
+	const int TIM2_CLOCK = MCU_CLOCK / tim2_div;
+	#define DELAY_MAX_COUNT 50000 // this has an ample margin to 65536
+
+	uint16_t t0 = timer_get_counter(TIM2);
+	uint16_t t1;
+
+	int total_increments = ((uint64_t)us) * TIM2_CLOCK / 1000000;
+
+	int takes = total_increments / DELAY_MAX_COUNT;
+	total_increments = total_increments % DELAY_MAX_COUNT;
+
+	for (int i=0; i<takes; i++)
+	{
+		do
+		{
+			t1 = timer_get_counter(TIM2);
+		} while ( (uint16_t)(t1-t0) < DELAY_MAX_COUNT);
+		t0 += DELAY_MAX_COUNT;
+	}
+
+	do
+	{
+		t1 = timer_get_counter(TIM2);
+	} while ( (uint16_t)(t1-t0) < total_increments);
+}
+
 volatile int voltage_val;
 volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
-volatile uint16_t timer_start;
-volatile uint32_t timer_count;
+volatile uint16_t timer_begin;
+volatile uint32_t measurement_count;
+volatile int timer_edge;
+
+#define N_MEASUREMENTS 5
+typedef struct
+{
+	volatile int high_time;
+	volatile int low_time;
+} measurement_t;
+
+volatile measurement_t measurements[N_MEASUREMENTS];
+
+void panic(void);
+void panic(void) { for(;;); }
 
 void exti9_5_isr()
 {
@@ -41,28 +96,71 @@ void exti9_5_isr()
 	if (exti_get_flag_status(EXTI7))
 	{
 		exti_reset_request(EXTI7);
-		switch(timer_state)
-		{
-			case WAITING:
-				timer_start = timer_val;
-				timer_count = 0;
-				timer_state = RUNNING;
-				break;
-			case RUNNING:
-			{
-				uint16_t elapsed = timer_val - timer_start; // this may underflow. this is fine.
-					
-				timer_count++;
 
-				if (elapsed > 20000) // 20ms @ 1MHz
+		
+
+		switch (timer_edge)
+		{
+			case EXTI_TRIGGER_RISING:
+				
+				switch(timer_state)
 				{
-					timer_state = IDLE;
-					//printf("measurement complete. %d periods in %d / 10 ms. that's %7.2d Hz\n", timer_count, last_elapsed, freq);
-					printf("%4d %10d %10d\n", voltage_val, timer_count, elapsed);
+					case WAITING:
+						timer_begin = timer_val;
+						measurement_count = 0;
+						timer_state = RUNNING;
+						break;
+
+					case RUNNING:
+					{
+						uint16_t elapsed = timer_val - timer_begin; // this may underflow. this is fine.
+						timer_begin = timer_val;
+
+						measurements[measurement_count].low_time = elapsed;
+						measurement_count++;
+
+						if (measurement_count >= N_MEASUREMENTS)
+						{
+							timer_state = IDLE;
+
+							printf("%4d %6d ", voltage_val, tim2_div);
+							for (int i=0; i<N_MEASUREMENTS; i++)
+								printf("  %8d %8d", measurements[i].low_time, measurements[i].high_time);
+							printf("\n");
+						}
+						break;
+					}
+					case IDLE:
+						break;
 
 				}
-			}
 
+				exti_set_trigger(EXTI7, EXTI_TRIGGER_FALLING);
+				timer_edge = EXTI_TRIGGER_FALLING;
+				break;
+
+			case EXTI_TRIGGER_FALLING:
+
+				switch(timer_state)
+				{
+					case WAITING: break;
+					case IDLE: break;
+					case RUNNING:
+					{
+						uint16_t elapsed = timer_val - timer_begin; // this may underflow. this is fine.
+						timer_begin = timer_val;
+
+						measurements[measurement_count].high_time = elapsed;
+					}
+				}
+
+				exti_set_trigger(EXTI7, EXTI_TRIGGER_RISING);
+				timer_edge = EXTI_TRIGGER_RISING;
+				
+				break;
+
+			default:
+				panic();
 		}
 		//printf("exti7! %d\n", timer_val);
 	}
@@ -79,7 +177,8 @@ void play_note(int code)
 	spi_xfer(SPI4, 0x0000 | 0x3000 | code);
 	gpio_set(GPIOE, GPIO13); // slave select high
 
-	for (volatile int i=0; i<1000000; i++);
+	//for (volatile int i=0; i<1000000; i++);
+	delay_us(250000);
 }
 
 static unsigned reverse_bits(unsigned val, int n_bits)
@@ -91,6 +190,20 @@ static unsigned reverse_bits(unsigned val, int n_bits)
 			result |= (1 << (n_bits-i-1));
 	}
 	return result;
+}
+
+void update_tim2_freq(uint32_t freq)
+{
+	int prescaler = (MCU_CLOCK+freq-1) / freq - 1; // round up
+	if (prescaler > 0xFFFF) prescaler = 0xFFFF;
+	if (prescaler < 0) prescaler = 0;
+
+	tim2_div = prescaler+1;
+
+	timer_disable_counter(TIM2);
+	timer_set_prescaler(TIM2, prescaler);
+	timer_generate_event(TIM2, TIM_EGR_UG); // force the prescaler preload register to be flushed into the active register
+	timer_enable_counter(TIM2);
 }
 
 int main(void) {
@@ -106,13 +219,14 @@ int main(void) {
 	gpio_mode_setup(GPIOE, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO7);
 	exti_select_source(EXTI7, GPIOE);
 	exti_set_trigger(EXTI7, EXTI_TRIGGER_RISING);
+	timer_edge = EXTI_TRIGGER_RISING;
 	exti_enable_request(EXTI7);
 
 	// timer
 	rcc_periph_clock_enable(RCC_TIM2);
 	rcc_periph_reset_pulse(RST_TIM2);
 	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
-	timer_set_prescaler(TIM2, 78);
+	timer_set_prescaler(TIM2, tim2_div-1); // running at 1MHz
 	timer_disable_preload(TIM2);
 	timer_continuous_mode(TIM2);
 	timer_set_period(TIM2, 65535);
@@ -161,28 +275,28 @@ int main(void) {
 	play_note(4095 - 100);
 
 
-for (int waittime = 1000000; ; waittime /= 4)
-{
-	printf("----SNIP----\n");
-	printf("# waittime = %d\n", waittime);
-
-	for (int i=0; i<512; i++)
+	for (int i=0; i<4096; i++)
 	{
 		int pitch_val = reverse_bits(i, 12);
+		//int pitch_val = (i*64) % 4096;
+
+		update_tim2_freq( expected_frequency(pitch_val) * 2 * 30000 ); // that leaves an octave room for misjudgement
+		//printf("expected freq: %d\n", expected_frequency(pitch_val));
 
 		gpio_clear(GPIOE, GPIO13); // slave select low
 		spi_xfer(SPI4, 0x0000 | 0x3000 | pitch_val);
 		gpio_set(GPIOE, GPIO13); // slave select high
 
 		voltage_val = pitch_val;
-		
-		for (volatile int j=0; j<waittime; j++); // wait an ample bit
 
+		//for (volatile int i=0; i<500000; i++);
+	
 		timer_state = WAITING;
 		//printf("%d\n",i);
 		while (timer_state != IDLE); // wait for the measurement to complete. the ISR will print the result
 	}
-}
+	printf("end\n");
+	panic();
 
 	#define DAC_STEPS_PER_VOLT 2000
 	//int music[] = { 0, 2, 4, 5, 7, 5, 4, 2, 0, 0, 0, 0, 12, 12, 12, 12 };
