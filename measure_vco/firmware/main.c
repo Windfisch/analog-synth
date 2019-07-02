@@ -15,15 +15,6 @@
 
 #define MCU_CLOCK  78000000 // 78 MHz
 
-#define LOWEST_FREQ 15
-#define HIGHEST_FREQ 4500
-
-int expected_frequency(int codepoint)
-{
-	float octaves = log2(HIGHEST_FREQ / (float) LOWEST_FREQ);
-	return LOWEST_FREQ * exp2(octaves * (((float)codepoint) / 4096.));
-}
-
 volatile int tim2_div = 1; // range: 1 - 65536. this equals tim2's prescaler plus 1. i.e. it's the number of mcu clocks per one timer tick
 
 // allow printf() to use the USART
@@ -86,6 +77,14 @@ typedef struct
 } measurement_t;
 
 volatile measurement_t measurements[N_MEASUREMENTS];
+
+int measurement_sum()
+{
+	int sum = 0;
+	for (int i=0; i<N_MEASUREMENTS; i++)
+		sum += measurements[i].high_time + measurements[i].low_time;
+	return sum;
+}
 
 void panic(void);
 void panic(void) { for(;;); }
@@ -171,11 +170,16 @@ void exti9_5_isr()
 }
 
 
+void dac_write(int val)
+{
+		gpio_clear(GPIOE, GPIO13); // slave select low
+		spi_xfer(SPI4, 0x0000 | 0x3000 | val);
+		gpio_set(GPIOE, GPIO13); // slave select high
+}
+
 void play_note(int code)
 {
-	gpio_clear(GPIOE, GPIO13); // slave select low
-	spi_xfer(SPI4, 0x0000 | 0x3000 | code);
-	gpio_set(GPIOE, GPIO13); // slave select high
+	dac_write(code);
 
 	//for (volatile int i=0; i<1000000; i++);
 	delay_us(250000);
@@ -205,6 +209,36 @@ void update_tim2_freq(uint32_t freq)
 	timer_generate_event(TIM2, TIM_EGR_UG); // force the prescaler preload register to be flushed into the active register
 	timer_enable_counter(TIM2);
 }
+
+
+// ---------- frequency expectation ----------
+
+#define PROBE1 1024
+#define PROBE2 3096
+int probe1_freq, probe2_freq;
+
+void init_frequency_expectations()
+{
+	// measure the frequencies at PROBE1 and PROBE2 in order to feed the expected_frequency() helper function
+	update_tim2_freq(10); // this is a very conservative value, yielding bad resolution but no risk of overflowing the timer.
+	dac_write(PROBE1);
+	timer_state = WAITING;
+	while (timer_state != IDLE); // wait for the measurement to complete
+	probe1_freq = MCU_CLOCK * N_MEASUREMENTS / tim2_div / measurement_sum();
+	dac_write(PROBE2);
+	timer_state = WAITING;
+	while (timer_state != IDLE); // wait for the measurement to complete
+	probe2_freq = MCU_CLOCK * N_MEASUREMENTS / tim2_div / measurement_sum();
+	printf("freq at %d is %d, freq at %d is %d\n", PROBE1, probe1_freq, PROBE2, probe2_freq);
+}
+
+int expected_frequency(int codepoint)
+{
+	float octaves = log2(probe2_freq/ (float) probe1_freq); // octaves across PROBE1 .. PROBE2
+	return probe1_freq * exp2(octaves * (float)(codepoint-PROBE1) / (float)(PROBE2-PROBE1));
+}
+
+// ---------- main code ----------
 
 int main(void) {
 	rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
@@ -269,6 +303,11 @@ int main(void) {
 
 	spi_enable(SPI4);
 
+
+	// measure the frequencies at PROBE1 and PROBE2 in order to feed the expected_frequency() helper function
+	init_frequency_expectations();
+
+
 	play_note(0);
 	play_note(100);
 	play_note(4095);
@@ -283,9 +322,7 @@ int main(void) {
 		update_tim2_freq( expected_frequency(pitch_val) * 2 * 30000 ); // that leaves an octave room for misjudgement
 		//printf("expected freq: %d\n", expected_frequency(pitch_val));
 
-		gpio_clear(GPIOE, GPIO13); // slave select low
-		spi_xfer(SPI4, 0x0000 | 0x3000 | pitch_val);
-		gpio_set(GPIOE, GPIO13); // slave select high
+		dac_write(pitch_val);
 
 		voltage_val = pitch_val;
 
@@ -298,3 +335,4 @@ int main(void) {
 	printf("end\n");
 	panic();
 }
+
