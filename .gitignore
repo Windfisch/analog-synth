@@ -2,3 +2,5 @@ bin/
 *.elf
 *.bin
 generated.*.ld
+*.pyc
+__pycache__
