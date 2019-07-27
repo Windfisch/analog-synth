@@ -175,6 +175,14 @@ def fancy_plot2(xs1, ys1, xs2, ys2, xlabel, y1label, y2label, fit=None, fig=None
 data = read_data(open(sys.argv[1],'r'))
 data=sorted(data)
 
+continuous=False
+continuous_backlog = 64
+if len(sys.argv) >= 3:
+	if sys.argv[2] == '-c' or sys.argv[2] == '--continuous':
+		continuous=True
+		if len(sys.argv) >= 4:
+			continuous_backlog = int(sys.argv[3])
+
 # linearize it (i.e. turn frequency into logarithmic units, aka cents)
 cents = [(d[0], log(d[1],2)*1200) for d in data]
 cents = wiggle(cents, 0.1, 0.0)
@@ -187,9 +195,27 @@ print("ending   at %7.2f Hz = %+6.0fc distance from a4@440Hz" % ( 2**(4096*fit[0
 
 cent_deviation = [ (c[0], c[1] - fit[0]*c[0] - fit[1]) for c in cents]
 
-fancy_plot2(axis(cent_deviation,0), axis(cent_deviation,1), axis(data, 0), axis(data,2), "code point (corrected)", "deviation [cent]", "pulse width")
+fig, ax1, ax2 = fancy_plot2(axis(cent_deviation,0), axis(cent_deviation,1), axis(data, 0), axis(data,2), "code point (corrected)", "deviation [cent]", "pulse width", fit)
 
+if not continuous:
+	plt.show()
+else:
+	while True:
+		data = read_data(open(sys.argv[1],'r'))
 
+		if (len(data)>continuous_backlog):
+			data = data[-continuous_backlog:]
 
-cents_der = derive(cents, 0, 4096, 16)
+		data=sorted(data)
 
+		# linearize it (i.e. turn frequency into logarithmic units, aka cents)
+		cents = [(d[0], log(d[1],2)*1200) for d in data]
+		cents = wiggle(cents, 0.1, 0.0)
+		cent_deviation = [ (c[0], c[1] - fit[0]*c[0] - fit[1]) for c in cents]
+
+		
+
+		cent_deviation = [ (cd[0], cd[1] - cent_deviation[len(cent_deviation)//2][1]) for cd in cent_deviation ]
+
+		fancy_plot2(axis(cent_deviation,0), axis(cent_deviation,1), axis(data, 0), axis(data,2), "code point (corrected)", "deviation [cent]", "pulse width", fit, fig, ax1, ax2)
+		plt.pause(1)
