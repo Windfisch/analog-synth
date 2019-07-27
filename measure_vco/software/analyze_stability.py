@@ -107,38 +107,69 @@ def fancy_plot(xs, ys):
 	plt.show()
 
 # plots using matplotlib, but properly sets the x/y ranges so that outliers aren't shown
-def fancy_plot2(xs1, ys1, xs2, ys2, xlabel, y1label, y2label):
+def fancy_plot2(xs1, ys1, xs2, ys2, xlabel, y1label, y2label, fit=None, fig=None, ax1=None, ax2=None):
 	x_perc = 0.1
 	y_perc = 0.1
 	x_extra = 0.03
 	y_extra = 0
 	
-	fig, ax1 = plt.subplots()
+	if fig is None and ax1 is None and ax2 is None:
+		fig, ax1 = plt.subplots()
+		setup = True
+	else:
+		setup = False
+	
 	color = 'tab:blue'
-	ax1.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(512))
-	ax1.axhline(0, ls='--', lw=1, color=color)
+
+	if setup:
+		ax1.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(512))
+		ax1.axhline(0, ls='--', lw=1, color=color)
 
 
-	xs = xs1+xs2
-	ax1.set_xlim( expand_range(percentile(xs,0+x_perc), percentile(xs,1-x_perc), x_perc+x_extra, x_perc+x_extra) )
-	ax1.set_ylim( expand_range(percentile(ys1,0+y_perc), percentile(ys1,1-y_perc), y_perc+y_extra, y_perc+y_extra) )
+		xs = xs1+xs2
+		ax1.set_xlim( expand_range(percentile(xs,0+x_perc), percentile(xs,1-x_perc), x_perc+x_extra, x_perc+x_extra) )
+		ax1.set_ylim( expand_range(percentile(ys1,0+y_perc), percentile(ys1,1-y_perc), y_perc+y_extra, y_perc+y_extra) )
 
-	ax1.set_xlabel(xlabel)
-	ax1.set_ylabel(y1label, color=color)
+		ax1.set_xlabel(xlabel)
+		ax1.set_ylabel(y1label, color=color)
+		ax1.tick_params(axis='y', labelcolor=color)
+
+		freq0 = 2**(fit[1]/1200)
+		firstfreq = 10*ceil(freq0/10)
+		firsttick = (log(firstfreq,2) * 1200 - fit[1]) / fit[0]
+
+		new_tick_locations = np.arange(firsttick ,4096,1200/fit[0])
+
+		def tick_function(X):
+			V = [ 2**(v*fit[0]/1200 + fit[1]/1200) for v in X ]
+			return ["%.0f Hz" % z for z in V]
+
+		ax3 = ax1.twiny()
+		ax3.set_xlim(ax1.get_xlim())
+		ax3.set_xticks(new_tick_locations)
+		ax3.set_xticklabels(tick_function(new_tick_locations))
+		ax3.set_xlabel("Frequency")
+	else:
+		del ax1.lines[1]
+	
 	ax1.plot(xs1, ys1, color=color)
-	ax1.tick_params(axis='y', labelcolor=color)
 
 	color = 'tab:red'
-	ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-	ax2.axhline(0.5, ls='--', lw=1, color=color)
-	ax2.set_ylim( expand_range(percentile(ys2,0+y_perc), percentile(ys2,1-y_perc), y_perc+y_extra, y_perc+y_extra) )
+	if ax2 is None:
+		ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
+		ax2.axhline(0.5, ls='--', lw=1, color=color)
+		ax2.set_ylim( expand_range(percentile(ys2,0+y_perc), percentile(ys2,1-y_perc), y_perc+y_extra, y_perc+y_extra) )
 
-	ax2.set_ylabel(y2label, color=color)  # we already handled the x-label with ax1
+		ax2.set_ylabel(y2label, color=color)  # we already handled the x-label with ax1
+		ax2.tick_params(axis='y', labelcolor=color)
+	else:
+		del ax2.lines[1]
+		
 	ax2.plot(xs2, ys2, color=color)
-	ax2.tick_params(axis='y', labelcolor=color)
 
 	fig.tight_layout()  # otherwise the right y-label is slightly clipped
-	plt.show()
+
+	return fig,ax1,ax2
 
 # read the input file
 data = read_data(open(sys.argv[1],'r'))
