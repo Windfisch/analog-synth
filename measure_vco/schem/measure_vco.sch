@@ -160,7 +160,7 @@ F 3 "" H 8750 1650 50  0001 C CNN
 	1    8750 1650
 	1    0    0    -1  
 $EndComp
-Text GLabel 9700 3700 2    50   Input ~ 0
+Text GLabel 9700 3425 2    50   Input ~ 0
 V_control
 $Comp
 L pspice:OPAMP U2
@@ -337,41 +337,8 @@ Wire Wire Line
 Connection ~ 2650 5900
 Wire Wire Line
 	2900 5900 2900 6200
-Text Notes 3550 6850 0    50   ~ 0
-If R8 was connected to GNDREF, the triangle would be\ncentered around GNDREF, but only if the output of the\ncomparator U3 would swing between Vcc and Vee.\nHowever, U3 swings between less-than-Vcc and\nexactly Vee, so the triangle isn't centered.\nR14 and R15 comprise a poti to compensate for that.
-$Comp
-L Device:R_Small R14
-U 1 1 5CFA586D
-P 2550 6700
-F 0 "R14" V 2600 6750 50  0000 R CNN
-F 1 "100k" V 2550 6750 31  0000 R CNN
-F 2 "" H 2550 6700 50  0001 C CNN
-F 3 "~" H 2550 6700 50  0001 C CNN
-	1    2550 6700
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:VCC #PWR07
-U 1 1 5CFA7531
-P 2550 6800
-F 0 "#PWR07" H 2550 6650 50  0001 C CNN
-F 1 "VCC" H 2600 6950 50  0000 C CNN
-F 2 "" H 2550 6800 50  0001 C CNN
-F 3 "" H 2550 6800 50  0001 C CNN
-	1    2550 6800
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:VEE #PWR015
-U 1 1 5CFA7D23
-P 2650 6800
-F 0 "#PWR015" H 2650 6650 50  0001 C CNN
-F 1 "VEE" H 2600 6950 50  0000 C CNN
-F 2 "" H 2650 6800 50  0001 C CNN
-F 3 "" H 2650 6800 50  0001 C CNN
-	1    2650 6800
-	-1   0    0    1   
-$EndComp
+Text Notes 3550 6775 0    50   ~ 0
+Because R8 is connected to GNDREF, the triangle would be\ncentered around GNDREF, but only if the output of the\ncomparator U3 would swing between Vcc and Vee.\nHowever, U3 swings between less-than-Vcc and\nexactly Vee, so the triangle isn't centered.
 Text Notes 1350 7750 0    50   ~ 0
 R3 * C1 should be 100µs, this affects the frequency range\nR3 : R5 must be 2:1, this affects the triangle shape\nR4 : R6 must be 1:1, this affects the triangle shape\nR8 : R9 should be 1:2, this affects the triangle amplitude and\nfrequency range. If R9 is too large, this may cause distortion\nR11 : R12 should be 1:1, this affects sawtooth amplitude
 $Comp
@@ -379,7 +346,7 @@ L pspice:QNPN Q3
 U 1 1 5CFCE26D
 P 3250 2000
 F 0 "Q3" H 2950 2300 50  0000 L CNN
-F 1 "BC546" H 2950 2200 50  0000 L CNN
+F 1 "1/2 BCM847" H 2800 2200 50  0000 L CNN
 F 2 "" H 3250 2000 50  0001 C CNN
 F 3 "~" H 3250 2000 50  0001 C CNN
 F 4 "Q" H 3250 2000 50  0001 C CNN "Spice_Primitive"
@@ -394,7 +361,7 @@ L pspice:QNPN Q4
 U 1 1 5CFCE8C0
 P 4050 2000
 F 0 "Q4" H 3750 2300 50  0000 L CNN
-F 1 "BC546" H 3750 2200 50  0000 L CNN
+F 1 "1/2 BCM847" H 3600 2200 50  0000 L CNN
 F 2 "" H 4050 2000 50  0001 C CNN
 F 3 "~" H 4050 2000 50  0001 C CNN
 F 4 "Q" H 4050 2000 50  0001 C CNN "Spice_Primitive"
@@ -729,7 +696,7 @@ Wire Wire Line
 Connection ~ 1350 1900
 Text GLabel 950  2000 0    50   Input ~ 0
 V_tune
-Text GLabel 10500 4050 2    50   Input ~ 0
+Text GLabel 10500 3775 2    50   Input ~ 0
 V_tune
 $Comp
 L Device:R R20
@@ -820,7 +787,7 @@ F 3 "~" H 5350 1050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Text Notes 3500 2050 0    50   ~ 0
-or use\nBCM847
+or use\n2x BC547
 Text Notes 900  1350 0    50   ~ 0
 10k / 534k = 0.0187\ni.e. for 1V on V_control, the output\nwill change by 18.7mV.
 Text Notes 3950 2850 0    50   ~ 0
@@ -845,25 +812,7 @@ Wire Wire Line
 Wire Wire Line
 	1650 6950 1650 7100
 Wire Wire Line
-	2550 6600 2600 6600
-$Comp
-L Device:R_Small R15
-U 1 1 5CFA6D5B
-P 2650 6700
-F 0 "R15" V 2550 6750 50  0000 R CNN
-F 1 "100k" V 2650 6750 31  0000 R CNN
-F 2 "" H 2650 6700 50  0001 C CNN
-F 3 "~" H 2650 6700 50  0001 C CNN
-	1    2650 6700
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2600 6600 2600 6400
-Wire Wire Line
 	2600 6400 2850 6400
-Connection ~ 2600 6600
-Wire Wire Line
-	2600 6600 2650 6600
 Wire Wire Line
 	2900 5650 2900 5900
 Connection ~ 2900 5900
@@ -872,139 +821,183 @@ unused
 $Comp
 L Device:R_POT R10
 U 1 1 5D1F262E
-P 10350 4050
-F 0 "R10" H 10280 4096 50  0000 R CNN
-F 1 "1k" H 10280 4005 50  0000 R CNN
-F 2 "" H 10350 4050 50  0001 C CNN
-F 3 "~" H 10350 4050 50  0001 C CNN
-	1    10350 4050
+P 10350 3775
+F 0 "R10" H 10280 3821 50  0000 R CNN
+F 1 "1k" H 10280 3730 50  0000 R CNN
+F 2 "" H 10350 3775 50  0001 C CNN
+F 3 "~" H 10350 3775 50  0001 C CNN
+	1    10350 3775
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:VEE #PWR027
 U 1 1 5D1F30D6
-P 10350 4200
-F 0 "#PWR027" H 10350 4050 50  0001 C CNN
-F 1 "VEE" H 10368 4373 50  0000 C CNN
-F 2 "" H 10350 4200 50  0001 C CNN
-F 3 "" H 10350 4200 50  0001 C CNN
-	1    10350 4200
+P 10350 3925
+F 0 "#PWR027" H 10350 3775 50  0001 C CNN
+F 1 "VEE" H 10368 4098 50  0000 C CNN
+F 2 "" H 10350 3925 50  0001 C CNN
+F 3 "" H 10350 3925 50  0001 C CNN
+	1    10350 3925
 	-1   0    0    1   
 $EndComp
 $Comp
 L power:VCC #PWR014
 U 1 1 5D1F38FD
-P 10350 3900
-F 0 "#PWR014" H 10350 3750 50  0001 C CNN
-F 1 "VCC" H 10367 4073 50  0000 C CNN
-F 2 "" H 10350 3900 50  0001 C CNN
-F 3 "" H 10350 3900 50  0001 C CNN
-	1    10350 3900
+P 10350 3625
+F 0 "#PWR014" H 10350 3475 50  0001 C CNN
+F 1 "VCC" H 10367 3798 50  0000 C CNN
+F 2 "" H 10350 3625 50  0001 C CNN
+F 3 "" H 10350 3625 50  0001 C CNN
+	1    10350 3625
 	1    0    0    -1  
 $EndComp
-Text Notes 10500 4400 0    50   ~ 0
+Text Notes 10500 4125 0    50   ~ 0
 middle\npositon\nis fine
 $Comp
 L Analog_DAC:MCP4822 U4
 U 1 1 5D1F7952
-P 9200 3800
-F 0 "U4" H 8800 4250 50  0000 C CNN
-F 1 "MCP4822" H 8900 4150 50  0000 C CNN
-F 2 "" H 10000 3500 50  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf" H 10000 3500 50  0001 C CNN
-	1    9200 3800
+P 9200 3525
+F 0 "U4" H 8800 3975 50  0000 C CNN
+F 1 "MCP4822" H 8900 3875 50  0000 C CNN
+F 2 "" H 10000 3225 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf" H 10000 3225 50  0001 C CNN
+	1    9200 3525
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	4350 2000 4500 2000
 Wire Wire Line
 	3500 6300 5650 6300
-Text GLabel 8700 3700 0    50   Input ~ 0
+Text GLabel 8700 3425 0    50   Input ~ 0
 STM32_PE12
-Text GLabel 8700 3900 0    50   Input ~ 0
+Text GLabel 8700 3625 0    50   Input ~ 0
 STM32_PE14
-Text GLabel 8700 4000 0    50   Input ~ 0
+Text GLabel 8700 3725 0    50   Input ~ 0
 STM32_PE13
 Wire Wire Line
-	8700 3800 8100 3800
+	8700 3525 8100 3525
 Wire Wire Line
-	8100 3800 8100 4300
+	8100 3525 8100 4025
 Wire Wire Line
-	8100 4300 9200 4300
+	8100 4025 9200 4025
 $Comp
 L power:GNDREF #PWR013
 U 1 1 5D1FFD8B
-P 9200 4400
-F 0 "#PWR013" H 9200 4150 50  0001 C CNN
-F 1 "GNDREF" H 9205 4227 50  0000 C CNN
-F 2 "" H 9200 4400 50  0001 C CNN
-F 3 "" H 9200 4400 50  0001 C CNN
-	1    9200 4400
+P 9200 4125
+F 0 "#PWR013" H 9200 3875 50  0001 C CNN
+F 1 "GNDREF" H 9205 3952 50  0000 C CNN
+F 2 "" H 9200 4125 50  0001 C CNN
+F 3 "" H 9200 4125 50  0001 C CNN
+	1    9200 4125
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9200 4400 9200 4300
-Connection ~ 9200 4300
+	9200 4125 9200 4025
+Connection ~ 9200 4025
 $Comp
 L power:VCC #PWR012
 U 1 1 5D20405E
-P 9200 3400
-F 0 "#PWR012" H 9200 3250 50  0001 C CNN
-F 1 "VCC" H 9217 3573 50  0000 C CNN
-F 2 "" H 9200 3400 50  0001 C CNN
-F 3 "" H 9200 3400 50  0001 C CNN
-	1    9200 3400
+P 9200 3125
+F 0 "#PWR012" H 9200 2975 50  0001 C CNN
+F 1 "VCC" H 9217 3298 50  0000 C CNN
+F 2 "" H 9200 3125 50  0001 C CNN
+F 3 "" H 9200 3125 50  0001 C CNN
+	1    9200 3125
 	1    0    0    -1  
 $EndComp
-NoConn ~ 9700 4000
+NoConn ~ 9700 3725
 $Comp
-L Diode:1N5817 D1
+L Diode:1N5817 D2
 U 1 1 5D20D972
-P 9150 5650
-F 0 "D1" V 9104 5729 50  0000 L CNN
-F 1 "1N5817" V 9195 5729 50  0000 L CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 9150 5475 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 9150 5650 50  0001 C CNN
-	1    9150 5650
+P 9150 5375
+F 0 "D2" V 9104 5454 50  0000 L CNN
+F 1 "1N5817" V 9195 5454 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 9150 5200 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 9150 5375 50  0001 C CNN
+	1    9150 5375
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R8
+L Device:R R11
 U 1 1 5D20E97C
-P 9150 5250
-F 0 "R8" H 9220 5296 50  0000 L CNN
-F 1 "10k" V 9150 5200 50  0000 L CNN
-F 2 "" V 9080 5250 50  0001 C CNN
-F 3 "~" H 9150 5250 50  0001 C CNN
-	1    9150 5250
+P 9150 4975
+F 0 "R11" H 9220 5021 50  0000 L CNN
+F 1 "10k" V 9150 4925 50  0000 L CNN
+F 2 "" V 9080 4975 50  0001 C CNN
+F 3 "~" H 9150 4975 50  0001 C CNN
+	1    9150 4975
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GNDREF #PWR011
 U 1 1 5D20F2EC
-P 9150 5800
-F 0 "#PWR011" H 9150 5550 50  0001 C CNN
-F 1 "GNDREF" H 9155 5627 50  0000 C CNN
-F 2 "" H 9150 5800 50  0001 C CNN
-F 3 "" H 9150 5800 50  0001 C CNN
-	1    9150 5800
+P 9075 5550
+F 0 "#PWR011" H 9075 5300 50  0001 C CNN
+F 1 "GNDREF" H 9080 5377 50  0000 C CNN
+F 2 "" H 9075 5550 50  0001 C CNN
+F 3 "" H 9075 5550 50  0001 C CNN
+	1    9075 5550
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9150 5500 9150 5450
-Text GLabel 9400 5450 2    50   Input ~ 0
+	9150 5225 9150 5175
+Text GLabel 9400 5175 2    50   Input ~ 0
 STM32_PE7
 Wire Wire Line
-	9400 5450 9150 5450
-Connection ~ 9150 5450
+	9400 5175 9150 5175
+Connection ~ 9150 5175
 Wire Wire Line
-	9150 5450 9150 5400
-Text GLabel 8900 5100 0    50   Input ~ 0
+	9150 5175 9150 5125
+Text GLabel 8900 4825 0    50   Input ~ 0
 square_ctl
 Wire Wire Line
-	8900 5100 9150 5100
-Text Notes 9350 5350 0    50   ~ 0
+	8900 4825 9150 4825
+Text Notes 9350 5075 0    50   ~ 0
 measurement pin
-Text Notes 8250 6350 0    50   ~ 0
-square_ctl swings between Vee and Vcc - 1.5V (circa).\nGNDREF is at (Vcc+Vee)/2, i.e. PE7 sees 3V for\nVcc-Vee = 9V.\nThe diode clamps away negative voltages.
+Text Notes 8100 6425 0    50   ~ 0
+square_ctl swings between Vee and Vcc - 1.5V (circa).\nGNDREF is at (Vcc+Vee)/2, i.e. PE7 sees at least 3V for\nVcc-Vee = 9V.\nThe diodes protect the MCU pin from overvoltage (D1)\nand undervoltage (D2): The schottky diode D2 clamps\naway negative voltages (to approx. -200mV), while the\nzener diode D1 limits. That's within the MCU specs.\nthe voltage to 3.3V
+$Comp
+L Device:R R8
+U 1 1 5D41EF05
+P 2600 6550
+F 0 "R8" V 2500 6550 50  0000 C CNN
+F 1 "100k" V 2600 6550 50  0000 C CNN
+F 2 "" V 2530 6550 50  0001 C CNN
+F 3 "~" H 2600 6550 50  0001 C CNN
+	1    2600 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GNDREF #PWR07
+U 1 1 5D42D378
+P 2600 6700
+F 0 "#PWR07" H 2600 6450 50  0001 C CNN
+F 1 "GNDREF" H 2605 6527 50  0000 C CNN
+F 2 "" H 2600 6700 50  0001 C CNN
+F 3 "" H 2600 6700 50  0001 C CNN
+	1    2600 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Zener D1
+U 1 1 5D432ACA
+P 9000 5375
+F 0 "D1" V 8950 5200 50  0000 L CNN
+F 1 "3V3" V 9050 5150 50  0000 L CNN
+F 2 "" H 9000 5375 50  0001 C CNN
+F 3 "~" H 9000 5375 50  0001 C CNN
+	1    9000 5375
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9000 5525 9075 5525
+Wire Wire Line
+	9075 5550 9075 5525
+Connection ~ 9075 5525
+Wire Wire Line
+	9075 5525 9150 5525
+Wire Wire Line
+	9000 5225 9000 5175
+Wire Wire Line
+	9000 5175 9150 5175
 $EndSCHEMATC
