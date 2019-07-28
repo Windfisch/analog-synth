@@ -4,3 +4,4 @@ bin/
 generated.*.ld
 *.pyc
 __pycache__
+*.bak
