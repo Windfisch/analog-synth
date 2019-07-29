@@ -15,30 +15,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	2575 6900 2825 6900
-$Comp
-L Device:R R?
-U 1 1 5D41EF05
-P 2575 7050
-F 0 "R?" V 2475 7050 50  0000 C CNN
-F 1 "25k-50k" V 2575 7050 50  0000 C CNN
-F 2 "" V 2505 7050 50  0001 C CNN
-F 3 "~" H 2575 7050 50  0001 C CNN
-	1    2575 7050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D42D378
-P 2575 7200
-F 0 "#PWR?" H 2575 6950 50  0001 C CNN
-F 1 "GNDREF" H 2580 7027 50  0000 C CNN
-F 2 "" H 2575 7200 50  0001 C CNN
-F 3 "" H 2575 7200 50  0001 C CNN
-	1    2575 7200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
 	1825 6300 1925 6300
 Wire Wire Line
 	2625 6400 2525 6400
@@ -75,17 +51,6 @@ Wire Wire Line
 Connection ~ 1825 6500
 Wire Wire Line
 	1825 6500 1925 6500
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D41CBAA
-P 1625 7600
-F 0 "#PWR?" H 1625 7350 50  0001 C CNN
-F 1 "GNDREF" H 1630 7427 50  0001 C CNN
-F 2 "" H 1625 7600 50  0001 C CNN
-F 3 "" H 1625 7600 50  0001 C CNN
-	1    1625 7600
-	1    0    0    -1  
-$EndComp
 Text GLabel 5625 6800 2    50   Input ~ 0
 square_ctl
 Text GLabel 5675 5250 2    50   Input ~ 0
@@ -117,7 +82,7 @@ Wire Wire Line
 Wire Wire Line
 	2875 6900 2825 6900
 Wire Wire Line
-	2825 6900 2825 7350
+	2825 6900 2825 6950
 $Comp
 L power:VCC #PWR?
 U 1 1 5CF357C9
@@ -141,17 +106,6 @@ Wire Wire Line
 	4625 5700 4675 5700
 Wire Wire Line
 	4125 5700 4275 5700
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5CF85DC5
-P 5075 6550
-F 0 "#PWR?" H 5075 6300 50  0001 C CNN
-F 1 "GNDREF" H 5080 6377 50  0001 C CNN
-F 2 "" H 5075 6550 50  0001 C CNN
-F 3 "" H 5075 6550 50  0001 C CNN
-	1    5075 6550
-	-1   0    0    -1  
-$EndComp
 $Comp
 L Device:R R?
 U 1 1 5CF81086
@@ -206,7 +160,7 @@ F 3 "~" H 4175 6250 50  0001 C CNN
 	1    4175 6250
 	0    1    1    0   
 $EndComp
-Text Notes 3525 7350 0    50   ~ 0
+Text Notes 3575 8425 0    50   ~ 0
 If R8 was connected to GNDREF, the triangle would be\ncentered around GNDREF, but only if the output of the\ncomparator U3 would swing between Vcc and Vee.\nHowever, U3 swings between less-than-Vcc and\nexactly Vee, so the triangle isn't centered.\nR14 and R15 comprise a poti to compensate for that.
 Wire Wire Line
 	4675 5075 4125 5075
@@ -222,19 +176,8 @@ Wire Wire Line
 	5675 4975 5275 4975
 Text Notes 5625 6750 0    50   ~ 0
 do not use
-Text Notes -2625 4650 0    50   ~ 0
+Text Notes 725  4600 0    50   ~ 0
 R3 * C1 should be 100µs, this affects the frequency range\nR3 : R5 must be 2:1, this affects the triangle shape\nR4 : R6 must be 1:1, this affects the triangle shape\nR8 : R9 should be 1:2, this affects the triangle amplitude and\nfrequency range. If R9 is too large, this may cause distortion\nR11 : R12 should be 1:1, this affects sawtooth amplitude
-$Comp
-L Device:R R?
-U 1 1 5CF3A8E6
-P 2225 7500
-F 0 "R?" V 2125 7500 50  0000 C CNN
-F 1 "10k" V 2225 7500 50  0000 C CNN
-F 2 "" V 2155 7500 50  0001 C CNN
-F 3 "~" H 2225 7500 50  0001 C CNN
-	1    2225 7500
-	0    -1   -1   0   
-$EndComp
 $Comp
 L Device:R R?
 U 1 1 5D41CBA2
@@ -268,16 +211,11 @@ F 3 "~" H 1375 6300 50  0001 C CNN
 	1    1375 6300
 	0    -1   1    0   
 $EndComp
-Text Notes -2625 5300 0    50   ~ 0
-Note that V_expo should be at least 250mV above GND to\navoid a distorted shape and a wrong frequency. This is because\nQ1, when turned on, still has a voltage about 25mV between C and E.\nThis reduces the current through R5, and thus reduces the discharge\nrate of C1. As a mitigation, either use large-enough control voltages,\nor put Q1's emitter at GND - 25mV.\nOr, preferably, replace Q1 with a MOSFET like the 2N7000.
 Wire Wire Line
 	4275 5900 4125 5900
 Wire Wire Line
 	4125 5900 4125 5700
 Connection ~ 4125 5700
-Wire Wire Line
-	1625 7550 1625 7600
-Connection ~ 2825 6900
 Text Notes 525  1875 0    50   ~ 0
 ca 290mV/oct
 Text Notes 2300 1775 0    50   ~ 0
@@ -1282,49 +1220,10 @@ F 3 "~" H 1625 6700 50  0001 C CNN
 	1    1625 6700
 	-1   0    0    1   
 $EndComp
-$Comp
-L Transistor_FET:2N7000 Q?
-U 1 1 5D1BA17F
-P 1725 7350
-F 0 "Q?" H 1931 7396 50  0000 L CNN
-F 1 "2N7000" H 1931 7305 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 1925 7275 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 1725 7350 50  0001 L CNN
-	1    1725 7350
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1925 7350 1925 7500
-Wire Wire Line
-	1925 7500 2000 7500
-Text GLabel 2000 7450 1    50   Input ~ 0
-ctl_override
-Wire Wire Line
-	2000 7450 2000 7500
-Connection ~ 2000 7500
-Wire Wire Line
-	2000 7500 2075 7500
-$Comp
-L Device:RTRIM R?
-U 1 1 5DC20550
-P 1625 7000
-F 0 "R?" H 1475 7050 50  0000 L CNN
-F 1 "10k" H 1400 6950 50  0000 L CNN
-F 2 "" V 1555 7000 50  0001 C CNN
-F 3 "~" H 1625 7000 50  0001 C CNN
-	1    1625 7000
-	1    0    0    -1  
-$EndComp
-Text Notes 700  7750 0    50   ~ 0
-vco core
-Wire Notes Line
-	675  7775 3450 7775
 Wire Notes Line
 	3450 7775 3450 5850
 Wire Notes Line
 	3450 5850 675  5850
-Wire Notes Line
-	675  5850 675  7775
 Text Notes 3550 6700 0    50   ~ 0
 waveform generation
 Wire Notes Line
@@ -1460,8 +1359,6 @@ Wire Notes Line
 	11150 5075 10000 5075
 Wire Notes Line
 	10000 5075 10000 6475
-Text Notes 2450 6450 3    50   ~ 0
-TODO: configurable voltage
 Wire Wire Line
 	2025 1775 2300 1775
 Wire Wire Line
@@ -1728,8 +1625,6 @@ $EndComp
 Connection ~ 9650 3100
 Wire Wire Line
 	9650 3100 9900 3100
-Text Notes 2700 7325 1    50   ~ 0
-TODO: poti
 Text Notes 7325 1450 0    50   ~ 0
 TODO: poti here?
 Wire Wire Line
@@ -1889,25 +1784,187 @@ Wire Wire Line
 Connection ~ 4625 5900
 Wire Wire Line
 	4625 5900 4675 5900
+Wire Wire Line
+	4625 6500 4625 6450
+Text Notes 3525 6175 0    50   ~ 0
+Q? cannot be\nreplaced by a \nmosfet due to\nthe parasitic\ndiode inside a\nFET. Do replace\nit for some\ncrunchy wave-\nshaping, though.
 $Comp
-L Jumper:Jumper_2_Bridged JP?
-U 1 1 5D80FBA3
-P 4825 6500
-F 0 "JP?" H 4825 6425 50  0000 C CNN
-F 1 "Jumper_2_Bridged" H 5275 6575 50  0001 C CNN
-F 2 "" H 4825 6500 50  0001 C CNN
-F 3 "~" H 4825 6500 50  0001 C CNN
-	1    4825 6500
+L Device:R R?
+U 1 1 5D9107CB
+P 2450 6700
+F 0 "R?" V 2550 6700 50  0000 C CNN
+F 1 "10k" V 2450 6700 50  0000 C CNN
+F 2 "" V 2380 6700 50  0001 C CNN
+F 3 "~" H 2450 6700 50  0001 C CNN
+	1    2450 6700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D910D8F
+P 2450 7200
+F 0 "R?" V 2550 7200 50  0000 C CNN
+F 1 "10k" V 2450 7200 50  0000 C CNN
+F 2 "" V 2380 7200 50  0001 C CNN
+F 3 "~" H 2450 7200 50  0001 C CNN
+	1    2450 7200
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_POT R?
+U 1 1 5D911866
+P 2300 6950
+F 0 "R?" V 2185 6950 50  0000 C CNN
+F 1 "20k" V 2300 6950 50  0000 C CNN
+F 2 "" H 2300 6950 50  0001 C CNN
+F 3 "~" H 2300 6950 50  0001 C CNN
+	1    2300 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR?
+U 1 1 5D92BF20
+P 2600 7200
+F 0 "#PWR?" H 2600 7050 50  0001 C CNN
+F 1 "VEE" H 2618 7373 50  0000 C CNN
+F 2 "" H 2600 7200 50  0001 C CNN
+F 3 "" H 2600 7200 50  0001 C CNN
+	1    2600 7200
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5D931D60
+P 2600 6700
+F 0 "#PWR?" H 2600 6550 50  0001 C CNN
+F 1 "VCC" H 2617 6873 50  0000 C CNN
+F 2 "" H 2600 6700 50  0001 C CNN
+F 3 "" H 2600 6700 50  0001 C CNN
+	1    2600 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Variable R?
+U 1 1 5D95EF15
+P 2600 6950
+F 0 "R?" V 2675 6875 50  0000 L CNN
+F 1 "1Meg" V 2525 6900 50  0000 L CNN
+F 2 "" V 2530 6950 50  0001 C CNN
+F 3 "~" H 2600 6950 50  0001 C CNN
+	1    2600 6950
+	0    1    -1   0   
+$EndComp
+Wire Notes Line
+	675  5850 675  7775
+Wire Notes Line
+	675  7775 3450 7775
+Text Notes 700  7750 0    50   ~ 0
+vco core
+$Comp
+L Device:RTRIM R?
+U 1 1 5DC20550
+P 1625 7000
+F 0 "R?" H 1475 7050 50  0000 L CNN
+F 1 "10k" H 1400 6950 50  0000 L CNN
+F 2 "" V 1555 7000 50  0001 C CNN
+F 3 "~" H 1625 7000 50  0001 C CNN
+	1    1625 7000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5075 6550 5075 6500
+	2000 7500 2075 7500
 Wire Wire Line
-	5075 6500 5025 6500
+	2000 7450 2000 7500
+Text GLabel 2000 7450 1    50   Input ~ 0
+ctl_override
+Connection ~ 2000 7500
 Wire Wire Line
-	4625 6500 4625 6450
-Text Notes 4875 6475 0    50   ~ 0
-To center the sawtooth wave,\nreplace the jumper with a wire\nto a custom voltage source
-Text Notes 3525 6175 0    50   ~ 0
-Q? cannot be\nreplaced by a \nmosfet due to\nthe parasitic\ndiode inside a\nFET. Do replace\nit for some\ncrunchy wave-\nshaping, though.
+	1925 7500 2000 7500
+Wire Wire Line
+	1925 7350 1925 7500
+$Comp
+L Transistor_FET:2N7000 Q?
+U 1 1 5D1BA17F
+P 1725 7350
+F 0 "Q?" H 1931 7396 50  0000 L CNN
+F 1 "2N7000" H 1931 7305 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 1925 7275 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 1725 7350 50  0001 L CNN
+	1    1725 7350
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1625 7550 1625 7600
+$Comp
+L Device:R R?
+U 1 1 5CF3A8E6
+P 2225 7500
+F 0 "R?" V 2125 7500 50  0000 C CNN
+F 1 "10k" V 2225 7500 50  0000 C CNN
+F 2 "" V 2155 7500 50  0001 C CNN
+F 3 "~" H 2225 7500 50  0001 C CNN
+	1    2225 7500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D41CBAA
+P 1625 7600
+F 0 "#PWR?" H 1625 7350 50  0001 C CNN
+F 1 "GNDREF" H 1630 7427 50  0001 C CNN
+F 2 "" H 1625 7600 50  0001 C CNN
+F 3 "" H 1625 7600 50  0001 C CNN
+	1    1625 7600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2300 6700 2300 6800
+Wire Wire Line
+	2300 7200 2300 7100
+Wire Wire Line
+	2750 6950 2825 6950
+Connection ~ 2825 6950
+Wire Wire Line
+	2825 6950 2825 7350
+Wire Notes Line
+	2750 6475 2400 6475
+Wire Notes Line
+	2750 7425 2400 7425
+Wire Notes Line
+	2750 6475 2750 7425
+Wire Notes Line
+	2400 7425 2100 7125
+Wire Notes Line
+	2400 6475 2100 6775
+Wire Notes Line
+	2100 6775 2100 7125
+Wire Notes Line
+	2750 7425 2950 7625
+Wire Notes Line
+	2950 7625 3575 7625
+Text Notes 3600 7725 0    50   ~ 0
+Just a hacky way of applying an\nadjustable voltage with an adjustable\ninner resistance. Replace R?+R?+R?\nby a 100-200k trimmer and leave\nout R? completely if you want.\nOr just spare everything and connect\nthe (+) pin to GNDREF.\nThis will cause a slightly off-center\ntriangle wave and a shifted sawtooth,\nat least with the LM324.
+Wire Notes Line
+	3575 6900 5075 6900
+Wire Notes Line
+	5075 6900 5075 7750
+Wire Notes Line
+	5075 7750 3575 7750
+Wire Notes Line
+	3575 6900 3575 7750
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5CF85DC5
+P 4625 6500
+F 0 "#PWR?" H 4625 6250 50  0001 C CNN
+F 1 "GNDREF" H 4630 6327 50  0001 C CNN
+F 2 "" H 4625 6500 50  0001 C CNN
+F 3 "" H 4625 6500 50  0001 C CNN
+	1    4625 6500
+	-1   0    0    -1  
+$EndComp
+Text Notes 9250 1825 0    50   ~ 0
+todo: put outputs to sane levels?
+Text Notes 1225 7750 0    50   ~ 0
+todo: adjustable ground level
 $EndSCHEMATC

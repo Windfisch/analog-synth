@@ -390,6 +390,24 @@ X 3 3 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
+# Device_R_Variable
+#
+DEF Device_R_Variable R 0 0 N Y 1 F N
+F0 "R" 100 -100 50 V V L CNN
+F1 "Device_R_Variable" -100 -50 50 V V L CNN
+F2 "" -70 0 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+S -40 -100 40 100 0 1 10 N
+P 5 0 1 0 100 60 100 100 60 100 100 100 -80 -80 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Device_Thermistor_NTC
 #
 DEF Device_Thermistor_NTC TH 0 0 N Y 1 F N
