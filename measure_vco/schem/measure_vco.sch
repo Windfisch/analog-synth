@@ -636,7 +636,7 @@ $EndComp
 Connection ~ 7550 1700
 Wire Wire Line
 	7700 1700 7550 1700
-Text GLabel 7700 1700 2    50   Input ~ 0
+Text GLabel 8150 2425 1    50   Input ~ 0
 V_expo
 Connection ~ 6700 1600
 Wire Wire Line
@@ -673,13 +673,13 @@ Wire Wire Line
 $Comp
 L power:VCC #PWR023
 U 1 1 5CFF2C24
-P 7050 2000
-F 0 "#PWR023" H 7050 1850 50  0001 C CNN
-F 1 "VCC" H 7068 2173 50  0000 C CNN
-F 2 "" H 7050 2000 50  0001 C CNN
-F 3 "" H 7050 2000 50  0001 C CNN
-	1    7050 2000
-	-1   0    0    1   
+P 7900 2100
+F 0 "#PWR023" H 7900 1950 50  0001 C CNN
+F 1 "VCC" H 7918 2273 50  0000 C CNN
+F 2 "" H 7900 2100 50  0001 C CNN
+F 3 "" H 7900 2100 50  0001 C CNN
+	1    7900 2100
+	1    0    0    1   
 $EndComp
 $Comp
 L power:VCC #PWR018
@@ -706,13 +706,13 @@ $EndComp
 $Comp
 L power:VEE #PWR022
 U 1 1 5CFF1E9C
-P 7050 1400
-F 0 "#PWR022" H 7050 1250 50  0001 C CNN
-F 1 "VEE" H 7067 1573 50  0000 C CNN
-F 2 "" H 7050 1400 50  0001 C CNN
-F 3 "" H 7050 1400 50  0001 C CNN
-	1    7050 1400
-	1    0    0    -1  
+P 7900 1500
+F 0 "#PWR022" H 7900 1350 50  0001 C CNN
+F 1 "VEE" H 7917 1673 50  0000 C CNN
+F 2 "" H 7900 1500 50  0001 C CNN
+F 3 "" H 7900 1500 50  0001 C CNN
+	1    7900 1500
+	-1   0    0    -1  
 $EndComp
 $Comp
 L pspice:OPAMP U7
@@ -1300,4 +1300,36 @@ Text Notes 2250 1650 0    50   ~ 0
 ca 24mV/oct
 Text Notes 475  1750 0    50   ~ 0
 ca 290mV/oct
+$Comp
+L pspice:OPAMP U?
+U 1 1 5D421CD1
+P 8000 1800
+F 0 "U?" H 8150 1700 50  0000 L CNN
+F 1 "LM324" H 8100 1600 50  0000 L CNN
+F 2 "" H 8000 1800 50  0001 C CNN
+F 3 "~" H 8000 1800 50  0001 C CNN
+F 4 "X" H 8000 1800 50  0001 C CNN "Spice_Primitive"
+F 5 "LM324" H 8000 1800 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 8000 1800 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "LM324.ti.lib" H 8000 1800 50  0001 C CNN "Spice_Lib_File"
+F 8 "1,2,4,5,3" H 8000 1800 50  0001 C CNN "Spice_Node_Sequence"
+	1    8000 1800
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8300 1800 8300 2425
+Wire Wire Line
+	8300 2425 7700 2425
+Wire Wire Line
+	7700 2425 7700 1900
+Text Notes 7675 3250 0    50   ~ 0
+This buffer is not\nneccessary, but it\nwas on my bread-\nboard. So for the\nsake of documen-\ntation...\nActually, tuning\naccuracy might\nbe a bit better\nwithout.
+Wire Notes Line
+	7650 3275 8400 3275
+Wire Notes Line
+	8400 3275 8400 1225
+Wire Notes Line
+	8400 1225 7650 1225
+Wire Notes Line
+	7650 1225 7650 3275
 $EndSCHEMATC
