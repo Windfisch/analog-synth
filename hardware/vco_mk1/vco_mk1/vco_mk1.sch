@@ -834,10 +834,6 @@ Wire Notes Line
 	11150 5075 10000 5075
 Wire Notes Line
 	10000 5075 10000 6475
-Wire Wire Line
-	3975 4175 4025 4175
-Wire Wire Line
-	4375 4175 4325 4175
 Text GLabel 9400 2900 0    50   Input ~ 0
 ctl_override
 Text GLabel 9400 2500 0    50   Input ~ 0
@@ -1768,66 +1764,24 @@ $EndComp
 $Comp
 L Jumper:Jumper_2_Open JP?
 U 1 1 5E0BADDE
-P 3475 2275
-F 0 "JP?" H 3300 2325 50  0000 C CNN
-F 1 "Rossum override" H 3475 2400 50  0000 C CNN
-F 2 "" H 3475 2275 50  0001 C CNN
-F 3 "~" H 3475 2275 50  0001 C CNN
-	1    3475 2275
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3275 2275 3125 2275
-Wire Wire Line
-	3125 2275 3125 2425
-Connection ~ 3125 2800
-Wire Wire Line
-	3125 2800 3250 2800
-Wire Wire Line
-	3675 2275 3800 2275
-Wire Wire Line
-	3800 2275 3800 2425
-Connection ~ 3800 2925
-Wire Wire Line
-	3800 2925 3975 2925
-Wire Wire Line
-	4125 4050 3975 4050
-$Comp
-L Jumper:SolderJumper_2_Open SB?
-U 1 1 5E0F0CDF
-P 4325 4175
-F 0 "SB?" H 4325 4075 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 4300 4050 50  0001 C CNN
-F 2 "" H 4325 4175 50  0001 C CNN
-F 3 "~" H 4325 4175 50  0001 C CNN
-	1    4325 4175
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4125 4050 4125 4175
-Connection ~ 4125 4050
-Wire Wire Line
-	4525 4050 4525 4175
-Connection ~ 4525 4050
-$Comp
-L Jumper:SolderJumper_2_Open SB?
-U 1 1 5E106B1B
 P 3475 2425
-F 0 "SB?" H 3475 2325 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 3450 2300 50  0001 C CNN
+F 0 "JP?" H 3300 2475 50  0000 C CNN
+F 1 "Rossum override" H 3475 2550 50  0000 C CNN
 F 2 "" H 3475 2425 50  0001 C CNN
 F 3 "~" H 3475 2425 50  0001 C CNN
 	1    3475 2425
 	1    0    0    -1  
 $EndComp
+Connection ~ 3125 2800
 Wire Wire Line
-	3325 2425 3125 2425
-Connection ~ 3125 2425
+	3125 2800 3250 2800
+Connection ~ 3800 2925
+Wire Wire Line
+	3800 2925 3975 2925
+Wire Wire Line
+	4125 4050 3975 4050
 Wire Wire Line
 	3125 2425 3125 2800
-Wire Wire Line
-	3625 2425 3800 2425
-Connection ~ 3800 2425
 Wire Wire Line
 	3800 2425 3800 2925
 $Comp
@@ -2126,4 +2080,8 @@ F 3 "" H 9675 1350 50  0001 C CNN
 	1    9675 1350
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	3275 2425 3125 2425
+Wire Wire Line
+	3675 2425 3800 2425
 $EndSCHEMATC
