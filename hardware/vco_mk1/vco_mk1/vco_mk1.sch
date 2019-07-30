@@ -1264,866 +1264,866 @@ Wire Notes Line
 	675  5750 675  7750
 Wire Notes Line
 	3450 5750 3450 7750
-Text Notes 6600 900  0    50   ~ 0
-adjustable offset can be achieved by running a wire\nfrom the gnd adjust jumper to V_lin_pitchmod_3\n(TODO: set the resistor value accordingly)
-Connection ~ 1500 1775
-Connection ~ 1300 1775
-Wire Wire Line
-	1300 1775 1500 1775
-Wire Wire Line
-	1500 1775 1500 2025
-Wire Wire Line
-	1300 1975 1300 2075
-Wire Wire Line
-	1300 2075 1300 2175
-Connection ~ 1300 2075
-Connection ~ 1300 1975
-Connection ~ 1300 1875
-Wire Wire Line
-	1300 1875 1300 1975
-Wire Wire Line
-	1300 1775 1300 1875
-Wire Wire Line
-	1000 1775 1300 1775
-Text GLabel 1000 1775 0    50   Input ~ 0
-V_control_raw
-Text GLabel 1000 1875 0    50   Input ~ 0
-V_control
+Text Notes 875  4600 0    50   ~ 0
+R3 * C1 should be 100µs, this affects the frequency range\nR3 : R5 must be 2:1, this affects the triangle shape\nR4 : R6 must be 1:1, this affects the triangle shape\nR8 : R9 should be 1:2, this affects the triangle amplitude and\nfrequency range. If R9 is too large, this may cause distortion\nR11 : R12 should be 1:1, this affects sawtooth amplitude
+Text Notes 2450 1775 0    50   ~ 0
+ca 24mV/oct
+Text Notes 2925 2800 1    50   ~ 0
+ca 19mV/Oct
+Text Notes 4050 2650 1    50   ~ 0
+ca 18mV/oct
 $Comp
 L Device:R R?
-U 1 1 5E1A1AC9
-P 1150 1875
-F 0 "R?" V 1150 2100 50  0000 C CNN
-F 1 "147k" V 1150 1875 50  0000 C CNN
-F 2 "" V 1080 1875 50  0001 C CNN
-F 3 "~" H 1150 1875 50  0001 C CNN
-	1    1150 1875
-	0    1    1    0   
-$EndComp
-Text GLabel 1000 1975 0    50   Input ~ 0
-V_control_2
-$Comp
-L Device:R R?
-U 1 1 5E193690
-P 1150 1975
-F 0 "R?" V 1150 2200 50  0000 C CNN
-F 1 "147k" V 1150 1975 50  0000 C CNN
-F 2 "" V 1080 1975 50  0001 C CNN
-F 3 "~" H 1150 1975 50  0001 C CNN
-	1    1150 1975
-	0    1    1    0   
-$EndComp
-Text GLabel 6500 1425 1    50   Input ~ 0
-V_lin_pitchmod_3
-Text GLabel 6400 1425 1    50   Input ~ 0
-V_lin_pitchmod_2
-Text GLabel 6300 1425 1    50   Input ~ 0
-V_lin_pitchmod_1
-Wire Wire Line
-	6125 1725 6300 1725
-Connection ~ 6125 1725
-Wire Wire Line
-	6125 1425 6125 1725
-Wire Wire Line
-	6300 1725 6400 1725
-Connection ~ 6300 1725
-$Comp
-L Device:R R?
-U 1 1 5E131D96
-P 6300 1575
-F 0 "R?" H 6150 1575 50  0000 L CNN
-F 1 "TODO" V 6300 1475 50  0000 L CNN
-F 2 "" V 6230 1575 50  0001 C CNN
-F 3 "~" H 6300 1575 50  0001 C CNN
-	1    6300 1575
-	1    0    0    -1  
-$EndComp
-Connection ~ 1425 3325
-Wire Wire Line
-	1550 3325 1425 3325
-Wire Wire Line
-	1550 3375 1550 3325
-Text GLabel 1550 3375 3    50   Input ~ 0
-var_vsource
-$Comp
-L power:VCC #PWR?
-U 1 1 5E0402DF
-P 675 3075
-F 0 "#PWR?" H 675 2925 50  0001 C CNN
-F 1 "VCC" H 575 3150 50  0000 C CNN
-F 2 "" H 675 3075 50  0001 C CNN
-F 3 "" H 675 3075 50  0001 C CNN
-	1    675  3075
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VEE #PWR?
-U 1 1 5E03FE83
-P 675 3375
-F 0 "#PWR?" H 675 3225 50  0001 C CNN
-F 1 "VEE" H 775 3450 50  0000 C CNN
-F 2 "" H 675 3375 50  0001 C CNN
-F 3 "" H 675 3375 50  0001 C CNN
-	1    675  3375
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	825  3850 825  3425
-Wire Wire Line
-	1425 3850 825  3850
-Wire Wire Line
-	1425 3325 1425 3850
-$Comp
-L Device:R_POT_TRIM R?
-U 1 1 5E01D2A0
-P 675 3225
-F 0 "R?" H 600 3225 50  0000 R CNN
-F 1 "10k" V 675 3300 50  0000 R CNN
-F 2 "" H 675 3225 50  0001 C CNN
-F 3 "~" H 675 3225 50  0001 C CNN
-	1    675  3225
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Variable R?
-U 1 1 5DEA3137
-P 7200 1475
-F 0 "R?" V 7375 1425 50  0000 C CNN
-F 1 "50k" V 7300 1450 50  0000 C CNN
-F 2 "" V 7130 1475 50  0001 C CNN
-F 3 "~" H 7200 1475 50  0001 C CNN
-	1    7200 1475
-	0    1    -1   0   
-$EndComp
-Text Notes 7325 1375 0    50   ~ 0
-10k is a reasonable value here.\nThe poti gives plenty room.
-Text Notes 4350 1575 0    50   ~ 0
-must be of same (or\nsimilar) size as the\nrossum resistor.\nalso change the vexpo\npotis value accordingly
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5DDFE799
-P 3925 1775
-F 0 "#PWR?" H 3925 1525 50  0001 C CNN
-F 1 "GNDREF" H 3930 1602 50  0001 C CNN
-F 2 "" H 3925 1775 50  0001 C CNN
-F 3 "" H 3925 1775 50  0001 C CNN
-	1    3925 1775
-	1    0    0    -1  
-$EndComp
-Connection ~ 3825 2125
-Wire Wire Line
-	3825 2125 3825 1775
-$Comp
-L Connector:Conn_01x02_Male J?
-U 1 1 5DDEFD28
-P 3825 1575
-F 0 "J?" V 3875 1450 50  0000 R CNN
-F 1 "expo in" V 3750 1675 50  0000 R CNN
-F 2 "" H 3825 1575 50  0001 C CNN
-F 3 "~" H 3825 1575 50  0001 C CNN
-	1    3825 1575
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	1025 3000 1025 3025
-Connection ~ 1025 3000
-Wire Wire Line
-	1025 3000 1075 3000
-Wire Wire Line
-	1025 2975 1025 3000
-Wire Wire Line
-	1025 3650 1025 3675
-Connection ~ 1025 3650
-Wire Wire Line
-	1025 3650 1075 3650
-Wire Wire Line
-	1025 3625 1025 3650
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D63C631
-P 1275 3650
-F 0 "#PWR?" H 1275 3400 50  0001 C CNN
-F 1 "GNDREF" H 1280 3477 50  0001 C CNN
-F 2 "" H 1275 3650 50  0001 C CNN
-F 3 "" H 1275 3650 50  0001 C CNN
-	1    1275 3650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D63C62B
-P 1175 3650
-F 0 "C?" V 1125 3725 50  0000 C CNN
-F 1 "100n" V 1050 3650 50  0000 C CNN
-F 2 "" H 1175 3650 50  0001 C CNN
-F 3 "~" H 1175 3650 50  0001 C CNN
-	1    1175 3650
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D63109B
-P 1275 3000
-F 0 "#PWR?" H 1275 2750 50  0001 C CNN
-F 1 "GNDREF" H 1280 2827 50  0001 C CNN
-F 2 "" H 1275 3000 50  0001 C CNN
-F 3 "" H 1275 3000 50  0001 C CNN
-	1    1275 3000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D631095
-P 1175 3000
-F 0 "C?" V 1125 3075 50  0000 C CNN
-F 1 "100n" V 1050 3000 50  0000 C CNN
-F 2 "" H 1175 3000 50  0001 C CNN
-F 3 "~" H 1175 3000 50  0001 C CNN
-	1    1175 3000
-	0    1    1    0   
-$EndComp
-Text GLabel 6125 1425 1    50   Input ~ 0
-V_lin_pitchmod_raw
-$Comp
-L power:VCC #PWR?
-U 1 1 5D4820BF
-P 900 875
-F 0 "#PWR?" H 900 725 50  0001 C CNN
-F 1 "VCC" H 917 1048 50  0000 C CNN
-F 2 "" H 900 875 50  0001 C CNN
-F 3 "" H 900 875 50  0001 C CNN
-	1    900  875 
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VEE #PWR?
-U 1 1 5D480B46
-P 900 1175
-F 0 "#PWR?" H 900 1025 50  0001 C CNN
-F 1 "VEE" H 918 1348 50  0000 C CNN
-F 2 "" H 900 1175 50  0001 C CNN
-F 3 "" H 900 1175 50  0001 C CNN
-	1    900  1175
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R_POT R?
-U 1 1 5D47F832
-P 900 1025
-F 0 "R?" H 831 1071 50  0000 R CNN
-F 1 "R_POT" H 831 980 50  0000 R CNN
-F 2 "" H 900 1025 50  0001 C CNN
-F 3 "~" H 900 1025 50  0001 C CNN
-	1    900  1025
-	1    0    0    -1  
-$EndComp
-Text GLabel 1050 1025 2    50   Input ~ 0
-V_tune
-Wire Wire Line
-	6400 1725 6500 1725
-Connection ~ 6400 1725
-$Comp
-L Device:R R?
-U 1 1 5E17FED4
-P 6400 1575
-F 0 "R?" H 6375 1350 50  0000 L CNN
-F 1 "TODO" V 6400 1475 50  0000 L CNN
-F 2 "" V 6330 1575 50  0001 C CNN
-F 3 "~" H 6400 1575 50  0001 C CNN
-	1    6400 1575
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6500 1725 6750 1725
-Connection ~ 6500 1725
-$Comp
-L Device:R R?
-U 1 1 5E17C2C3
-P 6500 1575
-F 0 "R?" H 6550 1575 50  0000 L CNN
-F 1 "TODO" V 6500 1475 50  0000 L CNN
-F 2 "" V 6430 1575 50  0001 C CNN
-F 3 "~" H 6500 1575 50  0001 C CNN
-	1    6500 1575
-	1    0    0    -1  
-$EndComp
-$Comp
-L Diode:1N4148 D?
-U 1 1 5E16153A
-P 3400 3350
-F 0 "D?" H 3400 3250 50  0000 C CNN
-F 1 "1N4148" H 3400 3450 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3400 3175 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3400 3350 50  0001 C CNN
-	1    3400 3350
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3650 2425 3650 2925
-Connection ~ 3650 2425
-Wire Wire Line
-	3475 2425 3650 2425
-Wire Wire Line
-	2975 2425 2975 2800
-Connection ~ 2975 2425
-Wire Wire Line
-	3175 2425 2975 2425
-$Comp
-L Jumper:SolderJumper_2_Open SB?
-U 1 1 5E106B1B
-P 3325 2425
-F 0 "SB?" H 3325 2325 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 3300 2300 50  0001 C CNN
-F 2 "" H 3325 2425 50  0001 C CNN
-F 3 "~" H 3325 2425 50  0001 C CNN
-	1    3325 2425
-	1    0    0    -1  
-$EndComp
-Connection ~ 4375 4050
-Wire Wire Line
-	4375 4050 4375 4175
-Connection ~ 3975 4050
-Wire Wire Line
-	3975 4050 3975 4175
-$Comp
-L Jumper:SolderJumper_2_Open SB?
-U 1 1 5E0F0CDF
-P 4175 4175
-F 0 "SB?" H 4175 4075 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 4150 4050 50  0001 C CNN
-F 2 "" H 4175 4175 50  0001 C CNN
-F 3 "~" H 4175 4175 50  0001 C CNN
-	1    4175 4175
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3975 4050 3825 4050
-Wire Wire Line
-	3650 2925 3825 2925
-Connection ~ 3650 2925
-Wire Wire Line
-	3650 2275 3650 2425
-Wire Wire Line
-	3525 2275 3650 2275
-Wire Wire Line
-	2975 2800 3100 2800
-Connection ~ 2975 2800
-Wire Wire Line
-	2975 2275 2975 2425
-Wire Wire Line
-	3125 2275 2975 2275
-$Comp
-L Jumper:Jumper_2_Open JP?
-U 1 1 5E0BADDE
-P 3325 2275
-F 0 "JP?" H 3150 2325 50  0000 C CNN
-F 1 "Rossum override" H 3325 2400 50  0000 C CNN
-F 2 "" H 3325 2275 50  0001 C CNN
-F 3 "~" H 3325 2275 50  0001 C CNN
-	1    3325 2275
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:Jumper_2_Bridged JP?
-U 1 1 5E0B9FA6
-P 4175 4050
-F 0 "JP?" H 4175 4200 50  0000 C CNN
-F 1 "Rossum connect" H 4175 4125 50  0000 C CNN
-F 2 "" H 4175 4050 50  0001 C CNN
-F 3 "~" H 4175 4050 50  0001 C CNN
-	1    4175 4050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2025 1775 2300 1775
-Text GLabel 5500 2325 1    50   Input ~ 0
-E
-Text GLabel 6050 2125 1    50   Input ~ 0
-B2
-Text GLabel 4950 2125 1    50   Input ~ 0
-B1
-Wire Wire Line
-	3825 2125 5000 2125
-Wire Wire Line
-	6000 2125 6350 2125
-Text GLabel 5700 1875 0    50   Input ~ 0
-C2
-Text GLabel 5300 1875 2    50   Input ~ 0
-C1
-Connection ~ 5300 1725
-Wire Wire Line
-	5300 1675 5300 1725
-Wire Wire Line
-	4200 1725 5300 1725
-Wire Wire Line
-	5300 1725 5300 1925
-Wire Wire Line
-	5700 1725 6125 1725
-Wire Wire Line
-	5700 1725 5700 1925
-Wire Wire Line
-	5500 2325 5500 2575
-Wire Wire Line
-	5500 2325 5700 2325
-Connection ~ 5500 2325
-Wire Wire Line
-	5300 2325 5500 2325
-$Comp
-L Transistor_BJT:BC847BDW1 Q?
-U 2 1 5DD7EF3D
-P 5800 2125
-F 0 "Q?" H 5675 2275 50  0000 L CNN
-F 1 "1/2 BCM847" H 5575 1850 50  0001 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 6000 2225 50  0001 C CNN
-F 3 "http://www.onsemi.com/pub_link/Collateral/BC846BDW1T1-D.PDF" H 5800 2125 50  0001 C CNN
-	2    5800 2125
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Transistor_BJT:BC847BDW1 Q?
-U 1 1 5DD7C680
-P 5200 2125
-F 0 "Q?" H 5125 2275 50  0000 L CNN
-F 1 "BCM847" H 5350 2225 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 5400 2225 50  0001 C CNN
-F 3 "http://www.onsemi.com/pub_link/Collateral/BC846BDW1T1-D.PDF" H 5200 2125 50  0001 C CNN
-	1    5200 2125
-	1    0    0    -1  
-$EndComp
-$Comp
-L Amplifier_Operational:LM324 U?
-U 5 1 5D5EEA82
-P 1125 3325
-F 0 "U?" H 1300 3925 50  0001 L CNN
-F 1 "LM324" H 1100 4075 50  0001 L CNN
-F 2 "" H 1075 3425 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 1175 3525 50  0001 C CNN
-	5    1125 3325
-	1    0    0    -1  
-$EndComp
-$Comp
-L Amplifier_Operational:LM324 U?
-U 4 1 5D5ED4E4
-P 1125 3325
-F 0 "U?" H 1200 3475 50  0000 C CNN
-F 1 "LM324" H 1125 3325 50  0000 C CNN
-F 2 "" H 1075 3425 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 1175 3525 50  0001 C CNN
-	4    1125 3325
-	1    0    0    -1  
-$EndComp
-$Comp
-L Amplifier_Operational:LM324 U?
-U 3 1 5D5EBF6F
-P 7200 1825
-F 0 "U?" H 7300 1675 50  0000 C CNN
-F 1 "LM324" H 7175 1825 50  0000 C CNN
-F 2 "" H 7150 1925 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 7250 2025 50  0001 C CNN
-	3    7200 1825
-	1    0    0    1   
-$EndComp
-$Comp
-L Amplifier_Operational:LM324 U?
-U 2 1 5D5EA9A1
-P 4700 3275
-F 0 "U?" H 4775 3125 50  0000 C CNN
-F 1 "LM324" H 4675 3275 50  0000 C CNN
-F 2 "" H 4650 3375 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 4750 3475 50  0001 C CNN
-	2    4700 3275
-	1    0    0    1   
-$EndComp
-$Comp
-L Amplifier_Operational:LM324 U?
-U 1 1 5D5E9E8D
-P 1900 2125
-F 0 "U?" H 2000 1975 50  0000 C CNN
-F 1 "LM324" H 1875 2125 50  0000 C CNN
-F 2 "" H 1850 2225 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 1950 2325 50  0001 C CNN
-	1    1900 2125
-	1    0    0    1   
-$EndComp
-Text GLabel 1000 2075 0    50   Input ~ 0
-V_control_3
-Wire Wire Line
-	2200 2125 2300 2125
-Connection ~ 2300 2125
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D04FEE6
-P 1450 2375
-F 0 "#PWR?" H 1450 2125 50  0001 C CNN
-F 1 "GNDREF" H 1455 2202 50  0000 C CNN
-F 2 "" H 1450 2375 50  0001 C CNN
-F 3 "" H 1450 2375 50  0001 C CNN
-	1    1450 2375
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1450 2375 1450 2225
-Wire Wire Line
-	1450 2225 1600 2225
-Wire Wire Line
-	1500 2025 1600 2025
-Wire Wire Line
-	1500 1775 1725 1775
-Wire Wire Line
-	2300 1775 2300 2125
-$Comp
-L Device:R R?
-U 1 1 5D41CBC2
-P 1150 2175
-F 0 "R?" V 1150 2400 50  0000 C CNN
-F 1 "220k" V 1150 2175 50  0000 C CNN
-F 2 "" V 1080 2175 50  0001 C CNN
-F 3 "~" H 1150 2175 50  0001 C CNN
-	1    1150 2175
-	0    1    1    0   
-$EndComp
-Text GLabel 1000 2175 0    50   Input ~ 0
-V_tune
-$Comp
-L Device:R R?
-U 1 1 5D054E64
-P 1875 1775
-F 0 "R?" V 1975 1825 50  0000 R CNN
-F 1 "12k2" V 1875 1875 50  0000 R CNN
-F 2 "" V 1805 1775 50  0001 C CNN
-F 3 "~" H 1875 1775 50  0001 C CNN
-	1    1875 1775
-	0    -1   -1   0   
-$EndComp
-Text Notes 3800 1050 0    50   ~ 0
-R16 determines the I_C current through\nQ4 when Q4's base is at GNDREF.\nTogether with V_tune, it determines the pitch.\nChoose R16 and V_tune such, that U8's output needs\nto be at around GNDREF for "sane" pitches.
-Text Notes 5825 3925 0    50   ~ 0
-for Q4, the following holds true:\nI_C = const * exp(V_B / VT) with VT=26mV\n(thermal voltage of a transistor)\nnow this means that Vout will double\nevery (log(2) * 26mV) = 18mV.\n\nNote that VT is temperature dependent.\nWhen the temperature rises, VT rises and so\nthe input voltage must rise too. The thermal\ncompensation consisting of TODO does that.\n\nAdditionally, Q3 and Q4 have a bulk resistance\nbetween their ideal and actual emitters. This\ncauses the VCO's tuning to drop a bit at high\nfrequencies. The Rossum compensation compensates\nfor this by measuring the current through R17 and\nfeeding back a small amount into Q3's base.
-Wire Wire Line
-	5200 3275 5500 3275
-Connection ~ 5200 3275
-Wire Wire Line
-	5200 2900 5200 3275
-Wire Wire Line
-	5200 3275 5200 4050
-Wire Wire Line
-	4900 2900 5200 2900
-Wire Wire Line
-	4200 2900 4200 3175
-Connection ~ 4200 2900
-Wire Wire Line
-	4600 2900 4200 2900
-Wire Wire Line
-	4200 1725 4200 2900
-Wire Wire Line
-	5500 2875 5500 3275
-$Comp
-L Device:C C?
-U 1 1 5D41CBBB
-P 4750 2900
-F 0 "C?" V 4498 2900 50  0000 C CNN
-F 1 "1n" V 4589 2900 50  0000 C CNN
-F 2 "" H 4788 2750 50  0001 C CNN
-F 3 "~" H 4750 2900 50  0001 C CNN
-	1    4750 2900
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	4200 3375 4400 3375
-Wire Wire Line
-	4200 3575 4200 3375
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D41CBBA
-P 4200 3575
-F 0 "#PWR?" H 4200 3325 50  0001 C CNN
-F 1 "GNDREF" H 4205 3402 50  0001 C CNN
-F 2 "" H 4200 3575 50  0001 C CNN
-F 3 "" H 4200 3575 50  0001 C CNN
-	1    4200 3575
-	1    0    0    -1  
-$EndComp
-Connection ~ 7600 1825
-Wire Wire Line
-	7750 1825 7600 1825
-Wire Wire Line
-	7600 1825 7500 1825
-Text GLabel 7750 1825 2    50   Input ~ 0
-V_expo
-Connection ~ 6750 1725
-Wire Wire Line
-	6900 1725 6750 1725
-Wire Wire Line
-	6750 1475 7050 1475
-Wire Wire Line
-	6750 1725 6750 1475
-Wire Wire Line
-	6750 1925 6900 1925
-Wire Wire Line
-	6750 2075 6750 1925
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5CFF60BC
-P 6750 2075
-F 0 "#PWR?" H 6750 1825 50  0001 C CNN
-F 1 "GNDREF" H 6755 1902 50  0001 C CNN
-F 2 "" H 6750 2075 50  0001 C CNN
-F 3 "" H 6750 2075 50  0001 C CNN
-	1    6750 2075
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7600 1475 7600 1825
-Wire Wire Line
-	7350 1475 7600 1475
-$Comp
-L power:VCC #PWR?
-U 1 1 5CFF25D9
-P 1025 2975
-F 0 "#PWR?" H 1025 2825 50  0001 C CNN
-F 1 "VCC" H 925 3050 50  0000 C CNN
-F 2 "" H 1025 2975 50  0001 C CNN
-F 3 "" H 1025 2975 50  0001 C CNN
-	1    1025 2975
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VEE #PWR?
-U 1 1 5CFF2176
-P 1025 3675
-F 0 "#PWR?" H 1025 3525 50  0001 C CNN
-F 1 "VEE" H 1125 3750 50  0000 C CNN
-F 2 "" H 1025 3675 50  0001 C CNN
-F 3 "" H 1025 3675 50  0001 C CNN
-	1    1025 3675
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	4200 3175 4400 3175
-$Comp
-L Device:R R?
-U 1 1 5D41CBB1
-P 5300 1525
-F 0 "R?" H 5370 1571 50  0000 L CNN
-F 1 "100k" V 5300 1425 50  0000 L CNN
-F 2 "" V 5230 1525 50  0001 C CNN
-F 3 "~" H 5300 1525 50  0001 C CNN
-	1    5300 1525
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VCC #PWR?
-U 1 1 5D41CBB2
-P 5300 1375
-F 0 "#PWR?" H 5300 1225 50  0001 C CNN
-F 1 "VCC" H 5317 1548 50  0000 C CNN
-F 2 "" H 5300 1375 50  0001 C CNN
-F 3 "" H 5300 1375 50  0001 C CNN
-	1    5300 1375
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5000 3275 5200 3275
-Wire Wire Line
-	6350 2275 6350 2125
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D41CBAF
-P 6350 2275
-F 0 "#PWR?" H 6350 2025 50  0001 C CNN
-F 1 "GNDREF" H 6355 2102 50  0001 C CNN
-F 2 "" H 6350 2275 50  0001 C CNN
-F 3 "" H 6350 2275 50  0001 C CNN
-	1    6350 2275
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5D41CBAE
-P 5500 2725
-F 0 "R?" H 5570 2771 50  0000 L CNN
-F 1 "1k" H 5570 2680 50  0000 L CNN
-F 2 "" V 5430 2725 50  0001 C CNN
-F 3 "~" H 5500 2725 50  0001 C CNN
-	1    5500 2725
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Thermistor_NTC R?
-U 1 1 5D4AB436
-P 2125 2575
-F 0 "R?" H 2200 2625 50  0000 L CNN
-F 1 "1k" H 2200 2525 50  0000 L CNN
-F 2 "" H 2125 2625 50  0001 C CNN
-F 3 "~" H 2125 2625 50  0001 C CNN
-	1    2125 2575
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5D4A95E2
-P 2475 2575
-F 0 "R?" H 2525 2625 50  0000 L CNN
-F 1 "1k" V 2475 2525 50  0000 L CNN
-F 2 "" V 2405 2575 50  0001 C CNN
-F 3 "~" H 2475 2575 50  0001 C CNN
-	1    2475 2575
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2125 2425 2300 2425
-Connection ~ 2300 2425
-$Comp
-L Device:R R?
-U 1 1 5D4B330E
-P 2300 3000
-F 0 "R?" H 2370 3046 50  0000 L CNN
-F 1 "2.2k" V 2300 2925 50  0000 L CNN
-F 2 "" V 2230 3000 50  0001 C CNN
-F 3 "~" H 2300 3000 50  0001 C CNN
-	1    2300 3000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2300 2425 2475 2425
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D4D9682
-P 2300 3150
-F 0 "#PWR?" H 2300 2900 50  0001 C CNN
-F 1 "GNDREF" H 2305 2977 50  0000 C CNN
-F 2 "" H 2300 3150 50  0001 C CNN
-F 3 "" H 2300 3150 50  0001 C CNN
-	1    2300 3150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2125 2725 2300 2725
-Connection ~ 2300 2725
-Wire Wire Line
-	2300 2850 2300 2800
-Connection ~ 2300 2800
-Wire Wire Line
-	2300 2725 2475 2725
-Wire Wire Line
-	2300 2800 2975 2800
-Wire Wire Line
-	2300 2800 2300 2725
-Wire Notes Line
-	2375 1975 2675 1975
-Wire Notes Line
-	2675 3625 1950 3625
-Wire Notes Line
-	1950 2400 2375 1975
-Wire Notes Line
-	1950 2400 1950 3625
-Wire Notes Line
-	2675 1975 2675 3625
-Text Notes 1975 3600 0    50   ~ 0
-thermal\ncompensation
-$Comp
-L Device:R R?
-U 1 1 5D5DBBAB
-P 3250 2800
-F 0 "R?" V 3150 2800 50  0000 C CNN
-F 1 "4.7k" V 3250 2800 50  0000 C CNN
-F 2 "" V 3180 2800 50  0001 C CNN
-F 3 "~" H 3250 2800 50  0001 C CNN
-	1    3250 2800
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5D5DCAB9
-P 3250 3050
-F 0 "R?" V 3150 3050 50  0000 C CNN
-F 1 "100k" V 3250 3050 50  0000 C CNN
-F 2 "" V 3180 3050 50  0001 C CNN
-F 3 "~" H 3250 3050 50  0001 C CNN
-	1    3250 3050
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	5200 4050 4375 4050
-$Comp
-L Device:R_POT_TRIM R?
-U 1 1 5D5E850B
-P 3100 3350
-F 0 "R?" V 2985 3350 50  0000 C CNN
-F 1 "1k" V 3100 3350 50  0000 C CNN
-F 2 "" H 3100 3350 50  0001 C CNN
-F 3 "~" H 3100 3350 50  0001 C CNN
-	1    3100 3350
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3100 3200 3100 3050
-Wire Wire Line
-	2950 3425 2950 3350
-Wire Wire Line
-	3400 3050 3400 2925
-Connection ~ 3400 2925
-Wire Wire Line
-	3825 3350 3825 4050
-Wire Wire Line
-	3400 2925 3650 2925
-Wire Wire Line
-	3825 2925 3825 2125
-Wire Wire Line
-	3400 2925 3400 2800
-Text Notes 2850 3825 0    50   ~ 0
-Rossum\ncompensation
-Wire Notes Line
-	3575 2625 3575 3850
-Wire Notes Line
-	2800 2625 2800 3850
-Wire Wire Line
-	3550 3350 3825 3350
-Wire Notes Line
-	2800 2625 3575 2625
-Wire Notes Line
-	2800 3850 3575 3850
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D61694C
-P 2950 3425
-F 0 "#PWR?" H 2950 3175 50  0001 C CNN
-F 1 "GNDREF" H 2955 3252 50  0000 C CNN
-F 2 "" H 2950 3425 50  0001 C CNN
-F 3 "" H 2950 3425 50  0001 C CNN
-	1    2950 3425
+U 1 1 5D4A8D8A
+P 2450 2275
+F 0 "R?" H 2520 2321 50  0000 L CNN
+F 1 "150" V 2450 2200 50  0000 L CNN
+F 2 "" V 2380 2275 50  0001 C CNN
+F 3 "~" H 2450 2275 50  0001 C CNN
+	1    2450 2275
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5D054548
-P 1150 2075
-F 0 "R?" V 1150 2300 50  0000 C CNN
-F 1 "147k" V 1150 2075 50  0000 C CNN
-F 2 "" V 1080 2075 50  0001 C CNN
-F 3 "~" H 1150 2075 50  0001 C CNN
-	1    1150 2075
+P 1300 2075
+F 0 "R?" V 1300 2300 50  0000 C CNN
+F 1 "147k" V 1300 2075 50  0000 C CNN
+F 2 "" V 1230 2075 50  0001 C CNN
+F 3 "~" H 1300 2075 50  0001 C CNN
+	1    1300 2075
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D61694C
+P 3100 3425
+F 0 "#PWR?" H 3100 3175 50  0001 C CNN
+F 1 "GNDREF" H 3105 3252 50  0000 C CNN
+F 2 "" H 3100 3425 50  0001 C CNN
+F 3 "" H 3100 3425 50  0001 C CNN
+	1    3100 3425
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	2950 3850 3725 3850
+Wire Notes Line
+	2950 2625 3725 2625
+Wire Wire Line
+	3700 3350 3975 3350
+Wire Notes Line
+	2950 2625 2950 3850
+Wire Notes Line
+	3725 2625 3725 3850
+Text Notes 3000 3825 0    50   ~ 0
+Rossum\ncompensation
+Wire Wire Line
+	3550 2925 3550 2800
+Wire Wire Line
+	3975 2925 3975 2125
+Wire Wire Line
+	3550 2925 3800 2925
+Wire Wire Line
+	3975 3350 3975 4050
+Connection ~ 3550 2925
+Wire Wire Line
+	3550 3050 3550 2925
+Wire Wire Line
+	3100 3425 3100 3350
+Wire Wire Line
+	3250 3200 3250 3050
+$Comp
+L Device:R_POT_TRIM R?
+U 1 1 5D5E850B
+P 3250 3350
+F 0 "R?" V 3135 3350 50  0000 C CNN
+F 1 "1k" V 3250 3350 50  0000 C CNN
+F 2 "" H 3250 3350 50  0001 C CNN
+F 3 "~" H 3250 3350 50  0001 C CNN
+	1    3250 3350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5350 4050 4525 4050
+$Comp
+L Device:R R?
+U 1 1 5D5DCAB9
+P 3400 3050
+F 0 "R?" V 3300 3050 50  0000 C CNN
+F 1 "100k" V 3400 3050 50  0000 C CNN
+F 2 "" V 3330 3050 50  0001 C CNN
+F 3 "~" H 3400 3050 50  0001 C CNN
+	1    3400 3050
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R?
-U 1 1 5D4A8D8A
-P 2300 2275
-F 0 "R?" H 2370 2321 50  0000 L CNN
-F 1 "150" V 2300 2200 50  0000 L CNN
-F 2 "" V 2230 2275 50  0001 C CNN
-F 3 "~" H 2300 2275 50  0001 C CNN
-	1    2300 2275
+U 1 1 5D5DBBAB
+P 3400 2800
+F 0 "R?" V 3300 2800 50  0000 C CNN
+F 1 "4.7k" V 3400 2800 50  0000 C CNN
+F 2 "" V 3330 2800 50  0001 C CNN
+F 3 "~" H 3400 2800 50  0001 C CNN
+	1    3400 2800
+	0    1    1    0   
+$EndComp
+Text Notes 2125 3600 0    50   ~ 0
+thermal\ncompensation
+Wire Notes Line
+	2825 1975 2825 3625
+Wire Notes Line
+	2100 2400 2100 3625
+Wire Notes Line
+	2100 2400 2525 1975
+Wire Notes Line
+	2825 3625 2100 3625
+Wire Notes Line
+	2525 1975 2825 1975
+Wire Wire Line
+	2450 2800 2450 2725
+Wire Wire Line
+	2450 2800 3125 2800
+Wire Wire Line
+	2450 2725 2625 2725
+Connection ~ 2450 2800
+Wire Wire Line
+	2450 2850 2450 2800
+Connection ~ 2450 2725
+Wire Wire Line
+	2275 2725 2450 2725
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D4D9682
+P 2450 3150
+F 0 "#PWR?" H 2450 2900 50  0001 C CNN
+F 1 "GNDREF" H 2455 2977 50  0000 C CNN
+F 2 "" H 2450 3150 50  0001 C CNN
+F 3 "" H 2450 3150 50  0001 C CNN
+	1    2450 3150
 	1    0    0    -1  
 $EndComp
-Text Notes 3900 2650 1    50   ~ 0
-ca 18mV/oct
-Text Notes 2775 2800 1    50   ~ 0
-ca 19mV/Oct
-Text Notes 2300 1775 0    50   ~ 0
-ca 24mV/oct
-Text Notes 725  4600 0    50   ~ 0
-R3 * C1 should be 100µs, this affects the frequency range\nR3 : R5 must be 2:1, this affects the triangle shape\nR4 : R6 must be 1:1, this affects the triangle shape\nR8 : R9 should be 1:2, this affects the triangle amplitude and\nfrequency range. If R9 is too large, this may cause distortion\nR11 : R12 should be 1:1, this affects sawtooth amplitude
-Text Notes 575  1900 2    50   ~ 0
+Wire Wire Line
+	2450 2425 2625 2425
+$Comp
+L Device:R R?
+U 1 1 5D4B330E
+P 2450 3000
+F 0 "R?" H 2520 3046 50  0000 L CNN
+F 1 "2.2k" V 2450 2925 50  0000 L CNN
+F 2 "" V 2380 3000 50  0001 C CNN
+F 3 "~" H 2450 3000 50  0001 C CNN
+	1    2450 3000
+	1    0    0    -1  
+$EndComp
+Connection ~ 2450 2425
+Wire Wire Line
+	2275 2425 2450 2425
+$Comp
+L Device:R R?
+U 1 1 5D4A95E2
+P 2625 2575
+F 0 "R?" H 2675 2625 50  0000 L CNN
+F 1 "1k" V 2625 2525 50  0000 L CNN
+F 2 "" V 2555 2575 50  0001 C CNN
+F 3 "~" H 2625 2575 50  0001 C CNN
+	1    2625 2575
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Thermistor_NTC R?
+U 1 1 5D4AB436
+P 2275 2575
+F 0 "R?" H 2350 2625 50  0000 L CNN
+F 1 "1k" H 2350 2525 50  0000 L CNN
+F 2 "" H 2275 2625 50  0001 C CNN
+F 3 "~" H 2275 2625 50  0001 C CNN
+	1    2275 2575
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D41CBAE
+P 5650 2725
+F 0 "R?" H 5720 2771 50  0000 L CNN
+F 1 "1k" H 5720 2680 50  0000 L CNN
+F 2 "" V 5580 2725 50  0001 C CNN
+F 3 "~" H 5650 2725 50  0001 C CNN
+	1    5650 2725
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D41CBAF
+P 6500 2275
+F 0 "#PWR?" H 6500 2025 50  0001 C CNN
+F 1 "GNDREF" H 6505 2102 50  0001 C CNN
+F 2 "" H 6500 2275 50  0001 C CNN
+F 3 "" H 6500 2275 50  0001 C CNN
+	1    6500 2275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6500 2275 6500 2125
+Wire Wire Line
+	5150 3275 5350 3275
+$Comp
+L power:VCC #PWR?
+U 1 1 5D41CBB2
+P 5450 1375
+F 0 "#PWR?" H 5450 1225 50  0001 C CNN
+F 1 "VCC" H 5467 1548 50  0000 C CNN
+F 2 "" H 5450 1375 50  0001 C CNN
+F 3 "" H 5450 1375 50  0001 C CNN
+	1    5450 1375
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D41CBB1
+P 5450 1525
+F 0 "R?" H 5520 1571 50  0000 L CNN
+F 1 "100k" V 5450 1425 50  0000 L CNN
+F 2 "" V 5380 1525 50  0001 C CNN
+F 3 "~" H 5450 1525 50  0001 C CNN
+	1    5450 1525
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 3175 4550 3175
+$Comp
+L power:VEE #PWR?
+U 1 1 5CFF2176
+P 1175 3675
+F 0 "#PWR?" H 1175 3525 50  0001 C CNN
+F 1 "VEE" H 1275 3750 50  0000 C CNN
+F 2 "" H 1175 3675 50  0001 C CNN
+F 3 "" H 1175 3675 50  0001 C CNN
+	1    1175 3675
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5CFF25D9
+P 1175 2975
+F 0 "#PWR?" H 1175 2825 50  0001 C CNN
+F 1 "VCC" H 1075 3050 50  0000 C CNN
+F 2 "" H 1175 2975 50  0001 C CNN
+F 3 "" H 1175 2975 50  0001 C CNN
+	1    1175 2975
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7500 1475 7750 1475
+Wire Wire Line
+	7750 1475 7750 1825
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5CFF60BC
+P 6900 2075
+F 0 "#PWR?" H 6900 1825 50  0001 C CNN
+F 1 "GNDREF" H 6905 1902 50  0001 C CNN
+F 2 "" H 6900 2075 50  0001 C CNN
+F 3 "" H 6900 2075 50  0001 C CNN
+	1    6900 2075
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 2075 6900 1925
+Wire Wire Line
+	6900 1925 7050 1925
+Wire Wire Line
+	6900 1725 6900 1475
+Wire Wire Line
+	6900 1475 7200 1475
+Wire Wire Line
+	7050 1725 6900 1725
+Connection ~ 6900 1725
+Text GLabel 7900 1825 2    50   Input ~ 0
+V_expo
+Wire Wire Line
+	7750 1825 7650 1825
+Wire Wire Line
+	7900 1825 7750 1825
+Connection ~ 7750 1825
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D41CBBA
+P 4350 3575
+F 0 "#PWR?" H 4350 3325 50  0001 C CNN
+F 1 "GNDREF" H 4355 3402 50  0001 C CNN
+F 2 "" H 4350 3575 50  0001 C CNN
+F 3 "" H 4350 3575 50  0001 C CNN
+	1    4350 3575
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 3575 4350 3375
+Wire Wire Line
+	4350 3375 4550 3375
+$Comp
+L Device:C C?
+U 1 1 5D41CBBB
+P 4900 2900
+F 0 "C?" V 4648 2900 50  0000 C CNN
+F 1 "1n" V 4739 2900 50  0000 C CNN
+F 2 "" H 4938 2750 50  0001 C CNN
+F 3 "~" H 4900 2900 50  0001 C CNN
+	1    4900 2900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5650 2875 5650 3275
+Wire Wire Line
+	4350 1725 4350 2900
+Wire Wire Line
+	4750 2900 4350 2900
+Connection ~ 4350 2900
+Wire Wire Line
+	4350 2900 4350 3175
+Wire Wire Line
+	5050 2900 5350 2900
+Wire Wire Line
+	5350 3275 5350 4050
+Wire Wire Line
+	5350 2900 5350 3275
+Connection ~ 5350 3275
+Wire Wire Line
+	5350 3275 5650 3275
+Text Notes 5975 3925 0    50   ~ 0
+for Q4, the following holds true:\nI_C = const * exp(V_B / VT) with VT=26mV\n(thermal voltage of a transistor)\nnow this means that Vout will double\nevery (log(2) * 26mV) = 18mV.\n\nNote that VT is temperature dependent.\nWhen the temperature rises, VT rises and so\nthe input voltage must rise too. The thermal\ncompensation consisting of TODO does that.\n\nAdditionally, Q3 and Q4 have a bulk resistance\nbetween their ideal and actual emitters. This\ncauses the VCO's tuning to drop a bit at high\nfrequencies. The Rossum compensation compensates\nfor this by measuring the current through R17 and\nfeeding back a small amount into Q3's base.
+Text Notes 3950 1050 0    50   ~ 0
+R16 determines the I_C current through\nQ4 when Q4's base is at GNDREF.\nTogether with V_tune, it determines the pitch.\nChoose R16 and V_tune such, that U8's output needs\nto be at around GNDREF for "sane" pitches.
+$Comp
+L Device:R R?
+U 1 1 5D054E64
+P 2025 1775
+F 0 "R?" V 2125 1825 50  0000 R CNN
+F 1 "12k2" V 2025 1875 50  0000 R CNN
+F 2 "" V 1955 1775 50  0001 C CNN
+F 3 "~" H 2025 1775 50  0001 C CNN
+	1    2025 1775
+	0    -1   -1   0   
+$EndComp
+Text GLabel 1150 2175 0    50   Input ~ 0
+V_tune
+$Comp
+L Device:R R?
+U 1 1 5D41CBC2
+P 1300 2175
+F 0 "R?" V 1300 2400 50  0000 C CNN
+F 1 "220k" V 1300 2175 50  0000 C CNN
+F 2 "" V 1230 2175 50  0001 C CNN
+F 3 "~" H 1300 2175 50  0001 C CNN
+	1    1300 2175
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2450 1775 2450 2125
+Wire Wire Line
+	1650 1775 1875 1775
+Wire Wire Line
+	1650 2025 1750 2025
+Wire Wire Line
+	1600 2225 1750 2225
+Wire Wire Line
+	1600 2375 1600 2225
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D04FEE6
+P 1600 2375
+F 0 "#PWR?" H 1600 2125 50  0001 C CNN
+F 1 "GNDREF" H 1605 2202 50  0000 C CNN
+F 2 "" H 1600 2375 50  0001 C CNN
+F 3 "" H 1600 2375 50  0001 C CNN
+	1    1600 2375
+	1    0    0    -1  
+$EndComp
+Connection ~ 2450 2125
+Wire Wire Line
+	2350 2125 2450 2125
+Text GLabel 1150 2075 0    50   Input ~ 0
+V_control_3
+$Comp
+L Amplifier_Operational:LM324 U?
+U 1 1 5D5E9E8D
+P 2050 2125
+F 0 "U?" H 2150 1975 50  0000 C CNN
+F 1 "LM324" H 2025 2125 50  0000 C CNN
+F 2 "" H 2000 2225 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 2100 2325 50  0001 C CNN
+	1    2050 2125
+	1    0    0    1   
+$EndComp
+$Comp
+L Amplifier_Operational:LM324 U?
+U 2 1 5D5EA9A1
+P 4850 3275
+F 0 "U?" H 4925 3125 50  0000 C CNN
+F 1 "LM324" H 4825 3275 50  0000 C CNN
+F 2 "" H 4800 3375 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 4900 3475 50  0001 C CNN
+	2    4850 3275
+	1    0    0    1   
+$EndComp
+$Comp
+L Amplifier_Operational:LM324 U?
+U 3 1 5D5EBF6F
+P 7350 1825
+F 0 "U?" H 7450 1675 50  0000 C CNN
+F 1 "LM324" H 7325 1825 50  0000 C CNN
+F 2 "" H 7300 1925 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 7400 2025 50  0001 C CNN
+	3    7350 1825
+	1    0    0    1   
+$EndComp
+$Comp
+L Amplifier_Operational:LM324 U?
+U 4 1 5D5ED4E4
+P 1275 3325
+F 0 "U?" H 1350 3475 50  0000 C CNN
+F 1 "LM324" H 1275 3325 50  0000 C CNN
+F 2 "" H 1225 3425 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 1325 3525 50  0001 C CNN
+	4    1275 3325
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Operational:LM324 U?
+U 5 1 5D5EEA82
+P 1275 3325
+F 0 "U?" H 1450 3925 50  0001 L CNN
+F 1 "LM324" H 1250 4075 50  0001 L CNN
+F 2 "" H 1225 3425 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 1325 3525 50  0001 C CNN
+	5    1275 3325
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC847BDW1 Q?
+U 1 1 5DD7C680
+P 5350 2125
+F 0 "Q?" H 5275 2275 50  0000 L CNN
+F 1 "BCM847" H 5500 2225 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 5550 2225 50  0001 C CNN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC846BDW1T1-D.PDF" H 5350 2125 50  0001 C CNN
+	1    5350 2125
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC847BDW1 Q?
+U 2 1 5DD7EF3D
+P 5950 2125
+F 0 "Q?" H 5825 2275 50  0000 L CNN
+F 1 "1/2 BCM847" H 5725 1850 50  0001 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 6150 2225 50  0001 C CNN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC846BDW1T1-D.PDF" H 5950 2125 50  0001 C CNN
+	2    5950 2125
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 2325 5650 2325
+Connection ~ 5650 2325
+Wire Wire Line
+	5650 2325 5850 2325
+Wire Wire Line
+	5650 2325 5650 2575
+Wire Wire Line
+	5850 1725 5850 1925
+Wire Wire Line
+	5850 1725 6275 1725
+Wire Wire Line
+	5450 1725 5450 1925
+Wire Wire Line
+	4350 1725 5450 1725
+Wire Wire Line
+	5450 1675 5450 1725
+Connection ~ 5450 1725
+Text GLabel 5450 1875 2    50   Input ~ 0
+C1
+Text GLabel 5850 1875 0    50   Input ~ 0
+C2
+Wire Wire Line
+	6150 2125 6500 2125
+Wire Wire Line
+	3975 2125 5150 2125
+Text GLabel 5100 2125 1    50   Input ~ 0
+B1
+Text GLabel 6200 2125 1    50   Input ~ 0
+B2
+Text GLabel 5650 2325 1    50   Input ~ 0
+E
+Wire Wire Line
+	2175 1775 2450 1775
+$Comp
+L Jumper:Jumper_2_Bridged JP?
+U 1 1 5E0B9FA6
+P 4325 4050
+F 0 "JP?" H 4325 4200 50  0000 C CNN
+F 1 "Rossum connect" H 4325 4125 50  0000 C CNN
+F 2 "" H 4325 4050 50  0001 C CNN
+F 3 "~" H 4325 4050 50  0001 C CNN
+	1    4325 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:Jumper_2_Open JP?
+U 1 1 5E0BADDE
+P 3475 2275
+F 0 "JP?" H 3300 2325 50  0000 C CNN
+F 1 "Rossum override" H 3475 2400 50  0000 C CNN
+F 2 "" H 3475 2275 50  0001 C CNN
+F 3 "~" H 3475 2275 50  0001 C CNN
+	1    3475 2275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3275 2275 3125 2275
+Wire Wire Line
+	3125 2275 3125 2425
+Connection ~ 3125 2800
+Wire Wire Line
+	3125 2800 3250 2800
+Wire Wire Line
+	3675 2275 3800 2275
+Wire Wire Line
+	3800 2275 3800 2425
+Connection ~ 3800 2925
+Wire Wire Line
+	3800 2925 3975 2925
+Wire Wire Line
+	4125 4050 3975 4050
+$Comp
+L Jumper:SolderJumper_2_Open SB?
+U 1 1 5E0F0CDF
+P 4325 4175
+F 0 "SB?" H 4325 4075 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 4300 4050 50  0001 C CNN
+F 2 "" H 4325 4175 50  0001 C CNN
+F 3 "~" H 4325 4175 50  0001 C CNN
+	1    4325 4175
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4125 4050 4125 4175
+Connection ~ 4125 4050
+Wire Wire Line
+	4525 4050 4525 4175
+Connection ~ 4525 4050
+$Comp
+L Jumper:SolderJumper_2_Open SB?
+U 1 1 5E106B1B
+P 3475 2425
+F 0 "SB?" H 3475 2325 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 3450 2300 50  0001 C CNN
+F 2 "" H 3475 2425 50  0001 C CNN
+F 3 "~" H 3475 2425 50  0001 C CNN
+	1    3475 2425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3325 2425 3125 2425
+Connection ~ 3125 2425
+Wire Wire Line
+	3125 2425 3125 2800
+Wire Wire Line
+	3625 2425 3800 2425
+Connection ~ 3800 2425
+Wire Wire Line
+	3800 2425 3800 2925
+$Comp
+L Diode:1N4148 D?
+U 1 1 5E16153A
+P 3550 3350
+F 0 "D?" H 3550 3250 50  0000 C CNN
+F 1 "1N4148" H 3550 3450 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3550 3175 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3550 3350 50  0001 C CNN
+	1    3550 3350
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E17C2C3
+P 6650 1575
+F 0 "R?" H 6700 1575 50  0000 L CNN
+F 1 "TODO" V 6650 1475 50  0000 L CNN
+F 2 "" V 6580 1575 50  0001 C CNN
+F 3 "~" H 6650 1575 50  0001 C CNN
+	1    6650 1575
+	1    0    0    -1  
+$EndComp
+Connection ~ 6650 1725
+Wire Wire Line
+	6650 1725 6900 1725
+$Comp
+L Device:R R?
+U 1 1 5E17FED4
+P 6550 1575
+F 0 "R?" H 6525 1350 50  0000 L CNN
+F 1 "TODO" V 6550 1475 50  0000 L CNN
+F 2 "" V 6480 1575 50  0001 C CNN
+F 3 "~" H 6550 1575 50  0001 C CNN
+	1    6550 1575
+	1    0    0    -1  
+$EndComp
+Connection ~ 6550 1725
+Wire Wire Line
+	6550 1725 6650 1725
+Text GLabel 6275 1425 1    50   Input ~ 0
+V_lin_pitchmod_raw
+$Comp
+L Device:C_Small C?
+U 1 1 5D631095
+P 1325 3000
+F 0 "C?" V 1275 3075 50  0000 C CNN
+F 1 "100n" V 1200 3000 50  0000 C CNN
+F 2 "" H 1325 3000 50  0001 C CNN
+F 3 "~" H 1325 3000 50  0001 C CNN
+	1    1325 3000
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D63109B
+P 1425 3000
+F 0 "#PWR?" H 1425 2750 50  0001 C CNN
+F 1 "GNDREF" H 1430 2827 50  0001 C CNN
+F 2 "" H 1425 3000 50  0001 C CNN
+F 3 "" H 1425 3000 50  0001 C CNN
+	1    1425 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5D63C62B
+P 1325 3650
+F 0 "C?" V 1275 3725 50  0000 C CNN
+F 1 "100n" V 1200 3650 50  0000 C CNN
+F 2 "" H 1325 3650 50  0001 C CNN
+F 3 "~" H 1325 3650 50  0001 C CNN
+	1    1325 3650
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D63C631
+P 1425 3650
+F 0 "#PWR?" H 1425 3400 50  0001 C CNN
+F 1 "GNDREF" H 1430 3477 50  0001 C CNN
+F 2 "" H 1425 3650 50  0001 C CNN
+F 3 "" H 1425 3650 50  0001 C CNN
+	1    1425 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1175 3625 1175 3650
+Wire Wire Line
+	1175 3650 1225 3650
+Connection ~ 1175 3650
+Wire Wire Line
+	1175 3650 1175 3675
+Wire Wire Line
+	1175 2975 1175 3000
+Wire Wire Line
+	1175 3000 1225 3000
+Connection ~ 1175 3000
+Wire Wire Line
+	1175 3000 1175 3025
+$Comp
+L Connector:Conn_01x02_Male J?
+U 1 1 5DDEFD28
+P 3975 1575
+F 0 "J?" V 4025 1450 50  0000 R CNN
+F 1 "expo in" V 3900 1675 50  0000 R CNN
+F 2 "" H 3975 1575 50  0001 C CNN
+F 3 "~" H 3975 1575 50  0001 C CNN
+	1    3975 1575
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	3975 2125 3975 1775
+Connection ~ 3975 2125
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5DDFE799
+P 4075 1775
+F 0 "#PWR?" H 4075 1525 50  0001 C CNN
+F 1 "GNDREF" H 4080 1602 50  0001 C CNN
+F 2 "" H 4075 1775 50  0001 C CNN
+F 3 "" H 4075 1775 50  0001 C CNN
+	1    4075 1775
+	1    0    0    -1  
+$EndComp
+Text Notes 4500 1575 0    50   ~ 0
+must be of same (or\nsimilar) size as the\nrossum resistor.\nalso change the vexpo\npotis value accordingly
+Text Notes 7475 1375 0    50   ~ 0
+10k is a reasonable value here.\nThe poti gives plenty room.
+$Comp
+L Device:R_Variable R?
+U 1 1 5DEA3137
+P 7350 1475
+F 0 "R?" V 7525 1425 50  0000 C CNN
+F 1 "50k" V 7450 1450 50  0000 C CNN
+F 2 "" V 7280 1475 50  0001 C CNN
+F 3 "~" H 7350 1475 50  0001 C CNN
+	1    7350 1475
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_POT_TRIM R?
+U 1 1 5E01D2A0
+P 825 3225
+F 0 "R?" H 750 3225 50  0000 R CNN
+F 1 "10k" V 825 3300 50  0000 R CNN
+F 2 "" H 825 3225 50  0001 C CNN
+F 3 "~" H 825 3225 50  0001 C CNN
+	1    825  3225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1575 3325 1575 3850
+Wire Wire Line
+	1575 3850 975  3850
+Wire Wire Line
+	975  3850 975  3425
+$Comp
+L power:VEE #PWR?
+U 1 1 5E03FE83
+P 825 3375
+F 0 "#PWR?" H 825 3225 50  0001 C CNN
+F 1 "VEE" H 925 3450 50  0000 C CNN
+F 2 "" H 825 3375 50  0001 C CNN
+F 3 "" H 825 3375 50  0001 C CNN
+	1    825  3375
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5E0402DF
+P 825 3075
+F 0 "#PWR?" H 825 2925 50  0001 C CNN
+F 1 "VCC" H 725 3150 50  0000 C CNN
+F 2 "" H 825 3075 50  0001 C CNN
+F 3 "" H 825 3075 50  0001 C CNN
+	1    825  3075
+	1    0    0    -1  
+$EndComp
+Text GLabel 1700 3375 3    50   Input ~ 0
+var_vsource
+Wire Wire Line
+	1700 3375 1700 3325
+Wire Wire Line
+	1700 3325 1575 3325
+Connection ~ 1575 3325
+$Comp
+L Device:R R?
+U 1 1 5E131D96
+P 6450 1575
+F 0 "R?" H 6300 1575 50  0000 L CNN
+F 1 "TODO" V 6450 1475 50  0000 L CNN
+F 2 "" V 6380 1575 50  0001 C CNN
+F 3 "~" H 6450 1575 50  0001 C CNN
+	1    6450 1575
+	1    0    0    -1  
+$EndComp
+Connection ~ 6450 1725
+Wire Wire Line
+	6450 1725 6550 1725
+Wire Wire Line
+	6275 1425 6275 1725
+Connection ~ 6275 1725
+Wire Wire Line
+	6275 1725 6450 1725
+Text GLabel 6450 1425 1    50   Input ~ 0
+V_lin_pitchmod_1
+Text GLabel 6550 1425 1    50   Input ~ 0
+V_lin_pitchmod_2
+Text GLabel 6650 1425 1    50   Input ~ 0
+V_lin_pitchmod_3
+$Comp
+L Device:R R?
+U 1 1 5E193690
+P 1300 1975
+F 0 "R?" V 1300 2200 50  0000 C CNN
+F 1 "147k" V 1300 1975 50  0000 C CNN
+F 2 "" V 1230 1975 50  0001 C CNN
+F 3 "~" H 1300 1975 50  0001 C CNN
+	1    1300 1975
+	0    1    1    0   
+$EndComp
+Text GLabel 1150 1975 0    50   Input ~ 0
+V_control_2
+$Comp
+L Device:R R?
+U 1 1 5E1A1AC9
+P 1300 1875
+F 0 "R?" V 1300 2100 50  0000 C CNN
+F 1 "147k" V 1300 1875 50  0000 C CNN
+F 2 "" V 1230 1875 50  0001 C CNN
+F 3 "~" H 1300 1875 50  0001 C CNN
+	1    1300 1875
+	0    1    1    0   
+$EndComp
+Text GLabel 1150 1875 0    50   Input ~ 0
+V_control
+Text GLabel 1150 1775 0    50   Input ~ 0
+V_control_raw
+Wire Wire Line
+	1150 1775 1450 1775
+Wire Wire Line
+	1450 1775 1450 1875
+Wire Wire Line
+	1450 1875 1450 1975
+Connection ~ 1450 1875
+Connection ~ 1450 1975
+Connection ~ 1450 2075
+Wire Wire Line
+	1450 2075 1450 2175
+Wire Wire Line
+	1450 1975 1450 2075
+Wire Wire Line
+	1650 1775 1650 2025
+Wire Wire Line
+	1450 1775 1650 1775
+Connection ~ 1450 1775
+Connection ~ 1650 1775
+Text Notes 6750 900  0    50   ~ 0
+adjustable offset can be achieved by running a wire\nfrom the gnd adjust jumper to V_lin_pitchmod_3\n(TODO: set the resistor value accordingly)
+Text Notes 650  1850 3    50   ~ 0
 ca 290mV/oct
+Text GLabel 9825 1500 2    50   Input ~ 0
+V_tune
+$Comp
+L Device:R_POT R?
+U 1 1 5D47F832
+P 9675 1500
+F 0 "R?" H 9606 1546 50  0000 R CNN
+F 1 "R_POT" H 9606 1455 50  0000 R CNN
+F 2 "" H 9675 1500 50  0001 C CNN
+F 3 "~" H 9675 1500 50  0001 C CNN
+	1    9675 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR?
+U 1 1 5D480B46
+P 9675 1650
+F 0 "#PWR?" H 9675 1500 50  0001 C CNN
+F 1 "VEE" H 9693 1823 50  0000 C CNN
+F 2 "" H 9675 1650 50  0001 C CNN
+F 3 "" H 9675 1650 50  0001 C CNN
+	1    9675 1650
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5D4820BF
+P 9675 1350
+F 0 "#PWR?" H 9675 1200 50  0001 C CNN
+F 1 "VCC" H 9692 1523 50  0000 C CNN
+F 2 "" H 9675 1350 50  0001 C CNN
+F 3 "" H 9675 1350 50  0001 C CNN
+	1    9675 1350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
