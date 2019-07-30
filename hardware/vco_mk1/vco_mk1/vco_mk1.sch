@@ -550,10 +550,10 @@ Connection ~ 6725 5200
 Wire Wire Line
 	6725 5200 7300 5200
 $Comp
-L Connector:Conn_01x04_Male J?
+L Connector:Conn_01x04_Male JP?
 U 1 1 5D8F200D
 P 9300 5400
-F 0 "J?" V 9325 5625 50  0000 R CNN
+F 0 "JP?" V 9325 5675 50  0000 R CNN
 F 1 "ringmod config" V 9225 5725 50  0000 R CNN
 F 2 "" H 9300 5400 50  0001 C CNN
 F 3 "~" H 9300 5400 50  0001 C CNN
@@ -801,17 +801,6 @@ Text GLabel 10575 5650 3    50   Input ~ 0
 E
 Wire Wire Line
 	10475 5650 10675 5650
-$Comp
-L Connector_Generic:Conn_02x03_Counter_Clockwise J?
-U 1 1 5DED6187
-P 10525 6050
-F 0 "J?" H 10575 6250 50  0000 C CNN
-F 1 "BCM847 breakout socket" H 10600 5850 50  0000 C CNN
-F 2 "" H 10525 6050 50  0001 C CNN
-F 3 "~" H 10525 6050 50  0001 C CNN
-	1    10525 6050
-	1    0    0    -1  
-$EndComp
 Text GLabel 10325 5950 0    50   Input ~ 0
 E
 Text GLabel 10825 6150 2    50   Input ~ 0
@@ -1884,10 +1873,10 @@ Connection ~ 1175 3000
 Wire Wire Line
 	1175 3000 1175 3025
 $Comp
-L Connector:Conn_01x02_Male J?
+L Connector:Conn_01x02_Male JP?
 U 1 1 5DDEFD28
 P 3975 1575
-F 0 "J?" V 4025 1450 50  0000 R CNN
+F 0 "JP?" V 4025 1450 50  0000 R CNN
 F 1 "expo in" V 3900 1675 50  0000 R CNN
 F 2 "" H 3975 1575 50  0001 C CNN
 F 3 "~" H 3975 1575 50  0001 C CNN
@@ -2084,4 +2073,15 @@ Wire Wire Line
 	3275 2425 3125 2425
 Wire Wire Line
 	3675 2425 3800 2425
+$Comp
+L Connector_Generic:Conn_02x03_Counter_Clockwise J?
+U 1 1 5DED6187
+P 10525 6050
+F 0 "J?" H 10575 6250 50  0000 C CNN
+F 1 "BCM847 breakout socket" H 10600 5850 50  0000 C CNN
+F 2 "" H 10525 6050 50  0001 C CNN
+F 3 "~" H 10525 6050 50  0001 C CNN
+	1    10525 6050
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
