@@ -509,7 +509,7 @@ U 1 1 5D8F200D
 P 9300 5400
 F 0 "JP5" V 9325 5675 50  0000 R CNN
 F 1 "ringmod config" V 9225 5725 50  0000 R CNN
-F 2 "" H 9300 5400 50  0001 C CNN
+F 2 "footprints:SolderDipJumper4alt" H 9300 5400 50  0001 C CNN
 F 3 "~" H 9300 5400 50  0001 C CNN
 	1    9300 5400
 	0    -1   1    0   
@@ -638,8 +638,6 @@ Text GLabel 10675 5250 1    50   Input ~ 0
 C2
 Text GLabel 10175 5450 0    50   Input ~ 0
 B1
-Text GLabel 10975 5450 2    50   Input ~ 0
-B2
 Text GLabel 10575 5650 3    50   Input ~ 0
 E
 Wire Wire Line
@@ -654,8 +652,6 @@ Text GLabel 10825 5950 2    50   Input ~ 0
 C1
 Text GLabel 10325 6150 0    50   Input ~ 0
 C2
-Text GLabel 10825 6050 2    50   Input ~ 0
-B2
 Text Notes 10025 6450 0    50   ~ 0
 alternative transistors\nonly equip one pair
 Wire Notes Line
@@ -830,7 +826,7 @@ U 1 1 5D95EF15
 P 2600 6850
 F 0 "R29" V 2675 6775 50  0000 L CNN
 F 1 "1Meg" V 2525 6800 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0918_L18.0mm_D9.0mm_P22.86mm_Horizontal" V 2530 6850 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 2530 6850 50  0001 C CNN
 F 3 "~" H 2600 6850 50  0001 C CNN
 	1    2600 6850
 	0    1    -1   0   
@@ -845,7 +841,7 @@ U 1 1 5DC20550
 P 1625 6900
 F 0 "R23" H 1475 6950 50  0000 L CNN
 F 1 "10k" H 1400 6850 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0918_L18.0mm_D9.0mm_P22.86mm_Horizontal" V 1555 6900 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" V 1555 6900 50  0001 C CNN
 F 3 "~" H 1625 6900 50  0001 C CNN
 	1    1625 6900
 	1    0    0    -1  
@@ -992,7 +988,7 @@ U 1 1 5E059366
 P 1625 7600
 F 0 "JP4" H 1525 7525 50  0000 C CNN
 F 1 "gnd adjust" H 1625 7700 50  0000 C CNN
-F 2 "" H 1625 7600 50  0001 C CNN
+F 2 "footprints:SolderDipJumper3alt" H 1625 7600 50  0001 C CNN
 F 3 "~" H 1625 7600 50  0001 C CNN
 	1    1625 7600
 	1    0    0    1   
@@ -1060,7 +1056,7 @@ U 1 1 5DED6187
 P 10525 6050
 F 0 "J5" H 10575 6250 50  0000 C CNN
 F 1 "BCM847 breakout socket" H 10600 5850 50  0000 C CNN
-F 2 "Connector_Samtec_HLE_SMD:Samtec_HLE-103-02-xxx-DV-BE-LC_2x03_P2.54mm_Horizontal" H 10525 6050 50  0001 C CNN
+F 2 "Package_DIP:DIP-6_W7.62mm_Socket" H 10525 6050 50  0001 C CNN
 F 3 "~" H 10525 6050 50  0001 C CNN
 	1    10525 6050
 	1    0    0    -1  
@@ -1197,7 +1193,7 @@ U 1 1 5DEA3137
 P 7350 1475
 F 0 "R19" V 7525 1425 50  0000 C CNN
 F 1 "50k" V 7450 1450 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7280 1475 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 7280 1475 50  0001 C CNN
 F 3 "~" H 7350 1475 50  0001 C CNN
 	1    7350 1475
 	0    1    -1   0   
@@ -1226,7 +1222,7 @@ U 1 1 5DDEFD28
 P 3975 1575
 F 0 "JP3" V 4025 1450 50  0000 R CNN
 F 1 "expo in" V 3900 1675 50  0000 R CNN
-F 2 "" H 3975 1575 50  0001 C CNN
+F 2 "footprints:SolderDipJumper2alt" H 3975 1575 50  0001 C CNN
 F 3 "~" H 3975 1575 50  0001 C CNN
 	1    3975 1575
 	0    -1   1    0   
@@ -1348,7 +1344,7 @@ U 1 1 5E0BADDE
 P 3475 2425
 F 0 "JP1" H 3300 2475 50  0000 C CNN
 F 1 "Rossum override" H 3475 2550 50  0000 C CNN
-F 2 "" H 3475 2425 50  0001 C CNN
+F 2 "footprints:SolderDipJumper2alt" H 3475 2425 50  0001 C CNN
 F 3 "~" H 3475 2425 50  0001 C CNN
 	1    3475 2425
 	1    0    0    -1  
@@ -1359,7 +1355,7 @@ U 1 1 5E0B9FA6
 P 4325 4050
 F 0 "JP2" H 4325 4200 50  0000 C CNN
 F 1 "Rossum connect" H 4325 4125 50  0000 C CNN
-F 2 "" H 4325 4050 50  0001 C CNN
+F 2 "footprints:SolderDipJumper2alt" H 4325 4050 50  0001 C CNN
 F 3 "~" H 4325 4050 50  0001 C CNN
 	1    4325 4050
 	1    0    0    -1  
@@ -1368,8 +1364,6 @@ Wire Wire Line
 	2175 1775 2450 1775
 Text GLabel 5650 2325 1    50   Input ~ 0
 E
-Text GLabel 6200 2125 1    50   Input ~ 0
-B2
 Text GLabel 5100 2125 1    50   Input ~ 0
 B1
 Wire Wire Line
@@ -1768,7 +1762,7 @@ U 1 1 5D5DCAB9
 P 3400 3050
 F 0 "R13" V 3300 3050 50  0000 C CNN
 F 1 "100k" V 3400 3050 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0918_L18.0mm_D9.0mm_P22.86mm_Horizontal" V 3330 3050 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3330 3050 50  0001 C CNN
 F 3 "~" H 3400 3050 50  0001 C CNN
 	1    3400 3050
 	0    1    1    0   
@@ -2082,6 +2076,90 @@ F 1 "power supply" H 9600 1250 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 9650 1450 50  0001 C CNN
 F 3 "~" H 9650 1450 50  0001 C CNN
 	1    9650 1450
+	1    0    0    -1  
+$EndComp
+Text GLabel 10825 6050 2    50   Input ~ 0
+GND
+Text GLabel 10975 5450 2    50   Input ~ 0
+GND
+Text GLabel 6200 2125 1    50   Input ~ 0
+GND
+Text GLabel 1400 1075 1    50   Input ~ 0
+GNDREF
+$Comp
+L power:GNDREF #PWR0106
+U 1 1 5EC060DD
+P 1400 1075
+F 0 "#PWR0106" H 1400 825 50  0001 C CNN
+F 1 "GNDREF" H 1405 902 50  0001 C CNN
+F 2 "" H 1400 1075 50  0001 C CNN
+F 3 "" H 1400 1075 50  0001 C CNN
+	1    1400 1075
+	1    0    0    -1  
+$EndComp
+Text GLabel 1275 1075 1    50   Input ~ 0
+GNDREF
+$Comp
+L power:GNDREF #PWR0105
+U 1 1 5EBF8868
+P 1275 1075
+F 0 "#PWR0105" H 1275 825 50  0001 C CNN
+F 1 "GNDREF" H 1280 902 50  0001 C CNN
+F 2 "" H 1275 1075 50  0001 C CNN
+F 3 "" H 1275 1075 50  0001 C CNN
+	1    1275 1075
+	1    0    0    -1  
+$EndComp
+Text GLabel 1150 1075 1    50   Input ~ 0
+GNDREF
+$Comp
+L power:GNDREF #PWR0104
+U 1 1 5EBEB0EB
+P 1150 1075
+F 0 "#PWR0104" H 1150 825 50  0001 C CNN
+F 1 "GNDREF" H 1155 902 50  0001 C CNN
+F 2 "" H 1150 1075 50  0001 C CNN
+F 3 "" H 1150 1075 50  0001 C CNN
+	1    1150 1075
+	1    0    0    -1  
+$EndComp
+Text GLabel 1025 1075 1    50   Input ~ 0
+GNDREF
+$Comp
+L power:GNDREF #PWR0103
+U 1 1 5EBDD8AA
+P 1025 1075
+F 0 "#PWR0103" H 1025 825 50  0001 C CNN
+F 1 "GNDREF" H 1030 902 50  0001 C CNN
+F 2 "" H 1025 1075 50  0001 C CNN
+F 3 "" H 1025 1075 50  0001 C CNN
+	1    1025 1075
+	1    0    0    -1  
+$EndComp
+Text GLabel 900  1075 1    50   Input ~ 0
+GNDREF
+$Comp
+L power:GNDREF #PWR0102
+U 1 1 5EBCFF9F
+P 900 1075
+F 0 "#PWR0102" H 900 825 50  0001 C CNN
+F 1 "GNDREF" H 905 902 50  0001 C CNN
+F 2 "" H 900 1075 50  0001 C CNN
+F 3 "" H 900 1075 50  0001 C CNN
+	1    900  1075
+	1    0    0    -1  
+$EndComp
+Text GLabel 775  1075 1    50   Input ~ 0
+GNDREF
+$Comp
+L power:GNDREF #PWR0101
+U 1 1 5EB79DB0
+P 775 1075
+F 0 "#PWR0101" H 775 825 50  0001 C CNN
+F 1 "GNDREF" H 780 902 50  0001 C CNN
+F 2 "" H 775 1075 50  0001 C CNN
+F 3 "" H 775 1075 50  0001 C CNN
+	1    775  1075
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

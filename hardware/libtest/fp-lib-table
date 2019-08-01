@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name mine)(type KiCad)(uri /home/flo/analog-synth/hardware/lib/footprints.pretty)(options "")(descr ""))
+)
