@@ -1315,17 +1315,6 @@ F 3 "~" H 6650 1575 50  0001 C CNN
 	1    6650 1575
 	1    0    0    -1  
 $EndComp
-$Comp
-L Diode:1N4148 D1
-U 1 1 5E16153A
-P 3550 3350
-F 0 "D1" H 3550 3250 50  0000 C CNN
-F 1 "1N4148" H 3550 3450 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3550 3175 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3550 3350 50  0001 C CNN
-	1    3550 3350
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	3800 2425 3800 2925
 Wire Wire Line
@@ -1347,17 +1336,6 @@ F 1 "Rossum override" H 3475 2550 50  0000 C CNN
 F 2 "footprints:SolderDipJumper2alt" H 3475 2425 50  0001 C CNN
 F 3 "~" H 3475 2425 50  0001 C CNN
 	1    3475 2425
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:Jumper_2_Bridged JP2
-U 1 1 5E0B9FA6
-P 4325 4050
-F 0 "JP2" H 4325 4200 50  0000 C CNN
-F 1 "Rossum connect" H 4325 4125 50  0000 C CNN
-F 2 "footprints:SolderDipJumper2alt" H 4325 4050 50  0001 C CNN
-F 3 "~" H 4325 4050 50  0001 C CNN
-	1    4325 4050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1801,8 +1779,6 @@ Wire Notes Line
 	3725 2625 3725 3850
 Wire Notes Line
 	2950 2625 2950 3850
-Wire Wire Line
-	3700 3350 3975 3350
 Wire Notes Line
 	2950 2625 3725 2625
 Wire Notes Line
@@ -1894,17 +1870,6 @@ Wire Wire Line
 	9400 2300 9650 2300
 Wire Wire Line
 	9400 2400 9400 2300
-$Comp
-L Connector_Generic:Conn_02x07_Counter_Clockwise J2
-U 1 1 5D5F57E8
-P 9600 2700
-F 0 "J2" H 9575 3150 50  0000 C CNN
-F 1 "control in" V 9650 2700 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 9600 2700 50  0001 C CNN
-F 3 "~" H 9600 2700 50  0001 C CNN
-	1    9600 2700
-	1    0    0    -1  
-$EndComp
 Text GLabel 9900 2900 2    50   Input ~ 0
 V_pwm
 Text GLabel 9900 2700 2    50   Input ~ 0
@@ -2160,6 +2125,41 @@ F 1 "GNDREF" H 780 902 50  0001 C CNN
 F 2 "" H 775 1075 50  0001 C CNN
 F 3 "" H 775 1075 50  0001 C CNN
 	1    775  1075
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 3350 3975 3350
+$Comp
+L Jumper:Jumper_2_Bridged JP2
+U 1 1 5E0B9FA6
+P 4325 4050
+F 0 "JP2" H 4325 4200 50  0000 C CNN
+F 1 "Rossum connect" H 4325 4125 50  0000 C CNN
+F 2 "footprints:SolderDipJumper2alt" H 4325 4050 50  0001 C CNN
+F 3 "~" H 4325 4050 50  0001 C CNN
+	1    4325 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4148 D1
+U 1 1 5E16153A
+P 3550 3350
+F 0 "D1" H 3550 3250 50  0000 C CNN
+F 1 "1N4148" H 3550 3450 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3550 3175 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3550 3350 50  0001 C CNN
+	1    3550 3350
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x07_Odd_Even J2
+U 1 1 5D76A0AB
+P 9600 2700
+F 0 "J2" H 9575 3175 50  0000 C CNN
+F 1 "control in" V 9650 2700 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 9600 2700 50  0001 C CNN
+F 3 "~" H 9600 2700 50  0001 C CNN
+	1    9600 2700
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
