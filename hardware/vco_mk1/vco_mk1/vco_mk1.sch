@@ -160,8 +160,6 @@ F 3 "~" H 4175 6250 50  0001 C CNN
 	1    4175 6250
 	0    1    1    0   
 $EndComp
-Text Notes 3575 8425 0    50   ~ 0
-If R8 was connected to GNDREF, the triangle would be\ncentered around GNDREF, but only if the output of the\ncomparator U3 would swing between Vcc and Vee.\nHowever, U3 swings between less-than-Vcc and\nexactly Vee, so the triangle isn't centered.\nR14 and R15 comprise a poti to compensate for that.
 Wire Wire Line
 	4675 5075 4125 5075
 Wire Wire Line
@@ -174,8 +172,6 @@ Text GLabel 5750 4625 2    50   Input ~ 0
 pulse
 Wire Wire Line
 	5675 4975 5275 4975
-Text Notes 5650 6825 0    50   ~ 0
-do not use
 $Comp
 L Device:R R24
 U 1 1 5D41CBA2
@@ -299,21 +295,21 @@ saw_ctl
 Wire Wire Line
 	3475 6700 5625 6700
 Wire Wire Line
-	9550 4175 9800 4175
+	9500 4000 9750 4000
 $Comp
 L power:GNDREF #PWR034
 U 1 1 5DB5E6E3
-P 9800 4175
-F 0 "#PWR034" H 9800 3925 50  0001 C CNN
-F 1 "GNDREF" H 10000 4100 50  0000 C CNN
-F 2 "" H 9800 4175 50  0001 C CNN
-F 3 "" H 9800 4175 50  0001 C CNN
-	1    9800 4175
+P 9750 4000
+F 0 "#PWR034" H 9750 3750 50  0001 C CNN
+F 1 "GNDREF" H 9950 3925 50  0000 C CNN
+F 2 "" H 9750 4000 50  0001 C CNN
+F 3 "" H 9750 4000 50  0001 C CNN
+	1    9750 4000
 	1    0    0    -1  
 $EndComp
-Connection ~ 9800 4175
+Connection ~ 9750 4000
 Wire Wire Line
-	9800 4175 10050 4175
+	9750 4000 10000 4000
 $Comp
 L Device:C C8
 U 1 1 5DB8DA7E
@@ -635,7 +631,7 @@ Wire Notes Line
 Wire Notes Line
 	2750 7325 2950 7525
 Text Notes 3600 7725 0    50   ~ 0
-Just a hacky way of applying an\nadjustable voltage with an adjustable\ninner resistance. Replace R?+R?+R?\nby a 100-200k trimmer and leave\nout R? completely if you want.\nOr just spare everything and connect\nthe (+) pin to GNDREF.\nThis will cause a slightly off-center\ntriangle wave and a shifted sawtooth,\nat least with the LM324.
+Just a hacky way of applying an\nadjustable voltage with an adjustable\ninner resistance. Replace R26-R28\nby a 100-200k trimmer and leave\nout R29 completely if you want.\nOr just spare everything and connect\nthe (+) pin to GNDREF.\nThat will cause a slightly off-center\ntriangle wave and a shifted sawtooth,\nat least with the LM324.
 Wire Notes Line
 	3575 6900 5075 6900
 Wire Notes Line
@@ -701,8 +697,8 @@ Wire Wire Line
 Wire Wire Line
 	5675 4675 5675 4625
 Connection ~ 5675 4625
-Text Notes 5875 4400 0    50   ~ 0
-to put the pulse signal roughly at the same level as the others\n(ca. 3V peak-peak. others can range from 1.5V to ca. 7V)
+Text Notes 3900 4650 0    50   ~ 0
+to put the pulse signal roughly at the same\nlevel as the others (ca. 3V peak-peak.\nothers can range from 1.5V to ca. 7V)
 $Comp
 L Jumper:Jumper_3_Bridged12 JP4
 U 1 1 5E059366
@@ -734,41 +730,41 @@ Wire Notes Line
 	675  5750 675  7750
 Wire Notes Line
 	3450 5750 3450 7750
-Text Notes 875  4600 0    50   ~ 0
-R3 * C1 should be 100µs, this affects the frequency range\nR3 : R5 must be 2:1, this affects the triangle shape\nR4 : R6 must be 1:1, this affects the triangle shape\nR8 : R9 should be 1:2, this affects the triangle amplitude and\nfrequency range. If R9 is too large, this may cause distortion\nR11 : R12 should be 1:1, this affects sawtooth amplitude
-Text GLabel 10600 1325 2    50   Input ~ 0
+Text Notes 500  5700 0    50   ~ 0
+R20 * C8 should be 100µs, this affects the freq. range\nR20 : R22+R23 must be 2:1, this affects the triangle shape\nR21 : R24 must be 1:1, this affects the triangle shape\nR29 : R30 should be 1:2, this affects the tri amplitude and\nfrequency range. Too large R29 may cause distortion\nR32 : R34 should be 1:1, this affects sawtooth amplitude
+Text GLabel 10800 1200 2    50   Input ~ 0
 V_tune
 $Comp
 L Device:R_POT R42
 U 1 1 5D47F832
-P 10450 1325
-F 0 "R42" H 10381 1371 50  0000 R CNN
-F 1 "TODO" V 10450 1425 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 10450 1325 50  0001 C CNN
-F 3 "~" H 10450 1325 50  0001 C CNN
-	1    10450 1325
+P 10650 1200
+F 0 "R42" H 10581 1246 50  0000 R CNN
+F 1 "TODO" V 10650 1300 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 10650 1200 50  0001 C CNN
+F 3 "~" H 10650 1200 50  0001 C CNN
+	1    10650 1200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:VEE #PWR036
 U 1 1 5D480B46
-P 10450 1475
-F 0 "#PWR036" H 10450 1325 50  0001 C CNN
-F 1 "VEE" H 10468 1648 50  0000 C CNN
-F 2 "" H 10450 1475 50  0001 C CNN
-F 3 "" H 10450 1475 50  0001 C CNN
-	1    10450 1475
+P 10650 1350
+F 0 "#PWR036" H 10650 1200 50  0001 C CNN
+F 1 "VEE" H 10668 1523 50  0000 C CNN
+F 2 "" H 10650 1350 50  0001 C CNN
+F 3 "" H 10650 1350 50  0001 C CNN
+	1    10650 1350
 	-1   0    0    1   
 $EndComp
 $Comp
 L power:VCC #PWR035
 U 1 1 5D4820BF
-P 10450 1175
-F 0 "#PWR035" H 10450 1025 50  0001 C CNN
-F 1 "VCC" H 10467 1348 50  0000 C CNN
-F 2 "" H 10450 1175 50  0001 C CNN
-F 3 "" H 10450 1175 50  0001 C CNN
-	1    10450 1175
+P 10650 1050
+F 0 "#PWR035" H 10650 900 50  0001 C CNN
+F 1 "VCC" H 10667 1223 50  0000 C CNN
+F 2 "" H 10650 1050 50  0001 C CNN
+F 3 "" H 10650 1050 50  0001 C CNN
+	1    10650 1050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1219,9 +1215,9 @@ F 3 "~" H 2025 1775 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Text Notes 3950 1050 0    50   ~ 0
-R16 determines the I_C current through\nQ4 when Q4's base is at GNDREF.\nTogether with V_tune, it determines the pitch.\nChoose R16 and V_tune such, that U8's output needs\nto be at around GNDREF for "sane" pitches.
+R14 determines the I_C current through\nQ1B when Q1B's base is at GNDREF.\nTogether with V_tune, it determines the pitch.\nChoose R14 and V_tune such, that Q1A's base is\nat around GNDREF for "sane" pitches.
 Text Notes 5975 3925 0    50   ~ 0
-for Q4, the following holds true:\nI_C = const * exp(V_B / VT) with VT=26mV\n(thermal voltage of a transistor)\nnow this means that Vout will double\nevery (log(2) * 26mV) = 18mV.\n\nNote that VT is temperature dependent.\nWhen the temperature rises, VT rises and so\nthe input voltage must rise too. The thermal\ncompensation consisting of TODO does that.\n\nAdditionally, Q3 and Q4 have a bulk resistance\nbetween their ideal and actual emitters. This\ncauses the VCO's tuning to drop a bit at high\nfrequencies. The Rossum compensation compensates\nfor this by measuring the current through R17 and\nfeeding back a small amount into Q3's base.
+for Q1B, the following holds true:\nI_C = const * exp(V_B / VT) with VT=26mV\n(thermal voltage of a transistor)\nnow this means that V_expo will double\nevery (log(2) * 26mV) = 18mV.\n\nNote that VT is temperature dependent.\nWhen the temperature rises, VT rises and so\nthe input voltage must rise too. The thermal\ncompensation consisting of R7-10 does that.\n\nAdditionally, Q1A and Q1B have a bulk resistance\nbetween their ideal and actual emitters. This\ncauses the VCO's tuning to drop a bit at high\nfrequencies. The Rossum compensation compensates\nfor this by measuring the current through R15 and\nfeeding back a small amount into Q1A's base.
 Wire Wire Line
 	5350 3275 5650 3275
 Connection ~ 5350 3275
@@ -1543,226 +1539,204 @@ Text Notes 2925 2800 1    50   ~ 0
 ca 19mV/Oct
 Text Notes 2450 1775 0    50   ~ 0
 ca 24mV/oct
-Text GLabel 10350 2825 2    50   Input ~ 0
+Text GLabel 10300 2575 2    50   Input ~ 0
 V_lin_pitchmod_raw
-Text GLabel 10350 2525 2    50   Input ~ 0
+Text GLabel 10300 2275 2    50   Input ~ 0
 V_lin_pitchmod_1
 Wire Wire Line
-	10100 3125 10350 3125
-Connection ~ 10100 3125
+	10050 2875 10300 2875
+Connection ~ 10050 2875
 $Comp
 L power:GNDREF #PWR018
 U 1 1 5D62D6F9
-P 10100 3125
-F 0 "#PWR018" H 10100 2875 50  0001 C CNN
-F 1 "GNDREF" H 10300 3050 50  0000 C CNN
-F 2 "" H 10100 3125 50  0001 C CNN
-F 3 "" H 10100 3125 50  0001 C CNN
-	1    10100 3125
+P 10050 2875
+F 0 "#PWR018" H 10050 2625 50  0001 C CNN
+F 1 "GNDREF" H 10250 2800 50  0000 C CNN
+F 2 "" H 10050 2875 50  0001 C CNN
+F 3 "" H 10050 2875 50  0001 C CNN
+	1    10050 2875
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	10350 3125 10350 3025
+	10300 2875 10300 2775
 Wire Wire Line
-	9850 3125 10100 3125
+	9800 2875 10050 2875
 Wire Wire Line
-	9850 3025 9850 3125
+	9800 2775 9800 2875
 Wire Wire Line
-	10100 2325 10350 2325
-Connection ~ 10100 2325
+	10050 2075 10300 2075
+Connection ~ 10050 2075
 Wire Wire Line
-	10100 2175 10225 2175
+	10050 1925 10175 1925
 Wire Wire Line
-	10100 2325 10100 2175
+	10050 2075 10050 1925
 $Comp
 L power:GNDREF #PWR019
 U 1 1 5D61D630
-P 10225 2175
-F 0 "#PWR019" H 10225 1925 50  0001 C CNN
-F 1 "GNDREF" H 10475 2100 50  0001 C CNN
-F 2 "" H 10225 2175 50  0001 C CNN
-F 3 "" H 10225 2175 50  0001 C CNN
-	1    10225 2175
+P 10175 1925
+F 0 "#PWR019" H 10175 1675 50  0001 C CNN
+F 1 "GNDREF" H 10425 1850 50  0001 C CNN
+F 2 "" H 10175 1925 50  0001 C CNN
+F 3 "" H 10175 1925 50  0001 C CNN
+	1    10175 1925
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	10350 2325 10350 2425
+	10300 2075 10300 2175
 Wire Wire Line
-	9850 2325 10100 2325
+	9800 2075 10050 2075
 Wire Wire Line
-	9850 2425 9850 2325
-Text GLabel 10350 2925 2    50   Input ~ 0
+	9800 2175 9800 2075
+Text GLabel 10300 2675 2    50   Input ~ 0
 V_pwm
-Text GLabel 10350 2725 2    50   Input ~ 0
+Text GLabel 10300 2475 2    50   Input ~ 0
 V_lin_pitchmod_3
-Text GLabel 10350 2625 2    50   Input ~ 0
+Text GLabel 10300 2375 2    50   Input ~ 0
 V_lin_pitchmod_2
-Text GLabel 9850 2825 0    50   Input ~ 0
+Text GLabel 9800 2575 0    50   Input ~ 0
 V_control_raw
-Text GLabel 9850 2725 0    50   Input ~ 0
+Text GLabel 9800 2475 0    50   Input ~ 0
 V_control_3
-Text GLabel 9850 2625 0    50   Input ~ 0
+Text GLabel 9800 2375 0    50   Input ~ 0
 V_control_2
-Text GLabel 9850 2525 0    50   Input ~ 0
+Text GLabel 9800 2275 0    50   Input ~ 0
 V_control
-Text GLabel 9850 2925 0    50   Input ~ 0
+Text GLabel 9800 2675 0    50   Input ~ 0
 ctl_override
 Wire Wire Line
-	9800 3475 10050 3475
-Connection ~ 9800 3475
+	9750 3200 10000 3200
+Connection ~ 9750 3200
 Wire Wire Line
-	9800 3325 9925 3325
+	9750 3050 9875 3050
 Wire Wire Line
-	9800 3475 9800 3325
+	9750 3200 9750 3050
 $Comp
 L power:GNDREF #PWR020
 U 1 1 5DB5EE2A
-P 9925 3325
-F 0 "#PWR020" H 9925 3075 50  0001 C CNN
-F 1 "GNDREF" H 10175 3250 50  0001 C CNN
-F 2 "" H 9925 3325 50  0001 C CNN
-F 3 "" H 9925 3325 50  0001 C CNN
-	1    9925 3325
+P 9875 3050
+F 0 "#PWR020" H 9875 2800 50  0001 C CNN
+F 1 "GNDREF" H 10125 2975 50  0001 C CNN
+F 2 "" H 9875 3050 50  0001 C CNN
+F 3 "" H 9875 3050 50  0001 C CNN
+	1    9875 3050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	10050 3475 10050 3575
+	10000 3200 10000 3300
 Wire Wire Line
-	9550 3475 9800 3475
+	9500 3200 9750 3200
 Wire Wire Line
-	9550 3575 9550 3475
+	9500 3300 9500 3200
 Wire Wire Line
-	10050 4175 10050 4075
+	10000 4000 10000 3900
 Wire Wire Line
-	9550 4075 9550 4175
+	9500 3900 9500 4000
 Wire Wire Line
-	10675 3975 10800 3975
+	10625 3700 10750 3700
 Wire Wire Line
-	10800 3875 10350 3875
+	10750 3600 10300 3600
 Wire Wire Line
-	10675 3775 10800 3775
+	10625 3500 10750 3500
 Wire Wire Line
-	10350 3675 10800 3675
-Text GLabel 10800 3975 2    50   Input ~ 0
+	10300 3400 10750 3400
+Text GLabel 10750 3800 2    50   Input ~ 0
 square_ctl
-Text GLabel 10800 3875 2    50   Input ~ 0
+Text GLabel 10750 3700 2    50   Input ~ 0
 sawtooth
-Text GLabel 10800 3775 2    50   Input ~ 0
+Text GLabel 10750 3600 2    50   Input ~ 0
 triangle
-Text GLabel 10800 3675 2    50   Input ~ 0
+Text GLabel 10750 3500 2    50   Input ~ 0
 pulse
 Wire Wire Line
-	10050 3975 10375 3975
+	10000 3700 10325 3700
 Wire Wire Line
-	10050 3775 10375 3775
+	10000 3500 10325 3500
 $Comp
 L Device:C C7
 U 1 1 5DB28CBB
-P 10525 3975
-F 0 "C7" V 10475 3875 50  0000 C CNN
-F 1 "100n" V 10475 4125 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10563 3825 50  0001 C CNN
-F 3 "~" H 10525 3975 50  0001 C CNN
-	1    10525 3975
+P 10475 3700
+F 0 "C7" V 10425 3600 50  0000 C CNN
+F 1 "100n" V 10425 3850 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10513 3550 50  0001 C CNN
+F 3 "~" H 10475 3700 50  0001 C CNN
+	1    10475 3700
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C C5
 U 1 1 5DB28933
-P 10200 3875
-F 0 "C5" V 10150 3775 50  0000 C CNN
-F 1 "100n" V 10150 4025 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10238 3725 50  0001 C CNN
-F 3 "~" H 10200 3875 50  0001 C CNN
-	1    10200 3875
+P 10150 3600
+F 0 "C5" V 10100 3500 50  0000 C CNN
+F 1 "100n" V 10100 3750 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10188 3450 50  0001 C CNN
+F 3 "~" H 10150 3600 50  0001 C CNN
+	1    10150 3600
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C C6
 U 1 1 5DB283FD
-P 10525 3775
-F 0 "C6" V 10475 3675 50  0000 C CNN
-F 1 "100n" V 10475 3925 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10563 3625 50  0001 C CNN
-F 3 "~" H 10525 3775 50  0001 C CNN
-	1    10525 3775
+P 10475 3500
+F 0 "C6" V 10425 3400 50  0000 C CNN
+F 1 "100n" V 10425 3650 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10513 3350 50  0001 C CNN
+F 3 "~" H 10475 3500 50  0001 C CNN
+	1    10475 3500
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C C4
 U 1 1 5DB279B1
-P 10200 3675
-F 0 "C4" V 10150 3575 50  0000 C CNN
-F 1 "100n" V 10150 3825 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10238 3525 50  0001 C CNN
-F 3 "~" H 10200 3675 50  0001 C CNN
-	1    10200 3675
+P 10150 3400
+F 0 "C4" V 10100 3300 50  0000 C CNN
+F 1 "100n" V 10100 3550 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10188 3250 50  0001 C CNN
+F 3 "~" H 10150 3400 50  0001 C CNN
+	1    10150 3400
 	0    1    1    0   
 $EndComp
-$Comp
-L Connector_Generic:Conn_02x06_Odd_Even J3
-U 1 1 5DB23DE4
-P 9750 3775
-F 0 "J3" H 9700 4125 50  0000 C CNN
-F 1 "signal out" V 9800 3725 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical" H 9750 3775 50  0001 C CNN
-F 3 "~" H 9750 3775 50  0001 C CNN
-	1    9750 3775
-	1    0    0    -1  
-$EndComp
-Text GLabel 9550 3975 0    50   Input ~ 0
+Text GLabel 9500 3800 0    50   Input ~ 0
 square_ctl
-Text GLabel 9550 3875 0    50   Input ~ 0
+Text GLabel 9500 3700 0    50   Input ~ 0
 sawtooth
-Text GLabel 9550 3775 0    50   Input ~ 0
+Text GLabel 9500 3600 0    50   Input ~ 0
 triangle
-Text GLabel 9550 3675 0    50   Input ~ 0
+Text GLabel 9500 3500 0    50   Input ~ 0
 pulse
 $Comp
 L power:VCC #PWR016
 U 1 1 5D5DC792
-P 9450 1350
-F 0 "#PWR016" H 9450 1200 50  0001 C CNN
-F 1 "VCC" H 9467 1523 50  0000 C CNN
-F 2 "" H 9450 1350 50  0001 C CNN
-F 3 "" H 9450 1350 50  0001 C CNN
-	1    9450 1350
+P 9300 1125
+F 0 "#PWR016" H 9300 975 50  0001 C CNN
+F 1 "VCC" H 9317 1298 50  0000 C CNN
+F 2 "" H 9300 1125 50  0001 C CNN
+F 3 "" H 9300 1125 50  0001 C CNN
+	1    9300 1125
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9450 1450 9225 1450
+	9300 1225 9175 1225
 $Comp
 L power:GNDREF #PWR015
 U 1 1 5D5D7596
-P 9225 1450
-F 0 "#PWR015" H 9225 1200 50  0001 C CNN
-F 1 "GNDREF" H 9230 1277 50  0000 C CNN
-F 2 "" H 9225 1450 50  0001 C CNN
-F 3 "" H 9225 1450 50  0001 C CNN
-	1    9225 1450
+P 9175 1225
+F 0 "#PWR015" H 9175 975 50  0001 C CNN
+F 1 "GNDREF" H 9075 1075 50  0000 C CNN
+F 2 "" H 9175 1225 50  0001 C CNN
+F 3 "" H 9175 1225 50  0001 C CNN
+	1    9175 1225
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:VEE #PWR017
 U 1 1 5D5D6D99
-P 9450 1550
-F 0 "#PWR017" H 9450 1400 50  0001 C CNN
-F 1 "VEE" H 9468 1723 50  0000 C CNN
-F 2 "" H 9450 1550 50  0001 C CNN
-F 3 "" H 9450 1550 50  0001 C CNN
-	1    9450 1550
+P 9300 1325
+F 0 "#PWR017" H 9300 1175 50  0001 C CNN
+F 1 "VEE" H 9318 1498 50  0000 C CNN
+F 2 "" H 9300 1325 50  0001 C CNN
+F 3 "" H 9300 1325 50  0001 C CNN
+	1    9300 1325
 	-1   0    0    1   
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J1
-U 1 1 5D5D6407
-P 9650 1450
-F 0 "J1" H 9725 1450 50  0000 L CNN
-F 1 "power supply" H 9600 1250 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 9650 1450 50  0001 C CNN
-F 3 "~" H 9650 1450 50  0001 C CNN
-	1    9650 1450
-	1    0    0    -1  
 $EndComp
 Text GLabel 10875 6050 2    50   Input ~ 0
 GND
@@ -1770,84 +1744,6 @@ Text GLabel 11025 5450 2    50   Input ~ 0
 GND
 Text GLabel 6200 2125 1    50   Input ~ 0
 GND
-Text GLabel 1400 1075 1    50   Input ~ 0
-GNDREF
-$Comp
-L power:GNDREF #PWR0106
-U 1 1 5EC060DD
-P 1400 1075
-F 0 "#PWR0106" H 1400 825 50  0001 C CNN
-F 1 "GNDREF" H 1405 902 50  0001 C CNN
-F 2 "" H 1400 1075 50  0001 C CNN
-F 3 "" H 1400 1075 50  0001 C CNN
-	1    1400 1075
-	1    0    0    -1  
-$EndComp
-Text GLabel 1275 1075 1    50   Input ~ 0
-GNDREF
-$Comp
-L power:GNDREF #PWR0105
-U 1 1 5EBF8868
-P 1275 1075
-F 0 "#PWR0105" H 1275 825 50  0001 C CNN
-F 1 "GNDREF" H 1280 902 50  0001 C CNN
-F 2 "" H 1275 1075 50  0001 C CNN
-F 3 "" H 1275 1075 50  0001 C CNN
-	1    1275 1075
-	1    0    0    -1  
-$EndComp
-Text GLabel 1150 1075 1    50   Input ~ 0
-GNDREF
-$Comp
-L power:GNDREF #PWR0104
-U 1 1 5EBEB0EB
-P 1150 1075
-F 0 "#PWR0104" H 1150 825 50  0001 C CNN
-F 1 "GNDREF" H 1155 902 50  0001 C CNN
-F 2 "" H 1150 1075 50  0001 C CNN
-F 3 "" H 1150 1075 50  0001 C CNN
-	1    1150 1075
-	1    0    0    -1  
-$EndComp
-Text GLabel 1025 1075 1    50   Input ~ 0
-GNDREF
-$Comp
-L power:GNDREF #PWR0103
-U 1 1 5EBDD8AA
-P 1025 1075
-F 0 "#PWR0103" H 1025 825 50  0001 C CNN
-F 1 "GNDREF" H 1030 902 50  0001 C CNN
-F 2 "" H 1025 1075 50  0001 C CNN
-F 3 "" H 1025 1075 50  0001 C CNN
-	1    1025 1075
-	1    0    0    -1  
-$EndComp
-Text GLabel 900  1075 1    50   Input ~ 0
-GNDREF
-$Comp
-L power:GNDREF #PWR0102
-U 1 1 5EBCFF9F
-P 900 1075
-F 0 "#PWR0102" H 900 825 50  0001 C CNN
-F 1 "GNDREF" H 905 902 50  0001 C CNN
-F 2 "" H 900 1075 50  0001 C CNN
-F 3 "" H 900 1075 50  0001 C CNN
-	1    900  1075
-	1    0    0    -1  
-$EndComp
-Text GLabel 775  1075 1    50   Input ~ 0
-GNDREF
-$Comp
-L power:GNDREF #PWR0101
-U 1 1 5EB79DB0
-P 775 1075
-F 0 "#PWR0101" H 775 825 50  0001 C CNN
-F 1 "GNDREF" H 780 902 50  0001 C CNN
-F 2 "" H 775 1075 50  0001 C CNN
-F 3 "" H 775 1075 50  0001 C CNN
-	1    775  1075
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3700 3350 3975 3350
 $Comp
@@ -1875,374 +1771,438 @@ $EndComp
 $Comp
 L Connector_Generic:Conn_02x07_Odd_Even J2
 U 1 1 5D76A0AB
-P 10050 2725
-F 0 "J2" H 10025 3200 50  0000 C CNN
-F 1 "control in" V 10100 2725 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 10050 2725 50  0001 C CNN
-F 3 "~" H 10050 2725 50  0001 C CNN
-	1    10050 2725
+P 10000 2475
+F 0 "J2" H 9975 2950 50  0000 C CNN
+F 1 "control in" V 10050 2475 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 10000 2475 50  0001 C CNN
+F 3 "~" H 10000 2475 50  0001 C CNN
+	1    10000 2475
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5D87E356
-P 9250 1350
-F 0 "#PWR?" H 9250 1200 50  0001 C CNN
-F 1 "+5V" H 9265 1523 50  0000 C CNN
-F 2 "" H 9250 1350 50  0001 C CNN
-F 3 "" H 9250 1350 50  0001 C CNN
-	1    9250 1350
+P 9800 1125
+F 0 "#PWR?" H 9800 975 50  0001 C CNN
+F 1 "+5V" H 9815 1298 50  0000 C CNN
+F 2 "" H 9800 1125 50  0001 C CNN
+F 3 "" H 9800 1125 50  0001 C CNN
+	1    9800 1125
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	9450 1350 9250 1350
-Connection ~ 9450 1350
-Text Notes 9025 1100 0    50   ~ 0
+Text Notes 9075 825  0    50   ~ 0
 VCC-GND should be <= 6V \nabsolute maximum: 7V).\nOtherwise, 5V and VCC\nmust be separated
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5DB86D8B
-P 8100 6025
-F 0 "#PWR?" H 8100 5775 50  0001 C CNN
-F 1 "GNDREF" H 8105 5852 50  0001 C CNN
-F 2 "" H 8100 6025 50  0001 C CNN
-F 3 "" H 8100 6025 50  0001 C CNN
-	1    8100 6025
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7975 6175 8625 6175
-Connection ~ 7975 6175
-Wire Wire Line
-	7975 6025 8100 6025
-Wire Wire Line
-	7975 6175 7975 6025
-Wire Wire Line
-	7525 6175 7975 6175
-Text Notes 6625 6025 0    50   ~ 0
-TODO\nor 470
-Wire Notes Line
-	6250 4525 9875 4525
-Wire Notes Line
-	6250 6475 9875 6475
-Wire Notes Line
-	9875 4525 9875 6475
-Wire Wire Line
-	6900 5800 7525 5800
 $Comp
 L Device:R R?
 U 1 1 5DA160FA
-P 6750 5800
-F 0 "R?" V 6700 5900 50  0000 L CNN
-F 1 "10k" V 6750 5725 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6680 5800 50  0001 C CNN
-F 3 "~" H 6750 5800 50  0001 C CNN
-	1    6750 5800
+P 6675 5450
+F 0 "R?" V 6625 5550 50  0000 L CNN
+F 1 "10k" V 6675 5375 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6605 5450 50  0001 C CNN
+F 3 "~" H 6675 5450 50  0001 C CNN
+	1    6675 5450
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	6900 5600 7350 5600
 $Comp
 L Device:R R?
 U 1 1 5DA129CE
-P 6750 5600
-F 0 "R?" V 6700 5700 50  0000 L CNN
-F 1 "10k" V 6750 5525 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6680 5600 50  0001 C CNN
-F 3 "~" H 6750 5600 50  0001 C CNN
-	1    6750 5600
+P 6675 5250
+F 0 "R?" V 6625 5350 50  0000 L CNN
+F 1 "10k" V 6675 5175 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6605 5250 50  0001 C CNN
+F 3 "~" H 6675 5250 50  0001 C CNN
+	1    6675 5250
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	6900 5400 7175 5400
-$Comp
-L Device:R R?
-U 1 1 5DA1247B
-P 6750 5400
-F 0 "R?" V 6700 5500 50  0000 L CNN
-F 1 "10k" V 6750 5325 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6680 5400 50  0001 C CNN
-F 3 "~" H 6750 5400 50  0001 C CNN
-	1    6750 5400
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	6900 5200 7000 5200
 $Comp
 L Device:R R?
 U 1 1 5D9D225A
-P 6750 5200
-F 0 "R?" V 6700 5300 50  0000 L CNN
-F 1 "10k" V 6750 5125 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6680 5200 50  0001 C CNN
-F 3 "~" H 6750 5200 50  0001 C CNN
-	1    6750 5200
+P 9175 5450
+F 0 "R?" V 9075 5425 50  0000 L CNN
+F 1 "10k" V 9175 5375 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9105 5450 50  0001 C CNN
+F 3 "~" H 9175 5450 50  0001 C CNN
+	1    9175 5450
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	8925 6125 8775 6125
-$Comp
-L Device:R R?
-U 1 1 5D9CD2AA
-P 9075 6125
-F 0 "R?" V 8975 6100 50  0000 L CNN
-F 1 "10k" V 9075 6050 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9005 6125 50  0001 C CNN
-F 3 "~" H 9075 6125 50  0001 C CNN
-	1    9075 6125
-	0    1    1    0   
-$EndComp
-Connection ~ 6750 4775
+Connection ~ 6400 4500
 $Comp
 L power:+5V #PWR?
 U 1 1 5D8888E9
-P 6750 4775
-F 0 "#PWR?" H 6750 4625 50  0001 C CNN
-F 1 "+5V" H 6765 4948 50  0000 C CNN
-F 2 "" H 6750 4775 50  0001 C CNN
-F 3 "" H 6750 4775 50  0001 C CNN
-	1    6750 4775
-	1    0    0    -1  
-$EndComp
-Connection ~ 7750 4775
-$Comp
-L power:GNDREF #PWR?
-U 1 1 5D87A556
-P 7750 4775
-F 0 "#PWR?" H 7750 4525 50  0001 C CNN
-F 1 "GNDREF" H 7700 4600 50  0001 C CNN
-F 2 "" H 7750 4775 50  0001 C CNN
-F 3 "" H 7750 4775 50  0001 C CNN
-	1    7750 4775
+P 6400 4500
+F 0 "#PWR?" H 6400 4350 50  0001 C CNN
+F 1 "+5V" H 6415 4673 50  0000 C CNN
+F 2 "" H 6400 4500 50  0001 C CNN
+F 3 "" H 6400 4500 50  0001 C CNN
+	1    6400 4500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7825 5075 7350 5075
+	7475 4800 7000 4800
 Wire Wire Line
-	7825 4775 7825 5075
+	7475 4500 7475 4800
 Wire Wire Line
-	7750 4775 7825 4775
+	7400 4500 7475 4500
 Wire Wire Line
-	6750 5075 7150 5075
+	6400 4800 6800 4800
 Wire Wire Line
-	6750 4775 6750 5075
+	6400 4500 6400 4800
 $Comp
 L Device:C_Small C11
 U 1 1 5D6A2D61
-P 7250 5075
-F 0 "C11" V 7200 5175 50  0000 C CNN
-F 1 "100n" V 7300 5200 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7250 5075 50  0001 C CNN
-F 3 "~" H 7250 5075 50  0001 C CNN
-	1    7250 5075
+P 6900 4800
+F 0 "C11" V 6850 4900 50  0000 C CNN
+F 1 "100n" V 6950 4925 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6900 4800 50  0001 C CNN
+F 3 "~" H 6900 4800 50  0001 C CNN
+	1    6900 4800
 	0    1    1    0   
 $EndComp
-Text GLabel 9675 5600 3    50   Input ~ 0
-ctl_override
-Wire Notes Line
-	6250 6475 6250 4525
-Text Notes 6350 6425 0    50   ~ 0
+Text Notes 6250 6450 0    50   ~ 0
 Sawtooth generation and digital ring modulation\n(sawtooth is basically a square_ctl ringmodulated triangle)
-Text Notes 8150 5075 0    50   ~ 0
-Jumper configurations:\n12 + 34: sawtooth wave with 4x ringmod\n12: triangle wave with 4x ringmod\n    (pin 4 can be used as fifth ringmod)\n23: sawtooth, no ring mod. Choose this\n    when no 74HC86 is installed.
-Text GLabel 9575 5600 3    50   Input ~ 0
-saw_ctl
-$Comp
-L Connector:Conn_01x04_Male JP5
-U 1 1 5D8F200D
-P 9575 5400
-F 0 "JP5" V 9600 5675 50  0000 R CNN
-F 1 "ringmod config" V 9500 5725 50  0000 R CNN
-F 2 "footprints:SolderDipJumper4alt" H 9575 5400 50  0001 C CNN
-F 3 "~" H 9575 5400 50  0001 C CNN
-	1    9575 5400
-	0    -1   1    0   
-$EndComp
+Text Notes 8025 4775 0    50   ~ 0
+Jumper configurations for JP5:\n12 + 34: sawtooth wave with 4x ringmod\n12: triangle wave with 4x ringmod\n    (pin 4 can be used as fifth ringmod)\n23: sawtooth, no ring mod. Choose this\n    when no 74HC86 is installed.
 Wire Wire Line
-	7000 5200 7575 5200
-Connection ~ 7000 5200
+	6450 5450 6525 5450
 Wire Wire Line
-	7000 5875 7000 5200
+	6450 5250 6525 5250
 Wire Wire Line
-	7175 5400 7575 5400
-Connection ~ 7175 5400
-Wire Wire Line
-	7175 5875 7175 5400
-Wire Wire Line
-	7350 5600 7575 5600
-Connection ~ 7350 5600
-Wire Wire Line
-	7350 5875 7350 5600
-Wire Wire Line
-	7525 5800 7575 5800
-Connection ~ 7525 5800
-Wire Wire Line
-	7525 5875 7525 5800
-Connection ~ 7175 6175
-Wire Wire Line
-	7175 6175 7000 6175
-Connection ~ 7350 6175
-Wire Wire Line
-	7350 6175 7175 6175
-Connection ~ 7525 6175
-Wire Wire Line
-	7525 6175 7350 6175
-Connection ~ 8775 5800
-Wire Wire Line
-	8625 5800 8625 5875
-Wire Wire Line
-	8775 5800 8625 5800
-$Comp
-L Device:R R41
-U 1 1 5D9997EB
-P 8625 6025
-F 0 "R41" H 8425 6175 50  0000 L CNN
-F 1 "100k" V 8625 5925 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8555 6025 50  0001 C CNN
-F 3 "~" H 8625 6025 50  0001 C CNN
-	1    8625 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R37
-U 1 1 5D986A06
-P 7000 6025
-F 0 "R37" H 7000 6175 50  0000 L CNN
-F 1 "100k" V 7000 5925 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6930 6025 50  0001 C CNN
-F 3 "~" H 7000 6025 50  0001 C CNN
-	1    7000 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R38
-U 1 1 5D9863CA
-P 7175 6025
-F 0 "R38" H 7175 6175 50  0000 L CNN
-F 1 "100k" V 7175 5925 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7105 6025 50  0001 C CNN
-F 3 "~" H 7175 6025 50  0001 C CNN
-	1    7175 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R39
-U 1 1 5D985574
-P 7350 6025
-F 0 "R39" H 7350 6175 50  0000 L CNN
-F 1 "100k" V 7350 5925 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7280 6025 50  0001 C CNN
-F 3 "~" H 7350 6025 50  0001 C CNN
-	1    7350 6025
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6525 5800 6600 5800
-Wire Wire Line
-	6525 5650 6525 5800
-Wire Wire Line
-	6525 5600 6600 5600
-Wire Wire Line
-	6525 5550 6525 5600
-Wire Wire Line
-	6525 5200 6600 5200
-Wire Wire Line
-	6525 5350 6525 5200
-Wire Wire Line
-	6525 5400 6600 5400
-Wire Wire Line
-	6525 5450 6525 5400
-$Comp
-L Connector:Conn_01x04_Male J4
-U 1 1 5D965050
-P 6325 5450
-F 0 "J4" H 6375 5650 50  0000 C CNN
-F 1 "ringmod in" V 6400 5000 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 6325 5450 50  0001 C CNN
-F 3 "~" H 6325 5450 50  0001 C CNN
-	1    6325 5450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R40
-U 1 1 5D937375
-P 7525 6025
-F 0 "R40" H 7525 6175 50  0000 L CNN
-F 1 "100k" V 7525 5925 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7455 6025 50  0001 C CNN
-F 3 "~" H 7525 6025 50  0001 C CNN
-	1    7525 6025
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8775 6125 8775 5800
-Wire Wire Line
-	9775 6125 9225 6125
-Wire Wire Line
-	9775 5600 9775 6125
-Wire Wire Line
-	9475 5700 9375 5700
-Wire Wire Line
-	9475 5600 9475 5700
-Wire Wire Line
-	8775 5500 8775 5600
-Wire Wire Line
-	8175 5700 8175 5600
-Wire Wire Line
-	8175 5300 8175 5400
+	6450 5050 6525 5050
 $Comp
 L 74xx:74HC86 U3
 U 5 1 5D72B593
-P 7250 4775
-F 0 "U3" V 7375 4725 50  0000 L CNN
-F 1 "74HC86" V 7100 4650 50  0000 L CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 7250 4775 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 7250 4775 50  0001 C CNN
-	5    7250 4775
+P 6900 4500
+F 0 "U3" V 7025 4450 50  0000 L CNN
+F 1 "74HC86" V 6750 4375 50  0000 L CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 6900 4500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 6900 4500 50  0001 C CNN
+	5    6900 4500
 	0    -1   -1   0   
 $EndComp
 $Comp
 L 74xx:74HC86 U3
 U 4 1 5D728D89
-P 7875 5700
-F 0 "U3" H 7875 5700 50  0000 C CNN
-F 1 "74HC86" H 7850 5475 50  0001 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 7875 5700 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 7875 5700 50  0001 C CNN
-	4    7875 5700
+P 8725 5450
+F 0 "U3" H 8725 5450 50  0000 C CNN
+F 1 "74HC86" H 8700 5225 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 8725 5450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 8725 5450 50  0001 C CNN
+	4    8725 5450
 	1    0    0    -1  
 $EndComp
 $Comp
 L 74xx:74HC86 U3
 U 3 1 5D72705E
-P 9075 5700
-F 0 "U3" H 9075 5700 50  0000 C CNN
-F 1 "74HC86" H 9075 5475 50  0001 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 9075 5700 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 9075 5700 50  0001 C CNN
-	3    9075 5700
+P 8725 5050
+F 0 "U3" H 8725 5050 50  0000 C CNN
+F 1 "74HC86" H 8725 4825 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 8725 5050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 8725 5050 50  0001 C CNN
+	3    8725 5050
 	1    0    0    -1  
 $EndComp
 $Comp
 L 74xx:74HC86 U3
 U 2 1 5D724B9C
-P 8475 5500
-F 0 "U3" H 8475 5500 50  0000 C CNN
-F 1 "74HC86" H 8475 5750 50  0001 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 8475 5500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 8475 5500 50  0001 C CNN
-	2    8475 5500
+P 8025 5250
+F 0 "U3" H 8025 5250 50  0000 C CNN
+F 1 "74HC86" H 8025 5500 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 8025 5250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 8025 5250 50  0001 C CNN
+	2    8025 5250
 	1    0    0    -1  
 $EndComp
 $Comp
 L 74xx:74HC86 U3
 U 1 1 5D720F09
-P 7875 5300
-F 0 "U3" H 7875 5300 50  0000 C CNN
-F 1 "74HC86" H 7875 5534 50  0001 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 7875 5300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 7875 5300 50  0001 C CNN
-	1    7875 5300
+P 7425 5150
+F 0 "U3" H 7425 5150 50  0000 C CNN
+F 1 "74HC86" H 7425 5384 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 7425 5150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC86" H 7425 5150 50  0001 C CNN
+	1    7425 5150
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	7625 5450 7625 5350
+Wire Wire Line
+	7625 5350 7725 5350
+Wire Wire Line
+	8325 5250 8425 5250
+Wire Wire Line
+	8425 5250 8425 5150
+Wire Wire Line
+	8425 5250 8425 5350
+Connection ~ 8425 5250
+$Comp
+L Device:R R?
+U 1 1 5D937375
+P 7275 5700
+F 0 "R?" H 7225 5475 50  0000 L CNN
+F 1 "100k" V 7275 5600 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7205 5700 50  0001 C CNN
+F 3 "~" H 7275 5700 50  0001 C CNN
+	1    7275 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D985574
+P 7125 5700
+F 0 "R?" H 7075 5475 50  0000 L CNN
+F 1 "100k" V 7125 5600 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7055 5700 50  0001 C CNN
+F 3 "~" H 7125 5700 50  0001 C CNN
+	1    7125 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7275 5550 7275 5450
+Wire Wire Line
+	6975 5550 6975 5050
+Wire Wire Line
+	6825 5250 7125 5250
+$Comp
+L Device:R R?
+U 1 1 5DF424B1
+P 6975 5700
+F 0 "R?" H 6925 5475 50  0000 L CNN
+F 1 "100k" V 6975 5600 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6905 5700 50  0001 C CNN
+F 3 "~" H 6975 5700 50  0001 C CNN
+	1    6975 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6450 5050 6450 5150
+Wire Wire Line
+	6450 5350 6450 5450
+Wire Wire Line
+	7125 5550 7125 5250
+Wire Wire Line
+	6825 5450 7275 5450
+Wire Wire Line
+	7275 5450 7625 5450
+Connection ~ 7275 5450
+Connection ~ 7125 5250
+Wire Wire Line
+	6825 5050 6975 5050
+Wire Wire Line
+	6975 5050 7125 5050
+Connection ~ 6975 5050
+$Comp
+L Connector:Conn_01x03_Male J4
+U 1 1 5E02732A
+P 6250 5250
+F 0 "J4" H 6300 5450 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 6275 5775 50  0001 C CNN
+F 2 "" H 6250 5250 50  0001 C CNN
+F 3 "~" H 6250 5250 50  0001 C CNN
+	1    6250 5250
+	1    0    0    -1  
+$EndComp
+Text GLabel 9025 6225 0    50   Input ~ 0
+ctl_override
+Text GLabel 9025 6125 0    50   Input ~ 0
+saw_ctl
+$Comp
+L Connector:Conn_01x04_Male JP5
+U 1 1 5D8F200D
+P 9225 6125
+F 0 "JP5" H 9325 6300 50  0000 R CNN
+F 1 "ringmod config" H 9775 5875 50  0000 R CNN
+F 2 "footprints:SolderDipJumper4alt" H 9225 6125 50  0001 C CNN
+F 3 "~" H 9225 6125 50  0001 C CNN
+	1    9225 6125
+	-1   0    0    -1  
+$EndComp
+Text GLabel 8425 4950 0    50   Input ~ 0
+pulse
+Wire Wire Line
+	8425 5550 8425 6325
+Wire Wire Line
+	8425 6325 9025 6325
+$Comp
+L Device:R R?
+U 1 1 5E0DCE8F
+P 7425 5700
+F 0 "R?" H 7375 5475 50  0000 L CNN
+F 1 "100k" V 7425 5600 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7355 5700 50  0001 C CNN
+F 3 "~" H 7425 5700 50  0001 C CNN
+	1    7425 5700
+	1    0    0    -1  
+$EndComp
+Connection ~ 8425 5550
+Connection ~ 7275 5850
+Wire Wire Line
+	7275 5850 7425 5850
+Connection ~ 7125 5850
+Wire Wire Line
+	7125 5850 7275 5850
+Wire Wire Line
+	6975 5850 7125 5850
+Wire Wire Line
+	7425 5550 8425 5550
+$Comp
+L power:GNDD #PWR?
+U 1 1 5E183D97
+P 7400 4500
+F 0 "#PWR?" H 7400 4250 50  0001 C CNN
+F 1 "GNDD" H 7375 4375 50  0000 C CNN
+F 2 "" H 7400 4500 50  0001 C CNN
+F 3 "" H 7400 4500 50  0001 C CNN
+	1    7400 4500
+	1    0    0    -1  
+$EndComp
+Connection ~ 7400 4500
+$Comp
+L power:+5V #PWR?
+U 1 1 5E1D5BED
+P 6850 5850
+F 0 "#PWR?" H 6850 5700 50  0001 C CNN
+F 1 "+5V" H 6825 6000 50  0000 C CNN
+F 2 "" H 6850 5850 50  0001 C CNN
+F 3 "" H 6850 5850 50  0001 C CNN
+	1    6850 5850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 5850 6975 5850
+Connection ~ 6975 5850
+Text Notes 6375 5650 0    50   ~ 0
+TODO:\nor 1k?
+Text GLabel 9025 5050 2    50   Input ~ 0
+rmpulse
+$Comp
+L Connector_Generic:Conn_02x07_Odd_Even J3
+U 1 1 5E380527
+P 9700 3600
+F 0 "J3" H 9675 4050 50  0000 C CNN
+F 1 "signal out" V 9750 3600 50  0000 C CNN
+F 2 "" H 9700 3600 50  0001 C CNN
+F 3 "~" H 9700 3600 50  0001 C CNN
+	1    9700 3600
+	1    0    0    -1  
+$EndComp
+Text GLabel 9500 3400 0    50   Input ~ 0
+rmpulse
+$Comp
+L Device:C C?
+U 1 1 5E406B46
+P 10150 3800
+F 0 "C?" V 10100 3700 50  0000 C CNN
+F 1 "100n" V 10100 3950 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10188 3650 50  0001 C CNN
+F 3 "~" H 10150 3800 50  0001 C CNN
+	1    10150 3800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10300 3800 10750 3800
+Text GLabel 10750 3400 2    50   Input ~ 0
+rmpulse
+$Comp
+L Transistor_BJT:BC327 Q?
+U 1 1 5E4891B8
+P 9525 5450
+F 0 "Q?" H 9450 5275 50  0000 L CNN
+F 1 "BC327" H 9350 5625 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9725 5375 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 9525 5450 50  0001 L CNN
+	1    9525 5450
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	9625 5650 9625 5725
+Wire Wire Line
+	9625 5725 9025 5725
+Wire Wire Line
+	9025 5725 9025 6025
+Wire Wire Line
+	9625 5725 9625 5800
+Connection ~ 9625 5725
+$Comp
+L Device:R R?
+U 1 1 5E4AF968
+P 9625 5950
+F 0 "R?" H 9725 5950 50  0000 L CNN
+F 1 "10k" V 9625 5875 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9555 5950 50  0001 C CNN
+F 3 "~" H 9625 5950 50  0001 C CNN
+	1    9625 5950
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5E4C09F3
+P 9625 5250
+F 0 "#PWR?" H 9625 5100 50  0001 C CNN
+F 1 "VCC" H 9642 5423 50  0000 C CNN
+F 2 "" H 9625 5250 50  0001 C CNN
+F 3 "" H 9625 5250 50  0001 C CNN
+	1    9625 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR?
+U 1 1 5E4C205B
+P 9625 6100
+F 0 "#PWR?" H 9625 5950 50  0001 C CNN
+F 1 "VEE" H 9643 6273 50  0000 C CNN
+F 2 "" H 9625 6100 50  0001 C CNN
+F 3 "" H 9625 6100 50  0001 C CNN
+	1    9625 6100
+	-1   0    0    1   
+$EndComp
+Text Notes 9875 6325 1    50   ~ 0
+shift the 0/5V levels up to Vcc / Vee\nlevels. Q5 wants to be driven with these
+Wire Notes Line
+	6200 6500 9925 6500
+Wire Notes Line
+	9925 6500 9925 4225
+Wire Notes Line
+	6200 4225 6200 6500
+Wire Notes Line
+	6200 4225 9925 4225
+$Comp
+L Device:R R?
+U 1 1 5E576FD2
+P 6675 5050
+F 0 "R?" V 6625 5150 50  0000 L CNN
+F 1 "10k" V 6675 4975 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6605 5050 50  0001 C CNN
+F 3 "~" H 6675 5050 50  0001 C CNN
+	1    6675 5050
+	0    1    1    0   
+$EndComp
+Text Notes 525  1425 0    50   ~ 0
+Optional components:\n\nRossum compensation: can be left out, you must close JP1 then.\n    Effect: No precise 1V/oct tuning possible (stable, but non-linear\n           frequency response; requires digital compensation)\n\nSawtooth gen / dig.ring.mod.: can be left out, you must connect JP5's pin2+3. \n    Effect: No ring modulation features. Sawtooth still works.\n\nWaveform generation: can be left out (together with saw gen (above))\n    Effect: Only the triangle and square_ctl waves are available.
+$Comp
+L power:GNDD #PWR?
+U 1 1 5E7FD69F
+P 9925 1225
+F 0 "#PWR?" H 9925 975 50  0001 C CNN
+F 1 "GNDD" H 9975 1100 50  0000 C CNN
+F 2 "" H 9925 1225 50  0001 C CNN
+F 3 "" H 9925 1225 50  0001 C CNN
+	1    9925 1225
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x03_Odd_Even J1
+U 1 1 5E7E7ACB
+P 9500 1225
+F 0 "J1" H 9550 1542 50  0000 C CNN
+F 1 "power supply" H 9700 1000 50  0000 C CNN
+F 2 "" H 9500 1225 50  0001 C CNN
+F 3 "~" H 9500 1225 50  0001 C CNN
+	1    9500 1225
+	1    0    0    -1  
+$EndComp
+NoConn ~ 9800 1325
+Wire Wire Line
+	9800 1225 9925 1225
+Text Notes 9050 1875 0    50   ~ 0
+GNDREF and GNDD may be\nconnected, but this might have\na negative impact on the\nfrequency stability.
 $EndSCHEMATC
