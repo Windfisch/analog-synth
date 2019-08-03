@@ -1780,10 +1780,10 @@ F 3 "~" H 10000 2475 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR039
 U 1 1 5D87E356
 P 9800 1125
-F 0 "#PWR?" H 9800 975 50  0001 C CNN
+F 0 "#PWR039" H 9800 975 50  0001 C CNN
 F 1 "+5V" H 9815 1298 50  0000 C CNN
 F 2 "" H 9800 1125 50  0001 C CNN
 F 3 "" H 9800 1125 50  0001 C CNN
@@ -1793,10 +1793,10 @@ $EndComp
 Text Notes 9075 825  0    50   ~ 0
 VCC-GND should be <= 6V \nabsolute maximum: 7V).\nOtherwise, 5V and VCC\nmust be separated
 $Comp
-L Device:R R?
+L Device:R R39
 U 1 1 5DA160FA
 P 6675 5450
-F 0 "R?" V 6625 5550 50  0000 L CNN
+F 0 "R39" V 6625 5550 50  0000 L CNN
 F 1 "10k" V 6675 5375 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6605 5450 50  0001 C CNN
 F 3 "~" H 6675 5450 50  0001 C CNN
@@ -1804,10 +1804,10 @@ F 3 "~" H 6675 5450 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R38
 U 1 1 5DA129CE
 P 6675 5250
-F 0 "R?" V 6625 5350 50  0000 L CNN
+F 0 "R38" V 6625 5350 50  0000 L CNN
 F 1 "10k" V 6675 5175 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6605 5250 50  0001 C CNN
 F 3 "~" H 6675 5250 50  0001 C CNN
@@ -1815,10 +1815,10 @@ F 3 "~" H 6675 5250 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R45
 U 1 1 5D9D225A
 P 9175 5450
-F 0 "R?" V 9075 5425 50  0000 L CNN
+F 0 "R45" V 9075 5375 50  0000 L CNN
 F 1 "10k" V 9175 5375 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9105 5450 50  0001 C CNN
 F 3 "~" H 9175 5450 50  0001 C CNN
@@ -1827,10 +1827,10 @@ F 3 "~" H 9175 5450 50  0001 C CNN
 $EndComp
 Connection ~ 6400 4500
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR031
 U 1 1 5D8888E9
 P 6400 4500
-F 0 "#PWR?" H 6400 4350 50  0001 C CNN
+F 0 "#PWR031" H 6400 4350 50  0001 C CNN
 F 1 "+5V" H 6415 4673 50  0000 C CNN
 F 2 "" H 6400 4500 50  0001 C CNN
 F 3 "" H 6400 4500 50  0001 C CNN
@@ -1935,10 +1935,10 @@ Wire Wire Line
 	8425 5250 8425 5350
 Connection ~ 8425 5250
 $Comp
-L Device:R R?
+L Device:R R43
 U 1 1 5D937375
 P 7275 5700
-F 0 "R?" H 7225 5475 50  0000 L CNN
+F 0 "R43" V 7275 5375 50  0000 L CNN
 F 1 "100k" V 7275 5600 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7205 5700 50  0001 C CNN
 F 3 "~" H 7275 5700 50  0001 C CNN
@@ -1946,10 +1946,10 @@ F 3 "~" H 7275 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R41
 U 1 1 5D985574
 P 7125 5700
-F 0 "R?" H 7075 5475 50  0000 L CNN
+F 0 "R41" V 7125 5375 50  0000 L CNN
 F 1 "100k" V 7125 5600 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7055 5700 50  0001 C CNN
 F 3 "~" H 7125 5700 50  0001 C CNN
@@ -1963,10 +1963,10 @@ Wire Wire Line
 Wire Wire Line
 	6825 5250 7125 5250
 $Comp
-L Device:R R?
+L Device:R R40
 U 1 1 5DF424B1
 P 6975 5700
-F 0 "R?" H 6925 5475 50  0000 L CNN
+F 0 "R40" V 6975 5375 50  0000 L CNN
 F 1 "100k" V 6975 5600 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6905 5700 50  0001 C CNN
 F 3 "~" H 6975 5700 50  0001 C CNN
@@ -1996,7 +1996,7 @@ U 1 1 5E02732A
 P 6250 5250
 F 0 "J4" H 6300 5450 50  0000 C CNN
 F 1 "Conn_01x03_Male" H 6275 5775 50  0001 C CNN
-F 2 "" H 6250 5250 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 6250 5250 50  0001 C CNN
 F 3 "~" H 6250 5250 50  0001 C CNN
 	1    6250 5250
 	1    0    0    -1  
@@ -2023,10 +2023,10 @@ Wire Wire Line
 Wire Wire Line
 	8425 6325 9025 6325
 $Comp
-L Device:R R?
+L Device:R R44
 U 1 1 5E0DCE8F
 P 7425 5700
-F 0 "R?" H 7375 5475 50  0000 L CNN
+F 0 "R44" V 7425 5375 50  0000 L CNN
 F 1 "100k" V 7425 5600 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7355 5700 50  0001 C CNN
 F 3 "~" H 7425 5700 50  0001 C CNN
@@ -2045,10 +2045,10 @@ Wire Wire Line
 Wire Wire Line
 	7425 5550 8425 5550
 $Comp
-L power:GNDD #PWR?
+L power:GNDD #PWR033
 U 1 1 5E183D97
 P 7400 4500
-F 0 "#PWR?" H 7400 4250 50  0001 C CNN
+F 0 "#PWR033" H 7400 4250 50  0001 C CNN
 F 1 "GNDD" H 7375 4375 50  0000 C CNN
 F 2 "" H 7400 4500 50  0001 C CNN
 F 3 "" H 7400 4500 50  0001 C CNN
@@ -2057,10 +2057,10 @@ F 3 "" H 7400 4500 50  0001 C CNN
 $EndComp
 Connection ~ 7400 4500
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR032
 U 1 1 5E1D5BED
 P 6850 5850
-F 0 "#PWR?" H 6850 5700 50  0001 C CNN
+F 0 "#PWR032" H 6850 5700 50  0001 C CNN
 F 1 "+5V" H 6825 6000 50  0000 C CNN
 F 2 "" H 6850 5850 50  0001 C CNN
 F 3 "" H 6850 5850 50  0001 C CNN
@@ -2080,7 +2080,7 @@ U 1 1 5E380527
 P 9700 3600
 F 0 "J3" H 9675 4050 50  0000 C CNN
 F 1 "signal out" V 9750 3600 50  0000 C CNN
-F 2 "" H 9700 3600 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 9700 3600 50  0001 C CNN
 F 3 "~" H 9700 3600 50  0001 C CNN
 	1    9700 3600
 	1    0    0    -1  
@@ -2088,10 +2088,10 @@ $EndComp
 Text GLabel 9500 3400 0    50   Input ~ 0
 rmpulse
 $Comp
-L Device:C C?
+L Device:C C12
 U 1 1 5E406B46
 P 10150 3800
-F 0 "C?" V 10100 3700 50  0000 C CNN
+F 0 "C12" V 10100 3700 50  0000 C CNN
 F 1 "100n" V 10100 3950 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10188 3650 50  0001 C CNN
 F 3 "~" H 10150 3800 50  0001 C CNN
@@ -2103,10 +2103,10 @@ Wire Wire Line
 Text GLabel 10750 3400 2    50   Input ~ 0
 rmpulse
 $Comp
-L Transistor_BJT:BC327 Q?
+L Transistor_BJT:BC327 Q6
 U 1 1 5E4891B8
 P 9525 5450
-F 0 "Q?" H 9450 5275 50  0000 L CNN
+F 0 "Q6" H 9450 5275 50  0000 L CNN
 F 1 "BC327" H 9350 5625 50  0000 L CNN
 F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9725 5375 50  0001 L CIN
 F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 9525 5450 50  0001 L CNN
@@ -2123,10 +2123,10 @@ Wire Wire Line
 	9625 5725 9625 5800
 Connection ~ 9625 5725
 $Comp
-L Device:R R?
+L Device:R R46
 U 1 1 5E4AF968
 P 9625 5950
-F 0 "R?" H 9725 5950 50  0000 L CNN
+F 0 "R46" H 9700 5950 50  0000 L CNN
 F 1 "10k" V 9625 5875 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9555 5950 50  0001 C CNN
 F 3 "~" H 9625 5950 50  0001 C CNN
@@ -2134,10 +2134,10 @@ F 3 "~" H 9625 5950 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:VCC #PWR?
+L power:VCC #PWR037
 U 1 1 5E4C09F3
 P 9625 5250
-F 0 "#PWR?" H 9625 5100 50  0001 C CNN
+F 0 "#PWR037" H 9625 5100 50  0001 C CNN
 F 1 "VCC" H 9642 5423 50  0000 C CNN
 F 2 "" H 9625 5250 50  0001 C CNN
 F 3 "" H 9625 5250 50  0001 C CNN
@@ -2145,10 +2145,10 @@ F 3 "" H 9625 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:VEE #PWR?
+L power:VEE #PWR038
 U 1 1 5E4C205B
 P 9625 6100
-F 0 "#PWR?" H 9625 5950 50  0001 C CNN
+F 0 "#PWR038" H 9625 5950 50  0001 C CNN
 F 1 "VEE" H 9643 6273 50  0000 C CNN
 F 2 "" H 9625 6100 50  0001 C CNN
 F 3 "" H 9625 6100 50  0001 C CNN
@@ -2166,10 +2166,10 @@ Wire Notes Line
 Wire Notes Line
 	6200 4225 9925 4225
 $Comp
-L Device:R R?
+L Device:R R37
 U 1 1 5E576FD2
 P 6675 5050
-F 0 "R?" V 6625 5150 50  0000 L CNN
+F 0 "R37" V 6625 5150 50  0000 L CNN
 F 1 "10k" V 6675 4975 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6605 5050 50  0001 C CNN
 F 3 "~" H 6675 5050 50  0001 C CNN
@@ -2179,10 +2179,10 @@ $EndComp
 Text Notes 525  1425 0    50   ~ 0
 Optional components:\n\nRossum compensation: can be left out, you must close JP1 then.\n    Effect: No precise 1V/oct tuning possible (stable, but non-linear\n           frequency response; requires digital compensation)\n\nSawtooth gen / dig.ring.mod.: can be left out, you must connect JP5's pin2+3. \n    Effect: No ring modulation features. Sawtooth still works.\n\nWaveform generation: can be left out (together with saw gen (above))\n    Effect: Only the triangle and square_ctl waves are available.
 $Comp
-L power:GNDD #PWR?
+L power:GNDD #PWR040
 U 1 1 5E7FD69F
 P 9925 1225
-F 0 "#PWR?" H 9925 975 50  0001 C CNN
+F 0 "#PWR040" H 9925 975 50  0001 C CNN
 F 1 "GNDD" H 9975 1100 50  0000 C CNN
 F 2 "" H 9925 1225 50  0001 C CNN
 F 3 "" H 9925 1225 50  0001 C CNN
@@ -2195,7 +2195,7 @@ U 1 1 5E7E7ACB
 P 9500 1225
 F 0 "J1" H 9550 1542 50  0000 C CNN
 F 1 "power supply" H 9700 1000 50  0000 C CNN
-F 2 "" H 9500 1225 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical" H 9500 1225 50  0001 C CNN
 F 3 "~" H 9500 1225 50  0001 C CNN
 	1    9500 1225
 	1    0    0    -1  
