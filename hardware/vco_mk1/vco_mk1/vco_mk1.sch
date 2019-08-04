@@ -53,7 +53,7 @@ Wire Wire Line
 	1825 6400 1925 6400
 Text GLabel 5625 6700 2    50   Input ~ 0
 square_ctl
-Text GLabel 5675 5250 2    50   Input ~ 0
+Text GLabel 5675 5200 2    50   Input ~ 0
 triangle
 $Comp
 L Device:R R30
@@ -66,8 +66,6 @@ F 3 "~" H 3075 7250 50  0001 C CNN
 	1    3075 7250
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	5675 5250 4125 5250
 Wire Wire Line
 	2375 7400 3475 7400
 Wire Wire Line
@@ -119,11 +117,6 @@ F 3 "~" H 4425 5900 50  0001 C CNN
 $EndComp
 Text GLabel 5675 5800 2    50   Input ~ 0
 sawtooth
-Wire Wire Line
-	4125 5700 4125 5250
-Connection ~ 4125 5250
-Wire Wire Line
-	4125 5250 2875 5250
 $Comp
 L Device:R R32
 U 1 1 5CF775B1
@@ -147,8 +140,6 @@ F 3 "~" H 5000 5450 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 Connection ~ 2875 6300
-Wire Wire Line
-	2875 5250 2875 6300
 $Comp
 L Device:R R31
 U 1 1 5CF9A0F2
@@ -162,8 +153,6 @@ F 3 "~" H 4175 6250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4675 5075 4125 5075
-Wire Wire Line
-	4125 5075 4125 5250
 Text GLabel 1025 4875 0    50   Input ~ 0
 V_pwm
 Wire Wire Line
@@ -2205,4 +2194,62 @@ Wire Wire Line
 	9800 1225 9925 1225
 Text Notes 9050 1875 0    50   ~ 0
 GNDREF and GNDD may be\nconnected, but this might have\na negative impact on the\nfrequency stability.
+Text Notes 3150 5300 0    50   ~ 0
+or 470n
+Wire Wire Line
+	4125 5075 4125 5325
+Wire Wire Line
+	5675 5200 2875 5200
+Wire Wire Line
+	2875 5200 2875 5325
+Wire Wire Line
+	2950 5325 2875 5325
+Connection ~ 2875 5325
+Wire Wire Line
+	2875 5325 2875 6300
+Wire Wire Line
+	3250 5325 3325 5325
+Connection ~ 4125 5325
+Wire Wire Line
+	4125 5325 4125 5700
+$Comp
+L Device:R R?
+U 1 1 5D53B3BE
+P 3325 5475
+F 0 "R?" H 3175 5525 50  0000 L CNN
+F 1 "none" V 3325 5375 50  0000 L CNN
+F 2 "" V 3255 5475 50  0001 C CNN
+F 3 "~" H 3325 5475 50  0001 C CNN
+	1    3325 5475
+	1    0    0    -1  
+$EndComp
+Connection ~ 3325 5325
+Wire Wire Line
+	3325 5325 4125 5325
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D54168D
+P 3325 5625
+F 0 "#PWR?" H 3325 5375 50  0001 C CNN
+F 1 "GNDREF" H 3330 5452 50  0001 C CNN
+F 2 "" H 3325 5625 50  0001 C CNN
+F 3 "" H 3325 5625 50  0001 C CNN
+	1    3325 5625
+	-1   0    0    -1  
+$EndComp
+Text Notes 2925 5675 0    25   ~ 0
+do not equip R?\n10-100k are fine,\nbut R33+Q5 are\nenough for our\npurpose.
+$Comp
+L Device:C C?
+U 1 1 5D49B6B5
+P 3100 5325
+F 0 "C?" V 3150 5225 50  0000 C CNN
+F 1 "100n" V 3050 5200 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3138 5175 50  0001 C CNN
+F 3 "~" H 3100 5325 50  0001 C CNN
+	1    3100 5325
+	0    1    1    0   
+$EndComp
+Text Notes 2800 5175 0    25   ~ 0
+remove the DC offset. This doesn't matter for normal\noperation, but for DCO operation, where R27-R30 have\nno effect and thus, the signal is not centered.
 $EndSCHEMATC
