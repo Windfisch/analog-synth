@@ -2252,4 +2252,8 @@ F 3 "~" H 3100 5325 50  0001 C CNN
 $EndComp
 Text Notes 2800 5175 0    25   ~ 0
 remove the DC offset. This doesn't matter for normal\noperation, but for DCO operation, where R27-R30 have\nno effect and thus, the signal is not centered.
+Text Notes 5725 5050 0    50   ~ 0
+TODO:\nraw pulse?
+Text Notes 5300 7475 0    50   ~ 0
+For another interesting square wave\nvariation, connect ctl_override (JP5,\npin 3) to J4. Then play around with\nthe PWM voltage and watch rmpulse.
 $EndSCHEMATC
