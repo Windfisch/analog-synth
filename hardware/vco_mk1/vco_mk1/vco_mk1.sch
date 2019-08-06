@@ -711,7 +711,7 @@ L Device:R_POT R42
 U 1 1 5D47F832
 P 10650 1200
 F 0 "R42" H 10581 1246 50  0000 R CNN
-F 1 "TODO" V 10650 1300 50  0000 R CNN
+F 1 "1k" V 10650 1250 50  0000 R CNN
 F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 10650 1200 50  0001 C CNN
 F 3 "~" H 10650 1200 50  0001 C CNN
 	1    10650 1200
@@ -840,23 +840,23 @@ var_vsource
 $Comp
 L power:VCC #PWR01
 U 1 1 5E0402DF
-P 825 3350
-F 0 "#PWR01" H 825 3200 50  0001 C CNN
-F 1 "VCC" H 725 3425 50  0000 C CNN
-F 2 "" H 825 3350 50  0001 C CNN
-F 3 "" H 825 3350 50  0001 C CNN
-	1    825  3350
+P 825 3050
+F 0 "#PWR01" H 825 2900 50  0001 C CNN
+F 1 "VCC" H 725 3125 50  0000 C CNN
+F 2 "" H 825 3050 50  0001 C CNN
+F 3 "" H 825 3050 50  0001 C CNN
+	1    825  3050
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:VEE #PWR02
 U 1 1 5E03FE83
-P 825 3650
-F 0 "#PWR02" H 825 3500 50  0001 C CNN
-F 1 "VEE" H 925 3725 50  0000 C CNN
-F 2 "" H 825 3650 50  0001 C CNN
-F 3 "" H 825 3650 50  0001 C CNN
-	1    825  3650
+P 825 3950
+F 0 "#PWR02" H 825 3800 50  0001 C CNN
+F 1 "VEE" H 925 4025 50  0000 C CNN
+F 2 "" H 825 3950 50  0001 C CNN
+F 3 "" H 825 3950 50  0001 C CNN
+	1    825  3950
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
@@ -1210,7 +1210,7 @@ L Device:C C3
 U 1 1 5D41CBBB
 P 4900 2900
 F 0 "C3" V 4648 2900 50  0000 C CNN
-F 1 "1n" V 4739 2900 50  0000 C CNN
+F 1 "2.2n" V 4739 2900 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4938 2750 50  0001 C CNN
 F 3 "~" H 4900 2900 50  0001 C CNN
 	1    4900 2900
@@ -1329,8 +1329,8 @@ $Comp
 L Device:R R15
 U 1 1 5D41CBAE
 P 5650 2725
-F 0 "R15" H 5720 2771 50  0000 L CNN
-F 1 "1k" H 5720 2680 50  0000 L CNN
+F 0 "R15" H 5725 2725 50  0000 L CNN
+F 1 "1k" V 5650 2675 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5580 2725 50  0001 C CNN
 F 3 "~" H 5650 2725 50  0001 C CNN
 	1    5650 2725
@@ -2322,4 +2322,38 @@ F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5025 5175 50  0001 C CNN
 	3    4975 4975
 	1    0    0    1   
 $EndComp
+Text Notes 4650 2600 0    50   ~ 0
+TODO: test 1n
+$Comp
+L Device:R R?
+U 1 1 5D73F6A7
+P 825 3200
+F 0 "R?" H 650 3200 50  0000 L CNN
+F 1 "1Meg" V 825 3100 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 755 3200 50  0001 C CNN
+F 3 "~" H 825 3200 50  0001 C CNN
+	1    825  3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D7480C4
+P 825 3800
+F 0 "R?" H 650 3800 50  0000 L CNN
+F 1 "1Meg" V 825 3700 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 755 3800 50  0001 C CNN
+F 3 "~" H 825 3800 50  0001 C CNN
+	1    825  3800
+	1    0    0    -1  
+$EndComp
+Text Notes 675  3750 1    25   ~ 0
+2x 1Meg for Q4 compensation\nless (possibly 0 Ohm) for other\npurposes
+Text Notes 5500 1625 0    50   ~ 0
+1Meg
+Text Notes 7225 1250 0    50   ~ 0
+111k
+Text Notes 7875 2325 0    50   ~ 0
+Rs that can scale together:\nx: R14, x: R19, 1/x: R13\nTODO test!
+Text Notes 3525 3400 0    50   ~ 0
+10k
 $EndSCHEMATC
