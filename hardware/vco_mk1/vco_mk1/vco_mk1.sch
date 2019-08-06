@@ -2223,7 +2223,7 @@ remove the DC offset. This doesn't matter for normal\noperation, but for DCO ope
 Text Notes 5725 5050 0    50   ~ 0
 TODO:\nraw pulse?
 Text Notes 5300 7475 0    50   ~ 0
-For another interesting square wave\nvariation, connect ctl_override (JP5,\npin 3) to J4. Then play around with\nthe PWM voltage and watch rmpulse.
+For another interesting square wave\nvariation, connect ctl_override (JP5,\npin 3) to J4. Then play around with\nthe PWM voltage and watch rmpulse.\n\nApply narrow periodic pull-to-GND\npulse to U2's pin5 (J?) for soft sync.
 Wire Notes Line
 	6075 6625 3650 6625
 Wire Notes Line
@@ -2289,4 +2289,16 @@ Wire Wire Line
 Connection ~ 3800 3200
 Text Notes 2725 6725 1    50   ~ 0
 TODO: jumper?
+$Comp
+L Connector:Conn_01x01_Male J?
+U 1 1 5D4BF3A9
+P 2825 6600
+F 0 "J?" V 2775 6550 50  0000 L CNN
+F 1 "Conn_01x01_Male" V 2978 6644 50  0001 L CNN
+F 2 "" H 2825 6600 50  0001 C CNN
+F 3 "~" H 2825 6600 50  0001 C CNN
+	1    2825 6600
+	0    1    1    0   
+$EndComp
+Connection ~ 2825 6800
 $EndSCHEMATC
