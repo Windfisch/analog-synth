@@ -223,17 +223,6 @@ F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 3225 6900 50  0001 C CNN
 $EndComp
 $Comp
 L Amplifier_Operational:LM324 U2
-U 3 1 5D62893A
-P 4975 4975
-F 0 "U2" H 5050 5150 50  0000 C CNN
-F 1 "LM324" H 4950 4975 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 4925 5075 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5025 5175 50  0001 C CNN
-	3    4975 4975
-	1    0    0    -1  
-$EndComp
-$Comp
-L Amplifier_Operational:LM324 U2
 U 4 1 5D628944
 P 4975 5800
 F 0 "U2" H 5050 5625 50  0000 C CNN
@@ -1993,7 +1982,7 @@ $EndComp
 Text GLabel 8425 4950 0    50   Input ~ 0
 pulse
 Wire Wire Line
-	8425 5550 8425 6325
+	8425 5550 8425 5800
 Wire Wire Line
 	8425 6325 9025 6325
 $Comp
@@ -2184,10 +2173,10 @@ or 470n
 Wire Wire Line
 	5675 5200 2875 5200
 $Comp
-L Device:R R?
+L Device:R R47
 U 1 1 5D53B3BE
 P 3550 5825
-F 0 "R?" H 3425 5975 50  0000 L CNN
+F 0 "R47" H 3425 5975 50  0000 L CNN
 F 1 "none" V 3550 5725 50  0000 L CNN
 F 2 "" V 3480 5825 50  0001 C CNN
 F 3 "~" H 3550 5825 50  0001 C CNN
@@ -2195,10 +2184,10 @@ F 3 "~" H 3550 5825 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GNDREF #PWR?
+L power:GNDREF #PWR041
 U 1 1 5D54168D
 P 3550 5975
-F 0 "#PWR?" H 3550 5725 50  0001 C CNN
+F 0 "#PWR041" H 3550 5725 50  0001 C CNN
 F 1 "GNDREF" H 3555 5802 50  0001 C CNN
 F 2 "" H 3550 5975 50  0001 C CNN
 F 3 "" H 3550 5975 50  0001 C CNN
@@ -2208,10 +2197,10 @@ $EndComp
 Text Notes 3075 6000 0    25   ~ 0
 do not equip R?\n10-100k are fine,\nbut R33+Q5 are\nenough for our\npurpose.
 $Comp
-L Device:C C?
+L Device:C C13
 U 1 1 5D49B6B5
 P 3225 5600
-F 0 "C?" V 3275 5700 50  0000 C CNN
+F 0 "C13" V 3275 5700 50  0000 C CNN
 F 1 "100n" V 3175 5475 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3263 5450 50  0001 C CNN
 F 3 "~" H 3225 5600 50  0001 C CNN
@@ -2223,7 +2212,7 @@ remove the DC offset. This doesn't matter for normal\noperation, but for DCO ope
 Text Notes 5725 5050 0    50   ~ 0
 TODO:\nraw pulse?
 Text Notes 5300 7475 0    50   ~ 0
-For another interesting square wave\nvariation, connect ctl_override (JP5,\npin 3) to J4. Then play around with\nthe PWM voltage and watch rmpulse.\n\nApply narrow periodic pull-to-GND\npulse to U2's pin5 (J?) for soft sync.
+For another interesting square wave\nvariation, connect ctl_override (JP5,\npin 3) to J4. Then play around with\nthe PWM voltage and watch rmpulse.\n\nApply narrow periodic pull-to-GND\npulse to U2's pin5 (J6) for soft sync.
 Wire Notes Line
 	6075 6625 3650 6625
 Wire Notes Line
@@ -2235,10 +2224,10 @@ Wire Wire Line
 Wire Wire Line
 	2875 5200 2875 5500
 $Comp
-L Jumper:Jumper_2_Open JP?
+L Jumper:Jumper_2_Open JP6
 U 1 1 5D692292
 P 3225 5400
-F 0 "JP?" H 3050 5475 50  0000 C CNN
+F 0 "JP6" H 3050 5475 50  0000 C CNN
 F 1 "Jumper_2_Open" H 3225 5544 50  0001 C CNN
 F 2 "" H 3225 5400 50  0001 C CNN
 F 3 "~" H 3225 5400 50  0001 C CNN
@@ -2290,10 +2279,10 @@ Connection ~ 3800 3200
 Text Notes 2725 6725 1    50   ~ 0
 TODO: jumper?
 $Comp
-L Connector:Conn_01x01_Male J?
+L Connector:Conn_01x01_Male J6
 U 1 1 5D4BF3A9
 P 2825 6600
-F 0 "J?" V 2775 6550 50  0000 L CNN
+F 0 "J6" V 2775 6550 50  0000 L CNN
 F 1 "Conn_01x01_Male" V 2978 6644 50  0001 L CNN
 F 2 "" H 2825 6600 50  0001 C CNN
 F 3 "~" H 2825 6600 50  0001 C CNN
@@ -2301,4 +2290,36 @@ F 3 "~" H 2825 6600 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Connection ~ 2825 6800
+$Comp
+L Device:R R48
+U 1 1 5D58016A
+P 8425 5950
+F 0 "R48" H 8450 5800 50  0000 L CNN
+F 1 "10k" V 8425 5875 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8355 5950 50  0001 C CNN
+F 3 "~" H 8425 5950 50  0001 C CNN
+	1    8425 5950
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8425 6100 8425 6325
+Wire Notes Line
+	1825 7450 1625 7450
+Wire Notes Line
+	1825 6800 1825 7450
+Text Notes 1900 7225 1    20   ~ 0
+connected to var_vsource\n(probably in error)
+Text Notes 10500 3275 0    50   ~ 0
+todo: maybe 47n?
+$Comp
+L Amplifier_Operational:LM324 U2
+U 3 1 5D62893A
+P 4975 4975
+F 0 "U2" H 5075 4825 50  0000 C CNN
+F 1 "LM324" H 4950 4975 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 4925 5075 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5025 5175 50  0001 C CNN
+	3    4975 4975
+	1    0    0    1   
+$EndComp
 $EndSCHEMATC
