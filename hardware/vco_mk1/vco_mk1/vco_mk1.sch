@@ -1979,7 +1979,7 @@ F 3 "~" H 9225 6125 50  0001 C CNN
 	1    9225 6125
 	-1   0    0    -1  
 $EndComp
-Text GLabel 8425 4950 0    50   Input ~ 0
+Text GLabel 8125 4950 0    50   Input ~ 0
 pulse
 Wire Wire Line
 	8425 5550 8425 5800
@@ -2356,4 +2356,15 @@ Text Notes 7875 2325 0    50   ~ 0
 Rs that can scale together:\nx: R14, x: R19, 1/x: R13\nTODO test!
 Text Notes 3525 3400 0    50   ~ 0
 10k
+$Comp
+L Device:R R?
+U 1 1 5D91B055
+P 8275 4950
+F 0 "R?" V 8175 4900 50  0000 L CNN
+F 1 "0" V 8275 4925 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8205 4950 50  0001 C CNN
+F 3 "~" H 8275 4950 50  0001 C CNN
+	1    8275 4950
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
