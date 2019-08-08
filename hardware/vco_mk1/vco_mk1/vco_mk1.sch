@@ -2308,7 +2308,7 @@ Wire Notes Line
 Wire Notes Line
 	1825 6800 1825 7450
 Text Notes 1900 7225 1    20   ~ 0
-connected to var_vsource\n(probably in error)
+connected to var_vsource\n(probably in error). TODO
 Text Notes 10500 3275 0    50   ~ 0
 todo: maybe 47n?
 $Comp
