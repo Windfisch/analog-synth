@@ -1067,12 +1067,12 @@ $EndComp
 $Comp
 L Amplifier_Operational:LM324 U1
 U 3 1 5D5EBF6F
-P 7350 1825
-F 0 "U1" H 7450 1675 50  0000 C CNN
-F 1 "LM324" H 7325 1825 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 7300 1925 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 7400 2025 50  0001 C CNN
-	3    7350 1825
+P 2050 2400
+F 0 "U1" H 2150 2250 50  0000 C CNN
+F 1 "LM324" H 2025 2400 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 2000 2500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 2100 2600 50  0001 C CNN
+	3    2050 2400
 	1    0    0    1   
 $EndComp
 $Comp
@@ -1089,12 +1089,12 @@ $EndComp
 $Comp
 L Amplifier_Operational:LM324 U1
 U 1 1 5D5E9E8D
-P 2050 2400
-F 0 "U1" H 2150 2250 50  0000 C CNN
-F 1 "LM324" H 2025 2400 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 2000 2500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 2100 2600 50  0001 C CNN
-	1    2050 2400
+P 7350 1825
+F 0 "U1" H 7450 1675 50  0000 C CNN
+F 1 "LM324" H 7325 1825 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 7300 1925 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 7400 2025 50  0001 C CNN
+	1    7350 1825
 	1    0    0    1   
 $EndComp
 Text GLabel 1150 2350 0    50   Input ~ 0
