@@ -1932,8 +1932,6 @@ F 3 "~" H 9225 6125 50  0001 C CNN
 	1    9225 6125
 	-1   0    0    -1  
 $EndComp
-Text GLabel 8125 4950 0    50   Input ~ 0
-pulse
 Wire Wire Line
 	8425 5550 8425 5800
 Wire Wire Line
@@ -2162,8 +2160,6 @@ F 3 "~" H 3225 5600 50  0001 C CNN
 $EndComp
 Text Notes 2800 5175 0    25   ~ 0
 remove the DC offset. This doesn't matter for normal\noperation, but for DCO operation, where R26-R29 have\nno effect and thus, the signal is not centered.
-Text Notes 5725 5050 0    50   ~ 0
-TODO:\nraw pulse?
 Text Notes 5300 7475 0    50   ~ 0
 For another interesting square wave\nvariation, connect ctl_override (JP5,\npin 3) to J4. Then play around with\nthe PWM voltage and watch rmpulse.\n\nApply narrow periodic pull-to-GND\npulse to U2's pin5 (J6) for soft sync.
 Wire Notes Line
@@ -2310,12 +2306,12 @@ Text Notes 3525 3400 0    50   ~ 0
 $Comp
 L Device:R R48
 U 1 1 5D91B055
-P 8275 4950
-F 0 "R48" V 8175 4900 50  0000 L CNN
-F 1 "0" V 8275 4925 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8205 4950 50  0001 C CNN
-F 3 "~" H 8275 4950 50  0001 C CNN
-	1    8275 4950
+P 8250 4950
+F 0 "R48" V 8150 4900 50  0000 L CNN
+F 1 "10k" V 8250 4875 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8180 4950 50  0001 C CNN
+F 3 "~" H 8250 4950 50  0001 C CNN
+	1    8250 4950
 	0    1    1    0   
 $EndComp
 Wire Wire Line
@@ -2388,8 +2384,15 @@ F 3 "~" H 2450 2550 50  0001 C CNN
 	1    2450 2550
 	1    0    0    -1  
 $EndComp
-Text Notes 3825 4650 2    50   ~ 0
-When R40 is replaced by 0 Ohm,\nR48 must be replaced with 10k
 Text Notes 475  300  0    100  ~ 0
 TODO: fix all component references in texts
+Connection ~ 5675 4975
+Wire Wire Line
+	8425 4950 8400 4950
+Wire Wire Line
+	8100 4950 6350 4950
+Wire Wire Line
+	6350 4950 6350 4975
+Wire Wire Line
+	5675 4975 6350 4975
 $EndSCHEMATC
