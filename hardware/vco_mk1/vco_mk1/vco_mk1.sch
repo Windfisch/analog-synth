@@ -2270,7 +2270,7 @@ Wire Notes Line
 Wire Notes Line
 	1825 6800 1825 7450
 Text Notes 1900 7225 1    20   ~ 0
-connected to var_vsource\n(probably in error). TODO
+originally connected to\nvar_vsource in error. (*)
 Text Notes 10500 3275 0    50   ~ 0
 todo: maybe 47n?
 $Comp
@@ -2386,4 +2386,6 @@ Wire Notes Line
 	5075 7075 3575 7075
 Wire Notes Line
 	3575 7075 3575 7750
+Text Notes 1050 7500 1    25   ~ 0
+Note (*): R24 was connected to var_vsource at first.\n(in error). Connecting R24 to GND and Q4 to\nvar_vsource at nearly the same potential \ndifference < 0.1mV) led to very good tracking\nresults. Maybe the tracking accuracy is not a\ncalibration issue, but an opamp overload situation.
 $EndSCHEMATC
