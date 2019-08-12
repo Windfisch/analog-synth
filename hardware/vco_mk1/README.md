@@ -32,4 +32,4 @@ features:
 There are two different board layouts:
 
   - [one smaller double-sided layout](vco_mk1_windfisch)
-  - [one larger layout with components only on the top side](vco_mk1-spitfire), contributed by [SpitfireX](https://github.com/spitfirex).
+  - [one larger layout with components only on the top side](vco_mk1_spitfire), contributed by [SpitfireX](https://github.com/spitfirex).
