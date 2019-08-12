@@ -49,6 +49,10 @@ are detailed annotations on which part serves which purpose.
 Under `measure_vco/` you can find the tooling and test results for measuring
 the pitch deviation of the VCO.
 
+[hardware/](hardware/) contains the actual hardware boards and drafts:
+
+  - The [VCO development board mk I](hardware/vco_mk1)
+
 ## Setup
 
 To build libopencm3:
