@@ -3134,7 +3134,7 @@
     (descr "Through hole straight pin header, 2x07, 2.54mm pitch, double rows")
     (tags "Through hole pin header THT 2x07 2.54mm double row")
     (path /5D76A0AB)
-    (fp_text reference J2 (at 1.27 -2.33) (layer F.SilkS)
+    (fp_text reference J2 (at 1.27 -2.159) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value "control in" (at 1.27 17.57) (layer F.Fab)
