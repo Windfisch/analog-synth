@@ -579,7 +579,7 @@ F 3 "" H 1250 7500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 3600 7725 0    50   ~ 0
-Just a hacky way of applying an\nadjustable voltage with an adjustable\ninner resistance. You can leave out\nR26-R28 and equip R? with a 0 Ohm\nresistor.\nThat will cause a slightly off-center\ntriangle wave and a shifted sawtooth,\nat least with the LM324.
+Just a hacky way of applying an\nadjustable voltage with an adjustable\ninner resistance. You can leave out\nR27-R29 and equip R30 with a 0R\nresistor.\nThat will cause a slightly off-center\ntriangle wave and a shifted sawtooth,\nat least with the LM324.
 Wire Notes Line
 	5075 7750 3575 7750
 $Comp
@@ -667,7 +667,7 @@ Wire Notes Line
 Wire Notes Line
 	3450 5750 3450 7750
 Text Notes 500  5700 0    50   ~ 0
-R20 * C8 should be 100µs, this affects the freq. range\nR20 : R22+R23 must be 2:1, this affects the triangle shape\nR21 : R24 must be 1:1, this affects the triangle shape\nR29 : R30 should be 1:2, this affects the tri amplitude and\nfrequency range. Too large R29 may cause distortion\nR32 : R34 should be 1:1, this affects sawtooth amplitude
+R22 * C4 should be 100µs, this affects the freq. range\nR22 : R24+R25 must be 2:1, this affects the triangle shape\nR23 : R26 must be 1:1, this affects the triangle shape\nR31 : R33 should be 1:1 to 1:5, this affects tri amplitude\nand frequency range. Too large R31 may cause distortion\nR36 : R38 should be 1:1, this affects sawtooth amplitude
 Text GLabel 10800 1200 2    50   Input ~ 0
 V_tune
 $Comp
@@ -1148,9 +1148,9 @@ F 3 "~" H 2025 2050 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Text Notes 3950 1050 0    50   ~ 0
-R14 determines the I_C current through\nQ1B when Q1B's base is at GNDREF.\nTogether with V_tune, it determines the pitch.\nChoose R14 and V_tune such, that Q1A's base is\nat around GNDREF for "sane" pitches.
+R16 determines the I_C current through\nQ1B when Q1B's base is at GNDREF.\nTogether with V_tune, it determines the pitch.\nChoose R14 and V_tune such, that Q1A's base is\nat around GNDREF for "sane" pitches.
 Text Notes 5975 3925 0    50   ~ 0
-for Q1B, the following holds true:\nI_C = const * exp(V_B / VT) with VT=26mV\n(thermal voltage of a transistor)\nnow this means that V_expo will double\nevery (log(2) * 26mV) = 18mV.\n\nNote that VT is temperature dependent.\nWhen the temperature rises, VT rises and so\nthe input voltage must rise too. The thermal\ncompensation consisting of R7-10 does that.\n\nAdditionally, Q1A and Q1B have a bulk resistance\nbetween their ideal and actual emitters. This\ncauses the VCO's tuning to drop a bit at high\nfrequencies. The Rossum compensation compensates\nfor this by measuring the current through R15 and\nfeeding back a small amount into Q1A's base.
+for Q1B, the following holds true:\nI_C = const * exp(V_B / VT) with VT=26mV\n(thermal voltage of a transistor)\nnow this means that V_expo will double\nevery (log(2) * 26mV) = 18mV.\n\nNote that VT is temperature dependent.\nWhen the temperature rises, VT rises and so\nthe input voltage must rise too. The thermal\ncompensation consisting of R9-12 does that.\n\nAdditionally, Q1A and Q1B have a bulk resistance\nbetween their ideal and actual emitters. This\ncauses the VCO's tuning to drop a bit at high\nfrequencies. The Rossum compensation compensates\nfor this by measuring the current through R17 and\nfeeding back a small amount into Q1A's base.
 Wire Wire Line
 	5350 3275 5650 3275
 Connection ~ 5350 3275
@@ -1777,7 +1777,7 @@ $EndComp
 Text Notes 6250 6450 0    50   ~ 0
 Sawtooth generation and digital ring modulation\n(sawtooth is basically a square_ctl ringmodulated triangle)
 Text Notes 8025 4775 0    50   ~ 0
-Jumper configurations for JP5:\n12 + 34: sawtooth wave with 4x ringmod\n12: triangle wave with 4x ringmod\n    (pin 4 can be used as fifth ringmod)\n23: sawtooth, no ring mod. Choose this\n    when no 74HC86 is installed.
+Jumper configurations for JP6:\n12 + 34: sawtooth wave with 4x ringmod\n12: triangle wave with 4x ringmod\n    (pin 4 can be used as fifth ringmod)\n23: sawtooth, no ring mod. Choose this\n    when no 74HC86 is installed.
 Wire Wire Line
 	6450 5450 6525 5450
 Wire Wire Line
@@ -2091,7 +2091,7 @@ F 3 "~" H 6675 5050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Text Notes 525  1800 0    50   ~ 0
-Optional components:\n\nRossum compensation: can be left out, you must close JP1 then.\n    Effect: No precise 1V/oct tuning possible (stable, but non-linear\n           frequency response; requires digital compensation)\n\nSawtooth gen / dig.ring.mod.: can be left out, you must connect JP5's pin2+3. \n    Effect: No ring modulation features. Sawtooth still works.\n\nWaveform generation: can be left out (together with saw gen (above))\n    Effect: Only the triangle and square_ctl waves are available.\n\nTriangle center poti: R26-R29 can be left out. Connect via 100kOhm\n        to GNDREF instead.\n    Effect: Uncentered (raw) triangle. No effect if JP? is not closed.\n   
+Optional components:\n\nRossum compensation: can be left out, you must close JP1 then.\n    Effect: No precise 1V/oct tuning possible (stable, but non-linear\n           frequency response; requires digital compensation)\n\nSawtooth gen / dig.ring.mod.: can be left out, you must connect JP5's pin2+3. \n    Effect: No ring modulation features. Sawtooth still works.\n\nWaveform generation: can be left out (together with saw gen (above))\n    Effect: Only the triangle and square_ctl waves are available.\n\nTriangle center poti: R27-R29 can be left out. Equip R30 as 0 Ohm\n        instead.\n    Effect: Uncentered (raw) triangle. No effect if JP5 is not closed.\n   
 $Comp
 L power:GNDD #PWR038
 U 1 1 5E7FD69F
@@ -2146,7 +2146,7 @@ F 3 "" H 3550 5975 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Text Notes 3075 6000 0    25   ~ 0
-do not equip R?\n10-100k are fine,\nbut R33+Q5 are\nenough for our\npurpose.
+do not equip R34.\n10-100k are fine,\nbut R37+Q5 are\nenough for our\npurpose.
 $Comp
 L Device:C C5
 U 1 1 5D49B6B5
@@ -2159,9 +2159,9 @@ F 3 "~" H 3225 5600 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Text Notes 2800 5175 0    25   ~ 0
-remove the DC offset. This doesn't matter for normal\noperation, but for DCO operation, where R26-R29 have\nno effect and thus, the signal is not centered.
+remove the DC offset. This doesn't matter for normal\noperation, but for DCO operation, where R27-R31 have\nno effect and thus, the signal is not centered.
 Text Notes 5300 7475 0    50   ~ 0
-For another interesting square wave\nvariation, connect ctl_override (JP5,\npin 3) to J4. Then play around with\nthe PWM voltage and watch rmpulse.\n\nApply narrow periodic pull-to-GND\npulse to U2's pin5 (J6) for soft sync.
+For another interesting square wave\nvariation, connect ctl_override (JP6,\npin 3) to J4. Then play around with\nthe PWM voltage and watch rmpulse.\n\nApply narrow periodic pull-to-GND\npulse to U2's pin5 (J6) for soft sync.
 Wire Notes Line
 	6075 6625 3650 6625
 Wire Notes Line
@@ -2300,7 +2300,7 @@ Text Notes 5500 1625 0    50   ~ 0
 Text Notes 7225 1250 0    50   ~ 0
 111k
 Text Notes 7875 2325 0    50   ~ 0
-Rs that can scale together:\nx: R14, x: R19, 1/x: R13\nTODO test!
+Rs that can scale together:\nx: R16, x: R21, 1/x: R14\nTODO test!
 Text Notes 3525 3400 0    50   ~ 0
 10k
 $Comp
@@ -2372,7 +2372,7 @@ Wire Notes Line
 Wire Notes Line
 	3575 7075 3575 7750
 Text Notes 1050 7500 1    25   ~ 0
-Note (*): R24 was connected to var_vsource at first.\n(in error). Connecting R24 to GND and Q4 to\nvar_vsource at nearly the same potential \ndifference < 0.1mV) led to very good tracking\nresults. Maybe the tracking accuracy is not a\ncalibration issue, but an opamp overload situation.
+Note (*): R26 was connected to var_vsource at first.\n(in error). Connecting R26 to GND and Q4 to\nvar_vsource at nearly the same potential \ndifference < 0.1mV) led to very good tracking\nresults. Maybe the tracking accuracy is not a\ncalibration issue, but an opamp overload situation.
 $Comp
 L Device:R R9
 U 1 1 5D4A8D8A
@@ -2384,8 +2384,6 @@ F 3 "~" H 2450 2550 50  0001 C CNN
 	1    2450 2550
 	1    0    0    -1  
 $EndComp
-Text Notes 475  300  0    100  ~ 0
-TODO: fix all component references in texts
 Connection ~ 5675 4975
 Wire Wire Line
 	8425 4950 8400 4950
