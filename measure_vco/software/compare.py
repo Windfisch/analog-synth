@@ -94,6 +94,18 @@ def percentile(values, perc):
 def expand_range(lo, hi, lo_amount, hi_amount):
 	return (lo - lo_amount*(hi-lo), hi + hi_amount*(hi-lo))
 
+def lighten_color(color, amount=0.5):
+    import matplotlib.colors as mc
+    import colorsys
+    try:
+        c = mc.cnames[color]
+    except:
+        c = color
+    c = colorsys.rgb_to_hls(*mc.to_rgb(c))
+    return colorsys.hls_to_rgb(c[0], 1 - amount * (1 - c[1]), c[2])
+
+colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:brown', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
+
 # plots using matplotlib, but properly sets the x/y ranges so that outliers aren't shown
 def fancy_plot(xs, ys):
 	x_perc = 0.1
@@ -107,7 +119,7 @@ def fancy_plot(xs, ys):
 	plt.show()
 
 # plots using matplotlib, but properly sets the x/y ranges so that outliers aren't shown
-def fancy_plot2(xs1, ys1, xs2, ys2, xlabel, y1label, y2label, fig=None, ax1=None, ax2=None):
+def fancy_plot2(xs1, ys1, xs2, ys2, base_color, xlabel, y1label, y2label, fig=None, ax1=None, ax2=None):
 	x_perc = 0.1
 	y_perc = 0.1
 	x_extra = 0.03
@@ -119,7 +131,7 @@ def fancy_plot2(xs1, ys1, xs2, ys2, xlabel, y1label, y2label, fig=None, ax1=None
 	else:
 		setup = False
 	
-	color = 'tab:blue'
+	color = base_color
 
 	if setup:
 		ax1.xaxis.set_major_locator(matplotlib.ticker.MultipleLocator(600))
@@ -147,12 +159,10 @@ def fancy_plot2(xs1, ys1, xs2, ys2, xlabel, y1label, y2label, fig=None, ax1=None
 		ax1.set_xlabel(xlabel)
 		ax1.set_ylabel(y1label, color=color)
 		ax1.tick_params(axis='y', labelcolor=color)
-	#else:
-	#	del ax1.lines[1]
 	
 	ax1.plot(xs1, ys1, color=color)
 
-	color = 'tab:red'
+	color = lighten_color(base_color, 0.5)
 	if ax2 is None:
 		ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 		ax2.axhline(0.5, ls='--', lw=1, color=color)
@@ -160,8 +170,6 @@ def fancy_plot2(xs1, ys1, xs2, ys2, xlabel, y1label, y2label, fig=None, ax1=None
 
 		ax2.set_ylabel(y2label, color=color)  # we already handled the x-label with ax1
 		ax2.tick_params(axis='y', labelcolor=color)
-	#else:
-	#	del ax2.lines[1]
 		
 	ax2.plot(xs2, ys2, color=color)
 
@@ -170,7 +178,14 @@ def fancy_plot2(xs1, ys1, xs2, ys2, xlabel, y1label, y2label, fig=None, ax1=None
 	return fig,ax1,ax2
 
 fig,ax1,ax2=None,None,None
-for filename in sys.argv[1:]:
+
+fit = None
+
+cents_a4 = log(440,2)*1200
+cents_c0 = cents_a4 - 4*1200 - 1200 + 300
+
+for filename,i in zip(sys.argv[1:], range(999999)):
+	base_color = colors[i%len(colors)]
 	# read the input file
 	print()
 	print()
@@ -186,17 +201,39 @@ for filename in sys.argv[1:]:
 	cents = [(d[0], log(d[1],2)*1200) for d in data]
 	cents = wiggle(cents, 0.1, 0.0)
 
-	fit = fit_line(cents, 100, 100)
+	pwm = [(d[0], d[2]) for d in data]
+	pwm = wiggle(pwm, 0.1, 0.0)
+	
+	if fit is None: # fit the v/oct gain and the offset only once.
+		fit = fit_line(cents, 100, 100)
+	
+	# find the index in cents that is closest to a4
+	l = None
+	count = 0
+	for c, i in zip(cents, range(len(cents))):
+		if c[1] > cents_a4:
+			count += 1 # try to be robust against outliers
+			if count >= 5:
+				l = i-5
+				break
+
+	print("a4 is at %d/%d" % (l, len(cents)))
+	
+	# find the offset (which can be changed by the tune poti), taking the v/oct gain as given
+	avg, avg_n = 0,0
+	for probe in range( max(0, l-10), min(len(cents), l+10) ):
+		avg += -fit[0] * cents[probe][0] + cents[probe][1]
+		avg_n += 1
+	fit[1] = avg/avg_n
+	
 	print(fit)
 	print("%6.2f code points = %6.4f Volt per octave" % (1200 / fit[0], 1200 / fit[0] / 2048))
 	print("starting at %7.2f Hz = %+6.0fc distance from a4@440Hz" % ( 2**(fit[1]/1200), fit[1] - log(440,2)*1200))
 	print("ending   at %7.2f Hz = %+6.0fc distance from a4@440Hz" % ( 2**(4096*fit[0]/1200 + fit[1]/1200), 4096*fit[0]+fit[1] - log(440,2)*1200))
 
-	cents_a4 = log(440,2)*1200
-	cents_c0 = cents_a4 - 4*1200 - 1200 + 300
-
+	pwm = [ (fit[0]*p[0] + fit[1] - cents_c0, p[1]) for p in pwm]
 	cent_deviation = [ (fit[0]*c[0] + fit[1] - cents_c0, c[1] - (fit[0]*c[0] + fit[1])) for c in cents]
 
-	fig, ax1, ax2 = fancy_plot2(axis(cent_deviation,0), axis(cent_deviation,1), axis(cent_deviation, 0), axis(data,2), "target tone [cent]", "deviation [cent]", "pulse width", fig, ax1, ax2)
+	fig, ax1, ax2 = fancy_plot2(axis(cent_deviation,0), axis(cent_deviation,1), axis(pwm, 0), axis(pwm,1), base_color, "target tone [cent]", "deviation [cent]", "pulse width", fig, ax1, ax2)
 
 plt.show()
