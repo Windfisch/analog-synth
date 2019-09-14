@@ -63,24 +63,47 @@ void delay_us(int us)
 	} while ( (uint16_t)(t1-t0) < total_increments);
 }
 
-volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
-volatile uint16_t timer_begin;
-volatile uint32_t measurement_count;
-volatile int timer_edge;
+//-------------------------------------------------------------------------
+// TIMER CONTROL
+//-------------------------------------------------------------------------
+// Usage:
+//   1. use update_tim2_freq()
+//   2. set n_measurements and measurement_time_limit accordingly
+//      (usually, one wants to set one to UINT32_MAX)
+//   3. set timer_state = WAITING
+//   4. wait for timer_state becoming IDLE again
+//   5. retrieve the results in measurements[], measurement_count and measurement_time.
 
-#define N_MEASUREMENTS 5
+
+// private variables
+volatile uint16_t timer_begin; // [timer ticks]
+volatile int timer_edge; // EXTI_TRIGGER_RISING or EXTI_TRIGGER_FALLING
+
+// input variables
+volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
+volatile uint32_t n_measurements = 5;
+volatile uint32_t measurement_time_limit = UINT32_MAX; // [timer ticks]
+
+// output variables
+volatile uint32_t measurement_count;
+volatile uint32_t measurement_time; // [timer ticks]
+
+#define MAX_MEASUREMENTS 200
 typedef struct
 {
-	volatile int high_time;
-	volatile int low_time;
+	volatile int high_time; // [timer ticks]
+	volatile int low_time;  // [timer ticks]
 } measurement_t;
 
-volatile measurement_t measurements[N_MEASUREMENTS];
+volatile measurement_t measurements[MAX_MEASUREMENTS];
+
+//-------------------------------------------------------------------------
+
 
 int measurement_sum()
 {
 	int sum = 0;
-	for (int i=0; i<N_MEASUREMENTS; i++)
+	for (int i=0; i<MAX_MEASUREMENTS; i++)
 		sum += measurements[i].high_time + measurements[i].low_time;
 	return sum;
 }
@@ -106,6 +129,7 @@ void exti9_5_isr()
 					case WAITING:
 						timer_begin = timer_val;
 						measurement_count = 0;
+						measurement_time = 0;
 						timer_state = RUNNING;
 						break;
 
@@ -115,9 +139,10 @@ void exti9_5_isr()
 						timer_begin = timer_val;
 
 						measurements[measurement_count].low_time = elapsed;
+						measurement_time += measurements[measurement_count].high_time + measurements[measurement_count].low_time;
 						measurement_count++;
 
-						if (measurement_count >= N_MEASUREMENTS)
+						if (measurement_count >= MAX_MEASUREMENTS || measurement_count >= n_measurements || measurement_time >= measurement_time_limit)
 							timer_state = IDLE;
 
 						break;
@@ -217,11 +242,11 @@ void init_frequency_expectations()
 	dac_write(PROBE1);
 	timer_state = WAITING;
 	while (timer_state != IDLE); // wait for the measurement to complete
-	probe1_freq = MCU_CLOCK * N_MEASUREMENTS / tim2_div / measurement_sum();
+	probe1_freq = MCU_CLOCK * MAX_MEASUREMENTS / tim2_div / measurement_sum();
 	dac_write(PROBE2);
 	timer_state = WAITING;
 	while (timer_state != IDLE); // wait for the measurement to complete
-	probe2_freq = MCU_CLOCK * N_MEASUREMENTS / tim2_div / measurement_sum();
+	probe2_freq = MCU_CLOCK * MAX_MEASUREMENTS / tim2_div / measurement_sum();
 	printf("freq at %d is %d, freq at %d is %d\n", PROBE1, probe1_freq, PROBE2, probe2_freq);
 }
 
