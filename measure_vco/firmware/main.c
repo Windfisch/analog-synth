@@ -63,7 +63,6 @@ void delay_us(int us)
 	} while ( (uint16_t)(t1-t0) < total_increments);
 }
 
-volatile int voltage_val;
 volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
 volatile uint16_t timer_begin;
 volatile uint32_t measurement_count;
@@ -318,8 +317,6 @@ int main(void) {
 
 		dac_write(pitch_val);
 
-		voltage_val = pitch_val;
-
 		//for (volatile int i=0; i<500000; i++);
 	
 		timer_state = WAITING;
@@ -327,7 +324,7 @@ int main(void) {
 		while (timer_state != IDLE); // wait for the measurement to complete.
 
 		// print the result
-		printf("%4d %6d ", voltage_val, tim2_div);
+		printf("%4d %6d ", pitch_val, tim2_div);
 		for (int i=0; i<measurement_count; i++)
 			printf("  %8d %8d", measurements[i].low_time, measurements[i].high_time);
 		printf("\n");
