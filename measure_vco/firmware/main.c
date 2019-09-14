@@ -119,14 +119,8 @@ void exti9_5_isr()
 						measurement_count++;
 
 						if (measurement_count >= N_MEASUREMENTS)
-						{
 							timer_state = IDLE;
 
-							printf("%4d %6d ", voltage_val, tim2_div);
-							for (int i=0; i<N_MEASUREMENTS; i++)
-								printf("  %8d %8d", measurements[i].low_time, measurements[i].high_time);
-							printf("\n");
-						}
 						break;
 					}
 					case IDLE:
@@ -319,7 +313,7 @@ int main(void) {
 		int pitch_val = reverse_bits(i, 12);
 		//int pitch_val = (i*64) % 4096;
 
-		update_tim2_freq( expected_frequency(pitch_val) * 2 * 30000 ); // that leaves an octave room for misjudgement
+		update_tim2_freq( expected_frequency(pitch_val) * 2 * 30000 ); // that leaves an octave room for misjudgement. 30000 ~= 2**16 / 2
 		//printf("expected freq: %d\n", expected_frequency(pitch_val));
 
 		dac_write(pitch_val);
@@ -330,7 +324,13 @@ int main(void) {
 	
 		timer_state = WAITING;
 		//printf("%d\n",i);
-		while (timer_state != IDLE); // wait for the measurement to complete. the ISR will print the result
+		while (timer_state != IDLE); // wait for the measurement to complete.
+
+		// print the result
+		printf("%4d %6d ", voltage_val, tim2_div);
+		for (int i=0; i<measurement_count; i++)
+			printf("  %8d %8d", measurements[i].low_time, measurements[i].high_time);
+		printf("\n");
 	}
 	printf("end\n");
 	panic();
