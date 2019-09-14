@@ -99,16 +99,6 @@ volatile measurement_t measurements[MAX_MEASUREMENTS];
 
 //-------------------------------------------------------------------------
 
-
-int measurement_sum()
-{
-	int sum = 0;
-	for (int i=0; i<MAX_MEASUREMENTS; i++)
-		sum += measurements[i].high_time + measurements[i].low_time;
-	return sum;
-}
-
-void panic(void);
 void panic(void) { for(;;); }
 
 void exti9_5_isr()
@@ -242,11 +232,11 @@ void init_frequency_expectations()
 	dac_write(PROBE1);
 	timer_state = WAITING;
 	while (timer_state != IDLE); // wait for the measurement to complete
-	probe1_freq = MCU_CLOCK * MAX_MEASUREMENTS / tim2_div / measurement_sum();
+	probe1_freq = MCU_CLOCK * measurement_count / tim2_div / measurement_time;
 	dac_write(PROBE2);
 	timer_state = WAITING;
 	while (timer_state != IDLE); // wait for the measurement to complete
-	probe2_freq = MCU_CLOCK * MAX_MEASUREMENTS / tim2_div / measurement_sum();
+	probe2_freq = MCU_CLOCK * measurement_count / tim2_div / measurement_time;
 	printf("freq at %d is %d, freq at %d is %d\n", PROBE1, probe1_freq, PROBE2, probe2_freq);
 }
 
