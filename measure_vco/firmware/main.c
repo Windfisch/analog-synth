@@ -246,6 +246,12 @@ int expected_frequency(int codepoint)
 	return probe1_freq * exp2(octaves * (float)(codepoint-PROBE1) / (float)(PROBE2-PROBE1));
 }
 
+int expected_codepoint(float freq)
+{
+	float octaves = log2(probe2_freq/ (float) probe1_freq); // octaves across PROBE1 .. PROBE2
+	return log2(freq / probe1_freq) / octaves * (PROBE2-PROBE1) + PROBE1;
+}
+
 // requires that init_frequency_expectations() has been called before
 // measures n cycles and returns the frequency.
 // side effects: fills measurements and associated variables.
@@ -260,6 +266,29 @@ float measure_frequency_at_codepoint(int codepoint, int n)
 	while (timer_state != IDLE); // wait for the measurement to complete.
 
 	return ((float)MCU_CLOCK) / tim2_div / measurement_time * measurement_count;
+}
+
+// accuracy: maximum frequency deviation relative to freq. use 0.003 for 5 cent accuracy
+int search_codepoint_for_frequency(float freq, float accuracy, int n)
+{
+	int codepoint = expected_codepoint(freq);
+	
+	printf("searching for %f Hz\n", freq);
+
+	int codepoint_error;
+	float actual_freq;
+	do
+	{
+		printf("trying codepoint %i", codepoint);
+		actual_freq = measure_frequency_at_codepoint(codepoint, n);
+		codepoint_error = expected_codepoint(freq) - expected_codepoint(actual_freq);
+		printf(" -> freq is %f Hz -> need to shift by %+i\n", actual_freq, codepoint_error);
+		codepoint += codepoint_error;
+	} while (codepoint_error != 0 && freq/actual_freq <= (1.f + accuracy) && actual_freq/freq <= (1.f + accuracy));
+	
+	printf("result: %f is at %d\n", actual_freq, codepoint);
+
+	return codepoint;
 }
 
 // ---------- main code ----------
