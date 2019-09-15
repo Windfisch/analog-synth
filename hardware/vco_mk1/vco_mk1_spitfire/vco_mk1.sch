@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:vco_mk1-cache
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -82,13 +82,13 @@ Wire Wire Line
 $Comp
 L power:VCC #PWR021
 U 1 1 5CF357C9
-P 3075 7050
-F 0 "#PWR021" H 3075 6900 50  0001 C CNN
-F 1 "VCC" H 3175 7075 50  0000 C CNN
-F 2 "" H 3075 7050 50  0001 C CNN
-F 3 "" H 3075 7050 50  0001 C CNN
-	1    3075 7050
-	-1   0    0    1   
+P 3075 6350
+F 0 "#PWR021" H 3075 6200 50  0001 C CNN
+F 1 "VCC" H 2975 6475 50  0000 C CNN
+F 2 "" H 3075 6350 50  0001 C CNN
+F 3 "" H 3075 6350 50  0001 C CNN
+	1    3075 6350
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	2625 6300 2875 6300
@@ -200,34 +200,34 @@ Connection ~ 4125 5700
 $Comp
 L Amplifier_Operational:LM324 U2
 U 1 1 5D628926
-P 2225 6300
-F 0 "U2" H 2325 6150 50  0000 C CNN
-F 1 "LM324" H 2200 6300 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 2175 6400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 2275 6500 50  0001 C CNN
-	1    2225 6300
+P 4975 4975
+F 0 "U2" H 5075 4825 50  0000 C CNN
+F 1 "LM324" H 4950 4975 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 4925 5075 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5025 5175 50  0001 C CNN
+	1    4975 4975
 	1    0    0    1   
 $EndComp
 $Comp
 L Amplifier_Operational:LM324 U2
 U 2 1 5D628930
-P 3175 6700
-F 0 "U2" H 3275 6550 50  0000 C CNN
-F 1 "LM324" H 3150 6700 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 3125 6800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 3225 6900 50  0001 C CNN
-	2    3175 6700
+P 4975 5800
+F 0 "U2" H 5075 5650 50  0000 C CNN
+F 1 "LM324" H 4950 5800 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 4925 5900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5025 6000 50  0001 C CNN
+	2    4975 5800
 	1    0    0    1   
 $EndComp
 $Comp
 L Amplifier_Operational:LM324 U2
 U 4 1 5D628944
-P 4975 5800
-F 0 "U2" H 5050 5625 50  0000 C CNN
-F 1 "LM324" H 4950 5800 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 4925 5900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5025 6000 50  0001 C CNN
-	4    4975 5800
+P 3175 6700
+F 0 "U2" H 3250 6525 50  0000 C CNN
+F 1 "LM324" H 3150 6700 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 3125 6800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 3225 6900 50  0001 C CNN
+	4    3175 6700
 	1    0    0    1   
 $EndComp
 $Comp
@@ -245,13 +245,13 @@ Connection ~ 3475 6700
 $Comp
 L power:VEE #PWR020
 U 1 1 5CF354CF
-P 3075 6350
-F 0 "#PWR020" H 3075 6200 50  0001 C CNN
-F 1 "VEE" H 2975 6475 50  0000 C CNN
-F 2 "" H 3075 6350 50  0001 C CNN
-F 3 "" H 3075 6350 50  0001 C CNN
-	1    3075 6350
-	1    0    0    -1  
+P 3075 7050
+F 0 "#PWR020" H 3075 6900 50  0001 C CNN
+F 1 "VEE" H 3175 7075 50  0000 C CNN
+F 2 "" H 3075 7050 50  0001 C CNN
+F 3 "" H 3075 7050 50  0001 C CNN
+	1    3075 7050
+	-1   0    0    1   
 $EndComp
 Wire Wire Line
 	5275 5800 5375 5800
@@ -261,8 +261,6 @@ Wire Wire Line
 	4625 5450 4625 5700
 Wire Wire Line
 	5150 5450 5375 5450
-Wire Wire Line
-	5375 5450 5375 5800
 Connection ~ 5375 5800
 Wire Wire Line
 	5375 5800 5675 5800
@@ -381,10 +379,10 @@ Wire Notes Line
 Wire Wire Line
 	3075 7050 3075 7025
 $Comp
-L Device:C_Small C7
+L Device:C_Small C6
 U 1 1 5D5CE3BE
 P 3225 7025
-F 0 "C7" V 3175 7125 50  0000 C CNN
+F 0 "C6" V 3175 7125 50  0000 C CNN
 F 1 "100n" V 3100 7025 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3225 7025 50  0001 C CNN
 F 3 "~" H 3225 7025 50  0001 C CNN
@@ -408,10 +406,10 @@ Connection ~ 3075 7025
 Wire Wire Line
 	3075 7025 3075 7000
 $Comp
-L Device:C_Small C6
+L Device:C_Small C7
 U 1 1 5D5E8697
 P 3225 6375
-F 0 "C6" V 3175 6450 50  0000 C CNN
+F 0 "C7" V 3175 6450 50  0000 C CNN
 F 1 "100n" V 3100 6375 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3225 6375 50  0001 C CNN
 F 3 "~" H 3225 6375 50  0001 C CNN
@@ -2261,12 +2259,12 @@ todo: maybe 47n?
 $Comp
 L Amplifier_Operational:LM324 U2
 U 3 1 5D62893A
-P 4975 4975
-F 0 "U2" H 5075 4825 50  0000 C CNN
-F 1 "LM324" H 4950 4975 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 4925 5075 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5025 5175 50  0001 C CNN
-	3    4975 4975
+P 2225 6300
+F 0 "U2" H 2325 6150 50  0000 C CNN
+F 1 "LM324" H 2200 6300 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 2175 6400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 2275 6500 50  0001 C CNN
+	3    2225 6300
 	1    0    0    1   
 $EndComp
 Text Notes 4650 2600 0    50   ~ 0
@@ -2393,4 +2391,6 @@ Wire Wire Line
 	6350 4950 6350 4975
 Wire Wire Line
 	5675 4975 6350 4975
+Wire Wire Line
+	5375 5450 5375 5800
 $EndSCHEMATC

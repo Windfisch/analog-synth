@@ -34,13 +34,21 @@ There are two different board layouts:
   - [one smaller double-sided layout](vco_mk1_windfisch)
   - [one larger layout with components only on the top side](vco_mk1_spitfire), contributed by [SpitfireX](https://github.com/spitfirex).
 
-They have been fabricated by [JLCPCB](https://jlcpcb.com) using the gerber outputs in `gerber/` or `fab/`.
-
 
 Revisions
 ---------
 
-Currently, there is only one revision, rev01. Please see the Errata below.
+**rev01** can be identified by the marking _"VCO development board mk I"_
+(without revision id). Both layouts have been fabricated by [JLCPCB](https://jlcpcb.com)
+using the gerber outputs in `gerber-rev01/` or `fab-rev01/`.
+Please see the Errata below.
+
+**rev02** can be identified by the text _"VCO development board mk I (rev02)"_.
+It has never been fabricated as it contains only silk screen bug fixes.
+The differences to rev01 are:
+
+  - U2 is rotated by 180 degrees, swapping U2A/U2C and U2B/U2D, respectively.
+  - The pictograms around J3 have been rearranged in the correct order.
 
 Errata (rev01)
 --------------
@@ -48,6 +56,11 @@ Errata (rev01)
 U2 has Vcc and Vee swapped in the schematic. This can be resolved by inserting
 U2 into the socket "the wrong way" (i.e. the notch is not on the side where the
 PCB wants to have the notch).
+
+SpitfireX's board has the pictograms around J3 reversed. This affects both
+the signal pictograms as well as the marking for the capacitor-coupled outputs.
+
+These are fixed in rev02.
 
 Differences from the schematic (rev01)
 --------------------------------------
