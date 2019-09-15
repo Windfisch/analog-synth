@@ -88,7 +88,7 @@ volatile uint32_t measurement_time_limit = UINT32_MAX; // [timer ticks]
 volatile uint32_t measurement_count;
 volatile uint32_t measurement_time; // [timer ticks]
 
-#define MAX_MEASUREMENTS 200
+#define MAX_MEASUREMENTS 1000
 typedef struct
 {
 	volatile int high_time; // [timer ticks]
@@ -279,18 +279,40 @@ int search_codepoint_for_frequency(float freq, float accuracy, int n)
 	float actual_freq;
 	do
 	{
+		if (codepoint < 0) codepoint = 0;
+		if (codepoint >= 4096) codepoint = 4095;
 		printf("trying codepoint %i", codepoint);
 		actual_freq = measure_frequency_at_codepoint(codepoint, n);
 		codepoint_error = expected_codepoint(freq) - expected_codepoint(actual_freq);
 		printf(" -> freq is %f Hz -> need to shift by %+i\n", actual_freq, codepoint_error);
 		codepoint += codepoint_error;
-	} while (codepoint_error != 0 && freq/actual_freq <= (1.f + accuracy) && actual_freq/freq <= (1.f + accuracy));
+	} while (codepoint_error != 0 && !(freq/actual_freq <= (1.f + accuracy) && actual_freq/freq <= (1.f + accuracy)));
 	
 	printf("result: %f is at %d\n", actual_freq, codepoint);
 
 	return codepoint;
 }
 
+void measure_frequency_stability(float target_freq)
+{
+	int codepoint = search_codepoint_for_frequency(target_freq, 0.000, 10);
+	printf("code point is %d\n", codepoint);
+
+	update_tim2_freq( target_freq * 2 * 30000 ); // that leaves an octave room for misjudgement. 30000 ~= 2**16 / 2
+	measurement_time_limit = MCU_CLOCK / tim2_div;
+	n_measurements = MAX_MEASUREMENTS;
+	dac_write(codepoint);
+
+	timer_state = WAITING;
+	while (timer_state != IDLE); // wait for the measurement to complete.
+	
+	printf("done, took %d measurements\n", measurement_count);
+	// print the result
+	printf("%4d %6d ", codepoint, tim2_div);
+	for (uint32_t i=0; i<measurement_count; i++)
+		printf("  %8d %8d", measurements[i].low_time, measurements[i].high_time);
+	printf("\n");
+}
 // ---------- main code ----------
 
 int main(void) {
@@ -367,6 +389,15 @@ int main(void) {
 	play_note(4095 - 100);
 
 
+	measure_frequency_stability(110);
+	measure_frequency_stability(220);
+	measure_frequency_stability(440);
+	measure_frequency_stability(880);
+	measure_frequency_stability(1320);
+	measure_frequency_stability(1760);
+
+
+	while(true)
 	for (int i=0; i<4096; i++)
 	{
 		int pitch_val = reverse_bits(i, 12);
