@@ -1,6 +1,8 @@
 PROJECT = dac_test
 BUILD_DIR = bin
 
+LDFLAGS+=-u _printf_float
+
 #SHARED_DIR = ../my-common-code
 CFILES = main.c
 #AFILES = stuff.S
