@@ -27,5 +27,16 @@ for line in open(sys.argv[1],'r').readlines():
 	ratios = [a/(a+b) for a,b in pairs]
 	times = [sum([a+b for a,b in pairs[0:i]]) for i in range(len(pairs))]
 
-	plt.plot(times, cents)
+	plt.subplot(211)
+	color = 'tab:red'
+	plt.xlabel('time (s)')
+	plt.ylabel('frequency deviation', color=color)
+	plt.plot(times, cents, color=color)
+
+	plt.subplot(212)
+	color = 'tab:blue'
+	plt.xlabel('time (s)')
+	plt.ylabel('pulse ratio', color=color)
+	plt.plot(times, ratios, color=color)
+
 	plt.show()
