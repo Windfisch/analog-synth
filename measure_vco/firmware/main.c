@@ -15,7 +15,22 @@
 
 #define MCU_CLOCK  78000000 // 78 MHz
 
-volatile int tim2_div = 1; // range: 1 - 65536. this equals tim2's prescaler plus 1. i.e. it's the number of mcu clocks per one timer tick
+#define USART_DEBUG USART2
+
+#define TIM_MEAS TIM2
+#define RCC_TIM_MEAS RCC_TIM2
+#define RST_TIM_MEAS RST_TIM2
+
+#define EXTI_MEAS EXTI7
+#define EXTI_MEAS_PIN GPIO7
+#define EXTI_MEAS_GPIO GPIOE
+
+// The SPI bus with the DAC
+#define GPIO_SPI_DAC GPIOE
+#define SPI_DAC_SS_PIN GPIO13
+#define SPI_DAC SPI4
+
+volatile int tim_meas_div = 1; // range: 1 - 65536. this equals tim_meas's prescaler plus 1. i.e. it's the number of mcu clocks per one timer tick
 
 // allow printf() to use the USART
 int _write(int file, char *ptr, int len)
@@ -25,9 +40,9 @@ int _write(int file, char *ptr, int len)
 	if (file == STDOUT_FILENO || file == STDERR_FILENO) {
 		for (i = 0; i < len; i++) {
 			if (ptr[i] == '\n') {
-				usart_send_blocking(USART2, '\r');
+				usart_send_blocking(USART_DEBUG, '\r');
 			}
-			usart_send_blocking(USART2, ptr[i]);
+			usart_send_blocking(USART_DEBUG, ptr[i]);
 		}
 		return i;
 	}
@@ -37,13 +52,13 @@ int _write(int file, char *ptr, int len)
 
 void delay_us(int us)
 {
-	const int TIM2_CLOCK = MCU_CLOCK / tim2_div;
+	const int tim_meas_clock = MCU_CLOCK / tim_meas_div;
 	#define DELAY_MAX_COUNT 50000 // this has an ample margin to 65536
 
-	uint16_t t0 = timer_get_counter(TIM2);
+	uint16_t t0 = timer_get_counter(TIM_MEAS);
 	uint16_t t1;
 
-	int total_increments = ((uint64_t)us) * TIM2_CLOCK / 1000000;
+	int total_increments = ((uint64_t)us) * tim_meas_clock / 1000000;
 
 	int takes = total_increments / DELAY_MAX_COUNT;
 	total_increments = total_increments % DELAY_MAX_COUNT;
@@ -52,14 +67,14 @@ void delay_us(int us)
 	{
 		do
 		{
-			t1 = timer_get_counter(TIM2);
+			t1 = timer_get_counter(TIM_MEAS);
 		} while ( (uint16_t)(t1-t0) < DELAY_MAX_COUNT);
 		t0 += DELAY_MAX_COUNT;
 	}
 
 	do
 	{
-		t1 = timer_get_counter(TIM2);
+		t1 = timer_get_counter(TIM_MEAS);
 	} while ( (uint16_t)(t1-t0) < total_increments);
 }
 
@@ -67,7 +82,7 @@ void delay_us(int us)
 // TIMER CONTROL
 //-------------------------------------------------------------------------
 // Usage:
-//   1. use update_tim2_freq()
+//   1. use update_tim_meas_freq()
 //   2. set n_measurements and measurement_time_limit accordingly
 //      (usually, one wants to set one to UINT32_MAX)
 //   3. set timer_state = WAITING
@@ -103,10 +118,10 @@ void panic(void) { for(;;); }
 
 void exti9_5_isr()
 {
-	uint16_t timer_val = timer_get_counter(TIM2);
-	if (exti_get_flag_status(EXTI7))
+	uint16_t timer_val = timer_get_counter(TIM_MEAS);
+	if (exti_get_flag_status(EXTI_MEAS))
 	{
-		exti_reset_request(EXTI7);
+		exti_reset_request(EXTI_MEAS);
 
 		
 
@@ -142,7 +157,7 @@ void exti9_5_isr()
 
 				}
 
-				exti_set_trigger(EXTI7, EXTI_TRIGGER_FALLING);
+				exti_set_trigger(EXTI_MEAS, EXTI_TRIGGER_FALLING);
 				timer_edge = EXTI_TRIGGER_FALLING;
 				break;
 
@@ -161,7 +176,7 @@ void exti9_5_isr()
 					}
 				}
 
-				exti_set_trigger(EXTI7, EXTI_TRIGGER_RISING);
+				exti_set_trigger(EXTI_MEAS, EXTI_TRIGGER_RISING);
 				timer_edge = EXTI_TRIGGER_RISING;
 				
 				break;
@@ -180,9 +195,9 @@ void exti9_5_isr()
 
 void dac_write(int val)
 {
-		gpio_clear(GPIOE, GPIO13); // slave select low
-		spi_xfer(SPI4, 0x0000 | 0x3000 | val);
-		gpio_set(GPIOE, GPIO13); // slave select high
+		gpio_clear(GPIO_SPI_DAC, SPI_DAC_SS_PIN); // slave select low
+		spi_xfer(SPI_DAC, 0x0000 | 0x3000 | val);
+		gpio_set(GPIO_SPI_DAC, SPI_DAC_SS_PIN); // slave select high
 }
 
 void play_note(int code)
@@ -204,18 +219,18 @@ static unsigned reverse_bits(unsigned val, int n_bits)
 	return result;
 }
 
-void update_tim2_freq(uint32_t freq)
+void update_tim_meas_freq(uint32_t freq)
 {
 	int prescaler = (MCU_CLOCK+freq-1) / freq - 1; // round up
 	if (prescaler > 0xFFFF) prescaler = 0xFFFF;
 	if (prescaler < 0) prescaler = 0;
 
-	tim2_div = prescaler+1;
+	tim_meas_div = prescaler+1;
 
-	timer_disable_counter(TIM2);
-	timer_set_prescaler(TIM2, prescaler);
-	timer_generate_event(TIM2, TIM_EGR_UG); // force the prescaler preload register to be flushed into the active register
-	timer_enable_counter(TIM2);
+	timer_disable_counter(TIM_MEAS);
+	timer_set_prescaler(TIM_MEAS, prescaler);
+	timer_generate_event(TIM_MEAS, TIM_EGR_UG); // force the prescaler preload register to be flushed into the active register
+	timer_enable_counter(TIM_MEAS);
 }
 
 
@@ -228,15 +243,15 @@ int probe1_freq, probe2_freq;
 void init_frequency_expectations()
 {
 	// measure the frequencies at PROBE1 and PROBE2 in order to feed the expected_frequency() helper function
-	update_tim2_freq(10); // this is a very conservative value, yielding bad resolution but no risk of overflowing the timer.
+	update_tim_meas_freq(10); // this is a very conservative value, yielding bad resolution but no risk of overflowing the timer.
 	dac_write(PROBE1);
 	timer_state = WAITING;
 	while (timer_state != IDLE); // wait for the measurement to complete
-	probe1_freq = MCU_CLOCK * measurement_count / tim2_div / measurement_time;
+	probe1_freq = MCU_CLOCK * measurement_count / tim_meas_div / measurement_time;
 	dac_write(PROBE2);
 	timer_state = WAITING;
 	while (timer_state != IDLE); // wait for the measurement to complete
-	probe2_freq = MCU_CLOCK * measurement_count / tim2_div / measurement_time;
+	probe2_freq = MCU_CLOCK * measurement_count / tim_meas_div / measurement_time;
 	printf("freq at %d is %d, freq at %d is %d\n", PROBE1, probe1_freq, PROBE2, probe2_freq);
 }
 
@@ -259,13 +274,13 @@ float measure_frequency_at_codepoint(int codepoint, int n)
 {
 	measurement_time_limit = UINT32_MAX;
 	n_measurements = n;
-	update_tim2_freq( expected_frequency(codepoint) * 2 * 30000 ); // that leaves an octave room for misjudgement. 30000 ~= 2**16 / 2
+	update_tim_meas_freq( expected_frequency(codepoint) * 2 * 30000 ); // that leaves an octave room for misjudgement. 30000 ~= 2**16 / 2
 	dac_write(codepoint);
 
 	timer_state = WAITING;
 	while (timer_state != IDLE); // wait for the measurement to complete.
 
-	return ((float)MCU_CLOCK) / tim2_div / measurement_time * measurement_count;
+	return ((float)MCU_CLOCK) / tim_meas_div / measurement_time * measurement_count;
 }
 
 // accuracy: maximum frequency deviation relative to freq. use 0.003 for 5 cent accuracy
@@ -298,8 +313,8 @@ void measure_frequency_stability(float target_freq)
 	int codepoint = search_codepoint_for_frequency(target_freq, 0.000, 10);
 	printf("code point is %d\n", codepoint);
 
-	update_tim2_freq( target_freq * 2 * 30000 ); // that leaves an octave room for misjudgement. 30000 ~= 2**16 / 2
-	measurement_time_limit = MCU_CLOCK / tim2_div;
+	update_tim_meas_freq( target_freq * 2 * 30000 ); // that leaves an octave room for misjudgement. 30000 ~= 2**16 / 2
+	measurement_time_limit = MCU_CLOCK / tim_meas_div;
 	n_measurements = MAX_MEASUREMENTS;
 	dac_write(codepoint);
 
@@ -308,7 +323,7 @@ void measure_frequency_stability(float target_freq)
 	
 	printf("done, took %d measurements\n", measurement_count);
 	// print the result
-	printf("%4d %6d ", codepoint, tim2_div);
+	printf("%4d %6d ", codepoint, tim_meas_div);
 	for (uint32_t i=0; i<measurement_count; i++)
 		printf("  %8d %8d", measurements[i].low_time, measurements[i].high_time);
 	printf("\n");
@@ -325,21 +340,21 @@ int main(void) {
 	
 	// interrupt pin
 	nvic_enable_irq(NVIC_EXTI9_5_IRQ);
-	gpio_mode_setup(GPIOE, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO7);
-	exti_select_source(EXTI7, GPIOE);
-	exti_set_trigger(EXTI7, EXTI_TRIGGER_RISING);
+	gpio_mode_setup(EXTI_MEAS_GPIO, GPIO_MODE_INPUT, GPIO_PUPD_NONE, EXTI_MEAS_PIN);
+	exti_select_source(EXTI_MEAS, EXTI_MEAS_GPIO);
+	exti_set_trigger(EXTI_MEAS, EXTI_TRIGGER_RISING);
 	timer_edge = EXTI_TRIGGER_RISING;
-	exti_enable_request(EXTI7);
+	exti_enable_request(EXTI_MEAS);
 
 	// timer
-	rcc_periph_clock_enable(RCC_TIM2);
-	rcc_periph_reset_pulse(RST_TIM2);
-	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
-	timer_set_prescaler(TIM2, tim2_div-1); // running at 1MHz
-	timer_disable_preload(TIM2);
-	timer_continuous_mode(TIM2);
-	timer_set_period(TIM2, 65535);
-	timer_enable_counter(TIM2);
+	rcc_periph_clock_enable(RCC_TIM_MEAS);
+	rcc_periph_reset_pulse(RST_TIM_MEAS);
+	timer_set_mode(TIM_MEAS, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+	timer_set_prescaler(TIM_MEAS, tim_meas_div-1); // running at 1MHz
+	timer_disable_preload(TIM_MEAS);
+	timer_continuous_mode(TIM_MEAS);
+	timer_set_period(TIM_MEAS, 65535);
+	timer_enable_counter(TIM_MEAS);
 
 	// LED
 	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);
@@ -348,13 +363,13 @@ int main(void) {
 	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO2); // TX Pin
 	gpio_set_af(GPIOA, GPIO_AF7, GPIO2);
 	rcc_periph_clock_enable(RCC_USART2);
-	usart_set_baudrate(USART2, 115200);
-	usart_set_databits(USART2, 8);
-	usart_set_stopbits(USART2, USART_STOPBITS_1);
-	usart_set_mode(USART2, USART_MODE_TX);
-	usart_set_parity(USART2, USART_PARITY_NONE);
-	usart_set_flow_control(USART2, USART_FLOWCONTROL_NONE);
-	usart_enable(USART2);
+	usart_set_baudrate(USART_DEBUG, 115200);
+	usart_set_databits(USART_DEBUG, 8);
+	usart_set_stopbits(USART_DEBUG, USART_STOPBITS_1);
+	usart_set_mode(USART_DEBUG, USART_MODE_TX);
+	usart_set_parity(USART_DEBUG, USART_PARITY_NONE);
+	usart_set_flow_control(USART_DEBUG, USART_FLOWCONTROL_NONE);
+	usart_enable(USART_DEBUG);
 
 	// SPI
 	gpio_mode_setup(GPIOE, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO12);
@@ -406,7 +421,7 @@ int main(void) {
 		measure_frequency_at_codepoint(pitch_val, 5);
 
 		// print the result
-		printf("%4d %6d ", pitch_val, tim2_div);
+		printf("%4d %6d ", pitch_val, tim_meas_div);
 		for (int i=0; i<measurement_count; i++)
 			printf("  %8d %8d", measurements[i].low_time, measurements[i].high_time);
 		printf("\n");
