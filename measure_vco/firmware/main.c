@@ -13,32 +13,8 @@
 #include <math.h>
 
 
-#define MCU_CLOCK  72000000 // 72 MHz
-
-#define USART_DEBUG USART1
-#define RCC_USART_DEBUG RCC_USART1
-
-#define TIM_MEAS TIM2
-#define RCC_TIM_MEAS RCC_TIM2
-#define RST_TIM_MEAS RST_TIM2
-
-// must be pin 5 to 9, otherwise you have to adapt the ISR routine
-#define EXTI_MEAS EXTI11
-#define EXTI_MEAS_PIN GPIO11
-#define EXTI_MEAS_GPIO GPIOA
-#define exti_meas_isr exti15_10_isr
-#define NVIC_EXTI_MEAS_IRQ NVIC_EXTI15_10_IRQ
-
-
-#define LED_GPIO GPIOC
-#define LED_PIN GPIO13
-
-// The SPI bus with the DAC
-#define DAC_SS_PORT GPIOB
-#define DAC_SS_PIN GPIO12
-
-#define SPI_DAC SPI2 // using PB13==clock and PB15==mosi
-#define RCC_SPI_DAC RCC_SPI2
+#include "hardware.h"
+#include "setup.h"
 
 volatile int tim_meas_div = 1; // range: 1 - 65536. this equals tim_meas's prescaler plus 1. i.e. it's the number of mcu clocks per one timer tick
 
@@ -102,7 +78,7 @@ void delay_us(int us)
 
 // private variables
 volatile uint16_t timer_begin; // [timer ticks]
-volatile int timer_edge; // EXTI_TRIGGER_RISING or EXTI_TRIGGER_FALLING
+volatile int timer_edge = EXTI_TRIGGER_RISING; // EXTI_TRIGGER_RISING or EXTI_TRIGGER_FALLING
 
 // input variables
 volatile enum { IDLE, WAITING, RUNNING } timer_state = IDLE;
@@ -338,72 +314,9 @@ void measure_frequency_stability(float target_freq)
 }
 // ---------- main code ----------
 
-int main(void) {
-	//rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
-	rcc_clock_setup_in_hse_8mhz_out_72mhz();
-
-	rcc_periph_clock_enable(RCC_GPIOA); // USART
-	rcc_periph_clock_enable(RCC_GPIOB); // EXTI, SPI2
-	rcc_periph_clock_enable(RCC_GPIOC); // LED
-	//rcc_periph_clock_enable(RCC_SYSCFG); // for interrupts
-	
-	// interrupt pin
-	nvic_enable_irq(NVIC_EXTI_MEAS_IRQ);
-	//gpio_mode_setup(EXTI_MEAS_GPIO, GPIO_MODE_INPUT, GPIO_PUPD_NONE, EXTI_MEAS_PIN);
-	gpio_set_mode(EXTI_MEAS_GPIO, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, EXTI_MEAS_PIN);
-	exti_select_source(EXTI_MEAS, EXTI_MEAS_GPIO);
-	exti_set_trigger(EXTI_MEAS, EXTI_TRIGGER_RISING);
-	timer_edge = EXTI_TRIGGER_RISING;
-	exti_enable_request(EXTI_MEAS);
-
-	// timer
-	rcc_periph_clock_enable(RCC_TIM_MEAS);
-	rcc_periph_reset_pulse(RST_TIM_MEAS);
-	timer_set_mode(TIM_MEAS, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
-	timer_set_prescaler(TIM_MEAS, tim_meas_div-1); // running at 1MHz
-	timer_disable_preload(TIM_MEAS);
-	timer_continuous_mode(TIM_MEAS);
-	timer_set_period(TIM_MEAS, 65535);
-	timer_enable_counter(TIM_MEAS);
-
-	// LED
-	gpio_set_mode(LED_GPIO, GPIO_MODE_OUTPUT_2_MHZ, GPIO_CNF_OUTPUT_PUSHPULL, LED_PIN);
-	gpio_clear(LED_GPIO, LED_PIN);
-	for (volatile int i = 0; i<1000000; i++);
-	gpio_set(LED_GPIO, LED_PIN);
-
-	// USART
-	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO9); // TX pin
-	rcc_periph_clock_enable(RCC_USART_DEBUG);
-	usart_set_baudrate(USART_DEBUG, 115200);
-	usart_set_databits(USART_DEBUG, 8);
-	usart_set_stopbits(USART_DEBUG, USART_STOPBITS_1);
-	usart_set_mode(USART_DEBUG, USART_MODE_TX);
-	usart_set_parity(USART_DEBUG, USART_PARITY_NONE);
-	usart_set_flow_control(USART_DEBUG, USART_FLOWCONTROL_NONE);
-	usart_enable(USART_DEBUG);
-	printf("usart initialized\n");
-
-	// SPI
-	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO13); // PB13 = SPI2 SCK
-	gpio_set_mode(DAC_SS_PORT, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_PUSHPULL, DAC_SS_PIN); // PB12 := manual slave select for the DAC
-	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO15); //PB15 = SPI2 MOSI
-	rcc_periph_clock_enable(RCC_SPI_DAC);
-	spi_reset(SPI_DAC);
-	spi_init_master(SPI_DAC, SPI_CR1_BAUDRATE_FPCLK_DIV_32, SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_DFF_16BIT, SPI_CR1_MSBFIRST);
-	/*
-	 * Set NSS management to software.
-	 *
-	 * Note:
-	 * Setting nss high is very important, even if we are controlling the GPIO
-	 * ourselves this bit needs to be at least set to 1, otherwise the spi
-	 * peripheral will not send any data out.
-	 */
-	spi_enable_software_slave_management(SPI_DAC);
-	spi_set_nss_high(SPI_DAC);
-
-	spi_enable(SPI_DAC);
-
+int main(void)
+{
+	setup();
 
 	// measure the frequencies at PROBE1 and PROBE2 in order to feed the expected_frequency() helper function
 	init_frequency_expectations();
