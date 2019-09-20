@@ -13,22 +13,32 @@
 #include <math.h>
 
 
-#define MCU_CLOCK  78000000 // 78 MHz
+#define MCU_CLOCK  72000000 // 72 MHz
 
-#define USART_DEBUG USART2
+#define USART_DEBUG USART1
+#define RCC_USART_DEBUG RCC_USART1
 
 #define TIM_MEAS TIM2
 #define RCC_TIM_MEAS RCC_TIM2
 #define RST_TIM_MEAS RST_TIM2
 
-#define EXTI_MEAS EXTI7
-#define EXTI_MEAS_PIN GPIO7
-#define EXTI_MEAS_GPIO GPIOE
+// must be pin 5 to 9, otherwise you have to adapt the ISR routine
+#define EXTI_MEAS EXTI11
+#define EXTI_MEAS_PIN GPIO11
+#define EXTI_MEAS_GPIO GPIOA
+#define exti_meas_isr exti15_10_isr
+#define NVIC_EXTI_MEAS_IRQ NVIC_EXTI15_10_IRQ
+
+
+#define LED_GPIO GPIOC
+#define LED_PIN GPIO13
 
 // The SPI bus with the DAC
-#define GPIO_SPI_DAC GPIOE
-#define SPI_DAC_SS_PIN GPIO13
-#define SPI_DAC SPI4
+#define DAC_SS_PORT GPIOB
+#define DAC_SS_PIN GPIO12
+
+#define SPI_DAC SPI2 // using PB13==clock and PB15==mosi
+#define RCC_SPI_DAC RCC_SPI2
 
 volatile int tim_meas_div = 1; // range: 1 - 65536. this equals tim_meas's prescaler plus 1. i.e. it's the number of mcu clocks per one timer tick
 
@@ -116,15 +126,13 @@ volatile measurement_t measurements[MAX_MEASUREMENTS];
 
 void panic(void) { for(;;); }
 
-void exti9_5_isr()
+void exti_meas_isr()
 {
 	uint16_t timer_val = timer_get_counter(TIM_MEAS);
 	if (exti_get_flag_status(EXTI_MEAS))
 	{
 		exti_reset_request(EXTI_MEAS);
-
 		
-
 		switch (timer_edge)
 		{
 			case EXTI_TRIGGER_RISING:
@@ -195,9 +203,9 @@ void exti9_5_isr()
 
 void dac_write(int val)
 {
-		gpio_clear(GPIO_SPI_DAC, SPI_DAC_SS_PIN); // slave select low
+		gpio_clear(DAC_SS_PORT, DAC_SS_PIN); // slave select low
 		spi_xfer(SPI_DAC, 0x0000 | 0x3000 | val);
-		gpio_set(GPIO_SPI_DAC, SPI_DAC_SS_PIN); // slave select high
+		gpio_set(DAC_SS_PORT, DAC_SS_PIN); // slave select high
 }
 
 void play_note(int code)
@@ -331,16 +339,18 @@ void measure_frequency_stability(float target_freq)
 // ---------- main code ----------
 
 int main(void) {
-	rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
+	//rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_84MHZ]);
+	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
-	rcc_periph_clock_enable(RCC_GPIOE); // SPI4 for the dac
 	rcc_periph_clock_enable(RCC_GPIOA); // USART
-	rcc_periph_clock_enable(RCC_GPIOD); // LED
-	rcc_periph_clock_enable(RCC_SYSCFG); // for interrupts
+	rcc_periph_clock_enable(RCC_GPIOB); // EXTI, SPI2
+	rcc_periph_clock_enable(RCC_GPIOC); // LED
+	//rcc_periph_clock_enable(RCC_SYSCFG); // for interrupts
 	
 	// interrupt pin
-	nvic_enable_irq(NVIC_EXTI9_5_IRQ);
-	gpio_mode_setup(EXTI_MEAS_GPIO, GPIO_MODE_INPUT, GPIO_PUPD_NONE, EXTI_MEAS_PIN);
+	nvic_enable_irq(NVIC_EXTI_MEAS_IRQ);
+	//gpio_mode_setup(EXTI_MEAS_GPIO, GPIO_MODE_INPUT, GPIO_PUPD_NONE, EXTI_MEAS_PIN);
+	gpio_set_mode(EXTI_MEAS_GPIO, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, EXTI_MEAS_PIN);
 	exti_select_source(EXTI_MEAS, EXTI_MEAS_GPIO);
 	exti_set_trigger(EXTI_MEAS, EXTI_TRIGGER_RISING);
 	timer_edge = EXTI_TRIGGER_RISING;
@@ -357,12 +367,14 @@ int main(void) {
 	timer_enable_counter(TIM_MEAS);
 
 	// LED
-	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);
+	gpio_set_mode(LED_GPIO, GPIO_MODE_OUTPUT_2_MHZ, GPIO_CNF_OUTPUT_PUSHPULL, LED_PIN);
+	gpio_clear(LED_GPIO, LED_PIN);
+	for (volatile int i = 0; i<1000000; i++);
+	gpio_set(LED_GPIO, LED_PIN);
 
 	// USART
-	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO2); // TX Pin
-	gpio_set_af(GPIOA, GPIO_AF7, GPIO2);
-	rcc_periph_clock_enable(RCC_USART2);
+	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO9); // TX pin
+	rcc_periph_clock_enable(RCC_USART_DEBUG);
 	usart_set_baudrate(USART_DEBUG, 115200);
 	usart_set_databits(USART_DEBUG, 8);
 	usart_set_stopbits(USART_DEBUG, USART_STOPBITS_1);
@@ -370,16 +382,15 @@ int main(void) {
 	usart_set_parity(USART_DEBUG, USART_PARITY_NONE);
 	usart_set_flow_control(USART_DEBUG, USART_FLOWCONTROL_NONE);
 	usart_enable(USART_DEBUG);
+	printf("usart initialized\n");
 
 	// SPI
-	gpio_mode_setup(GPIOE, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO12);
-	gpio_mode_setup(GPIOE, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO13); // slave select
-	gpio_mode_setup(GPIOE, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO14);
-	gpio_set_af(GPIOE, GPIO_AF5, GPIO12);
-	gpio_set_af(GPIOE, GPIO_AF5, GPIO14);
-	rcc_periph_clock_enable(RCC_SPI4);
-	spi_reset(SPI4);
-	spi_init_master(SPI4, SPI_CR1_BAUDRATE_FPCLK_DIV_32, SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_DFF_16BIT, SPI_CR1_MSBFIRST);
+	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO13); // PB13 = SPI2 SCK
+	gpio_set_mode(DAC_SS_PORT, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_PUSHPULL, DAC_SS_PIN); // PB12 := manual slave select for the DAC
+	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO15); //PB15 = SPI2 MOSI
+	rcc_periph_clock_enable(RCC_SPI_DAC);
+	spi_reset(SPI_DAC);
+	spi_init_master(SPI_DAC, SPI_CR1_BAUDRATE_FPCLK_DIV_32, SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_DFF_16BIT, SPI_CR1_MSBFIRST);
 	/*
 	 * Set NSS management to software.
 	 *
@@ -388,10 +399,10 @@ int main(void) {
 	 * ourselves this bit needs to be at least set to 1, otherwise the spi
 	 * peripheral will not send any data out.
 	 */
-	spi_enable_software_slave_management(SPI4);
-	spi_set_nss_high(SPI4);
+	spi_enable_software_slave_management(SPI_DAC);
+	spi_set_nss_high(SPI_DAC);
 
-	spi_enable(SPI4);
+	spi_enable(SPI_DAC);
 
 
 	// measure the frequencies at PROBE1 and PROBE2 in order to feed the expected_frequency() helper function
