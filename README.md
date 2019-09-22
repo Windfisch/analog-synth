@@ -33,10 +33,11 @@ For the sake of simplicity, the following trade-offs are being made:
 So far, apart from standard resistors and capacitors, the synth uses LM324 op
 amps, and BC547 / 2N3904 bipolar-junction-transistors and 2N7000 MOSFETs.
 
-The control logic and its firmware is currently based upon a
+The control logic and its firmware is currently based upon a STM32F103 based
+*"blue pill"* board, which can be sourced for less than 2 EUR from your
+favourite chinese seller. Previous versions were developed for the
 [STM32F411 discovery board](https://www.st.com/en/evaluation-tools/32f411ediscovery.html),
-but there's no reason to use a cheaper microcontroller. Especially a STM32F103
-should work, too, (after porting the firmware, of course).
+which should still work after adjusting the Makefile.
 
 ## Repo Contents
 
@@ -62,6 +63,9 @@ git submodule update --init
 make -j8 -C libopencm3
 ```
 
+If you're using a STM32F411 board, you must adjust `measure_vco/firmware/Makefile`
+and use the `DEVICE=stm32f411re` instead of the `DEVICE=stm32f103c8t` line.
+
 To measure the vco frequency response:
 
 ```
@@ -69,16 +73,19 @@ cd measure_vco/firmware
 make
 ```
 
-then do whatever is neccessary to flash the program onto your board. For my
-board, which has a non-standard blackmagic firmware on the STLINK chip, it is:
+then do whatever is neccessary to flash the program onto your board. For the blue
+pill board, putting it into bootloader mode by jumpering BOOT0 to 1, resetting, and
+calling `stm32flash -w dac_test.bin /dev/ttyUSB0` does the job, while for my
+STM32F411-discovery, which has a non-standard blackmagic firmware on the STLINK chip, it is:
 
 ```
-arm-none-eabi-gdb  # make sure it loads the .gdbinit file
+arm-none-eabi-gdb dac_test.elf # make sure it loads the .gdbinit file
 load
 run
 ```
 
-Then record the output on pin A2 with an UART adapter (or using the blackmagic uart device)/.
+Connect the pins correctly, then record the output with an UART adapter
+(or using the blackmagic uart device).
 
 
 ## Licensing

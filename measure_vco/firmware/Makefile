@@ -4,12 +4,13 @@ BUILD_DIR = bin
 LDFLAGS+=-u _printf_float
 
 #SHARED_DIR = ../my-common-code
-CFILES = main.c
+CFILES = main.c setup.c
 #AFILES = stuff.S
 LDLIBS = -lm
 
-DEVICE=stm32f411re
-OOCD_FILE = board/stm32f4discovery.cfg
+DEVICE=stm32f103c8t
+#DEVICE=stm32f411re
+#OOCD_FILE = board/stm32f4discovery.cfg
 
 # You shouldn't have to edit anything below here.
 VPATH += $(SHARED_DIR)
