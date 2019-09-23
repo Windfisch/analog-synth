@@ -1,0 +1,20 @@
+breadboard 1: breadboard mit rossum und mit alternativen (blauen) werten fuer widerstaende
+breadboard 2: ohne rossum
+breadboard 3: blaue werte durch originale ersetzt (1mohm -> 100k und entsprechend das poti)
+breadboard3_5.0b und ff: neu getuned.
+breadboard 4: thermistor entfernt
+
+
+Versorgungsspannung: 14.7V, LM317 auf 12V runter. 50-60mA verbrauch
+blaues board war angeschlossen
+
+
+Jumper:
+JP2,3,5 offen
+JP6 mittig
+JP4 masse
+JP1 geschlossen
+
+format: name_x.x.{txt,png}
+
+x.x: Amplitude des Signals in V (eingestellt via R31 (schmitt feedback))

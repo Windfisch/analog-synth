@@ -268,7 +268,7 @@ float measure_frequency_at_codepoint(int codepoint, int n)
 }
 
 // accuracy: maximum frequency deviation relative to freq. use 0.003 for 5 cent accuracy
-int search_codepoint_for_frequency(float freq, float accuracy, int n)
+int search_codepoint_for_frequency(float freq, float accuracy, int n, int max_iter)
 {
 	int codepoint = expected_codepoint(freq);
 	
@@ -276,10 +276,13 @@ int search_codepoint_for_frequency(float freq, float accuracy, int n)
 
 	int codepoint_error;
 	float actual_freq;
+	int i = 0;
 	do
 	{
 		if (codepoint < 0) codepoint = 0;
 		if (codepoint >= 4096) codepoint = 4095;
+		if (i++ > max_iter)
+			break;
 		printf("trying codepoint %i", codepoint);
 		actual_freq = measure_frequency_at_codepoint(codepoint, n);
 		codepoint_error = expected_codepoint(freq) - expected_codepoint(actual_freq);
@@ -294,7 +297,7 @@ int search_codepoint_for_frequency(float freq, float accuracy, int n)
 
 void measure_frequency_stability(float target_freq)
 {
-	int codepoint = search_codepoint_for_frequency(target_freq, 0.000, 10);
+	int codepoint = search_codepoint_for_frequency(target_freq, 0.000, 10, 100);
 	printf("code point is %d\n", codepoint);
 
 	update_tim_meas_freq( target_freq * 2 * 30000 ); // that leaves an octave room for misjudgement. 30000 ~= 2**16 / 2
@@ -346,8 +349,8 @@ int main(void)
 
 		// print the result
 		printf("%4d %6d ", pitch_val, tim_meas_div);
-		for (int i=0; i<measurement_count; i++)
-			printf("  %8d %8d", measurements[i].low_time, measurements[i].high_time);
+		for (uint32_t j=0; j<measurement_count; j++)
+			printf("  %8d %8d", measurements[j].low_time, measurements[j].high_time);
 		printf("\n");
 	}
 	printf("end\n");
