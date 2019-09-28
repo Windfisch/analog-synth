@@ -16,12 +16,12 @@ $EndDescr
 $Comp
 L Amplifier_Operational:TL074 U?
 U 1 1 5D8E8672
-P 5250 2000
-F 0 "U?" H 5275 2175 50  0000 C CNN
-F 1 "TL074" H 5275 2000 50  0000 C CNN
-F 2 "" H 5200 2100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 5300 2200 50  0001 C CNN
-	1    5250 2000
+P 5225 1725
+F 0 "U?" H 5250 1900 50  0000 C CNN
+F 1 "TL074" H 5250 1725 50  0000 C CNN
+F 2 "" H 5175 1825 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 5275 1925 50  0001 C CNN
+	1    5225 1725
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -49,81 +49,69 @@ $EndComp
 $Comp
 L Amplifier_Operational:TL074 U?
 U 5 1 5D8EBDB3
-P 5250 2000
-F 0 "U?" H 5208 2046 50  0001 L CNN
-F 1 "TL074" H 5208 2000 50  0001 L CNN
-F 2 "" H 5200 2100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 5300 2200 50  0001 C CNN
-	5    5250 2000
+P 5225 1725
+F 0 "U?" H 5183 1771 50  0001 L CNN
+F 1 "TL074" H 5183 1725 50  0001 L CNN
+F 2 "" H 5175 1825 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 5275 1925 50  0001 C CNN
+	5    5225 1725
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT RV?
 U 1 1 5D8F28FE
-P 4700 1900
-F 0 "RV?" H 4630 1946 50  0000 R CNN
-F 1 "50k" V 4700 1975 50  0000 R CNN
-F 2 "" H 4700 1900 50  0001 C CNN
-F 3 "~" H 4700 1900 50  0001 C CNN
-	1    4700 1900
+P 5775 2000
+F 0 "RV?" H 5705 2046 50  0000 R CNN
+F 1 "50k" V 5775 2075 50  0000 R CNN
+F 2 "" H 5775 2000 50  0001 C CNN
+F 3 "~" H 5775 2000 50  0001 C CNN
+	1    5775 2000
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:VEE #PWR?
 U 1 1 5D8F3591
-P 4700 2050
-F 0 "#PWR?" H 4700 1900 50  0001 C CNN
-F 1 "VEE" H 4718 2223 50  0000 C CNN
-F 2 "" H 4700 2050 50  0001 C CNN
-F 3 "" H 4700 2050 50  0001 C CNN
-	1    4700 2050
+P 5775 2150
+F 0 "#PWR?" H 5775 2000 50  0001 C CNN
+F 1 "VEE" H 5793 2323 50  0000 C CNN
+F 2 "" H 5775 2150 50  0001 C CNN
+F 3 "" H 5775 2150 50  0001 C CNN
+	1    5775 2150
 	-1   0    0    1   
 $EndComp
 $Comp
 L power:GNDREF #PWR?
 U 1 1 5D8F40C2
-P 4550 1650
-F 0 "#PWR?" H 4550 1400 50  0001 C CNN
-F 1 "GNDREF" H 4555 1477 50  0001 C CNN
-F 2 "" H 4550 1650 50  0001 C CNN
-F 3 "" H 4550 1650 50  0001 C CNN
-	1    4550 1650
+P 4925 1625
+F 0 "#PWR?" H 4925 1375 50  0001 C CNN
+F 1 "GNDREF" H 4930 1452 50  0001 C CNN
+F 2 "" H 4925 1625 50  0001 C CNN
+F 3 "" H 4925 1625 50  0001 C CNN
+	1    4925 1625
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4550 1650 4700 1650
-Wire Wire Line
-	4700 1650 4700 1750
 $Comp
 L power:VEE #PWR?
 U 1 1 5D902B53
-P 5150 2300
-F 0 "#PWR?" H 5150 2150 50  0001 C CNN
-F 1 "VEE" H 5168 2473 50  0000 C CNN
-F 2 "" H 5150 2300 50  0001 C CNN
-F 3 "" H 5150 2300 50  0001 C CNN
-	1    5150 2300
+P 5125 2025
+F 0 "#PWR?" H 5125 1875 50  0001 C CNN
+F 1 "VEE" H 5143 2198 50  0000 C CNN
+F 2 "" H 5125 2025 50  0001 C CNN
+F 3 "" H 5125 2025 50  0001 C CNN
+	1    5125 2025
 	-1   0    0    1   
 $EndComp
 $Comp
 L power:VCC #PWR?
 U 1 1 5D9039B8
-P 5150 1700
-F 0 "#PWR?" H 5150 1550 50  0001 C CNN
-F 1 "VCC" H 5167 1873 50  0000 C CNN
-F 2 "" H 5150 1700 50  0001 C CNN
-F 3 "" H 5150 1700 50  0001 C CNN
-	1    5150 1700
+P 5125 1425
+F 0 "#PWR?" H 5125 1275 50  0001 C CNN
+F 1 "VCC" H 5142 1598 50  0000 C CNN
+F 2 "" H 5125 1425 50  0001 C CNN
+F 3 "" H 5125 1425 50  0001 C CNN
+	1    5125 1425
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4950 2100 4950 2525
-Wire Wire Line
-	4950 2525 5550 2525
-Wire Wire Line
-	5550 2525 5550 2000
-Wire Wire Line
-	4850 1900 4950 1900
 $Comp
 L Device:R R?
 U 1 1 5D907AAA
@@ -404,13 +392,114 @@ Text Notes 6300 3175 0    50   ~ 0
 current mirror as\nvoltage controlled\ncurrent source
 Text Notes 6750 1575 2    50   ~ 0
 differential pair\n(current controlled\namplification)
-Wire Wire Line
-	6325 2000 5550 2000
-Connection ~ 5550 2000
-Text GLabel 5925 2000 3    50   Input ~ 0
+Text GLabel 4625 1825 0    50   Input ~ 0
 v_control
-Text GLabel 6500 1800 0    50   Input ~ 0
+Text GLabel 5475 600  0    50   Input ~ 0
 signal_in
 Text GLabel 8725 1450 2    50   Input ~ 0
 signal_out
+Wire Wire Line
+	6325 2000 5925 2000
+Wire Wire Line
+	5525 1725 5775 1725
+Wire Wire Line
+	5775 1725 5775 1850
+$Comp
+L Device:R R?
+U 1 1 5DA36ABE
+P 5150 2350
+F 0 "R?" V 5050 2325 50  0000 L CNN
+F 1 "100k" V 5150 2250 50  0000 L CNN
+F 2 "" V 5080 2350 50  0001 C CNN
+F 3 "~" H 5150 2350 50  0001 C CNN
+	1    5150 2350
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	5525 1725 5525 2350
+Wire Wire Line
+	5525 2350 5300 2350
+Connection ~ 5525 1725
+Wire Wire Line
+	5000 2350 4925 2350
+Wire Wire Line
+	4925 2350 4925 1825
+$Comp
+L Device:R R?
+U 1 1 5DA3A90A
+P 4775 1825
+F 0 "R?" V 4675 1800 50  0000 L CNN
+F 1 "100k" V 4775 1725 50  0000 L CNN
+F 2 "" V 4705 1825 50  0001 C CNN
+F 3 "~" H 4775 1825 50  0001 C CNN
+	1    4775 1825
+	0    1    -1   0   
+$EndComp
+Connection ~ 4925 1825
+Text Notes 4525 2750 0    50   ~ 0
+v_control ranges between\n0=GND and +Vcc and is\nconverted to -Vee to 0 here\n
+$Comp
+L Device:R_Variable R?
+U 1 1 5DA5A9B7
+P 5775 1050
+F 0 "R?" H 5900 1075 50  0000 L CNN
+F 1 "1k" H 5825 1000 50  0000 L CNN
+F 2 "" V 5705 1050 50  0001 C CNN
+F 3 "~" H 5775 1050 50  0001 C CNN
+	1    5775 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DA5E13B
+P 5775 750
+F 0 "R?" H 5850 700 50  0000 L CNN
+F 1 "1k" V 5775 700 50  0000 L CNN
+F 2 "" V 5705 750 50  0001 C CNN
+F 3 "~" H 5775 750 50  0001 C CNN
+	1    5775 750 
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DA5ECCF
+P 5775 1350
+F 0 "R?" H 5850 1300 50  0000 L CNN
+F 1 "1k" V 5775 1300 50  0000 L CNN
+F 2 "" V 5705 1350 50  0001 C CNN
+F 3 "~" H 5775 1350 50  0001 C CNN
+	1    5775 1350
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5DA64FC2
+P 5625 600
+F 0 "C?" V 5373 600 50  0000 C CNN
+F 1 "470u" V 5464 600 50  0000 C CNN
+F 2 "" H 5663 450 50  0001 C CNN
+F 3 "~" H 5625 600 50  0001 C CNN
+	1    5625 600 
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5DA6EBCF
+P 5775 1500
+F 0 "#PWR?" H 5775 1250 50  0001 C CNN
+F 1 "GNDREF" H 5780 1327 50  0001 C CNN
+F 2 "" H 5775 1500 50  0001 C CNN
+F 3 "" H 5775 1500 50  0001 C CNN
+	1    5775 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5775 1200 5975 1200
+Connection ~ 5775 1200
+Wire Wire Line
+	6500 1800 5975 1800
+Wire Wire Line
+	5975 1800 5975 1200
+Text Notes 4925 900  0    50   ~ 0
+input preattenuation.\ncontrols distortion
 $EndSCHEMATC
