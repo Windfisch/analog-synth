@@ -4,7 +4,7 @@ BUILD_DIR = bin
 LDFLAGS+=-u _printf_float
 
 #SHARED_DIR = ../my-common-code
-CFILES = main.c setup.c
+CFILES = main.c setup.c usbmidi.c usart.c
 #AFILES = stuff.S
 LDLIBS = -lm
 

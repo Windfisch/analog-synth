@@ -8,33 +8,13 @@
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/cm3/nvic.h>
 #include <stdio.h>
-#include <unistd.h>
-#include <errno.h>
 #include <math.h>
-
 
 #include "hardware.h"
 #include "setup.h"
+#include "usbmidi.h"
 
 volatile int tim_meas_div = 1; // range: 1 - 65536. this equals tim_meas's prescaler plus 1. i.e. it's the number of mcu clocks per one timer tick
-
-// allow printf() to use the USART
-int _write(int file, char *ptr, int len)
-{
-	int i;
-
-	if (file == STDOUT_FILENO || file == STDERR_FILENO) {
-		for (i = 0; i < len; i++) {
-			if (ptr[i] == '\n') {
-				usart_send_blocking(USART_DEBUG, '\r');
-			}
-			usart_send_blocking(USART_DEBUG, ptr[i]);
-		}
-		return i;
-	}
-	errno = EIO;
-	return -1;
-}
 
 void delay_us(int us)
 {
@@ -332,12 +312,29 @@ static void test_buf_dac()
 {
 	while(true)
 		for (int i=0; i<1024; i+=16)
+		{
 			buf_write(2, i);
+			myusb_poll();
+		}
 }
+
+extern int current_note, retrigger_note, release_note;
 
 int main(void)
 {
 	setup();
+
+	myusb_init();
+	for (int i=0; i<500000; i++)
+	{
+		myusb_poll();
+	}
+	
+	// blink the LED
+	gpio_clear(LED_GPIO, LED_PIN);
+	for (volatile int i = 0; i<1000000; i++);
+	gpio_set(LED_GPIO, LED_PIN);
+
 
 	// measure the frequencies at PROBE1 and PROBE2 in order to feed the expected_frequency() helper function
 	init_frequency_expectations();
@@ -350,7 +347,29 @@ int main(void)
 
 	measure_frequency_stability(440);
 
-	test_buf_dac();
+	//test_buf_dac();
+
+	int envelope_value = 1023;
+	while(true)
+	{
+		myusb_poll();
+		if (retrigger_note)
+		{
+			float freq = pow(2, (current_note - 0x40)/12.0) * 440;
+			printf("triggering note %d at %f Hz\n", current_note, freq);
+			search_codepoint_for_frequency(freq, 0, 10, 100);
+			envelope_value = 1023;
+			retrigger_note = 0;
+		}
+
+		if (release_note)
+		{
+			envelope_value -= 4;
+			if (envelope_value < 0) envelope_value = 0;
+		}
+
+		buf_write(2, 1023-envelope_value);
+	}
 
 
 	measure_frequency_stability(110);
@@ -364,6 +383,7 @@ int main(void)
 	while(true)
 	for (int i=0; i<4096; i++)
 	{
+		myusb_poll();
 		int pitch_val = reverse_bits(i, 12);
 		//int pitch_val = (i*64) % 4096;
 

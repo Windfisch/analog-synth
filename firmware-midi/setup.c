@@ -60,11 +60,6 @@ void setup(void) {
 	gpio_mode_setup(LED_GPIO, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_PIN);
 	#endif
 
-	// blink the LED
-	gpio_clear(LED_GPIO, LED_PIN);
-	for (volatile int i = 0; i<1000000; i++);
-	gpio_set(LED_GPIO, LED_PIN);
-
 	// USART
 	#ifdef STM32F1
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO9); // TX pin

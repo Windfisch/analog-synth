@@ -11,8 +11,10 @@
 #define RCC_TIM_MEAS RCC_TIM2
 #define RST_TIM_MEAS RST_TIM2
 
-#define EXTI_MEAS EXTI11
-#define EXTI_MEAS_PIN GPIO11
+// USB: PA11 and PA12
+
+#define EXTI_MEAS EXTI15
+#define EXTI_MEAS_PIN GPIO15
 #define EXTI_MEAS_GPIO GPIOA
 #define exti_meas_isr exti15_10_isr
 #define NVIC_EXTI_MEAS_IRQ NVIC_EXTI15_10_IRQ
