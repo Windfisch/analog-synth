@@ -56,29 +56,29 @@ fn EXTI9_5() {
 fn main() -> ! {
 	let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::Main>::new() };
 
-    let dp = stm32::Peripherals::take().unwrap();
+	let dp = stm32::Peripherals::take().unwrap();
 	let p = cortex_m::peripheral::Peripherals::take().unwrap();
 
-    let mut flash = dp.FLASH.constrain();
-    let mut rcc = dp.RCC.constrain();
+	let mut flash = dp.FLASH.constrain();
+	let mut rcc = dp.RCC.constrain();
 
-    let clocks = rcc.cfgr
-        .use_hse(8.mhz())
-        .sysclk(48.mhz())
-        .pclk1(24.mhz())
-        .freeze(&mut flash.acr);
+	let clocks = rcc.cfgr
+		.use_hse(8.mhz())
+		.sysclk(48.mhz())
+		.pclk1(24.mhz())
+		.freeze(&mut flash.acr);
 
-    assert!(clocks.usbclk_valid());
+	assert!(clocks.usbclk_valid());
 
-    let mut afio = dp.AFIO.constrain(&mut rcc.apb2);
-    
+	let mut afio = dp.AFIO.constrain(&mut rcc.apb2);
+	
 	let mut gpioa = dp.GPIOA.split(&mut rcc.apb2);
-    let mut gpiob = dp.GPIOB.split(&mut rcc.apb2);
-    let mut gpioc = dp.GPIOC.split(&mut rcc.apb2);
+	let mut gpiob = dp.GPIOB.split(&mut rcc.apb2);
+	let mut gpioc = dp.GPIOC.split(&mut rcc.apb2);
 
-    // Configure the on-board LED (PC13, green)
-    let mut led = gpioc.pc13.into_push_pull_output(&mut gpioc.crh);
-    led.set_high().ok(); // Turn off
+	// Configure the on-board LED (PC13, green)
+	let mut led = gpioc.pc13.into_push_pull_output(&mut gpioc.crh);
+	led.set_high().ok(); // Turn off
 
 	// Configure the USART
 	let mut gpio_tx = gpioa.pa9.into_alternate_push_pull(&mut gpioa.crh);
@@ -96,23 +96,23 @@ fn main() -> ! {
 	(*tx) = tx_;
 	writeln!(tx, "hello world!");
 
-    // BluePill board has a pull-up resistor on the D+ line.
-    // Pull the D+ pin down to send a RESET condition to the USB bus.
-    let mut usb_dp = gpioa.pa12.into_push_pull_output(&mut gpioa.crh);
-    usb_dp.set_low().ok();
-    delay(clocks.sysclk().0 / 100);
-    
+	// BluePill board has a pull-up resistor on the D+ line.
+	// Pull the D+ pin down to send a RESET condition to the USB bus.
+	let mut usb_dp = gpioa.pa12.into_push_pull_output(&mut gpioa.crh);
+	usb_dp.set_low().ok();
+	delay(clocks.sysclk().0 / 100);
+	
 	let usb_dm = gpioa.pa11;
-    let usb_dp = usb_dp.into_floating_input(&mut gpioa.crh);
-    let usb_bus = UsbBus::new(dp.USB, (usb_dm, usb_dp));
+	let usb_dp = usb_dp.into_floating_input(&mut gpioa.crh);
+	let usb_bus = UsbBus::new(dp.USB, (usb_dm, usb_dp));
 
 	let mut midi = usbd_midi::MidiClass::new(&usb_bus);
-    let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
-        .manufacturer("Fake company")
-        .product("Serial port")
-        .serial_number("TEST")
-        .device_class(usbd_midi::USB_CLASS_NONE)
-        .build();
+	let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
+		.manufacturer("Fake company")
+		.product("Serial port")
+		.serial_number("TEST")
+		.device_class(usbd_midi::USB_CLASS_NONE)
+		.build();
 
 	// EXTI
 	{
@@ -136,7 +136,7 @@ fn main() -> ! {
 
 	writeln!(tx, "okay. so we've a tim2 now and its clk is {}", mytimer.clk());
 
-    loop {
+	loop {
 		if let Ok(mut guard) = pingpong.try_get(&token) {
 			writeln!(tx, "main: the guard is ours! {} {}", guard.x, guard.y);
 			guard.x = mytimer.cnt();
@@ -145,7 +145,7 @@ fn main() -> ! {
 		}
 
 		//writeln!(tx, "loop! mytimer.cnt() == {}", mytimer.cnt());
-        if usb_dev.poll(&mut [&mut midi]) {
+		if usb_dev.poll(&mut [&mut midi]) {
 
 			//midi.note_on(1, usbd_midi::Note::A4, 127).ok();
 
@@ -167,5 +167,5 @@ fn main() -> ! {
 
 			led.set_high().ok(); // Turn off
 		}
-    }
+	}
 }
