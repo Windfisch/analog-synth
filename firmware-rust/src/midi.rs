@@ -28,7 +28,7 @@ pub fn parse_midi (data : &[u8; 4]) -> (u8, MidiMessage) {
 	use MidiChannelMessage::*;
 
 	let cable = (data[0] & 0xF0) >> 4;
-	let code_index_number = (data[0] & 0x0F);
+	let code_index_number = data[0] & 0x0F;
 
 	let d3 = [data[1], data[2], data[3]];
 
@@ -44,7 +44,7 @@ pub fn parse_midi (data : &[u8; 4]) -> (u8, MidiMessage) {
 		0xF => Global(SingleByte { byte : data[1] }),
 		_ => {
 			//let hi = (data[1] & 0xF0) >> 4;
-			let channel = (data[1] & 0x0F);
+			let channel = data[1] & 0x0F;
 			
 			Channel(channel,
 				match code_index_number {

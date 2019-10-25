@@ -14,7 +14,7 @@ usb-device = ">=0.2.1"
 usbd-serial = ">=0.1"
 stm32-usbd = { version = ">=0.4.0", features = ["stm32f103xx"] }
 usbd-midi = { path = "./lib/usbd-midi" }
-embedded-hal = {}
+embedded-hal = ">=0.2.3"
 
 [patch.crates-io]
 stm32f1xx-hal = { path = './lib/stm32f1xx-hal', features = ["rt","stm32f103"] }

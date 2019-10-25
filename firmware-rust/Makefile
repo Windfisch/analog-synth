@@ -1,7 +1,7 @@
-firmware.bin: target/thumbv7m-none-eabi/debug/example-stm32f103c8
+firmware.bin: target/thumbv7m-none-eabi/debug/analog-synth-firmware
 	arm-none-eabi-objcopy -O binary $< $@
 
 
-.PHONY: target/thumbv7m-none-eabi/debug/example-stm32f103c8
-target/thumbv7m-none-eabi/debug/example-stm32f103c8:
+.PHONY: target/thumbv7m-none-eabi/debug/analog-synth-firmware
+target/thumbv7m-none-eabi/debug/analog-synth-firmware:
 	cargo build

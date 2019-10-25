@@ -13,9 +13,7 @@ use usb_device::prelude::*;
 //use usbd_serial::{SerialPort, USB_CLASS_CDC};
 use usbd_midi;
 
-use core::fmt::{Write,Result};
-//use embedded_hal::serial::Write;
-use stm32f1xx_hal::serial;
+use core::fmt::Write;
 use stm32::interrupt;
 use core::mem::MaybeUninit;
 
