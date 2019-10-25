@@ -1,37 +1,33 @@
-//! CDC-ACM serial port example using polling in a busy loop.
 #![no_std]
 #![no_main]
 
 extern crate panic_semihosting;
+
+use stm32f1xx_hal::{prelude::*, stm32, gpio::*, serial, timer};
+
 use embedded_hal::digital::v2::OutputPin;
 use cortex_m::asm::delay;
 use cortex_m_rt::entry;
-use stm32_usbd::UsbBus;
-use stm32f1xx_hal::{prelude::*, stm32};
-use stm32f1xx_hal::gpio::{ExtiPin,Edge,Input,Floating};
+use stm32::interrupt;
+
 use usb_device::prelude::*;
-//use usbd_serial::{SerialPort, USB_CLASS_CDC};
+use stm32_usbd::UsbBus;
 use usbd_midi;
+mod midi;
 
 use core::fmt::Write;
-use stm32::interrupt;
 use core::mem::MaybeUninit;
 
 mod coop_threadsafe_container; use coop_threadsafe_container as ctc;
 use ctc::ThreadToken;
-mod midi;
 
-static mut GLOB_EXTI_PIN : MaybeUninit<stm32f1xx_hal::gpio::gpioa::PA7<Input<Floating>>> = MaybeUninit::uninit();
-static mut GLOB_TX : MaybeUninit<stm32f1xx_hal::serial::Tx<stm32::USART1>> = MaybeUninit::uninit();
-static mut GLOB_TIMER : MaybeUninit<stm32f1xx_hal::timer::CountDownTimer<stm32::TIM2>> = MaybeUninit::uninit();
+static mut GLOB_EXTI_PIN : MaybeUninit<gpioa::PA7<Input<Floating>>> = MaybeUninit::uninit();
+static mut GLOB_TX : MaybeUninit<serial::Tx<stm32::USART1>> = MaybeUninit::uninit();
+static mut GLOB_TIMER : MaybeUninit<timer::CountDownTimer<stm32::TIM2>> = MaybeUninit::uninit();
 
 struct Fnord { x : u16, y : u16 }
 static PINGPONG : ctc::CoopContainer<Fnord> = ctc::CoopContainer::new(Fnord{ x : 42, y : 17 }, ctc::Token::<ctc::Main>::ID);
 
-#[interrupt]
-fn EXTI15_10() {
-	unsafe { writeln!(*GLOB_TX.as_mut_ptr(), "isr 15_10").ok(); }
-}
 #[interrupt]
 fn EXTI9_5() {
 	let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::ISR>::new() };
@@ -52,10 +48,11 @@ fn EXTI9_5() {
 	exti_pin.clear_interrupt_pending_bit();
 }
 
-#[entry]
-fn main() -> ! {
-	let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::Main>::new() };
 
+type LedType = gpioc::PC13<Output<PushPull>>;
+
+#[entry]
+fn init() -> ! {
 	let dp = stm32::Peripherals::take().unwrap();
 	let p = cortex_m::peripheral::Peripherals::take().unwrap();
 
@@ -71,7 +68,6 @@ fn main() -> ! {
 	assert!(clocks.usbclk_valid());
 
 	let mut afio = dp.AFIO.constrain(&mut rcc.apb2);
-	
 	let mut gpioa = dp.GPIOA.split(&mut rcc.apb2);
 	//let mut gpiob = dp.GPIOB.split(&mut rcc.apb2);
 	let mut gpioc = dp.GPIOC.split(&mut rcc.apb2);
@@ -83,18 +79,18 @@ fn main() -> ! {
 	// Configure the USART
 	let gpio_tx = gpioa.pa9.into_alternate_push_pull(&mut gpioa.crh);
 	let gpio_rx = gpioa.pa10;
-	let serial = stm32f1xx_hal::serial::Serial::usart1(
+	let serial = serial::Serial::usart1(
 		dp.USART1,
 		(gpio_tx, gpio_rx),
 		&mut afio.mapr,
-		stm32f1xx_hal::serial::Config::default().baudrate(115200.bps()),
+		serial::Config::default().baudrate(115200.bps()),
 		clocks,
 		&mut rcc.apb2
 	);
-	let (tx_, _rx) = serial.split();
+	let (mut tx_, _rx) = serial.split();
+	writeln!(tx_, "usart initialized").ok();
 	let tx = unsafe { &mut *GLOB_TX.as_mut_ptr()};
 	(*tx) = tx_;
-	writeln!(tx, "hello world!").ok();
 
 	// BluePill board has a pull-up resistor on the D+ line.
 	// Pull the D+ pin down to send a RESET condition to the USB bus.
@@ -117,7 +113,6 @@ fn main() -> ! {
 	// EXTI
 	{
 	let mut nvic = p.NVIC;
-	nvic.enable(stm32::Interrupt::EXTI15_10);
 	nvic.enable(stm32::Interrupt::EXTI9_5);
 
 	let exti_pin = unsafe { &mut *GLOB_EXTI_PIN.as_mut_ptr()};
@@ -126,11 +121,21 @@ fn main() -> ! {
 	exti_pin.trigger_on_edge(&dp.EXTI, Edge::RISING_FALLING);
 	exti_pin.enable_interrupt(&dp.EXTI);
 	}
+	
+	// Timer
+	unsafe { *GLOB_TIMER.as_mut_ptr() = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535); }
+
+	main(led, usb_dev, midi);
+}
+
+
+fn main<Led : OutputPin, UsbBus : usb_device::bus::UsbBus >(mut led : Led, mut usb_dev : usb_device::device::UsbDevice<UsbBus>, mut midi : usbd_midi::MidiClass<UsbBus>) -> ! {
+	let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::Main>::new() };
+	let tx = unsafe { &mut *GLOB_TX.as_mut_ptr()};
 
 
 	writeln!(tx, "entering main loop").ok();
 
-	unsafe { *GLOB_TIMER.as_mut_ptr() = stm32f1xx_hal::timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535); }
 
 	let mytimer = unsafe { &*GLOB_TIMER.as_ptr() };
 
