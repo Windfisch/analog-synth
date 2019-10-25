@@ -187,7 +187,8 @@ if len(sys.argv) >= 3:
 cents = [(d[0], log(d[1],2)*1200) for d in data]
 cents = wiggle(cents, 0.1, 0.0)
 
-fit = fit_line(cents, 100, 100)
+fit = fit_line(cents, 10, 100)
+#fit = [2.20524160e+00, 5.17804589e+03]
 print(fit)
 print("%6.2f code points = %6.4f Volt per octave" % (1200 / fit[0], 1200 / fit[0] / 2048))
 print("starting at %7.2f Hz = %+6.0fc distance from a4@440Hz" % ( 2**(fit[1]/1200), fit[1] - log(440,2)*1200))
