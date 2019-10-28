@@ -21,7 +21,10 @@ dependencies = [
  "cortex-m-rt 0.6.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "cortex-m-rtfm 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "embedded-hal 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "mcp49xx 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "noop-bus-mutex 0.1.0 (git+https://github.com/Windfisch/noop-bus-mutex)",
  "panic-semihosting 0.5.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shared-bus 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "stm32-usbd 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "stm32f1xx-hal 0.4.0",
  "usb-device 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -189,9 +192,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "mcp49xx"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "embedded-hal 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "nb"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "noop-bus-mutex"
+version = "0.1.0"
+source = "git+https://github.com/Windfisch/noop-bus-mutex#658e34cda7d6e15242713cdb75b31f68ab990b49"
+dependencies = [
+ "shared-bus 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "owned-singleton"
@@ -284,6 +303,14 @@ dependencies = [
 name = "semver-parser"
 version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "shared-bus"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "embedded-hal 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "stable_deref_trait"
@@ -409,7 +436,9 @@ dependencies = [
 "checksum generic-array 0.13.2 (registry+https://github.com/rust-lang/crates.io-index)" = "0ed1e761351b56f54eb9dcd0cfaca9fd0daecf93918e1cfc01c8a3d26ee7adcd"
 "checksum hash32 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "12d790435639c06a7b798af9e1e331ae245b7ef915b92f70a39b4cf8c00686af"
 "checksum heapless 0.4.4 (registry+https://github.com/rust-lang/crates.io-index)" = "e1ae80bbc62401ae8096976857172507cadbd2200f36670e5144634360a05959"
+"checksum mcp49xx 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "d99ca7b92932be1bfb32702142964a8d052ebfd53df7942b883d69a706608ea0"
 "checksum nb 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)" = "b1411551beb3c11dedfb0a90a0fa256b47d28b9ec2cdff34c25a2fa59e45dbdc"
+"checksum noop-bus-mutex 0.1.0 (git+https://github.com/Windfisch/noop-bus-mutex)" = "<none>"
 "checksum owned-singleton 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "21aa378869c97c7db706a4c576cf0ce8258dc7e0e1ad25a97ee5aba1fd4eed83"
 "checksum owned-singleton-macros 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "8d5c2ac071b95017bf70a5b607037fb0ef4abfa663fdf6cac8fbf36af9756ee3"
 "checksum panic-semihosting 0.5.3 (registry+https://github.com/rust-lang/crates.io-index)" = "c03864ac862876c16a308f5286f4aa217f1a69ac45df87ad3cd2847f818a642c"
@@ -422,6 +451,7 @@ dependencies = [
 "checksum rustc_version 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)" = "138e3e0acb6c9fb258b19b67cb8abd63c00679d2851805ea151465464fe9030a"
 "checksum semver 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)" = "1d7eb9ef2c18661902cc47e535f9bc51b78acd254da71d375c2f6720d9a40403"
 "checksum semver-parser 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
+"checksum shared-bus 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)" = "ed792a53f339088822c0cc9d6ebfb950752016a288dc96ed3e302e9592f18ab0"
 "checksum stable_deref_trait 1.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "dba1a27d3efae4351c8051072d619e3ade2820635c3958d826bfea39d59b54c8"
 "checksum stm32-usbd 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "f17afbf34b745b5f47a829abe5ffd0e17921b0b2029f7da909a2edc04b69c71c"
 "checksum stm32f1 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)" = "c6fc0c8669ae95e2dc2e73a1b6c1f41ac4ec5a0a35d21bd9d4d0f96ea4acfca4"

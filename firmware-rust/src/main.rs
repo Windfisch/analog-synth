@@ -3,9 +3,12 @@
 
 extern crate panic_semihosting;
 
-use stm32f1xx_hal::{prelude::*, stm32, gpio::*, serial, timer};
+use stm32f1xx_hal::{prelude::*, stm32, gpio::*, serial, timer, spi};
 
 use embedded_hal::digital::v2::OutputPin;
+
+use embedded_hal::digital::v1_compat::OldOutputPin;
+
 use cortex_m::asm::delay;
 use cortex_m_rt::entry;
 use stm32::interrupt;
@@ -14,12 +17,17 @@ use usb_device::prelude::*;
 use stm32_usbd::UsbBus;
 use usbd_midi;
 mod midi;
+mod vco;
 
 use core::fmt::Write;
 use core::mem::MaybeUninit;
 
 mod coop_threadsafe_container; use coop_threadsafe_container as ctc;
 use ctc::ThreadToken;
+
+use mcp49xx;
+use shared_bus;
+use noop_bus_mutex;
 
 static mut GLOB_EXTI_PIN : MaybeUninit<gpioa::PA7<Input<Floating>>> = MaybeUninit::uninit();
 static mut GLOB_TX : MaybeUninit<serial::Tx<stm32::USART1>> = MaybeUninit::uninit();
@@ -69,7 +77,7 @@ fn init() -> ! {
 
 	let mut afio = dp.AFIO.constrain(&mut rcc.apb2);
 	let mut gpioa = dp.GPIOA.split(&mut rcc.apb2);
-	//let mut gpiob = dp.GPIOB.split(&mut rcc.apb2);
+	let mut gpiob = dp.GPIOB.split(&mut rcc.apb2);
 	let mut gpioc = dp.GPIOC.split(&mut rcc.apb2);
 
 	// Configure the on-board LED (PC13, green)
@@ -102,13 +110,37 @@ fn init() -> ! {
 	let usb_dp = usb_dp.into_floating_input(&mut gpioa.crh);
 	let usb_bus = UsbBus::new(dp.USB, (usb_dm, usb_dp));
 
-	let mut midi = usbd_midi::MidiClass::new(&usb_bus);
-	let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
+	let midi = usbd_midi::MidiClass::new(&usb_bus);
+	let usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
 		.manufacturer("Fake company")
 		.product("Serial port")
 		.serial_number("TEST")
 		.device_class(usbd_midi::USB_CLASS_NONE)
 		.build();
+
+	// SPI
+	let mcp_ss : OldOutputPin<_> = gpiob.pb12.into_push_pull_output(&mut gpiob.crh).downgrade().into();
+	let mcp2_ss : OldOutputPin<_> = gpiob.pb11.into_push_pull_output(&mut gpiob.crh).downgrade().into();
+	let sck = gpiob.pb13.into_alternate_push_pull(&mut gpiob.crh);
+	let mosi = gpiob.pb15.into_alternate_push_pull(&mut gpiob.crh);
+	let miso = gpiob.pb14;
+
+	let spi = spi::Spi::spi2(dp.SPI2, (sck, miso, mosi), spi::Mode { phase : spi::Phase::CaptureOnFirstTransition, polarity : spi::Polarity::IdleLow }, 500.khz(), clocks, &mut rcc.apb1);
+	let shared_spi = shared_bus::BusManager::<noop_bus_mutex::NoopBusMutex<_>, _>::new(spi);
+
+	let mut mcp4822 = mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp_ss);
+	let mut mcp4822_2 = mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp2_ss);
+
+	let arr = [mcp4822, mcp4822_2];
+	/*let mut i : u16 = 0;
+	loop {
+		for i in 0..4096 {
+			mcp4822.send(mcp49xx::Command::default().channel(mcp49xx::Channel::Ch0).value(i));
+			//mcp4822.send(mcp49xx::Command::default().channel(mcp49xx::Channel::Ch1).value(4096-i));
+			delay(clocks.sysclk().0 / 5000);
+		}
+		led.toggle();
+	}*/
 
 	// EXTI
 	{
@@ -126,10 +158,38 @@ fn init() -> ! {
 	unsafe { *GLOB_TIMER.as_mut_ptr() = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535); }
 
 	main(led, usb_dev, midi);
+	loop{}
 }
 
+/*
+mod mcp4822 {
+	enum Channel { A, B }
 
-fn main<Led : OutputPin, UsbBus : usb_device::bus::UsbBus >(mut led : Led, mut usb_dev : usb_device::device::UsbDevice<UsbBus>, mut midi : usbd_midi::MidiClass<UsbBus>) -> ! {
+	struct MCP4822<SPI : embedded_hal::spi::FullDuplex<u8>, SsPin : embedded_hal::digital::v2::OutputPin> {
+		_spi : PhantomData<SPI>,
+		ss_pin : SsPin
+	}
+
+	impl<SPI : embedded_hal::spi::FullDuplex<u8>, SsPin : embedded_hal::digital::v2::OutputPin> MCP4822<SPI,SsPin> {
+		pub fn new(spi : &SPI, ss_pin : SsPin) -> MCP4822<SPI,SsPin> {
+			MCP4822 { _spi : PhantomData{}, ss_pin : ss_pin }
+		}
+
+		pub fn write(val : u16, channel : Channel)
+		{
+			
+		}
+	}
+}*/
+
+
+fn main<
+	Led : OutputPin,
+	UsbBus : usb_device::bus::UsbBus
+	> (
+	mut led : Led,
+	mut usb_dev : usb_device::device::UsbDevice<UsbBus>,
+	mut midi : usbd_midi::MidiClass<UsbBus>) -> ! {
 	let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::Main>::new() };
 	let tx = unsafe { &mut *GLOB_TX.as_mut_ptr()};
 
