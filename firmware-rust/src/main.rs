@@ -25,6 +25,8 @@ use usbd_midi;
 mod midi;
 mod vco;
 
+use core::cell::RefCell;
+
 use core::fmt::Write;
 use core::mem::MaybeUninit;
 
@@ -93,11 +95,13 @@ const APP: () = {
 		// TODO
 		#[init(())]
 		dummy : (),
+		exti : stm32::EXTI,
 		tx : serial::Tx<stm32::USART1>,
 		led : gpioc::PC13<Output<PushPull>>,
 		usb_dev : usb_device::device::UsbDevice<'static, MyUsbBus>,
 		midi : usbd_midi::MidiClass<'static, MyUsbBus>,
-		mcp4822 : Mcp
+		vco : vco::VoltageControlledOscillator<'static, Mcp, Pxx<Input<Floating>>>,
+		mytimer : timer::CountDownTimer<stm32::TIM2>
 	}
 
 	#[init]
@@ -169,12 +173,12 @@ const APP: () = {
 		let spi = spi::Spi::spi2(dp.SPI2, (sck, miso, mosi), spi::Mode { phase : spi::Phase::CaptureOnFirstTransition, polarity : spi::Polarity::IdleLow }, 500.khz(), clocks, &mut rcc.apb1);
 		//let shared_spi : MySharedSpiManager = shared_bus::BusManager::<noop_bus_mutex::NoopBusMutex<_>, _>::new(spi);
 		//let shared_spi : &'static mut MySharedSpiManager = singleton!(:MySharedSpiManager = shared_bus::BusManager::<noop_bus_mutex::NoopBusMutex<_>, _>::new(spi)).unwrap();
-		let shared_spi = singleton!(:MySharedSpiManager =
+		let shared_spi : &'static MySharedSpiManager = singleton!(:MySharedSpiManager =
 			shared_bus::BusManager::<noop_bus_mutex::NoopBusMutex<_>, _>::new(spi)
 		).unwrap();
 
-		let mut mcp4822 = mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp_ss);
-		let mut mcp4822_2 = mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp2_ss);
+		let mcp4822 = singleton!(:RefCell<Mcp> = RefCell::new(mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp_ss)) ).unwrap();
+		//let mut mcp4822_2 = RefCell::new(mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp2_ss));
 
 		//let arr = [mcp4822, mcp4822_2];
 		/*let mut i : u16 = 0;
@@ -186,31 +190,39 @@ const APP: () = {
 			}
 			led.toggle();
 		}*/
-/*
+
 		// EXTI
-		{
 		let mut nvic = p.NVIC;
 		nvic.enable(stm32::Interrupt::EXTI9_5);
 
-		let exti_pin = unsafe { &mut *GLOB_EXTI_PIN.as_mut_ptr()};
-		*exti_pin = gpioa.pa7.into_floating_input(&mut gpioa.crl);
+		let mut exti_pin = gpiob.pb9.into_floating_input(&mut gpiob.crh);
 		exti_pin.make_interrupt_source(&mut afio);
 		exti_pin.trigger_on_edge(&dp.EXTI, Edge::RISING_FALLING);
-		exti_pin.enable_interrupt(&dp.EXTI);
-		}
+		exti_pin.disable_interrupt(&dp.EXTI);
+
+		let mut exti_pin2 = gpiob.pb8.into_floating_input(&mut gpiob.crh);
+		exti_pin2.make_interrupt_source(&mut afio);
+		exti_pin2.trigger_on_edge(&dp.EXTI, Edge::RISING_FALLING);
+		exti_pin2.disable_interrupt(&dp.EXTI);
+
+		let mut vco1 = vco::VoltageControlledOscillator::new(mcp4822, mcp49xx::Channel::Ch0, exti_pin.downgrade());
+		let mut vco2 = vco::VoltageControlledOscillator::new(mcp4822, mcp49xx::Channel::Ch1, exti_pin2.downgrade());
+
+		vco1.set_pitch(42);
+		//vco1.calibrate(&mut dp.EXTI, (), (), ());
 		
 		// Timer
-		unsafe { *GLOB_TIMER.as_mut_ptr() = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535); }
+		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
 
-		main(led, usb_dev, midi);
-		loop{}
-		*/
 
-		return init::LateResources { tx, led, usb_dev, midi, mcp4822 };
+		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, vco : vco1, mytimer};
 	}
 
-	#[task]
-	fn main(c : main::Context) {}
+	#[task(resources = [mytimer, vco])]
+	fn main(c : main::Context)
+	{
+
+	}
 
 	extern "C" {
 		fn UART4();

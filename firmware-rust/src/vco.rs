@@ -4,6 +4,8 @@ use stm32f1xx_hal::{stm32, timer};
 
 use crate::coop_threadsafe_container as ctc;
 
+use core::cell::RefCell;
+
 use mcp49xx;
 
 pub struct Period {
@@ -22,17 +24,23 @@ pub struct MeasurementState {
 	edge : Edge
 }
 
-struct VoltageControlledOscillator<'a, MCP49xx, ExtiPin : stm32f1xx_hal::gpio::ExtiPin> {
-	dac : MCP49xx,
+pub struct VoltageControlledOscillator<'a, MCP49xx, ExtiPin : stm32f1xx_hal::gpio::ExtiPin> {
+	dac : &'a RefCell<MCP49xx>,
 	channel : mcp49xx::Channel,
 	calibration : [i32; 64],
-	exti_pin : &'a mut ExtiPin
+	exti_pin : ExtiPin
+}
+
+impl<'a, MCP49xx, ExtiPin : stm32f1xx_hal::gpio::ExtiPin> VoltageControlledOscillator<'a, MCP49xx, ExtiPin> {
+	pub fn new(dac : &'a RefCell<MCP49xx>, channel: mcp49xx::Channel, exti_pin : ExtiPin) -> VoltageControlledOscillator<'a, MCP49xx, ExtiPin> {
+		VoltageControlledOscillator { dac, channel, calibration : [0; 64], exti_pin }
+	}
 }
 
 const N_MEASUREMENTS : u32 = 64;
 
-impl<'a, DI, RES, CH, BUF, E, ExtiPin : stm32f1xx_hal::gpio::ExtiPin>
-	VoltageControlledOscillator<'a, mcp49xx::Mcp49xx<DI, RES, CH, BUF>, ExtiPin>
+impl<DI, RES, CH, BUF, E, ExtiPin : stm32f1xx_hal::gpio::ExtiPin>
+	VoltageControlledOscillator<'_, mcp49xx::Mcp49xx<DI, RES, CH, BUF>, ExtiPin>
 where
 	DI: mcp49xx::interface::WriteCommand<Error = E>,
 	RES: mcp49xx::ResolutionSupport<E>,
@@ -46,7 +54,7 @@ where
 	}
 
 	fn send(&mut self, val: u16) {
-		self.dac.send( mcp49xx::Command::default().channel(self.channel).value(val) );
+		self.dac.borrow_mut().send( mcp49xx::Command::default().channel(self.channel).value(val) );
 	}
 
 	fn measure_frequency_at(&mut self, val: u16, pingpong : &ctc::CoopContainer<MeasurementState>, exti : &stm32::EXTI, token : &ctc::Token::<ctc::Main>) {
