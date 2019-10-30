@@ -89,6 +89,16 @@ type Mcp = mcp49xx::Mcp49xx<
 	mcp49xx::marker::Unbuffered
 >;
 
+type VcoType = vco::VoltageControlledOscillator<'static, Mcp, Pxx<Input<Floating>>>;
+static mut VCO : MaybeUninit<VcoType> = MaybeUninit::uninit();
+trait InitOrMain {}
+impl InitOrMain for init::Context {}
+impl InitOrMain for main::Context<'_> {}
+fn vco<'a, T: InitOrMain>(token : &'a T) -> &'a mut VcoType {
+	unsafe { &mut *VCO.as_mut_ptr() }
+}
+
+
 #[app(device = stm32)]
 const APP: () = {
 	struct Resources {
@@ -100,7 +110,6 @@ const APP: () = {
 		led : gpioc::PC13<Output<PushPull>>,
 		usb_dev : usb_device::device::UsbDevice<'static, MyUsbBus>,
 		midi : usbd_midi::MidiClass<'static, MyUsbBus>,
-		vco : vco::VoltageControlledOscillator<'static, Mcp, Pxx<Input<Floating>>>,
 		mytimer : timer::CountDownTimer<stm32::TIM2>
 	}
 
@@ -210,18 +219,27 @@ const APP: () = {
 
 		vco1.set_pitch(42);
 		//vco1.calibrate(&mut dp.EXTI, (), (), ());
+
+		//unsafe { *VCO.as_mut_ptr() = vco1; } // FIXME
+		*vco(&cx) = vco1;
 		
 		// Timer
 		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
 
 
-		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, vco : vco1, mytimer};
+		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer};
 	}
 
-	#[task(resources = [mytimer, vco])]
+	#[task(resources = [mytimer])]
 	fn main(c : main::Context)
 	{
+		let vco = vco(&c);
+	}
 
+	#[task(resources = [mytimer])]
+	fn not_main(c : not_main::Context)
+	{
+		//let vco = vco(&c); // will not work
 	}
 
 	extern "C" {
