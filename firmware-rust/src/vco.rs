@@ -8,6 +8,7 @@ use core::cell::RefCell;
 
 use mcp49xx;
 
+#[derive(Clone,Copy)]
 pub struct Period {
 	high_time : u16,
 	low_time : u16
@@ -22,6 +23,16 @@ pub struct MeasurementState {
 	periods : [Period; 10],
 	index : u16,
 	edge : Edge
+}
+
+impl MeasurementState {
+	pub const fn const_default() -> MeasurementState {
+		MeasurementState {
+			periods: [ Period{high_time:0, low_time:0}; 10],
+			index : 0,
+			edge : Edge::Rising
+		}
+	}
 }
 
 pub struct VoltageControlledOscillator<'a, MCP49xx, ExtiPin : stm32f1xx_hal::gpio::ExtiPin> {

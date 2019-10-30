@@ -41,8 +41,7 @@ static mut GLOB_EXTI_PIN : MaybeUninit<gpioa::PA7<Input<Floating>>> = MaybeUnini
 static mut GLOB_TX : MaybeUninit<serial::Tx<stm32::USART1>> = MaybeUninit::uninit();
 static mut GLOB_TIMER : MaybeUninit<timer::CountDownTimer<stm32::TIM2>> = MaybeUninit::uninit();
 
-struct Fnord { x : u16, y : u16 }
-static PINGPONG : ctc::CoopContainer<Fnord> = ctc::CoopContainer::new(Fnord{ x : 42, y : 17 }, ctc::Token::<ctc::Main>::ID);
+static PINGPONG : ctc::CoopContainer<vco::MeasurementState> = ctc::CoopContainer::new(  vco::MeasurementState::const_default(), ctc::Token::<ctc::Main>::ID);
 
 
 type MyUsbPins = (stm32f1xx_hal::gpio::gpioa::PA11<stm32f1xx_hal::gpio::Input<stm32f1xx_hal::gpio::Floating>>, stm32f1xx_hal::gpio::gpioa::PA12<stm32f1xx_hal::gpio::Input<stm32f1xx_hal::gpio::Floating>>);
@@ -90,13 +89,28 @@ type Mcp = mcp49xx::Mcp49xx<
 >;
 
 type VcoType = vco::VoltageControlledOscillator<'static, Mcp, Pxx<Input<Floating>>>;
-static mut VCO : MaybeUninit<VcoType> = MaybeUninit::uninit();
-trait InitOrMain {}
+type VcoArray = [VcoType; 2];
+
+static mut VCOS : MaybeUninit<VcoArray> = MaybeUninit::uninit();
+/*trait InitOrMain {}
 impl InitOrMain for init::Context {}
 impl InitOrMain for main::Context<'_> {}
-fn vco<'a, T: InitOrMain>(token : &'a T) -> &'a mut VcoType {
-	unsafe { &mut *VCO.as_mut_ptr() }
+fn vcos<'a, T: InitOrMain>(token : & T) -> &'a mut VcoArray {
+	unsafe { &mut *VCOS.as_mut_ptr() }
+}*/
+
+mod vco_token {
+	use crate::{VcoArray, VCOS};
+	pub struct VcoToken { dummy : () }
+	impl VcoToken {
+		pub const unsafe fn new() -> VcoToken { VcoToken{dummy:()} }
+	}
+	pub fn vcos<'a>(token : &'a mut VcoToken) -> &'a mut VcoArray {
+		unsafe { &mut *VCOS.as_mut_ptr() }
+	}
 }
+
+use crate::vco_token::{VcoToken,vcos};
 
 
 #[app(device = stm32)]
@@ -110,12 +124,16 @@ const APP: () = {
 		led : gpioc::PC13<Output<PushPull>>,
 		usb_dev : usb_device::device::UsbDevice<'static, MyUsbBus>,
 		midi : usbd_midi::MidiClass<'static, MyUsbBus>,
-		mytimer : timer::CountDownTimer<stm32::TIM2>
+		mytimer : timer::CountDownTimer<stm32::TIM2>,
+		#[init( unsafe{VcoToken::new()} )]
+		vco_token : VcoToken
 	}
 
-	#[init]
-	fn init(cx : init::Context) -> init::LateResources {
+	//#[init(resources=[vco_token])]
+	#[init(spawn=[xmain],resources=[vco_token])]
+	fn init(mut cx : init::Context) -> init::LateResources {
 		let dp = stm32::Peripherals::take().unwrap();
+		//let p = &cx.core; //cortex_m::peripheral::Peripherals::take().unwrap();
 		let p = cortex_m::peripheral::Peripherals::take().unwrap();
 
 		let mut flash = dp.FLASH.constrain();
@@ -171,6 +189,8 @@ const APP: () = {
 			.serial_number("TEST")
 			.device_class(usbd_midi::USB_CLASS_NONE)
 			.build();
+			
+		writeln!(tx, "spi...");
 
 		// SPI
 		let mcp_ss : OldOutputPin<_> = gpiob.pb12.into_push_pull_output(&mut gpiob.crh).downgrade().into();
@@ -200,6 +220,9 @@ const APP: () = {
 			led.toggle();
 		}*/
 
+
+		writeln!(tx, "exti...");
+
 		// EXTI
 		let mut nvic = p.NVIC;
 		nvic.enable(stm32::Interrupt::EXTI9_5);
@@ -217,23 +240,35 @@ const APP: () = {
 		let mut vco1 = vco::VoltageControlledOscillator::new(mcp4822, mcp49xx::Channel::Ch0, exti_pin.downgrade());
 		let mut vco2 = vco::VoltageControlledOscillator::new(mcp4822, mcp49xx::Channel::Ch1, exti_pin2.downgrade());
 
+		writeln!(tx, "oh god why...");
 		vco1.set_pitch(42);
 		//vco1.calibrate(&mut dp.EXTI, (), (), ());
 
-		//unsafe { *VCO.as_mut_ptr() = vco1; } // FIXME
-		*vco(&cx) = vco1;
+		*vcos(cx.resources.vco_token) = [vco1, vco2];
 		
 		// Timer
 		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
 
+		
+		writeln!(tx, "spawn");
+		cx.spawn.xmain();
 
+		writeln!(tx, "finish");
 		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer};
 	}
 
-	#[task(resources = [mytimer])]
-	fn main(c : main::Context)
+	#[task(spawn=[not_main], resources = [mytimer, exti, vco_token, tx])]
+	fn xmain(mut c : xmain::Context)
 	{
-		let vco = vco(&c);
+		writeln!(c.resources.tx, "in main!");
+		let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::Main>::new() };
+		let vcos = vcos(c.resources.vco_token);
+		writeln!(c.resources.tx, "got vcos");
+
+		for vco in vcos {
+			writeln!(c.resources.tx, "Calibrating VCO...");
+			vco.calibrate(c.resources.exti, &mut c.resources.mytimer, &PINGPONG, &token);
+		}
 	}
 
 	#[task(resources = [mytimer])]
@@ -243,7 +278,7 @@ const APP: () = {
 	}
 
 	extern "C" {
-		fn UART4();
+		fn EXTI0();
 	}
 };
 
