@@ -1,13 +1,15 @@
-use stm32f1xx_hal::{stm32, timer::CountDownTimer, gpio::*, gpio};
+use stm32f1xx_hal::{stm32, timer::CountDownTimer, serial, gpio::*, gpio};
 use crate::coop_threadsafe_container as ctc;
 use core::cell::{RefCell, UnsafeCell};
 use rtfm::Mutex;
 use mcp49xx;
+use cortex_m::asm::delay;
+use core::fmt::Write;
 
 #[derive(Clone,Copy)]
 pub struct Period {
-	high_time : u16,
-	low_time : u16
+	high_time : u16, // [timer ticks]
+	low_time : u16   // [timer ticks]
 }
 
 #[derive(PartialEq)]
@@ -16,14 +18,15 @@ pub enum Edge {
 	Falling
 }
 
+const N_PERIODS : usize = 5;
+
 pub struct MeasurementState {
-	periods : [Period; 10],
-	index : i16,
-	edge : Edge,
-	last_time : u16
+	periods : [Period; N_PERIODS],
+	index : i16, // -1 means "waiting", otherwise 0..N_PERIODS
+	edge : Edge, // the currently configured EXTI edge
+	last_time : u16 // [timer ticks]
 }
 
-const N_PERIODS : usize = 10;
 
 impl MeasurementState {
 	pub const fn const_default() -> MeasurementState {
@@ -96,6 +99,18 @@ pub fn handle_measurement_isr(
 }
 
 
+fn prescaler_for_freq(freq : u32, timer_clock : u32) -> u16 {
+	let psc : u32 = (timer_clock + freq - 1) / freq;
+	if psc == 0 {
+		return 0; // TODO proper error handling?
+	}
+	else if psc >= 0x10000 {
+		return 0xFFFF; // TODO proper error handling
+	}
+	else {
+		return (psc-1) as u16;
+	}
+}
 
 const N_MEASUREMENTS : u16 = 64;
 const MEASUREMENT_STEP : u16 = 4096 / N_MEASUREMENTS;
@@ -114,11 +129,11 @@ where
 		self.send(TODO);
 	}
 
-	fn send(&mut self, val: u16) {
+	pub fn send(&mut self, val: u16) {
 		self.dac.borrow_mut().send( mcp49xx::Command::default().channel(self.channel).value(val) );
 	}
 
-	fn measure_freq_at(
+	pub fn measure_freq_at(
 		&mut self,
 		val: u16,
 		prescaler: u16,
@@ -126,7 +141,8 @@ where
 		exti_pin_ptr : &mut crate::resources::exti_pin_ptr<'_>,
 		mytimer : &mut crate::resources::mytimer<'_>,
 		pingpong : &ctc::CoopContainer<MeasurementState>,
-		token: &ctc::Token::<ctc::Main>
+		token: &ctc::Token::<ctc::Main>,
+		tx : &mut serial::Tx<stm32::USART1>
 	) -> f32
 	{
 		self.measure_at(val, prescaler, exti, exti_pin_ptr, mytimer, pingpong, token);
@@ -139,11 +155,14 @@ where
 		for i in 0..N_PERIODS {
 			hi_sum += guard.periods[i].high_time as u32;
 			lo_sum += guard.periods[i].low_time as u32;
+			write!(tx, "{} {}, ", guard.periods[i].high_time, guard.periods[i].low_time);
 		}
+		writeln!(tx, "");
 
 		let clk = mytimer.lock(|mytimer| { mytimer.clk() });
 
-		clk as f32 / ((hi_sum + lo_sum) / N_PERIODS as u32) as f32
+
+		(clk * N_PERIODS as u32) as f32 / (((hi_sum + lo_sum) as u32 * (prescaler+1) as u32 ) as f32)
 	}
 
 	fn measure_at(
@@ -169,7 +188,7 @@ where
 		// Enable the interrupt line
 		exti.lock( |exti| {
 			exti_pin_ptr.lock( |exti_pin_ptr| {
-				unsafe { (*self.exti_pin.get()).trigger_on_edge(&exti, gpio::Edge::FALLING); }
+				unsafe { (*self.exti_pin.get()).trigger_on_edge(&exti, gpio::Edge::RISING); }
 				unsafe { (*self.exti_pin.get()).enable_interrupt(&exti); }
 				*exti_pin_ptr = self.exti_pin.get();
 			});
@@ -205,7 +224,7 @@ where
 	) {
 		for i in 0..N_MEASUREMENTS {
 
-			self.measure_freq_at(i*MEASUREMENT_STEP, 42 /*TODO*/, exti, exti_pin_ptr, mytimer, pingpong, token);
+			//self.measure_freq_at(i*MEASUREMENT_STEP, 42 /*TODO*/, exti, exti_pin_ptr, mytimer, pingpong, token);
 
 		}
 	}

@@ -129,20 +129,24 @@ const APP: () = {
 		static mut USB_BUS: Option<usb_device::bus::UsbBusAllocator<MyUsbBus>> = None;
 
 		let dp = stm32::Peripherals::take().unwrap();
-		//let p = &cx.core; //cortex_m::peripheral::Peripherals::take().unwrap();
-		let p = cortex_m::peripheral::Peripherals::take().unwrap();
+		let p = &mut cx.core; //cortex_m::peripheral::Peripherals::take().unwrap();
 
+
+		// Clock configuration
 
 		let mut flash = dp.FLASH.constrain();
 		let mut rcc = dp.RCC.constrain();
 
 		let clocks = rcc.cfgr
 			.use_hse(8.mhz())
-			.sysclk(48.mhz())
-			.pclk1(24.mhz())
+			.sysclk(72.mhz())
+			.pclk1(36.mhz())
 			.freeze(&mut flash.acr);
 
 		assert!(clocks.usbclk_valid());
+
+
+		// GPIO and peripheral configuration
 
 		let mut afio = dp.AFIO.constrain(&mut rcc.apb2);
 		let mut gpioa = dp.GPIOA.split(&mut rcc.apb2);
@@ -167,6 +171,8 @@ const APP: () = {
 		let (mut tx, _rx) = serial.split();
 		writeln!(tx, "usart initialized").ok();
 
+		
+		// Configure USB
 		// BluePill board has a pull-up resistor on the D+ line.
 		// Pull the D+ pin down to send a RESET condition to the USB bus.
 		let mut usb_dp = gpioa.pa12.into_push_pull_output(&mut gpioa.crh);
@@ -197,32 +203,16 @@ const APP: () = {
 		let miso = gpiob.pb14;
 
 		let spi = spi::Spi::spi2(dp.SPI2, (sck, miso, mosi), spi::Mode { phase : spi::Phase::CaptureOnFirstTransition, polarity : spi::Polarity::IdleLow }, 500.khz(), clocks, &mut rcc.apb1);
-		//let shared_spi : MySharedSpiManager = shared_bus::BusManager::<noop_bus_mutex::NoopBusMutex<_>, _>::new(spi);
-		//let shared_spi : &'static mut MySharedSpiManager = singleton!(:MySharedSpiManager = shared_bus::BusManager::<noop_bus_mutex::NoopBusMutex<_>, _>::new(spi)).unwrap();
 		let shared_spi : &'static MySharedSpiManager = singleton!(:MySharedSpiManager =
 			shared_bus::BusManager::<noop_bus_mutex::NoopBusMutex<_>, _>::new(spi)
 		).unwrap();
 
 		let mcp4822 = singleton!(:RefCell<Mcp> = RefCell::new(mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp_ss)) ).unwrap();
-		//let mut mcp4822_2 = RefCell::new(mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp2_ss));
-
-		//let arr = [mcp4822, mcp4822_2];
-		/*let mut i : u16 = 0;
-		loop {
-			for i in 0..4096 {
-				mcp4822.send(mcp49xx::Command::default().channel(mcp49xx::Channel::Ch0).value(i));
-				//mcp4822.send(mcp49xx::Command::default().channel(mcp49xx::Channel::Ch1).value(4096-i));
-				delay(clocks.sysclk().0 / 5000);
-			}
-			led.toggle();
-		}*/
-
 
 		writeln!(tx, "exti...");
 
 		// EXTI
-		let mut nvic = p.NVIC;
-		nvic.enable(stm32::Interrupt::EXTI9_5);
+		p.NVIC.enable(stm32::Interrupt::EXTI9_5);
 
 		let mut exti_pin = gpiob.pb9.into_floating_input(&mut gpiob.crh);
 		exti_pin.make_interrupt_source(&mut afio);
@@ -236,21 +226,14 @@ const APP: () = {
 
 		let mut vco1 = vco::VoltageControlledOscillator::new(mcp4822, mcp49xx::Channel::Ch0, exti_pin.downgrade());
 		let mut vco2 = vco::VoltageControlledOscillator::new(mcp4822, mcp49xx::Channel::Ch1, exti_pin2.downgrade());
-
-		writeln!(tx, "oh god why...");
-		vco1.set_pitch(42);
-		//vco1.calibrate(&mut dp.EXTI, (), (), ());
-
+		
 		*vcos(cx.resources.vco_token) = [vco1, vco2];
 		
 		// Timer
 		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
 
 		
-		writeln!(tx, "spawn");
 		cx.spawn.xmain();
-
-		writeln!(tx, "finish");
 		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer};
 	}
 
@@ -264,7 +247,18 @@ const APP: () = {
 
 		for vco in vcos {
 			writeln!(c.resources.tx, "Calibrating VCO...");
-			vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
+			writeln!(c.resources.tx, "timer clock is {}", c.resources.mytimer.lock(|t| {t.clk()}));
+			writeln!(c.resources.tx, "lo");
+			vco.send(1024);
+			delay(12000000);
+			writeln!(c.resources.tx, "hi");
+			vco.send(1024*2);
+			delay(12000000);
+			let freq = vco.measure_freq_at(2048, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, c.resources.tx);
+			writeln!(c.resources.tx, "frequency is {}", freq as u32);
+			let freq = vco.measure_freq_at(512, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, c.resources.tx);
+			writeln!(c.resources.tx, "frequency is {}", freq as u32);
+			//vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
 		}
 	}
 
