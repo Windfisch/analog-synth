@@ -44,11 +44,9 @@ static mut GLOB_TIMER : MaybeUninit<timer::CountDownTimer<stm32::TIM2>> = MaybeU
 static PINGPONG : ctc::CoopContainer<vco::MeasurementState> = ctc::CoopContainer::new(  vco::MeasurementState::const_default(), ctc::Token::<ctc::Main>::ID);
 
 
+
 type MyUsbPins = (stm32f1xx_hal::gpio::gpioa::PA11<stm32f1xx_hal::gpio::Input<stm32f1xx_hal::gpio::Floating>>, stm32f1xx_hal::gpio::gpioa::PA12<stm32f1xx_hal::gpio::Input<stm32f1xx_hal::gpio::Floating>>);
 type MyUsbBus = stm32_usbd::bus::UsbBus<MyUsbPins>;
-
-// ugly kludge, because usb_dev and midi need a *borrow* of the usb bus
-static mut USB_BUS : MaybeUninit<usb_device::bus::UsbBusAllocator<MyUsbBus>> = MaybeUninit::uninit();
 
 type MySpiPins = (
 	gpiob::PB13<Alternate<PushPull>>,
@@ -88,16 +86,10 @@ type Mcp = mcp49xx::Mcp49xx<
 	mcp49xx::marker::Unbuffered
 >;
 
-type VcoType = vco::VoltageControlledOscillator<'static, Mcp, Pxx<Input<Floating>>>;
+type VcoType = vco::VoltageControlledOscillator<'static, Mcp>;
 type VcoArray = [VcoType; 2];
 
 static mut VCOS : MaybeUninit<VcoArray> = MaybeUninit::uninit();
-/*trait InitOrMain {}
-impl InitOrMain for init::Context {}
-impl InitOrMain for main::Context<'_> {}
-fn vcos<'a, T: InitOrMain>(token : & T) -> &'a mut VcoArray {
-	unsafe { &mut *VCOS.as_mut_ptr() }
-}*/
 
 mod vco_token {
 	use crate::{VcoArray, VCOS};
@@ -120,6 +112,8 @@ const APP: () = {
 		#[init(())]
 		dummy : (),
 		exti : stm32::EXTI,
+		#[init(core::ptr::null_mut())]
+		exti_pin_ptr : *mut Pxx<Input<Floating>>,
 		tx : serial::Tx<stm32::USART1>,
 		led : gpioc::PC13<Output<PushPull>>,
 		usb_dev : usb_device::device::UsbDevice<'static, MyUsbBus>,
@@ -132,9 +126,12 @@ const APP: () = {
 	//#[init(resources=[vco_token])]
 	#[init(spawn=[xmain],resources=[vco_token])]
 	fn init(mut cx : init::Context) -> init::LateResources {
+		static mut USB_BUS: Option<usb_device::bus::UsbBusAllocator<MyUsbBus>> = None;
+
 		let dp = stm32::Peripherals::take().unwrap();
 		//let p = &cx.core; //cortex_m::peripheral::Peripherals::take().unwrap();
 		let p = cortex_m::peripheral::Peripherals::take().unwrap();
+
 
 		let mut flash = dp.FLASH.constrain();
 		let mut rcc = dp.RCC.constrain();
@@ -179,8 +176,8 @@ const APP: () = {
 		let usb_dm = gpioa.pa11;
 		let usb_dp = usb_dp.into_floating_input(&mut gpioa.crh);
 
-		unsafe { USB_BUS.as_mut_ptr().write( UsbBus::new(dp.USB, (usb_dm, usb_dp)) ); }
-		let usb_bus = unsafe { &mut *USB_BUS.as_mut_ptr() };
+		*USB_BUS = Some( UsbBus::new(dp.USB, (usb_dm, usb_dp)) );
+		let usb_bus = USB_BUS.as_ref().unwrap();
 
 		let midi = usbd_midi::MidiClass::new(usb_bus);
 		let usb_dev = UsbDeviceBuilder::new(usb_bus, UsbVidPid(0x16c0, 0x27dd))
@@ -257,7 +254,7 @@ const APP: () = {
 		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer};
 	}
 
-	#[task(spawn=[not_main], resources = [mytimer, exti, vco_token, tx])]
+	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx])]
 	fn xmain(mut c : xmain::Context)
 	{
 		writeln!(c.resources.tx, "in main!");
@@ -267,14 +264,17 @@ const APP: () = {
 
 		for vco in vcos {
 			writeln!(c.resources.tx, "Calibrating VCO...");
-			vco.calibrate(c.resources.exti, &mut c.resources.mytimer, &PINGPONG, &token);
+			vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
 		}
 	}
 
-	#[task(resources = [mytimer])]
-	fn not_main(c : not_main::Context)
+	#[task(binds = EXTI9_5, resources = [mytimer, exti, exti_pin_ptr], priority=2)]
+	fn measurement_isr(c : measurement_isr::Context)
 	{
-		//let vco = vco(&c); // will not work
+		let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::ISR>::new() };
+		let exti_pin = unsafe {&mut **c.resources.exti_pin_ptr};
+
+		vco::handle_measurement_isr(&token, exti_pin, c.resources.exti, c.resources.mytimer, &PINGPONG);
 	}
 
 	extern "C" {
