@@ -254,11 +254,11 @@ const APP: () = {
 			writeln!(c.resources.tx, "hi");
 			vco.send(1024*2);
 			delay(12000000);
-			let freq = vco.measure_freq_at(2048, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, c.resources.tx);
+			let freq = vco.measure_freq_at(2048, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
 			writeln!(c.resources.tx, "frequency is {}", freq as u32);
-			let freq = vco.measure_freq_at(512, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, c.resources.tx);
+			let freq = vco.measure_freq_at(512, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
 			writeln!(c.resources.tx, "frequency is {}", freq as u32);
-			//vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
+			vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, &mut c.resources.tx);
 		}
 	}
 

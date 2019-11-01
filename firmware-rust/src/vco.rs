@@ -5,6 +5,7 @@ use rtfm::Mutex;
 use mcp49xx;
 use cortex_m::asm::delay;
 use core::fmt::Write;
+use libm::*;
 
 #[derive(Clone,Copy)]
 pub struct Period {
@@ -98,20 +99,6 @@ pub fn handle_measurement_isr(
 	exti_pin.clear_interrupt_pending_bit();
 }
 
-
-fn prescaler_for_freq(freq : u32, timer_clock : u32) -> u16 {
-	let psc : u32 = (timer_clock + freq - 1) / freq;
-	if psc == 0 {
-		return 0; // TODO proper error handling?
-	}
-	else if psc >= 0x10000 {
-		return 0xFFFF; // TODO proper error handling
-	}
-	else {
-		return (psc-1) as u16;
-	}
-}
-
 const N_MEASUREMENTS : u16 = 64;
 const MEASUREMENT_STEP : u16 = 4096 / N_MEASUREMENTS;
 
@@ -123,10 +110,9 @@ where
 	CH: mcp49xx::ChannelSupport<E>,
 	BUF: mcp49xx::BufferingSupport<E>
 {
-	pub fn set_pitch(&mut self, cents : i32) {
-		// TODO: figure out which code point to send
-		let TODO = 1337;
-		self.send(TODO);
+	pub fn output_millicents(&mut self, millicents : i32) -> Result<(),()> {
+		self.send( self.codepoint_for_millicents(millicents)? );
+		Ok(())
 	}
 
 	pub fn send(&mut self, val: u16) {
@@ -141,8 +127,7 @@ where
 		exti_pin_ptr : &mut crate::resources::exti_pin_ptr<'_>,
 		mytimer : &mut crate::resources::mytimer<'_>,
 		pingpong : &ctc::CoopContainer<MeasurementState>,
-		token: &ctc::Token::<ctc::Main>,
-		tx : &mut serial::Tx<stm32::USART1>
+		token: &ctc::Token::<ctc::Main>
 	) -> f32
 	{
 		self.measure_at(val, prescaler, exti, exti_pin_ptr, mytimer, pingpong, token);
@@ -155,9 +140,7 @@ where
 		for i in 0..N_PERIODS {
 			hi_sum += guard.periods[i].high_time as u32;
 			lo_sum += guard.periods[i].low_time as u32;
-			write!(tx, "{} {}, ", guard.periods[i].high_time, guard.periods[i].low_time);
 		}
-		writeln!(tx, "");
 
 		let clk = mytimer.lock(|mytimer| { mytimer.clk() });
 
@@ -220,13 +203,86 @@ where
 		exti_pin_ptr : &mut crate::resources::exti_pin_ptr<'_>,
 		mytimer : &mut crate::resources::mytimer<'_>,
 		pingpong : &ctc::CoopContainer<MeasurementState>,
-		token: &ctc::Token::<ctc::Main>
+		token: &ctc::Token::<ctc::Main>,
+		tx : &mut serial::Tx<stm32::USART1>
 	) {
+		// Coarse calibration: Provides a coarse frequency estimate which is needed to set up the
+		// measurement timer with the best-possible precision that does not yet suffer from overflows.
+		const PROBE1 : u16 = 1024;
+		const PROBE2 : u16 = 3072;
+		let coarse_calibration_1 = self.measure_freq_at(PROBE1, 100, exti, exti_pin_ptr, mytimer, pingpong, token);
+		let coarse_calibration_2 = self.measure_freq_at(PROBE2, 100, exti, exti_pin_ptr, mytimer, pingpong, token);
+
+		writeln!(tx, "coarse calibration: {}Hz @ {}, {}Hz @ {}", coarse_calibration_1 as u32, PROBE1, coarse_calibration_2 as u32, PROBE2);
+
+		// Fine calibration
+		let timer_clock = mytimer.lock(|t|{t.clk()});
 		for i in 0..N_MEASUREMENTS {
+			let val = reverse_bits(i, 12);
+			let expected_freq = expected_frequency(val, PROBE1, coarse_calibration_1, PROBE2, coarse_calibration_2);
+			let prescaler = prescaler_for_freq((expected_freq * 2.0 * 32768.0) as u32, timer_clock);
+			writeln!(tx, "val {} will be around {}Hz -> choosing a prescaler of {}", val, expected_freq as u32, prescaler);
 
-			//self.measure_freq_at(i*MEASUREMENT_STEP, 42 /*TODO*/, exti, exti_pin_ptr, mytimer, pingpong, token);
+			let actual_freq = self.measure_freq_at(val, prescaler, exti, exti_pin_ptr, mytimer, pingpong, token);
+			let millicents = (log2f(actual_freq) * 1200_000.0) as i32;
+			writeln!(tx, "  actual frequency is {} = {} millicents", actual_freq as u32, millicents);
 
+			let idx = val / MEASUREMENT_STEP;
+			self.calibration[idx as usize] = millicents;
 		}
+
+		writeln!(tx, "Calibration data:\n\t0\t{}", self.calibration[0]);
+		for i in 1..N_MEASUREMENTS as usize {
+			let delta = self.calibration[i] - self.calibration[i-1];
+			writeln!(tx, "\t{}\t{}\t(+{})", i, self.calibration[i], delta);
+		}
+	}
+
+	pub fn codepoint_for_millicents(&self, millicents : i32) -> Result<u16, ()>
+	{
+		for i in 1..N_MEASUREMENTS as usize {
+			let (a,b) = (self.calibration[i-1], self.calibration[i]);
+			if a <= millicents && millicents < b {
+				let diff = b - a;
+				let offset = (MEASUREMENT_STEP as u64 * (millicents - a) as u64 / diff as u64) as u16;
+				let result = (i as u16 -1)*MEASUREMENT_STEP + offset;
+				return Ok(result);
+				// TODO FIXME: wiggle!
+			}
+		}
+		Err(())
 	}
 }
 
+fn expected_frequency(val: u16, probe1: u16, freq1: f32, probe2: u16, freq2: f32) -> f32
+{
+	let octaves = log2f(freq2 / freq1); // octaves across probe1..probe2
+	return freq1 * exp2f(octaves * (val as i16 - probe1 as i16) as f32 / (probe2-probe1) as f32  );
+}
+
+// returns a prescaler such that the timer increments with `freq`, i.e.
+// it wraps with `freq / 65536`
+fn prescaler_for_freq(freq : u32, timer_clock : u32) -> u16 {
+	let psc : u32 = (timer_clock + freq - 1) / freq;
+	if psc == 0 {
+		return 0; // TODO proper error handling?
+	}
+	else if psc >= 0x10000 {
+		return 0xFFFF; // TODO proper error handling
+	}
+	else {
+		return (psc-1) as u16;
+	}
+}
+
+
+fn reverse_bits(val : u16, n_bits: u8) -> u16
+{
+	let mut result : u16 = 0 as u16;
+	for i in 0..n_bits {
+		if val & (1<<i) != 0 {
+			result |= (1 << (n_bits-i-1));
+		}
+	}
+	return result;
+}

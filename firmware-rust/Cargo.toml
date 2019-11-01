@@ -19,6 +19,7 @@ embedded-hal = ">=0.2.3"
 shared-bus = ">=0.1.4"
 noop-bus-mutex = { git="https://github.com/Windfisch/noop-bus-mutex" }
 mcp49xx = ">=0.1.0"
+libm = ">=0.1.4"
 
 [patch.crates-io]
 stm32f1xx-hal = { path = './lib/stm32f1xx-hal', features = ["rt","stm32f103"] }
