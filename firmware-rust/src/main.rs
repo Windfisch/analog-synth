@@ -208,7 +208,7 @@ const APP: () = {
 		let mosi = gpiob.pb15.into_alternate_push_pull(&mut gpiob.crh);
 		let miso = gpiob.pb14;
 
-		let spi = spi::Spi::spi2(dp.SPI2, (sck, miso, mosi), spi::Mode { phase : spi::Phase::CaptureOnFirstTransition, polarity : spi::Polarity::IdleLow }, 500.khz(), clocks, &mut rcc.apb1);
+		let spi = spi::Spi::spi2(dp.SPI2, (sck, miso, mosi), spi::Mode { phase : spi::Phase::CaptureOnFirstTransition, polarity : spi::Polarity::IdleLow }, 5.mhz(), clocks, &mut rcc.apb1);
 		let shared_spi : &'static MySharedSpiManager = singleton!(:MySharedSpiManager =
 			shared_bus::BusManager::<noop_bus_mutex::NoopBusMutex<_>, _>::new(spi)
 		).unwrap();
