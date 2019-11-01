@@ -104,6 +104,11 @@ mod vco_token {
 
 use crate::vco_token::{VcoToken,vcos};
 
+#[derive(Debug)]
+enum Command {
+	Calibrate,
+	Midi(midi::MidiChannelMessage)
+}
 
 #[app(device = stm32)]
 const APP: () = {
@@ -237,37 +242,53 @@ const APP: () = {
 		let mut usb_timer = timer::Timer::tim1(dp.TIM1, &clocks, &mut rcc.apb2).start_count_down(5.khz());
 		usb_timer.listen(timer::Event::Update);
 
-		//cx.spawn.xmain();
+		cx.spawn.xmain(Command::Calibrate);
 		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer, usb_timer};
 	}
 
-	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx])]
-	fn xmain(mut c : xmain::Context)
+	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx], capacity=10)]
+	fn xmain(mut c : xmain::Context, cmd : Command)
 	{
-		writeln!(c.resources.tx, "in main!");
+		writeln!(c.resources.tx, "in main, cmd = {:?}", cmd);
 		let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::Main>::new() };
 		let vcos = vcos(c.resources.vco_token);
 		writeln!(c.resources.tx, "got vcos");
 
-		for vco in vcos {
-			writeln!(c.resources.tx, "Calibrating VCO...");
-			writeln!(c.resources.tx, "timer clock is {}", c.resources.mytimer.lock(|t| {t.clk()}));
-			writeln!(c.resources.tx, "lo");
-			vco.send(1024);
-			delay(12000000);
-			writeln!(c.resources.tx, "hi");
-			vco.send(1024*2);
-			delay(12000000);
-			let freq = vco.measure_freq_at(2048, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
-			writeln!(c.resources.tx, "frequency is {}", freq as u32);
-			let freq = vco.measure_freq_at(512, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
-			writeln!(c.resources.tx, "frequency is {}", freq as u32);
-			vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, &mut c.resources.tx);
-			break;
+		match cmd {
+			Command::Calibrate => {
+				for vco in vcos {
+					writeln!(c.resources.tx, "Calibrating VCO...");
+					writeln!(c.resources.tx, "timer clock is {}", c.resources.mytimer.lock(|t| {t.clk()}));
+					writeln!(c.resources.tx, "lo");
+					vco.send(1024);
+					delay(12000000);
+					writeln!(c.resources.tx, "hi");
+					vco.send(1024*2);
+					delay(12000000);
+					let freq = vco.measure_freq_at(2048, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
+					writeln!(c.resources.tx, "frequency is {}", freq as u32);
+					let freq = vco.measure_freq_at(512, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
+					writeln!(c.resources.tx, "frequency is {}", freq as u32);
+					vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, &mut c.resources.tx);
+					break;
+				}
+			}
+			Command::Midi(msg) => {
+				match msg {
+					midi::MidiChannelMessage::NoteOn{note, velocity: _} => {
+						let mc = note as i32 * 100_000 + 5_000_000;
+						writeln!(c.resources.tx, "playing millicents={}", mc);
+						let result = vcos[0].output_millicents( mc );
+						writeln!(c.resources.tx, "\t-> {:?}", result);
+					}
+					_ => {}
+				}
+			}
+
 		}
 	}
 
-	#[task(binds = TIM1_UP, resources=[usb_timer, midi, usb_dev, led], priority=2)]
+	#[task(binds = TIM1_UP, spawn=[xmain], resources=[usb_timer, midi, usb_dev, led], priority=2)]
 	fn periodic_usb_poll(mut c : periodic_usb_poll::Context)
 	{
 		c.resources.usb_timer.clear_update_interrupt_flag();
@@ -287,9 +308,11 @@ const APP: () = {
 							match msg {
 								midi::MidiChannelMessage::NoteOn{note:_, velocity:_} => {
 									c.resources.led.set_low().ok(); // Turn off
+									c.spawn.xmain(Command::Midi(msg));
 								}
 								midi::MidiChannelMessage::NoteOff{note:_, velocity:_} => {
 									c.resources.led.set_high().ok(); // Turn off
+									c.spawn.xmain(Command::Midi(msg));
 								}
 								_ => ()
 							}
