@@ -119,6 +119,7 @@ const APP: () = {
 		usb_dev : usb_device::device::UsbDevice<'static, MyUsbBus>,
 		midi : usbd_midi::MidiClass<'static, MyUsbBus>,
 		mytimer : timer::CountDownTimer<stm32::TIM2>,
+		usb_timer : timer::CountDownTimer<stm32::TIM1>,
 		#[init( unsafe{VcoToken::new()} )]
 		vco_token : VcoToken
 	}
@@ -185,8 +186,8 @@ const APP: () = {
 		*USB_BUS = Some( UsbBus::new(dp.USB, (usb_dm, usb_dp)) );
 		let usb_bus = USB_BUS.as_ref().unwrap();
 
-		let midi = usbd_midi::MidiClass::new(usb_bus);
-		let usb_dev = UsbDeviceBuilder::new(usb_bus, UsbVidPid(0x16c0, 0x27dd))
+		let mut midi = usbd_midi::MidiClass::new(usb_bus);
+		let mut usb_dev = UsbDeviceBuilder::new(usb_bus, UsbVidPid(0x16c0, 0x27dd))
 			.manufacturer("Fake company")
 			.product("Serial port")
 			.serial_number("TEST")
@@ -232,9 +233,12 @@ const APP: () = {
 		// Timer
 		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
 
-		
-		cx.spawn.xmain();
-		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer};
+		// Periodic USB poll timer
+		let mut usb_timer = timer::Timer::tim1(dp.TIM1, &clocks, &mut rcc.apb2).start_count_down(5.khz());
+		usb_timer.listen(timer::Event::Update);
+
+		//cx.spawn.xmain();
+		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer, usb_timer};
 	}
 
 	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx])]
@@ -259,10 +263,47 @@ const APP: () = {
 			let freq = vco.measure_freq_at(512, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
 			writeln!(c.resources.tx, "frequency is {}", freq as u32);
 			vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, &mut c.resources.tx);
+			break;
 		}
 	}
 
-	#[task(binds = EXTI9_5, resources = [mytimer, exti, exti_pin_ptr], priority=2)]
+	#[task(binds = TIM1_UP, resources=[usb_timer, midi, usb_dev, led], priority=2)]
+	fn periodic_usb_poll(mut c : periodic_usb_poll::Context)
+	{
+		c.resources.usb_timer.clear_update_interrupt_flag();
+		
+		if c.resources.usb_dev.poll(&mut [c.resources.midi]) {
+
+			//midi.note_on(1, usbd_midi::Note::A4, 127).ok();
+
+			let mut data : [u8;64] = [0;64];
+			if let Ok(size) = c.resources.midi.poll(&mut data)
+			{
+				for i in (0..size).step_by(4) {
+					let (cable, msg) = midi::parse_midi(&[data[i],data[i+1],data[i+2],data[i+3]]);//FIXME there must be a better way...
+					match msg {
+						midi::MidiMessage::Channel(channel, msg) =>
+						{
+							match msg {
+								midi::MidiChannelMessage::NoteOn{note:_, velocity:_} => {
+									c.resources.led.set_low().ok(); // Turn off
+								}
+								midi::MidiChannelMessage::NoteOff{note:_, velocity:_} => {
+									c.resources.led.set_high().ok(); // Turn off
+								}
+								_ => ()
+							}
+						}
+						_ => ()
+					}
+				}
+
+			}
+
+		}
+	}
+
+	#[task(binds = EXTI9_5, resources = [mytimer, exti, exti_pin_ptr], priority=3)]
 	fn measurement_isr(c : measurement_isr::Context)
 	{
 		let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::ISR>::new() };
