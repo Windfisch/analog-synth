@@ -124,7 +124,7 @@ const APP: () = {
 		usb_dev : usb_device::device::UsbDevice<'static, MyUsbBus>,
 		midi : usbd_midi::MidiClass<'static, MyUsbBus>,
 		mytimer : timer::CountDownTimer<stm32::TIM2>,
-		usb_timer : timer::CountDownTimer<stm32::TIM1>,
+		//usb_timer : timer::CountDownTimer<stm32::TIM1>,
 		#[init( unsafe{VcoToken::new()} )]
 		vco_token : VcoToken
 	}
@@ -238,12 +238,15 @@ const APP: () = {
 		// Timer
 		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
 
-		// Periodic USB poll timer
-		let mut usb_timer = timer::Timer::tim1(dp.TIM1, &clocks, &mut rcc.apb2).start_count_down(5.khz());
-		usb_timer.listen(timer::Event::Update);
+		// Periodic timer
+		// let mut usb_timer = timer::Timer::tim1(dp.TIM1, &clocks, &mut rcc.apb2).start_count_down(5.khz());
+		// usb_timer.listen(timer::Event::Update);
+
+		// USB interrupt
+		p.NVIC.enable(stm32::Interrupt::USB_LP_CAN_RX0);
 
 		cx.spawn.xmain(Command::Calibrate);
-		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer, usb_timer};
+		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer};
 	}
 
 	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx], capacity=10)]
@@ -288,11 +291,9 @@ const APP: () = {
 		}
 	}
 
-	#[task(binds = TIM1_UP, spawn=[xmain], resources=[usb_timer, midi, usb_dev, led], priority=2)]
+	#[task(binds = USB_LP_CAN_RX0, spawn=[xmain], resources=[midi, usb_dev, led], priority=2)]
 	fn periodic_usb_poll(mut c : periodic_usb_poll::Context)
 	{
-		c.resources.usb_timer.clear_update_interrupt_flag();
-		
 		if c.resources.usb_dev.poll(&mut [c.resources.midi]) {
 
 			//midi.note_on(1, usbd_midi::Note::A4, 127).ok();
