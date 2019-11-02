@@ -3,6 +3,9 @@
 
 extern crate panic_semihosting;
 
+mod envelope;
+mod reverse_bits;
+mod bu2505fv;
 
 use rtfm::app;
 
@@ -67,7 +70,7 @@ type MySharedSpiManager = shared_bus::proxy::BusManager<
 	>,
 	MySpi
 >;
-type MySharedSpiProxy = shared_bus::proxy::BusProxy<'static, 
+type MySharedSpiProxy = shared_bus::proxy::BusProxy<'static,
 	noop_bus_mutex::NoopBusMutex<
 		core::cell::RefCell<
 			MySpi
@@ -124,7 +127,9 @@ const APP: () = {
 		usb_dev : usb_device::device::UsbDevice<'static, MyUsbBus>,
 		midi : usbd_midi::MidiClass<'static, MyUsbBus>,
 		mytimer : timer::CountDownTimer<stm32::TIM2>,
-		//usb_timer : timer::CountDownTimer<stm32::TIM1>,
+		env_timer : timer::CountDownTimer<stm32::TIM1>,
+		#[init(envelope::Envelope::new())]
+		test_env : envelope::Envelope,
 		#[init( unsafe{VcoToken::new()} )]
 		vco_token : VcoToken
 	}
@@ -215,6 +220,21 @@ const APP: () = {
 
 		let mcp4822 = singleton!(:RefCell<Mcp> = RefCell::new(mcp49xx::Mcp49xx::new_mcp4822(shared_spi.acquire(), mcp_ss)) ).unwrap();
 
+
+		let bu2505_ld_pin = gpiob.pb10.into_push_pull_output(&mut gpiob.crh).downgrade();
+		let mut spi_bla = shared_spi.acquire();
+		let mut bu2505 = bu2505fv::create_reversed(bu2505_ld_pin, &spi_bla);
+
+		loop {
+			for j in 0..1024 {
+				writeln!(tx, "j = {}", j);
+				for i in 0..10 {
+					bu2505.set(i, j, &mut spi_bla, clocks.sysclk().0);
+					delay(200);
+				}
+			}
+		}
+
 		writeln!(tx, "exti...");
 
 		// EXTI
@@ -239,17 +259,17 @@ const APP: () = {
 		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
 
 		// Periodic timer
-		// let mut usb_timer = timer::Timer::tim1(dp.TIM1, &clocks, &mut rcc.apb2).start_count_down(5.khz());
-		// usb_timer.listen(timer::Event::Update);
+		let mut env_timer = timer::Timer::tim1(dp.TIM1, &clocks, &mut rcc.apb2).start_count_down(1.khz());
+		env_timer.listen(timer::Event::Update);
 
 		// USB interrupt
 		p.NVIC.enable(stm32::Interrupt::USB_LP_CAN_RX0);
 
 		cx.spawn.xmain(Command::Calibrate);
-		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer};
+		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer, env_timer};
 	}
 
-	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx], capacity=10)]
+	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx, test_env], capacity=10)]
 	fn xmain(mut c : xmain::Context, cmd : Command)
 	{
 		writeln!(c.resources.tx, "in main, cmd = {:?}", cmd);
@@ -283,12 +303,29 @@ const APP: () = {
 						writeln!(c.resources.tx, "playing millicents={}", mc);
 						let result = vcos[0].output_millicents( mc );
 						writeln!(c.resources.tx, "\t-> {:?}", result);
+						
+						c.resources.test_env.trigger();
+					}
+					midi::MidiChannelMessage::NoteOff{note:_, velocity:_} => {
+						c.resources.test_env.release();
 					}
 					_ => {}
 				}
 			}
 
 		}
+	}
+	
+	#[task(binds = TIM1_UP, resources=[test_env, tx, env_timer], priority=1)]
+	fn envelope_timer(mut c : envelope_timer::Context)
+	{
+		static mut i : u32 = 0;
+		*i = (*i+1)%50;
+		if *i == 0 {
+			writeln!(c.resources.tx, "envelope update: {}", c.resources.test_env.value10bit());
+		}
+		c.resources.test_env.tick();
+		c.resources.env_timer.clear_update_interrupt_flag();
 	}
 
 	#[task(binds = USB_LP_CAN_RX0, spawn=[xmain], resources=[midi, usb_dev, led], priority=2)]
