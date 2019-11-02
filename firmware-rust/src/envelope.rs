@@ -26,12 +26,12 @@ impl Envelope {
 	pub const fn new() -> Envelope {
 		return Envelope {
 			attack : 1,
-			decay : 2000,
-			sustain : (1<<14),
-			release : 5000,
+			decay : 400,
+			sustain : (1<<15),
+			release : 3000,
 			retriggerable : true,
 			hold : true,
-			early_release : true,
+			early_release : false,
 			release_pending : false,
 			value : 0,
 			phase : IDLE

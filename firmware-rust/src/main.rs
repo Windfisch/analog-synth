@@ -90,18 +90,24 @@ type Mcp = mcp49xx::Mcp49xx<
 >;
 
 type VcoType = vco::VoltageControlledOscillator<'static, Mcp>;
-type VcoArray = [VcoType; 2];
 
-static mut VCOS : MaybeUninit<VcoArray> = MaybeUninit::uninit();
+pub struct SpiDevices {
+	vcos : [VcoType; 2],
+	envelope : envelope::Envelope,
+	bu2505 : bu2505fv::Bu2505fv<MySharedSpiProxy, Pxx<Output<PushPull>>, bu2505fv::Reversed>,
+	spi_accessor : MySharedSpiProxy
+}
 
-mod vco_token {
-	use crate::{VcoArray, VCOS};
+static mut SPI_DEVICES : MaybeUninit<SpiDevices> = MaybeUninit::uninit();
+
+mod vco_token { // TODO FIXME rename this
+	use crate::{SpiDevices, SPI_DEVICES};
 	pub struct VcoToken { dummy : () }
 	impl VcoToken {
 		pub const unsafe fn new() -> VcoToken { VcoToken{dummy:()} }
 	}
-	pub fn vcos<'a>(token : &'a mut VcoToken) -> &'a mut VcoArray {
-		unsafe { &mut *VCOS.as_mut_ptr() }
+	pub fn vcos<'a>(token : &'a mut VcoToken) -> &'a mut SpiDevices {
+		unsafe { &mut *SPI_DEVICES.as_mut_ptr() }
 	}
 }
 
@@ -112,6 +118,9 @@ enum Command {
 	Calibrate,
 	Midi(midi::MidiChannelMessage)
 }
+
+use stm32f1xx_hal::time::Hertz;
+const SYSCLK : Hertz = Hertz(72_000_000);
 
 #[app(device = stm32)]
 const APP: () = {
@@ -150,7 +159,7 @@ const APP: () = {
 
 		let clocks = rcc.cfgr
 			.use_hse(8.mhz())
-			.sysclk(72.mhz())
+			.sysclk(SYSCLK)
 			.pclk1(36.mhz())
 			.freeze(&mut flash.acr);
 
@@ -225,16 +234,6 @@ const APP: () = {
 		let mut spi_bla = shared_spi.acquire();
 		let mut bu2505 = bu2505fv::create_reversed(bu2505_ld_pin, &spi_bla);
 
-		loop {
-			for j in 0..1024 {
-				writeln!(tx, "j = {}", j);
-				for i in 0..10 {
-					bu2505.set(i, j, &mut spi_bla, clocks.sysclk().0);
-					delay(200);
-				}
-			}
-		}
-
 		writeln!(tx, "exti...");
 
 		// EXTI
@@ -253,7 +252,7 @@ const APP: () = {
 		let mut vco1 = vco::VoltageControlledOscillator::new(mcp4822, mcp49xx::Channel::Ch0, exti_pin.downgrade());
 		let mut vco2 = vco::VoltageControlledOscillator::new(mcp4822, mcp49xx::Channel::Ch1, exti_pin2.downgrade());
 		
-		*vcos(cx.resources.vco_token) = [vco1, vco2];
+		*vcos(cx.resources.vco_token) = SpiDevices{ vcos : [vco1, vco2], envelope : envelope::Envelope::new(), bu2505, spi_accessor : spi_bla };
 		
 		// Timer
 		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
@@ -269,17 +268,17 @@ const APP: () = {
 		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer, env_timer};
 	}
 
-	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx, test_env], capacity=10)]
+	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx, test_env], capacity=10, priority=1)]
 	fn xmain(mut c : xmain::Context, cmd : Command)
 	{
 		writeln!(c.resources.tx, "in main, cmd = {:?}", cmd);
 		let token = unsafe{ coop_threadsafe_container::Token::<coop_threadsafe_container::Main>::new() };
-		let vcos = vcos(c.resources.vco_token);
+		let spi_devices = vcos(c.resources.vco_token);
 		writeln!(c.resources.tx, "got vcos");
 
 		match cmd {
 			Command::Calibrate => {
-				for vco in vcos {
+				for vco in &mut spi_devices.vcos {
 					writeln!(c.resources.tx, "Calibrating VCO...");
 					writeln!(c.resources.tx, "timer clock is {}", c.resources.mytimer.lock(|t| {t.clk()}));
 					writeln!(c.resources.tx, "lo");
@@ -301,7 +300,7 @@ const APP: () = {
 					midi::MidiChannelMessage::NoteOn{note, velocity: _} => {
 						let mc = note as i32 * 100_000 + 5_000_000;
 						writeln!(c.resources.tx, "playing millicents={}", mc);
-						let result = vcos[0].output_millicents( mc );
+						let result = spi_devices.vcos[0].output_millicents( mc );
 						writeln!(c.resources.tx, "\t-> {:?}", result);
 						
 						c.resources.test_env.trigger();
@@ -316,14 +315,17 @@ const APP: () = {
 		}
 	}
 	
-	#[task(binds = TIM1_UP, resources=[test_env, tx, env_timer], priority=1)]
+	#[task(binds = TIM1_UP, resources=[test_env, tx, env_timer, vco_token], priority=1)]
 	fn envelope_timer(mut c : envelope_timer::Context)
 	{
 		static mut i : u32 = 0;
+		let spi_devices = vcos(c.resources.vco_token);
+
 		*i = (*i+1)%50;
 		if *i == 0 {
 			writeln!(c.resources.tx, "envelope update: {}", c.resources.test_env.value10bit());
 		}
+		spi_devices.bu2505.set(2, 1023-c.resources.test_env.value10bit(), &mut spi_devices.spi_accessor, SYSCLK.0);
 		c.resources.test_env.tick();
 		c.resources.env_timer.clear_update_interrupt_flag();
 	}
