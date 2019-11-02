@@ -137,6 +137,8 @@ const APP: () = {
 		midi : usbd_midi::MidiClass<'static, MyUsbBus>,
 		mytimer : timer::CountDownTimer<stm32::TIM2>,
 		env_timer : timer::CountDownTimer<stm32::TIM1>,
+		#[init(false)]
+		calibration_in_progress : bool,
 		#[init(envelope::Envelope::new())]
 		test_env : envelope::Envelope,
 		#[init( unsafe{VcoToken::new()} )]
@@ -268,7 +270,7 @@ const APP: () = {
 		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer, env_timer};
 	}
 
-	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx, test_env], capacity=10, priority=1)]
+	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx, test_env, calibration_in_progress], capacity=10, priority=1)]
 	fn xmain(mut c : xmain::Context, cmd : Command)
 	{
 		writeln!(c.resources.tx, "in main, cmd = {:?}", cmd);
@@ -292,6 +294,7 @@ const APP: () = {
 					let freq = vco.measure_freq_at(512, 10, &mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token);
 					writeln!(c.resources.tx, "frequency is {}", freq as u32);
 					vco.calibrate(&mut c.resources.exti, &mut c.resources.exti_pin_ptr, &mut c.resources.mytimer, &PINGPONG, &token, &mut c.resources.tx);
+					c.resources.calibration_in_progress.lock(|c| {*c = false;});
 					break;
 				}
 			}
@@ -323,14 +326,14 @@ const APP: () = {
 
 		*i = (*i+1)%50;
 		if *i == 0 {
-			writeln!(c.resources.tx, "envelope update: {}", c.resources.test_env.value10bit());
+			//writeln!(c.resources.tx, "envelope update: {}", c.resources.test_env.value10bit());
 		}
-		spi_devices.bu2505.set(2, 1023-c.resources.test_env.value10bit(), &mut spi_devices.spi_accessor, SYSCLK.0);
+		spi_devices.bu2505.set(2, c.resources.test_env.value10bit(), &mut spi_devices.spi_accessor, SYSCLK.0);
 		c.resources.test_env.tick();
 		c.resources.env_timer.clear_update_interrupt_flag();
 	}
 
-	#[task(binds = USB_LP_CAN_RX0, spawn=[xmain], resources=[midi, usb_dev, led], priority=2)]
+	#[task(binds = USB_LP_CAN_RX0, spawn=[xmain], resources=[midi, usb_dev, led, calibration_in_progress], priority=2)]
 	fn periodic_usb_poll(mut c : periodic_usb_poll::Context)
 	{
 		if c.resources.usb_dev.poll(&mut [c.resources.midi]) {
@@ -352,6 +355,13 @@ const APP: () = {
 								}
 								midi::MidiChannelMessage::NoteOff{note:_, velocity:_} => {
 									c.resources.led.set_high().ok(); // Turn off
+									c.spawn.xmain(Command::Midi(msg));
+								}
+								midi::MidiChannelMessage::ControlChange{ctrl, value} => {
+									if ctrl == 92 && *c.resources.calibration_in_progress == false {
+										*c.resources.calibration_in_progress = true;
+										c.spawn.xmain(Command::Calibrate);
+									}
 									c.spawn.xmain(Command::Midi(msg));
 								}
 								_ => ()
