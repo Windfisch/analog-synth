@@ -7,6 +7,8 @@ use cortex_m::asm::delay;
 use core::fmt::Write;
 use libm::*;
 
+use crate::reverse_bits::reverse_bits;
+
 #[derive(Clone,Copy)]
 pub struct Period {
 	high_time : u16, // [timer ticks]
@@ -276,13 +278,3 @@ fn prescaler_for_freq(freq : u32, timer_clock : u32) -> u16 {
 }
 
 
-fn reverse_bits(val : u16, n_bits: u8) -> u16
-{
-	let mut result : u16 = 0 as u16;
-	for i in 0..n_bits {
-		if val & (1<<i) != 0 {
-			result |= (1 << (n_bits-i-1));
-		}
-	}
-	return result;
-}
