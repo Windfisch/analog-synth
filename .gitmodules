@@ -1,3 +1,9 @@
 [submodule "libopencm3"]
 	path = libopencm3
 	url = https://github.com/libopencm3/libopencm3
+[submodule "firmware-rust/lib/usbd-midi"]
+	path = firmware-rust/lib/usbd-midi
+	url = https://github.com/Windfisch/usbd-midi
+[submodule "firmware-rust/lib/stm32f1xx-hal"]
+	path = firmware-rust/lib/stm32f1xx-hal
+	url = https://github.com/Windfisch/stm32f1xx-hal

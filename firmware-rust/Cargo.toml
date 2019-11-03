@@ -1,0 +1,43 @@
+[package]
+name = "analog-synth-firmware"
+version = "0.1.0"
+authors = ["Florian Jung <flo@windfisch.org>"]
+edition = "2018"
+
+[dependencies]
+cortex-m = ">=0.6"
+cortex-m-rt = ">=0.6"
+cortex-m-rtfm = "=0.5.0-beta.1"
+stm32f1xx-hal = { version = ">=0.3", features = ["rt"] }
+#stm32f1xx-hal = { git="https://github.com/stm32-rs/stm32f1xx-hal", features = ["rt", "stm32f103"] }
+panic-semihosting = ">=0.5"
+usb-device = ">=0.2.1"
+usbd-serial = ">=0.1"
+stm32-usbd = { version = ">=0.4.0", features = ["stm32f103xx"] }
+usbd-midi = { path = "./lib/usbd-midi" }
+embedded-hal = ">=0.2.3"
+shared-bus = ">=0.1.4"
+noop-bus-mutex = { git="https://github.com/Windfisch/noop-bus-mutex" }
+mcp49xx = ">=0.1.0"
+libm = ">=0.1.4"
+
+num-traits = { version = "0.2", default-features = false }
+
+[patch.crates-io]
+stm32f1xx-hal = { path = './lib/stm32f1xx-hal', features = ["rt","stm32f103"] }
+
+[dev-dependencies]
+cortex-m-rtfm = ">=0.4.0"
+
+#[profile.dev.overrides."*"] # +
+#opt-level = "z" # +
+
+[profile.dev]
+opt-level = "z" # +
+#codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations
