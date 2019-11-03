@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:vca-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -502,4 +503,222 @@ Wire Wire Line
 	5975 1800 5975 1200
 Text Notes 4925 900  0    50   ~ 0
 input preattenuation.\ncontrols distortion
+$Comp
+L Transistor_BJT:BC327 Q?
+U 1 1 5D927D0A
+P 9400 3625
+F 0 "Q?" H 9300 3775 50  0000 L CNN
+F 1 "BC327" H 9075 3550 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9600 3550 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 9400 3625 50  0001 L CNN
+	1    9400 3625
+	1    0    0    1   
+$EndComp
+$Comp
+L Transistor_BJT:BC327 Q?
+U 1 1 5D936D87
+P 9000 3625
+F 0 "Q?" H 8875 3775 50  0000 L CNN
+F 1 "BC327" H 9191 3580 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9200 3550 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 9000 3625 50  0001 L CNN
+	1    9000 3625
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5D942900
+P 9200 3425
+F 0 "#PWR?" H 9200 3275 50  0001 C CNN
+F 1 "VCC" H 9217 3598 50  0000 C CNN
+F 2 "" H 9200 3425 50  0001 C CNN
+F 3 "" H 9200 3425 50  0001 C CNN
+	1    9200 3425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9500 3425 9200 3425
+Connection ~ 9200 3425
+Wire Wire Line
+	9200 3425 8900 3425
+Wire Wire Line
+	9200 3625 9200 3825
+Connection ~ 9200 3625
+Wire Wire Line
+	9200 3825 8900 3825
+$Comp
+L Device:R R?
+U 1 1 5D94CF4E
+P 8900 3975
+F 0 "R?" H 8970 4021 50  0000 L CNN
+F 1 "10k" V 8900 3900 50  0000 L CNN
+F 2 "" V 8830 3975 50  0001 C CNN
+F 3 "~" H 8900 3975 50  0001 C CNN
+	1    8900 3975
+	1    0    0    -1  
+$EndComp
+Connection ~ 8900 3825
+Connection ~ 9500 4125
+$Comp
+L Device:R R?
+U 1 1 5D95F81E
+P 9500 3975
+F 0 "R?" H 9570 4021 50  0000 L CNN
+F 1 "10k" V 9500 3900 50  0000 L CNN
+F 2 "" V 9430 3975 50  0001 C CNN
+F 3 "~" H 9500 3975 50  0001 C CNN
+	1    9500 3975
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	9375 4125 9500 4125
+Wire Wire Line
+	9500 4125 9625 4125
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D95F82A
+P 9925 4325
+F 0 "#PWR?" H 9925 4075 50  0001 C CNN
+F 1 "GNDREF" H 9930 4152 50  0001 C CNN
+F 2 "" H 9925 4325 50  0001 C CNN
+F 3 "" H 9925 4325 50  0001 C CNN
+	1    9925 4325
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC327 Q?
+U 1 1 5D96447B
+P 9725 4325
+F 0 "Q?" H 9600 4475 50  0000 L CNN
+F 1 "BC327" H 9916 4280 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9925 4250 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 9725 4325 50  0001 L CNN
+	1    9725 4325
+	-1   0    0    1   
+$EndComp
+$Comp
+L Transistor_BJT:BC327 Q?
+U 1 1 5D969E4D
+P 9275 4325
+F 0 "Q?" H 9150 4475 50  0000 L CNN
+F 1 "BC327" V 9500 4200 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9475 4250 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 9275 4325 50  0001 L CNN
+	1    9275 4325
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D97C329
+P 9375 4675
+F 0 "R?" H 9445 4721 50  0000 L CNN
+F 1 "10k" V 9375 4600 50  0000 L CNN
+F 2 "" V 9305 4675 50  0001 C CNN
+F 3 "~" H 9375 4675 50  0001 C CNN
+	1    9375 4675
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D97C9D7
+P 9625 4675
+F 0 "R?" H 9695 4721 50  0000 L CNN
+F 1 "10k" V 9625 4600 50  0000 L CNN
+F 2 "" V 9555 4675 50  0001 C CNN
+F 3 "~" H 9625 4675 50  0001 C CNN
+	1    9625 4675
+	1    0    0    1   
+$EndComp
+$Comp
+L power:VEE #PWR?
+U 1 1 5D9809F3
+P 9625 4825
+F 0 "#PWR?" H 9625 4675 50  0001 C CNN
+F 1 "VEE" H 9643 4998 50  0000 C CNN
+F 2 "" H 9625 4825 50  0001 C CNN
+F 3 "" H 9625 4825 50  0001 C CNN
+	1    9625 4825
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VEE #PWR?
+U 1 1 5D9813BC
+P 9375 4825
+F 0 "#PWR?" H 9375 4675 50  0001 C CNN
+F 1 "VEE" H 9393 4998 50  0000 C CNN
+F 2 "" H 9375 4825 50  0001 C CNN
+F 3 "" H 9375 4825 50  0001 C CNN
+	1    9375 4825
+	-1   0    0    1   
+$EndComp
+Text GLabel 8100 3725 0    50   Input ~ 0
+signal_in
+$Comp
+L Device:R_Variable R?
+U 1 1 5D9A8C32
+P 8400 4175
+F 0 "R?" H 8525 4200 50  0000 L CNN
+F 1 "1k" H 8450 4125 50  0000 L CNN
+F 2 "" V 8330 4175 50  0001 C CNN
+F 3 "~" H 8400 4175 50  0001 C CNN
+	1    8400 4175
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D9A8C3C
+P 8400 3875
+F 0 "R?" H 8475 3825 50  0000 L CNN
+F 1 "1k" V 8400 3825 50  0000 L CNN
+F 2 "" V 8330 3875 50  0001 C CNN
+F 3 "~" H 8400 3875 50  0001 C CNN
+	1    8400 3875
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D9A8C46
+P 8400 4475
+F 0 "R?" H 8475 4425 50  0000 L CNN
+F 1 "1k" V 8400 4425 50  0000 L CNN
+F 2 "" V 8330 4475 50  0001 C CNN
+F 3 "~" H 8400 4475 50  0001 C CNN
+	1    8400 4475
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5D9A8C50
+P 8250 3725
+F 0 "C?" V 7998 3725 50  0000 C CNN
+F 1 "470u" V 8089 3725 50  0000 C CNN
+F 2 "" H 8288 3575 50  0001 C CNN
+F 3 "~" H 8250 3725 50  0001 C CNN
+	1    8250 3725
+	0    1    1    0   
+$EndComp
+Connection ~ 8400 4325
+Text Notes 7550 4025 0    50   ~ 0
+input preattenuation.\ncontrols distortion
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5D9C7217
+P 8400 4625
+F 0 "#PWR?" H 8400 4375 50  0001 C CNN
+F 1 "GNDREF" H 8405 4452 50  0001 C CNN
+F 2 "" H 8400 4625 50  0001 C CNN
+F 3 "" H 8400 4625 50  0001 C CNN
+	1    8400 4625
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8400 4325 9075 4325
+Wire Wire Line
+	8900 4125 8900 4175
+Wire Wire Line
+	8900 4175 8700 4175
+Wire Wire Line
+	8700 4175 8700 3200
+Wire Wire Line
+	8700 3200 8350 3200
 $EndSCHEMATC
