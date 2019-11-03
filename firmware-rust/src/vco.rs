@@ -21,7 +21,8 @@ pub enum Edge {
 	Falling
 }
 
-const N_PERIODS : usize = 5;
+const N_PERIODS : usize = 15;
+const N_DROPPED_PERIODS : usize = 5;
 
 pub struct MeasurementState {
 	periods : [Period; N_PERIODS],
@@ -44,16 +45,20 @@ impl MeasurementState {
 
 type ExtiPinType = Pxx<Input<Floating>>;
 
+const N_MEASUREMENTS : usize = 64;
+const MEASUREMENT_STEP : u16 = 4096 / N_MEASUREMENTS as u16;
+
+
 pub struct VoltageControlledOscillator<'a, MCP49xx> {
 	dac : &'a RefCell<MCP49xx>,
 	channel : mcp49xx::Channel,
-	calibration : [i32; 64],
+	calibration : [i32; N_MEASUREMENTS],
 	exti_pin : UnsafeCell<ExtiPinType>
 }
 
 impl<'a, MCP49xx> VoltageControlledOscillator<'a, MCP49xx> {
 	pub fn new(dac : &'a RefCell<MCP49xx>, channel: mcp49xx::Channel, exti_pin : ExtiPinType) -> VoltageControlledOscillator<'a, MCP49xx> {
-		VoltageControlledOscillator { dac, channel, calibration : [0; 64], exti_pin: UnsafeCell::new(exti_pin) }
+		VoltageControlledOscillator { dac, channel, calibration : [0; N_MEASUREMENTS], exti_pin: UnsafeCell::new(exti_pin) }
 	}
 }
 
@@ -101,9 +106,6 @@ pub fn handle_measurement_isr(
 	exti_pin.clear_interrupt_pending_bit();
 }
 
-const N_MEASUREMENTS : u16 = 64;
-const MEASUREMENT_STEP : u16 = 4096 / N_MEASUREMENTS;
-
 impl<DI, RES, CH, BUF, E>
 	VoltageControlledOscillator<'_, mcp49xx::Mcp49xx<DI, RES, CH, BUF>>
 where
@@ -139,7 +141,7 @@ where
 		let mut hi_sum : u32 = 0;
 		let mut lo_sum : u32 = 0;
 
-		for i in 0..N_PERIODS {
+		for i in N_DROPPED_PERIODS..N_PERIODS {
 			hi_sum += guard.periods[i].high_time as u32;
 			lo_sum += guard.periods[i].low_time as u32;
 		}
@@ -147,7 +149,7 @@ where
 		let clk = mytimer.lock(|mytimer| { mytimer.clk() });
 
 
-		(clk * N_PERIODS as u32) as f32 / (((hi_sum + lo_sum) as u32 * (prescaler+1) as u32 ) as f32)
+		(clk * (N_PERIODS - N_DROPPED_PERIODS) as u32) as f32 / (((hi_sum + lo_sum) as u32 * (prescaler+1) as u32 ) as f32)
 	}
 
 	fn measure_at(
@@ -220,7 +222,7 @@ where
 		// Fine calibration
 		let timer_clock = mytimer.lock(|t|{t.clk()});
 		for i in 0..N_MEASUREMENTS {
-			let val = reverse_bits(i, 12);
+			let val = reverse_bits(i as u16, 12);
 			let expected_freq = expected_frequency(val, PROBE1, coarse_calibration_1, PROBE2, coarse_calibration_2);
 			let prescaler = prescaler_for_freq((expected_freq * 2.0 * 32768.0) as u32, timer_clock);
 			writeln!(tx, "val {} will be around {}Hz -> choosing a prescaler of {}", val, expected_freq as u32, prescaler);
