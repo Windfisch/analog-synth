@@ -17,6 +17,7 @@ pub struct Envelope
 	pub retriggerable : bool,
 	pub hold : bool,  // enables the sustain phase
 	pub early_release : bool,
+	pub repeat: bool, // repeats the envelope after it has finished, turning it into sort of an LFO
 	release_pending : bool,
 	value  : u32,
 	phase  : Phase
@@ -26,12 +27,13 @@ impl Envelope {
 	pub const fn new() -> Envelope {
 		return Envelope {
 			attack : 1,
-			decay : 400,
-			sustain : (1<<15),
+			decay : 300,
+			sustain : 5*(1<<13),
 			release : 3000,
 			retriggerable : true,
 			hold : true,
 			early_release : false,
+			repeat: false,
 			release_pending : false,
 			value : 0,
 			phase : IDLE
@@ -48,7 +50,7 @@ impl Envelope {
 		if self.early_release || self.phase == SUSTAIN {
 			self.phase = RELEASE;
 		}
-		else {
+		else if self.phase == ATTACK || self.phase == DECAY {
 			self.release_pending = true;
 		}
 	}
@@ -68,8 +70,8 @@ impl Envelope {
 			DECAY => {
 				self.value = self.value.saturating_sub(u32::max_value() / self.decay as u32);
 				if (self.value >> 16) as u16 <= self.sustain {
+					self.value = (self.sustain as u32) << 16;
 					if self.hold {
-						self.value = (self.sustain as u32) << 16;
 						self.phase = SUSTAIN;
 					}
 					else {
@@ -87,7 +89,12 @@ impl Envelope {
 			RELEASE => {
 				self.value = self.value.saturating_sub(u32::max_value() / self.release as u32);
 				if self.value == 0 {
-					self.phase = IDLE;
+					if self.repeat {
+						self.phase = ATTACK;
+					}
+					else {
+						self.phase = IDLE;
+					}
 				}
 			}
 			IDLE => {}

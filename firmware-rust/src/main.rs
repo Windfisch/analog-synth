@@ -141,6 +141,7 @@ const APP: () = {
 		calibration_in_progress : bool,
 		#[init(envelope::Envelope::new())]
 		test_env : envelope::Envelope,
+		test_lfo : envelope::Envelope,
 		#[init( unsafe{VcoToken::new()} )]
 		vco_token : VcoToken
 	}
@@ -260,17 +261,27 @@ const APP: () = {
 		let mytimer = timer::Timer::tim2(dp.TIM2, &clocks, &mut rcc.apb1).start_raw(4800, 65535);
 
 		// Periodic timer
-		let mut env_timer = timer::Timer::tim1(dp.TIM1, &clocks, &mut rcc.apb2).start_count_down(1.khz());
+		let mut env_timer = timer::Timer::tim1(dp.TIM1, &clocks, &mut rcc.apb2).start_count_down(1000.hz());
 		env_timer.listen(timer::Event::Update);
 
 		// USB interrupt
 		p.NVIC.enable(stm32::Interrupt::USB_LP_CAN_RX0);
 
+		// Envelope/LFO
+		let mut test_lfo = envelope::Envelope::new();
+		test_lfo.repeat = true;
+		test_lfo.attack = 600;
+		test_lfo.decay = 1;
+		test_lfo.sustain = 65535;
+		test_lfo.release = 600;
+		test_lfo.hold = false;
+		test_lfo.trigger();
+
 		cx.spawn.xmain(Command::Calibrate);
-		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer, env_timer};
+		return init::LateResources { exti : dp.EXTI, tx, led, usb_dev, midi, mytimer, env_timer, test_lfo};
 	}
 
-	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx, test_env, calibration_in_progress], capacity=10, priority=1)]
+	#[task(resources = [mytimer, exti, exti_pin_ptr, vco_token, tx, test_env, test_lfo, calibration_in_progress], capacity=10, priority=1)]
 	fn xmain(mut c : xmain::Context, cmd : Command)
 	{
 		writeln!(c.resources.tx, "in main, cmd = {:?}", cmd);
@@ -318,7 +329,7 @@ const APP: () = {
 		}
 	}
 	
-	#[task(binds = TIM1_UP, resources=[test_env, tx, env_timer, vco_token], priority=1)]
+	#[task(binds = TIM1_UP, resources=[test_env, test_lfo, tx, env_timer, vco_token], priority=1)]
 	fn envelope_timer(mut c : envelope_timer::Context)
 	{
 		static mut i : u32 = 0;
@@ -330,6 +341,8 @@ const APP: () = {
 		}
 		spi_devices.bu2505.set(2, c.resources.test_env.value10bit(), &mut spi_devices.spi_accessor, SYSCLK.0);
 		c.resources.test_env.tick();
+		spi_devices.bu2505.set(3, c.resources.test_lfo.value10bit(), &mut spi_devices.spi_accessor, SYSCLK.0);
+		c.resources.test_lfo.tick();
 		c.resources.env_timer.clear_update_interrupt_flag();
 	}
 
