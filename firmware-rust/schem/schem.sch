@@ -1231,17 +1231,6 @@ $EndComp
 Text Notes 4925 2100 1    50   ~ 0
 input preattenuation.\ncontrols distortion
 $Comp
-L Device:C C?
-U 1 1 5DC870CD
-P 5050 1300
-F 0 "C?" H 5100 1400 50  0000 C CNN
-F 1 "470n" H 5150 1200 50  0000 C CNN
-F 2 "" H 5088 1150 50  0001 C CNN
-F 3 "~" H 5050 1300 50  0001 C CNN
-	1    5050 1300
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R?
 U 1 1 5DC870D7
 P 5050 1900
@@ -1263,7 +1252,7 @@ F 3 "~" H 5050 1600 50  0001 C CNN
 	1    5050 1600
 	1    0    0    -1  
 $EndComp
-Text GLabel 5050 1150 1    50   Input ~ 0
+Text GLabel 5050 1450 1    50   Input ~ 0
 signal_in
 Connection ~ 5050 1750
 Text Notes 4975 1175 1    50   ~ 0
@@ -1307,12 +1296,6 @@ Wire Wire Line
 	7025 2475 7025 2700
 Wire Wire Line
 	7025 2700 6125 2700
-Connection ~ 6725 4075
-Wire Wire Line
-	6725 4075 6725 3925
-Connection ~ 6425 4075
-Wire Wire Line
-	6425 4075 6425 3925
 Wire Wire Line
 	7025 3725 7025 3950
 Wire Wire Line
@@ -1460,28 +1443,8 @@ F 3 "~" H 6575 3450 50  0001 C CNN
 	1    6575 3450
 	0    1    1    0   
 $EndComp
-$Comp
-L Device:C C?
-U 1 1 5DCE35D7
-P 6575 4075
-F 0 "C?" V 6525 3850 50  0000 C CNN
-F 1 "47n" V 6625 3825 50  0000 C CNN
-F 2 "" H 6613 3925 50  0001 C CNN
-F 3 "~" H 6575 4075 50  0001 C CNN
-	1    6575 4075
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	6725 4075 7175 4075
-Wire Wire Line
-	6425 4200 6425 4075
-Connection ~ 6425 4200
 Wire Wire Line
 	6125 4050 6125 3950
-Wire Wire Line
-	6425 4250 6425 4200
-Wire Wire Line
-	6725 4250 6725 4075
 Connection ~ 6575 4825
 Wire Wire Line
 	6725 4825 6725 4650
@@ -1496,27 +1459,10 @@ Wire Wire Line
 Wire Wire Line
 	6125 4975 6575 4975
 Connection ~ 6125 4675
-$Comp
-L Device:R R?
-U 1 1 5DD589A2
-P 6125 4200
-F 0 "R?" H 5950 4275 50  0000 L CNN
-F 1 "150" V 6125 4125 50  0000 L CNN
-F 2 "" V 6055 4200 50  0001 C CNN
-F 3 "~" H 6125 4200 50  0001 C CNN
-	1    6125 4200
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7025 4675 6125 4675
 Wire Wire Line
 	7025 4450 7025 4675
-Wire Wire Line
-	6425 4200 7025 4200
-Wire Wire Line
-	7025 4200 7025 4275
-Wire Wire Line
-	7025 4275 7175 4275
 $Comp
 L Device:R R?
 U 1 1 5DF86F1C
@@ -1704,17 +1650,6 @@ F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 6325 4450 50  0001 L CNN
 	1    6325 4450
 	1    0    0    1   
 $EndComp
-$Comp
-L Transistor_BJT:BC557 Q?
-U 1 1 5E37A006
-P 6825 4450
-F 0 "Q?" H 6675 4550 50  0000 L CNN
-F 1 "BC557" H 7016 4405 50  0001 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7025 4375 50  0001 L CIN
-F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 6825 4450 50  0001 L CNN
-	1    6825 4450
-	-1   0    0    1   
-$EndComp
 Connection ~ 6125 3725
 Wire Wire Line
 	6125 3725 6125 3675
@@ -1826,98 +1761,16 @@ $EndComp
 Text Notes 7575 3350 0    50   ~ 0
 feedback
 $Comp
-L power:GND #PWR?
-U 1 1 5DFCD5D9
-P 7550 3675
-F 0 "#PWR?" H 7550 3425 50  0001 C CNN
-F 1 "GND" H 7550 3525 50  0001 C CNN
-F 2 "" H 7550 3675 50  0001 C CNN
-F 3 "" H 7550 3675 50  0001 C CNN
-	1    7550 3675
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	8225 4500 8225 4175
-Wire Wire Line
-	8050 4500 8225 4500
-Wire Wire Line
-	7550 4500 7550 4275
-Wire Wire Line
-	7550 4500 7750 4500
-Text Notes 7650 3775 0    50   ~ 0
-differential to\nsingle-ended
-Wire Wire Line
-	7550 4075 7475 4075
-Connection ~ 7550 4075
-Wire Wire Line
-	7550 3975 7550 4075
-$Comp
 L Device:R R?
-U 1 1 5DF272AA
-P 7550 3825
-F 0 "R?" H 7650 3800 50  0000 L CNN
-F 1 "1Meg" V 7550 3725 50  0000 L CNN
-F 2 "" V 7480 3825 50  0001 C CNN
-F 3 "~" H 7550 3825 50  0001 C CNN
-	1    7550 3825
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	7550 4275 7625 4275
-Connection ~ 7550 4275
-$Comp
-L Device:R R?
-U 1 1 5DF2729E
-P 7900 4500
-F 0 "R?" V 8000 4450 50  0000 L CNN
-F 1 "1Meg" V 7900 4400 50  0000 L CNN
-F 2 "" V 7830 4500 50  0001 C CNN
-F 3 "~" H 7900 4500 50  0001 C CNN
-	1    7900 4500
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5DF27294
-P 7325 4275
-F 0 "R?" V 7425 4250 50  0000 L CNN
-F 1 "10k" V 7325 4200 50  0000 L CNN
-F 2 "" V 7255 4275 50  0001 C CNN
-F 3 "~" H 7325 4275 50  0001 C CNN
-	1    7325 4275
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5DF2728A
-P 7325 4075
-F 0 "R?" V 7225 4050 50  0000 L CNN
-F 1 "10k" V 7325 4000 50  0000 L CNN
-F 2 "" V 7255 4075 50  0001 C CNN
-F 3 "~" H 7325 4075 50  0001 C CNN
-	1    7325 4075
-	0    1    1    0   
-$EndComp
-$Comp
-L Amplifier_Operational:TL074 U?
-U 2 1 5DF27280
-P 7925 4175
-F 0 "U?" H 7950 4350 50  0000 C CNN
-F 1 "TL074" H 7900 4175 50  0000 C CNN
-F 2 "" H 7875 4275 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 7975 4375 50  0001 C CNN
-	2    7925 4175
+U 1 1 5DD589A2
+P 6125 4200
+F 0 "R?" H 5950 4275 50  0000 L CNN
+F 1 "150" V 6125 4125 50  0000 L CNN
+F 2 "" V 6055 4200 50  0001 C CNN
+F 3 "~" H 6125 4200 50  0001 C CNN
+	1    6125 4200
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7475 4275 7550 4275
-Wire Wire Line
-	7625 4075 7550 4075
-Connection ~ 8225 4175
-Wire Wire Line
-	8225 4175 8225 3450
-Wire Wire Line
-	8225 3450 7550 3450
 $Comp
 L Device:R R?
 U 1 1 5DDB9323
@@ -1929,4 +1782,140 @@ F 3 "~" H 6125 4825 50  0001 C CNN
 	1    6125 4825
 	1    0    0    -1  
 $EndComp
+$Comp
+L Transistor_BJT:BC557 Q?
+U 1 1 5E37A006
+P 6825 4450
+F 0 "Q?" H 6675 4550 50  0000 L CNN
+F 1 "BC557" H 7016 4405 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7025 4375 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 6825 4450 50  0001 L CNN
+	1    6825 4450
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7625 4200 7550 4200
+Wire Wire Line
+	7475 4000 7550 4000
+$Comp
+L Amplifier_Operational:TL074 U?
+U 2 1 5DF27280
+P 7925 4100
+F 0 "U?" H 7950 4275 50  0000 C CNN
+F 1 "TL074" H 7900 4100 50  0000 C CNN
+F 2 "" H 7875 4200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 7975 4300 50  0001 C CNN
+	2    7925 4100
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DF2728A
+P 7325 4200
+F 0 "R?" V 7225 4175 50  0000 L CNN
+F 1 "10k" V 7325 4125 50  0000 L CNN
+F 2 "" V 7255 4200 50  0001 C CNN
+F 3 "~" H 7325 4200 50  0001 C CNN
+	1    7325 4200
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DF27294
+P 7325 4000
+F 0 "R?" V 7425 3975 50  0000 L CNN
+F 1 "10k" V 7325 3925 50  0000 L CNN
+F 2 "" V 7255 4000 50  0001 C CNN
+F 3 "~" H 7325 4000 50  0001 C CNN
+	1    7325 4000
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DF2729E
+P 7900 3775
+F 0 "R?" V 8000 3725 50  0000 L CNN
+F 1 "1Meg" V 7900 3675 50  0000 L CNN
+F 2 "" V 7830 3775 50  0001 C CNN
+F 3 "~" H 7900 3775 50  0001 C CNN
+	1    7900 3775
+	0    1    -1   0   
+$EndComp
+Connection ~ 7550 4000
+Wire Wire Line
+	7550 4000 7625 4000
+$Comp
+L Device:R R?
+U 1 1 5DF272AA
+P 7550 4450
+F 0 "R?" H 7650 4425 50  0000 L CNN
+F 1 "1Meg" V 7550 4350 50  0000 L CNN
+F 2 "" V 7480 4450 50  0001 C CNN
+F 3 "~" H 7550 4450 50  0001 C CNN
+	1    7550 4450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 4300 7550 4200
+Connection ~ 7550 4200
+Wire Wire Line
+	7550 4200 7475 4200
+Text Notes 7650 4500 0    50   ~ 0
+differential to\nsingle-ended
+Wire Wire Line
+	7550 3775 7750 3775
+Wire Wire Line
+	7550 3775 7550 4000
+Wire Wire Line
+	8050 3775 8225 3775
+Wire Wire Line
+	8225 3775 8225 4100
+$Comp
+L power:GND #PWR?
+U 1 1 5DFCD5D9
+P 7550 4600
+F 0 "#PWR?" H 7550 4350 50  0001 C CNN
+F 1 "GND" H 7550 4450 50  0001 C CNN
+F 2 "" H 7550 4600 50  0001 C CNN
+F 3 "" H 7550 4600 50  0001 C CNN
+	1    7550 4600
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5DCE35D7
+P 6575 4200
+F 0 "C?" V 6525 3975 50  0000 C CNN
+F 1 "47n" V 6625 3950 50  0000 C CNN
+F 2 "" H 6613 4050 50  0001 C CNN
+F 3 "~" H 6575 4200 50  0001 C CNN
+	1    6575 4200
+	0    -1   1    0   
+$EndComp
+Connection ~ 6425 4200
+Wire Wire Line
+	6425 4200 6425 4250
+Connection ~ 6725 4200
+Wire Wire Line
+	6725 4200 6725 3925
+Wire Wire Line
+	6725 4250 6725 4200
+Wire Wire Line
+	6725 4200 7175 4200
+Wire Wire Line
+	6425 3925 6425 4050
+Wire Wire Line
+	7025 4050 6425 4050
+Connection ~ 6425 4050
+Wire Wire Line
+	6425 4050 6425 4200
+Wire Wire Line
+	7025 4050 7025 4000
+Wire Wire Line
+	7025 4000 7175 4000
+Wire Wire Line
+	8225 3775 8225 3450
+Wire Wire Line
+	8225 3450 7550 3450
+Connection ~ 8225 3775
 $EndSCHEMATC
