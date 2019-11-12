@@ -29,12 +29,12 @@ $Comp
 L Device:R_Variable R?
 U 1 1 5DD1A8CE
 P 3300 1275
-F 0 "R?" H 3125 1350 50  0000 L CNN
-F 1 "100k" H 3075 1275 50  0000 L CNN
+F 0 "R?" H 3350 1275 50  0000 L CNN
+F 1 "100k" H 3350 1200 50  0000 L CNN
 F 2 "" V 3230 1275 50  0001 C CNN
 F 3 "~" H 3300 1275 50  0001 C CNN
 	1    3300 1275
-	-1   0    0    -1  
+	1    0    0    -1  
 $EndComp
 Text Notes 3600 1150 3    50   ~ 0
 set to ~~47k
@@ -107,28 +107,26 @@ Wire Wire Line
 $Comp
 L Device:R R?
 U 1 1 5DD46306
-P 1525 950
-F 0 "R?" H 1375 950 50  0000 L CNN
-F 1 "100k" V 1525 850 50  0000 L CNN
-F 2 "" V 1455 950 50  0001 C CNN
-F 3 "~" H 1525 950 50  0001 C CNN
-	1    1525 950 
+P 1525 975
+F 0 "R?" V 1425 925 50  0000 L CNN
+F 1 "100k" V 1525 875 50  0000 L CNN
+F 2 "" V 1455 975 50  0001 C CNN
+F 3 "~" H 1525 975 50  0001 C CNN
+	1    1525 975 
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	1800 1325 1800 950 
+	1800 1325 1800 975 
 Wire Wire Line
-	1800 950  1675 950 
+	1800 975  1675 975 
 Wire Wire Line
-	1375 950  1200 950 
-Wire Wire Line
-	1200 950  1200 1225
+	1375 975  1200 975 
 $Comp
 L Device:R R?
 U 1 1 5DD48859
 P 1050 1225
-F 0 "R?" V 950 1200 50  0000 L CNN
-F 1 "110k" V 1050 1125 50  0000 L CNN
+F 0 "R?" V 1100 1325 50  0000 L CNN
+F 1 "100k" V 1050 1125 50  0000 L CNN
 F 2 "" V 980 1225 50  0001 C CNN
 F 3 "~" H 1050 1225 50  0001 C CNN
 	1    1050 1225
@@ -468,14 +466,6 @@ Wire Wire Line
 	1050 2200 1425 2200
 Wire Wire Line
 	1425 2200 1425 2000
-Wire Notes Line
-	500  725  4600 725 
-Wire Notes Line
-	4600 725  4600 3075
-Wire Notes Line
-	4600 3075 500  3075
-Wire Notes Line
-	500  725  500  3075
 Text Notes 525  3050 0    50   ~ 0
 Voltage controlled amplifier
 Text Notes 525  2325 0    50   ~ 0
@@ -685,10 +675,8 @@ Wire Wire Line
 Connection ~ 3325 6650
 Wire Wire Line
 	1725 2000 1425 2000
-Text GLabel 900  1225 0    50   Input ~ 0
-vca_ctl
-Text Notes 525  1100 0    50   ~ 0
-or 100k? TODO:\ntune so that the\nopamp does not\nclip the envelope
+Text GLabel 825  1225 0    50   Input ~ 0
+vca_ctl2
 $Comp
 L power:GNDREF #PWR?
 U 1 1 5DC870C2
@@ -1770,23 +1758,10 @@ Text GLabel 1800 5900 2    50   Input ~ 0
 square_ctl_buf2
 Text GLabel 1800 5800 2    50   Input ~ 0
 square_ctl2
-Text Notes 500  625  0    50   ~ 0
-TODO: multiple inputs, one raw
 Text Notes 7100 1000 0    50   ~ 0
 TODO: multiple inputs, one raw
 Text Notes 7100 900  0    50   ~ 0
 TODO: input stage similar to VCA
-$Comp
-L power:+3.3V #PWR?
-U 1 1 5E0519B5
-P 1275 7325
-F 0 "#PWR?" H 1275 7175 50  0001 C CNN
-F 1 "+3.3V" H 1290 7498 50  0000 C CNN
-F 2 "" H 1275 7325 50  0001 C CNN
-F 3 "" H 1275 7325 50  0001 C CNN
-	1    1275 7325
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5E051F30
@@ -1841,56 +1816,193 @@ Wire Notes Line
 	3800 3150 3800 6100
 Wire Notes Line
 	3800 6100 625  6100
-Text Notes 5700 6700 0    50   ~ 0
-TODO
 Text Notes 4250 5525 0    50   ~ 0
 TODO: two low pass filters\nfor general purpose (portamento?)
 $Comp
-L Device:R_POT RV?
-U 1 1 5E0F95C9
-P 5900 7050
-F 0 "RV?" H 5831 7096 50  0000 R CNN
-F 1 "1k" V 5900 7100 50  0000 R CNN
-F 2 "" H 5900 7050 50  0001 C CNN
-F 3 "~" H 5900 7050 50  0001 C CNN
-	1    5900 7050
+L Device:C C?
+U 1 1 5E0FF54D
+P 5575 7425
+F 0 "C?" H 5450 7525 50  0000 L CNN
+F 1 "1u" H 5450 7325 50  0000 L CNN
+F 2 "" H 5613 7275 50  0001 C CNN
+F 3 "~" H 5575 7425 50  0001 C CNN
+	1    5575 7425
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
-U 1 1 5E0F9D86
-P 5900 7350
-F 0 "R?" H 5750 7350 50  0000 L CNN
-F 1 "1k" V 5900 7300 50  0000 L CNN
-F 2 "" V 5830 7350 50  0001 C CNN
-F 3 "~" H 5900 7350 50  0001 C CNN
-	1    5900 7350
-	1    0    0    1   
+L Device:C C?
+U 1 1 5E10C783
+P 5800 7425
+F 0 "C?" H 5675 7525 50  0000 L CNN
+F 1 "1u" H 5675 7325 50  0000 L CNN
+F 2 "" H 5838 7275 50  0001 C CNN
+F 3 "~" H 5800 7425 50  0001 C CNN
+	1    5800 7425
+	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R?
-U 1 1 5E0FC65F
-P 6200 7050
-F 0 "R?" V 6100 7025 50  0000 L CNN
-F 1 "100k" V 6200 6950 50  0000 L CNN
-F 2 "" V 6130 7050 50  0001 C CNN
-F 3 "~" H 6200 7050 50  0001 C CNN
-	1    6200 7050
-	0    -1   1    0   
-$EndComp
-Text GLabel 6350 7050 2    50   Input ~ 0
-V_in_raw
 $Comp
 L power:GND #PWR?
-U 1 1 5E0FDA85
-P 5900 7500
-F 0 "#PWR?" H 5900 7250 50  0001 C CNN
-F 1 "GND" H 5905 7327 50  0000 C CNN
-F 2 "" H 5900 7500 50  0001 C CNN
-F 3 "" H 5900 7500 50  0001 C CNN
-	1    5900 7500
+U 1 1 5E10CB1F
+P 5575 7575
+F 0 "#PWR?" H 5575 7325 50  0001 C CNN
+F 1 "GND" H 5580 7402 50  0000 C CNN
+F 2 "" H 5575 7575 50  0001 C CNN
+F 3 "" H 5575 7575 50  0001 C CNN
+	1    5575 7575
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E10D2B0
+P 5800 7575
+F 0 "#PWR?" H 5800 7325 50  0001 C CNN
+F 1 "GND" H 5805 7402 50  0000 C CNN
+F 2 "" H 5800 7575 50  0001 C CNN
+F 3 "" H 5800 7575 50  0001 C CNN
+	1    5800 7575
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5900 6900 5500 6900
+	5500 7200 5575 7200
+Wire Wire Line
+	5575 7200 5575 7275
+Wire Wire Line
+	5500 6900 5800 6900
+Wire Wire Line
+	5800 6900 5800 7275
+$Comp
+L Device:R_POT RV?
+U 1 1 5E12A7CE
+P 6100 7350
+F 0 "RV?" H 6031 7396 50  0000 R CNN
+F 1 "1k" V 6100 7400 50  0000 R CNN
+F 2 "" H 6100 7350 50  0001 C CNN
+F 3 "~" H 6100 7350 50  0001 C CNN
+	1    6100 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_POT RV?
+U 1 1 5E1317B6
+P 6375 7050
+F 0 "RV?" H 6306 7096 50  0000 R CNN
+F 1 "1k" V 6375 7100 50  0000 R CNN
+F 2 "" H 6375 7050 50  0001 C CNN
+F 3 "~" H 6375 7050 50  0001 C CNN
+	1    6375 7050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5575 7200 6100 7200
+Connection ~ 5575 7200
+Wire Wire Line
+	5800 6900 6375 6900
+Connection ~ 5800 6900
+Wire Wire Line
+	6375 7200 6375 7500
+$Comp
+L power:GND #PWR?
+U 1 1 5E14B5EA
+P 6100 7500
+F 0 "#PWR?" H 6100 7250 50  0001 C CNN
+F 1 "GND" H 6105 7327 50  0000 C CNN
+F 2 "" H 6100 7500 50  0001 C CNN
+F 3 "" H 6100 7500 50  0001 C CNN
+	1    6100 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E14B87F
+P 6375 7500
+F 0 "#PWR?" H 6375 7250 50  0001 C CNN
+F 1 "GND" H 6380 7327 50  0000 C CNN
+F 2 "" H 6375 7500 50  0001 C CNN
+F 3 "" H 6375 7500 50  0001 C CNN
+	1    6375 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Male J?
+U 1 1 5E1550B9
+P 6625 6850
+F 0 "J?" V 6733 6662 50  0000 R CNN
+F 1 "Conn_01x02_Male" V 6778 6894 50  0001 L CNN
+F 2 "" H 6625 6850 50  0001 C CNN
+F 3 "~" H 6625 6850 50  0001 C CNN
+	1    6625 6850
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	6525 7050 6625 7050
+Wire Wire Line
+	6725 7350 6725 7050
+Wire Wire Line
+	6250 7350 6725 7350
+$Comp
+L Connector_Generic:Conn_02x02_Odd_Even J?
+U 1 1 5E187B3E
+P 6200 6600
+F 0 "J?" H 6250 6725 50  0000 C CNN
+F 1 "Conn_02x02_Odd_Even" H 6250 6726 50  0001 C CNN
+F 2 "" H 6200 6600 50  0001 C CNN
+F 3 "~" H 6200 6600 50  0001 C CNN
+	1    6200 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5E189477
+P 6000 6600
+F 0 "#PWR?" H 6000 6450 50  0001 C CNN
+F 1 "+3.3V" H 6015 6773 50  0000 C CNN
+F 2 "" H 6000 6600 50  0001 C CNN
+F 3 "" H 6000 6600 50  0001 C CNN
+	1    6000 6600
+	1    0    0    -1  
+$EndComp
+Text GLabel 6500 6600 2    50   Input ~ 0
+PB12
+Text GLabel 6500 6700 2    50   Input ~ 0
+PB13
+Text GLabel 6000 6700 0    50   Input ~ 0
+PB15
+NoConn ~ 1275 7325
+Wire Notes Line
+	4450 725  4450 3075
+Wire Wire Line
+	825  1225 900  1225
+$Comp
+L Device:R R?
+U 1 1 5E2A1537
+P 1050 1100
+F 0 "R?" V 1100 1200 50  0000 L CNN
+F 1 "100k" V 1050 1000 50  0000 L CNN
+F 2 "" V 980 1100 50  0001 C CNN
+F 3 "~" H 1050 1100 50  0001 C CNN
+	1    1050 1100
+	0    -1   1    0   
+$EndComp
+Text GLabel 825  1100 0    50   Input ~ 0
+vca_ctl1
+Wire Wire Line
+	825  1100 900  1100
+Connection ~ 1200 1100
+Wire Wire Line
+	1200 1100 1200 1225
+Text GLabel 950  975  0    50   Input ~ 0
+vca_ctl_raw
+Wire Wire Line
+	950  975  1200 975 
+Connection ~ 1200 975 
+Wire Wire Line
+	1200 975  1200 1100
+Wire Notes Line
+	450  725  450  3075
+Wire Notes Line
+	450  3075 4450 3075
+Wire Notes Line
+	450  725  4450 725 
+Text Notes 500  675  0    50   ~ 0
+TODO: replace that 50k poti\nwith input adjusts at  vca_ctl
 $EndSCHEMATC
