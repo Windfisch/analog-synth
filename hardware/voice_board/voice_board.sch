@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:schem-cache
+LIBS:voice_board-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -680,42 +680,42 @@ vca_ctl2
 $Comp
 L power:GNDREF #PWR?
 U 1 1 5DC870C2
-P 7350 2675
-F 0 "#PWR?" H 7350 2425 50  0001 C CNN
-F 1 "GNDREF" H 7355 2502 50  0001 C CNN
-F 2 "" H 7350 2675 50  0001 C CNN
-F 3 "" H 7350 2675 50  0001 C CNN
-	1    7350 2675
+P 7750 2675
+F 0 "#PWR?" H 7750 2425 50  0001 C CNN
+F 1 "GNDREF" H 7755 2502 50  0001 C CNN
+F 2 "" H 7750 2675 50  0001 C CNN
+F 3 "" H 7750 2675 50  0001 C CNN
+	1    7750 2675
 	1    0    0    -1  
 $EndComp
-Text Notes 7225 2725 1    50   ~ 0
+Text Notes 7625 3225 1    50   ~ 0
 input preattenuation.\ncontrols distortion
 $Comp
 L Device:R R?
 U 1 1 5DC870D7
-P 7350 2525
-F 0 "R?" H 7425 2475 50  0000 L CNN
-F 1 "1k" V 7350 2475 50  0000 L CNN
-F 2 "" V 7280 2525 50  0001 C CNN
-F 3 "~" H 7350 2525 50  0001 C CNN
-	1    7350 2525
+P 7750 2525
+F 0 "R?" H 7825 2475 50  0000 L CNN
+F 1 "1k" V 7750 2475 50  0000 L CNN
+F 2 "" V 7680 2525 50  0001 C CNN
+F 3 "~" H 7750 2525 50  0001 C CNN
+	1    7750 2525
 	1    0    0    1   
 $EndComp
 $Comp
 L Device:R_Variable R?
 U 1 1 5DC870E1
-P 7350 2225
-F 0 "R?" H 7400 2225 50  0000 L CNN
-F 1 "1Meg" H 7400 2150 50  0000 L CNN
-F 2 "" V 7280 2225 50  0001 C CNN
-F 3 "~" H 7350 2225 50  0001 C CNN
-	1    7350 2225
-	1    0    0    -1  
+P 7600 2375
+F 0 "R?" V 7775 2350 50  0000 L CNN
+F 1 "1Meg" V 7700 2225 50  0000 L CNN
+F 2 "" V 7530 2375 50  0001 C CNN
+F 3 "~" H 7600 2375 50  0001 C CNN
+	1    7600 2375
+	0    1    -1   0   
 $EndComp
-Text GLabel 7350 2075 1    50   Input ~ 0
+Text GLabel 7450 2375 0    50   Input ~ 0
 vcf_audio_in
-Connection ~ 7350 2375
-Text Notes 7275 1800 1    50   ~ 0
+Connection ~ 7750 2375
+Text Notes 7450 2600 2    50   ~ 0
 sawtooth from\nVCO mk I
 $Comp
 L Device:CP C?
@@ -963,21 +963,6 @@ $EndComp
 Connection ~ 8875 2275
 Wire Wire Line
 	8875 2275 9025 2275
-Wire Wire Line
-	8575 1775 8575 1975
-Wire Wire Line
-	8575 1975 8275 1975
-$Comp
-L Device:R R?
-U 1 1 5E038631
-P 8125 1975
-F 0 "R?" V 8025 1925 50  0000 L CNN
-F 1 "1k" V 8125 1925 50  0000 L CNN
-F 2 "" V 8055 1975 50  0001 C CNN
-F 3 "~" H 8125 1975 50  0001 C CNN
-	1    8125 1975
-	0    1    -1   0   
-$EndComp
 Text Notes 8200 3225 3    50   ~ 0
 bias network to keep the transistor bases\n>= 1 diode drop away from each other
 $Comp
@@ -992,29 +977,7 @@ F 3 "~" H 9475 2375 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 Wire Wire Line
-	7350 2375 8125 2375
-$Comp
-L Device:R_POT RV?
-U 1 1 5E2A7A18
-P 7825 1975
-F 0 "RV?" H 7755 2021 50  0000 R CNN
-F 1 "1k" V 7825 2025 50  0000 R CNN
-F 2 "" H 7825 1975 50  0001 C CNN
-F 3 "~" H 7825 1975 50  0001 C CNN
-	1    7825 1975
-	1    0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5E2ABE5A
-P 7825 2125
-F 0 "#PWR?" H 7825 1875 50  0001 C CNN
-F 1 "GND" H 7830 1952 50  0001 C CNN
-F 2 "" H 7825 2125 50  0001 C CNN
-F 3 "" H 7825 2125 50  0001 C CNN
-	1    7825 2125
-	-1   0    0    -1  
-$EndComp
+	7750 2375 8125 2375
 $Comp
 L power:VEE #PWR?
 U 1 1 5E2CC03C
@@ -1028,41 +991,14 @@ F 3 "" H 8875 5600 50  0001 C CNN
 $EndComp
 Connection ~ 8875 5600
 $Comp
-L power:VCC #PWR?
-U 1 1 5E2D55B5
-P 7825 1825
-F 0 "#PWR?" H 7825 1675 50  0001 C CNN
-F 1 "VCC" H 7843 1998 50  0000 C CNN
-F 2 "" H 7825 1825 50  0001 C CNN
-F 3 "" H 7825 1825 50  0001 C CNN
-	1    7825 1825
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	8275 1575 8575 1575
-$Comp
-L power:VCC #PWR?
-U 1 1 5E2D743D
-P 8575 1575
-F 0 "#PWR?" H 8575 1425 50  0001 C CNN
-F 1 "VCC" H 8593 1748 50  0000 C CNN
-F 2 "" H 8575 1575 50  0001 C CNN
-F 3 "" H 8575 1575 50  0001 C CNN
-	1    8575 1575
-	-1   0    0    -1  
-$EndComp
-Connection ~ 8575 1575
-Wire Wire Line
-	8575 1575 8875 1575
-$Comp
 L Transistor_BJT:BC557 Q?
 U 1 1 5E2E2D38
-P 8775 1775
-F 0 "Q?" H 8975 1775 50  0000 L CNN
-F 1 "BC557" H 8450 1650 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 8975 1700 50  0001 L CIN
-F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 8775 1775 50  0001 L CNN
-	1    8775 1775
+P 9375 1775
+F 0 "Q?" H 9300 1925 50  0000 L CNN
+F 1 "BC557" H 9050 1650 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9575 1700 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 9375 1775 50  0001 L CNN
+	1    9375 1775
 	1    0    0    1   
 $EndComp
 Wire Wire Line
@@ -1182,16 +1118,14 @@ $EndComp
 $Comp
 L Transistor_BJT:BC557 Q?
 U 1 1 5E3BC860
-P 8375 1775
-F 0 "Q?" H 8575 1775 50  0000 L CNN
-F 1 "BC557" H 8050 1650 50  0001 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 8575 1700 50  0001 L CIN
-F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 8375 1775 50  0001 L CNN
-	1    8375 1775
+P 8975 1775
+F 0 "Q?" H 8875 1925 50  0000 L CNN
+F 1 "BC557" H 8650 1650 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9175 1700 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 8975 1775 50  0001 L CNN
+	1    8975 1775
 	-1   0    0    1   
 $EndComp
-Connection ~ 8275 1975
-Connection ~ 8575 1775
 Connection ~ 8425 2475
 Wire Wire Line
 	8425 2475 8425 2375
@@ -1212,7 +1146,7 @@ L Device:R_Variable R?
 U 1 1 5DF87DEF
 P 9850 2525
 F 0 "R?" H 9978 2571 50  0000 L CNN
-F 1 "100k" H 9978 2480 50  0000 L CNN
+F 1 "100k" H 9925 2475 50  0000 L CNN
 F 2 "" V 9780 2525 50  0001 C CNN
 F 3 "~" H 9850 2525 50  0001 C CNN
 	1    9850 2525
@@ -1605,7 +1539,7 @@ Wire Wire Line
 Connection ~ 1800 4950
 Text GLabel 2025 4950 3    50   Input ~ 0
 square_ctl_buf2
-Text Notes 9775 1850 2    50   ~ 0
+Text Notes 9850 2225 2    50   ~ 0
 current mirror as\nvoltage controlled\ncurrent source
 Text Notes 9475 4325 1    50   ~ 0
 transistor ladder VCF
@@ -1758,10 +1692,6 @@ Text GLabel 1800 5900 2    50   Input ~ 0
 square_ctl_buf2
 Text GLabel 1800 5800 2    50   Input ~ 0
 square_ctl2
-Text Notes 7100 1000 0    50   ~ 0
-TODO: multiple inputs, one raw
-Text Notes 7100 900  0    50   ~ 0
-TODO: input stage similar to VCA
 $Comp
 L power:GND #PWR?
 U 1 1 5E051F30
@@ -1806,7 +1736,7 @@ F 3 "~" H 975 7325 50  0001 C CNN
 	1    975  7325
 	1    0    0    -1  
 $EndComp
-Text Notes 4925 2375 0    50   ~ 0
+Text Notes 4625 2525 0    50   ~ 0
 TODO: vca_ctl and vcf_ctl connectors,\n       mixer, vca, vcf inputs and outputs
 Wire Notes Line
 	625  6100 625  3150
@@ -2005,4 +1935,197 @@ Wire Notes Line
 	450  725  4450 725 
 Text Notes 500  675  0    50   ~ 0
 TODO: replace that 50k poti\nwith input adjusts at  vca_ctl
+$Comp
+L Device:R R?
+U 1 1 5E3EFEBB
+P 9650 1775
+F 0 "R?" H 9550 1925 50  0000 L CNN
+F 1 "10k" V 9650 1700 50  0000 L CNN
+F 2 "" V 9580 1775 50  0001 C CNN
+F 3 "~" H 9650 1775 50  0001 C CNN
+	1    9650 1775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Variable R?
+U 1 1 5E3EFEC5
+P 9825 1775
+F 0 "R?" H 9875 1775 50  0000 L CNN
+F 1 "10k" H 9875 1700 50  0000 L CNN
+F 2 "" V 9755 1775 50  0001 C CNN
+F 3 "~" H 9825 1775 50  0001 C CNN
+	1    9825 1775
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5E3EFECF
+P 9825 1625
+F 0 "#PWR?" H 9825 1475 50  0001 C CNN
+F 1 "VCC" H 9925 1725 50  0000 C CNN
+F 2 "" H 9825 1625 50  0001 C CNN
+F 3 "" H 9825 1625 50  0001 C CNN
+	1    9825 1625
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5E3EFEF7
+P 9175 1575
+F 0 "#PWR?" H 9175 1425 50  0001 C CNN
+F 1 "VCC" H 9075 1650 50  0000 C CNN
+F 2 "" H 9175 1575 50  0001 C CNN
+F 3 "" H 9175 1575 50  0001 C CNN
+	1    9175 1575
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8875 1575 9175 1575
+Connection ~ 9175 1575
+Wire Wire Line
+	9175 1575 9475 1575
+Wire Wire Line
+	9175 1775 9175 1975
+Wire Wire Line
+	9650 1975 9650 1925
+Wire Wire Line
+	9825 1975 9825 1925
+Wire Wire Line
+	9650 1625 9650 1425
+Connection ~ 9650 1975
+Wire Wire Line
+	9650 1975 9825 1975
+Wire Wire Line
+	9175 1975 9475 1975
+Connection ~ 9475 1975
+Wire Wire Line
+	9475 1975 9650 1975
+Connection ~ 9175 1775
+Text Notes 10725 3100 1    50   ~ 0
+offset compensation: the OpAmp would\nneed to output exactly Vcc - 0.7V (i.e., the voltage\nat the transistor's base) in order to fully close the\nVCF. However, the OpAmp is limited to approx. Vcc-1.5V,\nso we inject some current through this trimming poti.\nWhen the OpAmp is at its Vmax, tune this poti such that\nthe VCF is just fully closed.\n
+Connection ~ 8750 1425
+Wire Wire Line
+	9650 1425 8750 1425
+Text Notes 6425 700  0    50   ~ 0
+TODO: expo converter for the VCF input
+Text Notes 6425 1825 0    50   ~ 0
+set such, that with zero control input, the\noutput of the op amp is just at maximum\n(i.e., Vcc minus like 1 V or so)
+Connection ~ 8150 1325
+$Comp
+L Device:RTRIM R?
+U 1 1 5E3D0F12
+P 8000 1325
+F 0 "R?" V 7900 1200 50  0000 C CNN
+F 1 "200k" V 7900 1375 50  0000 C CNN
+F 2 "" V 7930 1325 50  0001 C CNN
+F 3 "~" H 8000 1325 50  0001 C CNN
+	1    8000 1325
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	7800 1325 7850 1325
+Wire Wire Line
+	7800 1375 7800 1325
+$Comp
+L power:VEE #PWR?
+U 1 1 5E3C6C3C
+P 7800 1375
+F 0 "#PWR?" H 7800 1225 50  0001 C CNN
+F 1 "VEE" H 7818 1548 50  0000 C CNN
+F 2 "" H 7800 1375 50  0001 C CNN
+F 3 "" H 7800 1375 50  0001 C CNN
+	1    7800 1375
+	-1   0    0    1   
+$EndComp
+Text Notes 7325 1375 0    50   ~ 0
+set to 100k
+Connection ~ 8150 1000
+$Comp
+L power:GND #PWR?
+U 1 1 5E371B63
+P 8150 1525
+F 0 "#PWR?" H 8150 1275 50  0001 C CNN
+F 1 "GND" H 8150 1375 50  0000 C CNN
+F 2 "" H 8150 1525 50  0001 C CNN
+F 3 "" H 8150 1525 50  0001 C CNN
+	1    8150 1525
+	1    0    0    -1  
+$EndComp
+Text Notes 6425 1100 0    50   ~ 0
+should be 2x 47k maybe
+Wire Wire Line
+	8150 1000 8150 1125
+Wire Wire Line
+	8150 1125 8150 1325
+Connection ~ 8150 1125
+Wire Wire Line
+	7775 1000 7850 1000
+Text GLabel 7775 1000 0    50   Input ~ 0
+vcf_ctl1
+$Comp
+L Device:R R?
+U 1 1 5E371BB5
+P 8000 1000
+F 0 "R?" V 8050 1100 50  0000 L CNN
+F 1 "100k" V 8000 900 50  0000 L CNN
+F 2 "" V 7930 1000 50  0001 C CNN
+F 3 "~" H 8000 1000 50  0001 C CNN
+	1    8000 1000
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	7775 1125 7850 1125
+$Comp
+L Amplifier_Operational:TL074 U?
+U 1 1 5E371BA8
+P 8450 1425
+F 0 "U?" H 8475 1600 50  0000 C CNN
+F 1 "TL074" H 8425 1425 50  0000 C CNN
+F 2 "" H 8400 1525 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 8500 1625 50  0001 C CNN
+	1    8450 1425
+	1    0    0    1   
+$EndComp
+Text GLabel 7775 1125 0    50   Input ~ 0
+vcf_ctl2
+$Comp
+L Device:R R?
+U 1 1 5E371B7C
+P 8000 1125
+F 0 "R?" V 8050 1225 50  0000 L CNN
+F 1 "100k" V 8000 1025 50  0000 L CNN
+F 2 "" V 7930 1125 50  0001 C CNN
+F 3 "~" H 8000 1125 50  0001 C CNN
+	1    8000 1125
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	8325 1000 8150 1000
+Wire Wire Line
+	8750 1000 8625 1000
+Wire Wire Line
+	8750 1425 8750 1000
+$Comp
+L Device:R R?
+U 1 1 5E371B6F
+P 8475 1000
+F 0 "R?" V 8375 950 50  0000 L CNN
+F 1 "100k" V 8475 900 50  0000 L CNN
+F 2 "" V 8405 1000 50  0001 C CNN
+F 3 "~" H 8475 1000 50  0001 C CNN
+	1    8475 1000
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	7900 875  8150 875 
+Wire Wire Line
+	8150 875  8150 1000
+Text GLabel 7900 875  0    50   Input ~ 0
+vcf_ctl_raw
+Text Notes 10100 1975 1    50   ~ 0
+set to 7.26k
+Wire Notes Line
+	9775 2325 10150 2325
+Wire Notes Line
+	10150 2325 10150 3125
 $EndSCHEMATC
