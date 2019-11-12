@@ -2259,4 +2259,8 @@ Wire Notes Line
 	7625 6150 6325 6150
 Wire Notes Line
 	6325 4650 6325 6150
+Text Notes 475  300  0    50   ~ 0
+TODO: some input preattenuators for all control inputs
+Text Notes 450  -575 0    50   ~ 0
+TODO\n- input preattenuators\n- input pre-bias\n- expo for filter\n- what to do about the clamping?\n- connectors
 $EndSCHEMATC
