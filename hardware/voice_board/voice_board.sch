@@ -14,193 +14,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Device:R R?
-U 1 1 5DD1660F
-P 3125 1275
-F 0 "R?" H 3025 1425 50  0000 L CNN
-F 1 "110k" V 3125 1175 50  0000 L CNN
-F 2 "" V 3055 1275 50  0001 C CNN
-F 3 "~" H 3125 1275 50  0001 C CNN
-	1    3125 1275
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Variable R?
-U 1 1 5DD1A8CE
-P 3300 1275
-F 0 "R?" H 3350 1275 50  0000 L CNN
-F 1 "100k" H 3350 1200 50  0000 L CNN
-F 2 "" V 3230 1275 50  0001 C CNN
-F 3 "~" H 3300 1275 50  0001 C CNN
-	1    3300 1275
-	1    0    0    -1  
-$EndComp
-Text Notes 3600 1150 3    50   ~ 0
-set to ~~47k
-$Comp
-L power:VCC #PWR?
-U 1 1 5DD1B3F2
-P 3300 1125
-F 0 "#PWR?" H 3300 975 50  0001 C CNN
-F 1 "VCC" H 3400 1225 50  0000 C CNN
-F 2 "" H 3300 1125 50  0001 C CNN
-F 3 "" H 3300 1125 50  0001 C CNN
-	1    3300 1125
-	1    0    0    -1  
-$EndComp
 Text GLabel 2725 6500 0    50   Input ~ 0
 Envelope
-$Comp
-L Device:R R?
-U 1 1 5DD2297D
-P 950 1575
-F 0 "R?" H 800 1575 50  0000 L CNN
-F 1 "100k" V 950 1475 50  0000 L CNN
-F 2 "" V 880 1575 50  0001 C CNN
-F 3 "~" H 950 1575 50  0001 C CNN
-	1    950  1575
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	1075 1425 950  1425
-Wire Wire Line
-	1200 1425 1075 1425
-Connection ~ 1075 1425
-$Comp
-L Device:R R?
-U 1 1 5DD29B08
-P 1075 1575
-F 0 "R?" H 1125 1575 50  0000 L CNN
-F 1 "100k" V 1075 1475 50  0000 L CNN
-F 2 "" V 1005 1575 50  0001 C CNN
-F 3 "~" H 1075 1575 50  0001 C CNN
-	1    1075 1575
-	1    0    0    1   
-$EndComp
-$Comp
-L power:VCC #PWR?
-U 1 1 5DD375F1
-P 825 1825
-F 0 "#PWR?" H 825 1675 50  0001 C CNN
-F 1 "VCC" H 750 1775 50  0000 C CNN
-F 2 "" H 825 1825 50  0001 C CNN
-F 3 "" H 825 1825 50  0001 C CNN
-	1    825  1825
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DD3CFF1
-P 1075 1725
-F 0 "#PWR?" H 1075 1475 50  0001 C CNN
-F 1 "GND" H 1075 1575 50  0000 C CNN
-F 2 "" H 1075 1725 50  0001 C CNN
-F 3 "" H 1075 1725 50  0001 C CNN
-	1    1075 1725
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	825  1825 950  1825
-Wire Wire Line
-	950  1825 950  1725
-$Comp
-L Device:R R?
-U 1 1 5DD46306
-P 1525 975
-F 0 "R?" V 1425 925 50  0000 L CNN
-F 1 "100k" V 1525 875 50  0000 L CNN
-F 2 "" V 1455 975 50  0001 C CNN
-F 3 "~" H 1525 975 50  0001 C CNN
-	1    1525 975 
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	1800 1325 1800 975 
-Wire Wire Line
-	1800 975  1675 975 
-Wire Wire Line
-	1375 975  1200 975 
-$Comp
-L Device:R R?
-U 1 1 5DD48859
-P 1050 1225
-F 0 "R?" V 1100 1325 50  0000 L CNN
-F 1 "100k" V 1050 1125 50  0000 L CNN
-F 2 "" V 980 1225 50  0001 C CNN
-F 3 "~" H 1050 1225 50  0001 C CNN
-	1    1050 1225
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_POT RV?
-U 1 1 5DD4A3FE
-P 1975 1100
-F 0 "RV?" H 2175 1025 50  0000 R CNN
-F 1 "50k" V 1975 1175 50  0000 R CNN
-F 2 "" H 1975 1100 50  0001 C CNN
-F 3 "~" H 1975 1100 50  0001 C CNN
-	1    1975 1100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VCC #PWR?
-U 1 1 5DD4AEC6
-P 1975 950
-F 0 "#PWR?" H 1975 800 50  0001 C CNN
-F 1 "VCC" H 1975 1100 50  0000 C CNN
-F 2 "" H 1975 950 50  0001 C CNN
-F 3 "" H 1975 950 50  0001 C CNN
-	1    1975 950 
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1975 1325 1800 1325
-Wire Wire Line
-	1975 1250 1975 1325
-$Comp
-L Transistor_BJT:BC327 Q?
-U 1 1 5D927D0A
-P 2450 1275
-F 0 "Q?" H 2350 1425 50  0000 L CNN
-F 1 "BC327" H 2125 1200 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 2650 1200 50  0001 L CIN
-F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 2450 1275 50  0001 L CNN
-	1    2450 1275
-	-1   0    0    1   
-$EndComp
-$Comp
-L Transistor_BJT:BC327 Q?
-U 1 1 5D936D87
-P 2850 1275
-F 0 "Q?" H 2725 1425 50  0000 L CNN
-F 1 "BC327" H 3041 1230 50  0001 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3050 1200 50  0001 L CIN
-F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 2850 1275 50  0001 L CNN
-	1    2850 1275
-	1    0    0    1   
-$EndComp
-$Comp
-L power:VCC #PWR?
-U 1 1 5D942900
-P 2650 1075
-F 0 "#PWR?" H 2650 925 50  0001 C CNN
-F 1 "VCC" H 2550 1150 50  0000 C CNN
-F 2 "" H 2650 1075 50  0001 C CNN
-F 3 "" H 2650 1075 50  0001 C CNN
-	1    2650 1075
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	2350 1075 2650 1075
-Connection ~ 2650 1075
-Wire Wire Line
-	2650 1075 2950 1075
-Wire Wire Line
-	2650 1275 2650 1475
-Connection ~ 2650 1275
-Wire Wire Line
-	2650 1475 2950 1475
 Connection ~ 2350 1775
 $Comp
 L Device:R R?
@@ -383,16 +198,6 @@ Wire Wire Line
 	2225 2175 2225 2450
 Text Notes 3100 1725 2    50   ~ 0
 current mirror as\nvoltage controlled\ncurrent source
-Wire Wire Line
-	2950 1475 3125 1475
-Connection ~ 2950 1475
-Connection ~ 3125 1475
-Wire Wire Line
-	3125 1475 3125 1425
-Wire Wire Line
-	3300 1475 3300 1425
-Wire Wire Line
-	3300 1475 3125 1475
 $Comp
 L power:GNDREF #PWR?
 U 1 1 5D9C7217
@@ -447,14 +252,6 @@ Wire Wire Line
 	1925 2600 1925 1975
 Connection ~ 1725 2600
 Wire Wire Line
-	3125 1125 3125 925 
-Wire Wire Line
-	3125 925  2225 925 
-Wire Wire Line
-	2225 925  2225 1100
-Wire Wire Line
-	2225 1100 2125 1100
-Wire Wire Line
 	3175 2025 3375 2025
 Wire Wire Line
 	3175 2025 3175 2250
@@ -477,7 +274,7 @@ L power:VEE #PWR?
 U 1 1 5D8E8D04
 P 1800 4100
 F 0 "#PWR?" H 1800 3950 50  0001 C CNN
-F 1 "VEE" H 1818 4273 50  0000 C CNN
+F 1 "VEE" H 1800 4275 50  0000 C CNN
 F 2 "" H 1800 4100 50  0001 C CNN
 F 3 "" H 1800 4100 50  0001 C CNN
 	1    1800 4100
@@ -499,7 +296,7 @@ L power:VCC #PWR?
 U 1 1 5D8E6DCF
 P 1800 3400
 F 0 "#PWR?" H 1800 3250 50  0001 C CNN
-F 1 "VCC" H 1817 3573 50  0000 C CNN
+F 1 "VCC" H 1800 3575 50  0000 C CNN
 F 2 "" H 1800 3400 50  0001 C CNN
 F 3 "" H 1800 3400 50  0001 C CNN
 	1    1800 3400
@@ -675,8 +472,6 @@ Wire Wire Line
 Connection ~ 3325 6650
 Wire Wire Line
 	1725 2000 1425 2000
-Text GLabel 825  1225 0    50   Input ~ 0
-vca_ctl2
 $Comp
 L power:GNDREF #PWR?
 U 1 1 5DC870C2
@@ -1403,7 +1198,7 @@ L power:VEE #PWR?
 U 1 1 5DDBC120
 P 1800 5250
 F 0 "#PWR?" H 1800 5100 50  0001 C CNN
-F 1 "VEE" H 1818 5423 50  0000 C CNN
+F 1 "VEE" H 1800 5425 50  0000 C CNN
 F 2 "" H 1800 5250 50  0001 C CNN
 F 3 "" H 1800 5250 50  0001 C CNN
 	1    1800 5250
@@ -1425,7 +1220,7 @@ L power:VCC #PWR?
 U 1 1 5DDBC134
 P 1800 4550
 F 0 "#PWR?" H 1800 4400 50  0001 C CNN
-F 1 "VCC" H 1817 4723 50  0000 C CNN
+F 1 "VCC" H 1800 4725 50  0000 C CNN
 F 2 "" H 1800 4550 50  0001 C CNN
 F 3 "" H 1800 4550 50  0001 C CNN
 	1    1800 4550
@@ -1543,19 +1338,6 @@ Text Notes 9850 2225 2    50   ~ 0
 current mirror as\nvoltage controlled\ncurrent source
 Text Notes 9475 4325 1    50   ~ 0
 transistor ladder VCF
-$Comp
-L Amplifier_Operational:TL074 U?
-U 1 1 5DE4244B
-P 1500 1325
-F 0 "U?" H 1525 1500 50  0000 C CNN
-F 1 "TL074" H 1475 1325 50  0000 C CNN
-F 2 "" H 1450 1425 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 1550 1525 50  0001 C CNN
-	1    1500 1325
-	1    0    0    1   
-$EndComp
-Connection ~ 1200 1225
-Connection ~ 1800 1325
 Text GLabel 10525 4725 2    50   Input ~ 0
 vcf_audio_out
 Text GLabel 5300 2625 0    50   Input ~ 0
@@ -1746,8 +1528,6 @@ Wire Notes Line
 	3800 3150 3800 6100
 Wire Notes Line
 	3800 6100 625  6100
-Text Notes 4250 5525 0    50   ~ 0
-TODO: two low pass filters\nfor general purpose (portamento?)
 $Comp
 L Device:C C?
 U 1 1 5E0FF54D
@@ -1900,33 +1680,6 @@ PB15
 NoConn ~ 1275 7325
 Wire Notes Line
 	4450 725  4450 3075
-Wire Wire Line
-	825  1225 900  1225
-$Comp
-L Device:R R?
-U 1 1 5E2A1537
-P 1050 1100
-F 0 "R?" V 1100 1200 50  0000 L CNN
-F 1 "100k" V 1050 1000 50  0000 L CNN
-F 2 "" V 980 1100 50  0001 C CNN
-F 3 "~" H 1050 1100 50  0001 C CNN
-	1    1050 1100
-	0    -1   1    0   
-$EndComp
-Text GLabel 825  1100 0    50   Input ~ 0
-vca_ctl1
-Wire Wire Line
-	825  1100 900  1100
-Connection ~ 1200 1100
-Wire Wire Line
-	1200 1100 1200 1225
-Text GLabel 950  975  0    50   Input ~ 0
-vca_ctl_raw
-Wire Wire Line
-	950  975  1200 975 
-Connection ~ 1200 975 
-Wire Wire Line
-	1200 975  1200 1100
 Wire Notes Line
 	450  725  450  3075
 Wire Notes Line
@@ -2128,4 +1881,382 @@ Wire Notes Line
 	9775 2325 10150 2325
 Wire Notes Line
 	10150 2325 10150 3125
+Text Notes 2350 5825 0    50   ~ 0
+TODO: more square_ctl_buf outputs.\nor add the clamping circuitry here
+Text Notes 6225 1525 0    50   ~ 0
+TODO: or just put a resistor here\nor a proper poti for opening the filter.
+$Comp
+L Transistor_BJT:BC557 Q?
+U 1 1 5E667B2B
+P 2850 1275
+F 0 "Q?" H 2775 1425 50  0000 L CNN
+F 1 "BC557" H 2525 1150 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3050 1200 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 2850 1275 50  0001 L CNN
+	1    2850 1275
+	1    0    0    1   
+$EndComp
+$Comp
+L Transistor_BJT:BC557 Q?
+U 1 1 5E667B35
+P 2450 1275
+F 0 "Q?" H 2350 1425 50  0000 L CNN
+F 1 "BC557" H 2125 1150 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 2650 1200 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 2450 1275 50  0001 L CNN
+	1    2450 1275
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E667B40
+P 3125 1275
+F 0 "R?" H 3025 1425 50  0000 L CNN
+F 1 "100k" V 3125 1175 50  0000 L CNN
+F 2 "" V 3055 1275 50  0001 C CNN
+F 3 "~" H 3125 1275 50  0001 C CNN
+	1    3125 1275
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Variable R?
+U 1 1 5E667B4A
+P 3300 1275
+F 0 "R?" H 3350 1275 50  0000 L CNN
+F 1 "100k" H 3350 1200 50  0000 L CNN
+F 2 "" V 3230 1275 50  0001 C CNN
+F 3 "~" H 3300 1275 50  0001 C CNN
+	1    3300 1275
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5E667B54
+P 3300 1125
+F 0 "#PWR?" H 3300 975 50  0001 C CNN
+F 1 "VCC" H 3400 1225 50  0000 C CNN
+F 2 "" H 3300 1125 50  0001 C CNN
+F 3 "" H 3300 1125 50  0001 C CNN
+	1    3300 1125
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5E667B5E
+P 2650 1075
+F 0 "#PWR?" H 2650 925 50  0001 C CNN
+F 1 "VCC" H 2550 1150 50  0000 C CNN
+F 2 "" H 2650 1075 50  0001 C CNN
+F 3 "" H 2650 1075 50  0001 C CNN
+	1    2650 1075
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 1075 2650 1075
+Connection ~ 2650 1075
+Wire Wire Line
+	2650 1075 2950 1075
+Wire Wire Line
+	2650 1275 2650 1475
+Wire Wire Line
+	3125 1475 3125 1425
+Wire Wire Line
+	3300 1475 3300 1425
+Wire Wire Line
+	3125 1125 3125 925 
+Connection ~ 3125 1475
+Wire Wire Line
+	3125 1475 3300 1475
+Wire Wire Line
+	2650 1475 2950 1475
+Connection ~ 2950 1475
+Wire Wire Line
+	2950 1475 3125 1475
+Connection ~ 2650 1275
+Text Notes 3625 1025 3    50   ~ 0
+set to ~~47k
+Text Notes -500 1450 0    50   ~ 0
+TODO: or just put a resistor here\nor a proper poti for opening the filter.
+Text GLabel 1175 800  0    50   Input ~ 0
+vca_ctl_raw
+Wire Wire Line
+	1425 800  1425 925 
+Wire Wire Line
+	1175 800  1425 800 
+$Comp
+L Device:R R?
+U 1 1 5E667BC6
+P 1750 925
+F 0 "R?" V 1650 875 50  0000 L CNN
+F 1 "100k" V 1750 825 50  0000 L CNN
+F 2 "" V 1680 925 50  0001 C CNN
+F 3 "~" H 1750 925 50  0001 C CNN
+	1    1750 925 
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	2025 1350 2025 925 
+Wire Wire Line
+	2025 925  1900 925 
+Wire Wire Line
+	1600 925  1425 925 
+$Comp
+L Device:R R?
+U 1 1 5E667BB9
+P 1275 1050
+F 0 "R?" V 1325 1150 50  0000 L CNN
+F 1 "100k" V 1275 950 50  0000 L CNN
+F 2 "" V 1205 1050 50  0001 C CNN
+F 3 "~" H 1275 1050 50  0001 C CNN
+	1    1275 1050
+	0    -1   1    0   
+$EndComp
+Text GLabel 1050 1050 0    50   Input ~ 0
+vca_ctl2
+$Comp
+L Amplifier_Operational:TL074 U?
+U 1 1 5E667BAE
+P 1725 1350
+F 0 "U?" H 1750 1525 50  0000 C CNN
+F 1 "TL074" H 1700 1350 50  0000 C CNN
+F 2 "" H 1675 1450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 1775 1550 50  0001 C CNN
+	1    1725 1350
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	1050 1050 1125 1050
+$Comp
+L Device:R R?
+U 1 1 5E667BA3
+P 1275 925
+F 0 "R?" V 1325 1025 50  0000 L CNN
+F 1 "100k" V 1275 825 50  0000 L CNN
+F 2 "" V 1205 925 50  0001 C CNN
+F 3 "~" H 1275 925 50  0001 C CNN
+	1    1275 925 
+	0    -1   1    0   
+$EndComp
+Text GLabel 1050 925  0    50   Input ~ 0
+vca_ctl1
+Wire Wire Line
+	1050 925  1125 925 
+Connection ~ 1425 1050
+Wire Wire Line
+	1425 1050 1425 1250
+Wire Wire Line
+	1425 925  1425 1050
+Text Notes -300 1025 0    50   ~ 0
+should be 2x 47k maybe
+$Comp
+L power:GND #PWR?
+U 1 1 5E667B93
+P 1425 1450
+F 0 "#PWR?" H 1425 1200 50  0001 C CNN
+F 1 "GND" H 1425 1300 50  0000 C CNN
+F 2 "" H 1425 1450 50  0001 C CNN
+F 3 "" H 1425 1450 50  0001 C CNN
+	1    1425 1450
+	1    0    0    -1  
+$EndComp
+Connection ~ 1425 925 
+Text Notes 600  1300 0    50   ~ 0
+set to 100k
+$Comp
+L power:VEE #PWR?
+U 1 1 5E667B87
+P 1075 1300
+F 0 "#PWR?" H 1075 1150 50  0001 C CNN
+F 1 "VEE" H 1093 1473 50  0000 C CNN
+F 2 "" H 1075 1300 50  0001 C CNN
+F 3 "" H 1075 1300 50  0001 C CNN
+	1    1075 1300
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1075 1300 1075 1250
+Wire Wire Line
+	1075 1250 1125 1250
+$Comp
+L Device:RTRIM R?
+U 1 1 5E667B7B
+P 1275 1250
+F 0 "R?" V 1175 1125 50  0000 C CNN
+F 1 "200k" V 1175 1300 50  0000 C CNN
+F 2 "" V 1205 1250 50  0001 C CNN
+F 3 "~" H 1275 1250 50  0001 C CNN
+	1    1275 1250
+	0    1    -1   0   
+$EndComp
+Connection ~ 1425 1250
+Text Notes -300 1750 0    50   ~ 0
+set such, that with zero control input, the\noutput of the op amp is just at maximum\n(i.e., Vcc minus like 1 V or so)
+Wire Wire Line
+	2025 925  3125 925 
+Connection ~ 2025 925 
+$Comp
+L power:GND #PWR?
+U 1 1 5E7AF844
+P 6825 5900
+F 0 "#PWR?" H 6825 5650 50  0001 C CNN
+F 1 "GND" H 6830 5727 50  0000 C CNN
+F 2 "" H 6825 5900 50  0001 C CNN
+F 3 "" H 6825 5900 50  0001 C CNN
+	1    6825 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5E7B061B
+P 6825 5750
+F 0 "C?" H 6700 5650 50  0000 L CNN
+F 1 "any" H 6940 5705 50  0001 L CNN
+F 2 "" H 6863 5600 50  0001 C CNN
+F 3 "~" H 6825 5750 50  0001 C CNN
+	1    6825 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Variable R?
+U 1 1 5E7BA9B6
+P 6675 5525
+F 0 "R?" V 6725 5700 50  0000 C CNN
+F 1 "any" V 6550 5450 50  0001 C CNN
+F 2 "" V 6605 5525 50  0001 C CNN
+F 3 "~" H 6675 5525 50  0001 C CNN
+	1    6675 5525
+	0    1    -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E7D5649
+P 7125 5900
+F 0 "#PWR?" H 7125 5650 50  0001 C CNN
+F 1 "GND" H 7130 5727 50  0000 C CNN
+F 2 "" H 7125 5900 50  0001 C CNN
+F 3 "" H 7125 5900 50  0001 C CNN
+	1    7125 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Variable R?
+U 1 1 5E7D565D
+P 6675 5350
+F 0 "R?" V 6725 5525 50  0000 C CNN
+F 1 "any" V 6550 5275 50  0001 C CNN
+F 2 "" V 6605 5350 50  0001 C CNN
+F 3 "~" H 6675 5350 50  0001 C CNN
+	1    6675 5350
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	6825 5350 7125 5350
+Wire Wire Line
+	7125 5350 7125 5600
+$Comp
+L Device:C C?
+U 1 1 5E7EABA3
+P 7125 5750
+F 0 "C?" H 7000 5650 50  0000 L CNN
+F 1 "any" H 7240 5705 50  0001 L CNN
+F 2 "" H 7163 5600 50  0001 C CNN
+F 3 "~" H 7125 5750 50  0001 C CNN
+	1    7125 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E7EABAD
+P 7425 5900
+F 0 "#PWR?" H 7425 5650 50  0001 C CNN
+F 1 "GND" H 7430 5727 50  0000 C CNN
+F 2 "" H 7425 5900 50  0001 C CNN
+F 3 "" H 7425 5900 50  0001 C CNN
+	1    7425 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5E7EABB7
+P 7425 5750
+F 0 "C?" H 7300 5650 50  0000 L CNN
+F 1 "any" H 7540 5705 50  0001 L CNN
+F 2 "" H 7463 5600 50  0001 C CNN
+F 3 "~" H 7425 5750 50  0001 C CNN
+	1    7425 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Variable R?
+U 1 1 5E7F515B
+P 6675 5175
+F 0 "R?" V 6725 5350 50  0000 C CNN
+F 1 "any" V 6550 5100 50  0001 C CNN
+F 2 "" V 6605 5175 50  0001 C CNN
+F 3 "~" H 6675 5175 50  0001 C CNN
+	1    6675 5175
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	6825 5175 7425 5175
+Wire Wire Line
+	7425 5175 7425 5600
+Wire Wire Line
+	6825 5525 6825 5600
+$Comp
+L Connector_Generic:Conn_02x03_Odd_Even J?
+U 1 1 5E82F989
+P 7025 4850
+F 0 "J?" H 7075 4625 50  0000 C CNN
+F 1 "Conn_02x03_Odd_Even" H 7075 5076 50  0001 C CNN
+F 2 "" H 7025 4850 50  0001 C CNN
+F 3 "~" H 7025 4850 50  0001 C CNN
+	1    7025 4850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6825 4950 6525 4950
+Wire Wire Line
+	6525 4950 6525 5175
+Wire Wire Line
+	6825 4850 6450 4850
+Wire Wire Line
+	6450 4850 6450 5350
+Wire Wire Line
+	6450 5350 6525 5350
+Wire Wire Line
+	6825 4750 6375 4750
+Wire Wire Line
+	6375 4750 6375 5525
+Wire Wire Line
+	6375 5525 6525 5525
+Wire Wire Line
+	7425 5175 7425 4950
+Wire Wire Line
+	7425 4950 7325 4950
+Connection ~ 7425 5175
+Wire Wire Line
+	7125 5350 7500 5350
+Wire Wire Line
+	7500 5350 7500 4850
+Wire Wire Line
+	7500 4850 7325 4850
+Connection ~ 7125 5350
+Wire Wire Line
+	6825 5525 7575 5525
+Wire Wire Line
+	7575 5525 7575 4750
+Wire Wire Line
+	7575 4750 7325 4750
+Connection ~ 6825 5525
+Text Notes 6350 6125 0    50   ~ 0
+general\npurpose\nlow pass\nfilters
+Wire Notes Line
+	6325 4650 7625 4650
+Wire Notes Line
+	7625 4650 7625 6150
+Wire Notes Line
+	7625 6150 6325 6150
+Wire Notes Line
+	6325 4650 6325 6150
 $EndSCHEMATC
