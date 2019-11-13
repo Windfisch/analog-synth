@@ -267,64 +267,64 @@ Text Notes 525  3050 0    50   ~ 0
 Voltage controlled amplifier
 Text Notes 525  2325 0    50   ~ 0
 triangle from VCO mk I
-Text Notes 675  4225 0    50   ~ 0
+Text Notes 600  4225 0    50   ~ 0
 transistor buffer.\nsquare_ctl is very sensitive,\nloading it will affect the\nfrequency and pulse width\nof the oscillator
 $Comp
 L power:VEE #PWR?
 U 1 1 5D8E8D04
-P 1800 4100
-F 0 "#PWR?" H 1800 3950 50  0001 C CNN
-F 1 "VEE" H 1800 4275 50  0000 C CNN
-F 2 "" H 1800 4100 50  0001 C CNN
-F 3 "" H 1800 4100 50  0001 C CNN
-	1    1800 4100
+P 1725 4100
+F 0 "#PWR?" H 1725 3950 50  0001 C CNN
+F 1 "VEE" H 1725 4275 50  0000 C CNN
+F 2 "" H 1725 4100 50  0001 C CNN
+F 3 "" H 1725 4100 50  0001 C CNN
+	1    1725 4100
 	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5D8E86DE
-P 1800 3950
-F 0 "R?" H 1900 3850 50  0000 C CNN
-F 1 "1k" V 1800 3950 50  0000 C CNN
-F 2 "" V 1730 3950 50  0001 C CNN
-F 3 "~" H 1800 3950 50  0001 C CNN
-	1    1800 3950
+P 1725 3950
+F 0 "R?" H 1825 3850 50  0000 C CNN
+F 1 "1k" V 1725 3950 50  0000 C CNN
+F 2 "" V 1655 3950 50  0001 C CNN
+F 3 "~" H 1725 3950 50  0001 C CNN
+	1    1725 3950
 	-1   0    0    1   
 $EndComp
 $Comp
 L power:VCC #PWR?
 U 1 1 5D8E6DCF
-P 1800 3400
-F 0 "#PWR?" H 1800 3250 50  0001 C CNN
-F 1 "VCC" H 1800 3575 50  0000 C CNN
-F 2 "" H 1800 3400 50  0001 C CNN
-F 3 "" H 1800 3400 50  0001 C CNN
-	1    1800 3400
+P 1725 3400
+F 0 "#PWR?" H 1725 3250 50  0001 C CNN
+F 1 "VCC" H 1725 3575 50  0000 C CNN
+F 2 "" H 1725 3400 50  0001 C CNN
+F 3 "" H 1725 3400 50  0001 C CNN
+	1    1725 3400
 	1    0    0    -1  
 $EndComp
 $Comp
 L Transistor_BJT:BC547 Q?
 U 1 1 5D8E580C
-P 1700 3600
-F 0 "Q?" H 1891 3646 50  0000 L CNN
-F 1 "BC547" H 1891 3555 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 1900 3525 50  0001 L CIN
-F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 1700 3600 50  0001 L CNN
-	1    1700 3600
+P 1625 3600
+F 0 "Q?" H 1816 3646 50  0000 L CNN
+F 1 "BC547" H 1816 3555 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 1825 3525 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 1625 3600 50  0001 L CNN
+	1    1625 3600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5D88990F
-P 1350 3600
-F 0 "R?" V 1250 3600 50  0000 C CNN
-F 1 "10k" V 1350 3600 50  0000 C CNN
-F 2 "" V 1280 3600 50  0001 C CNN
-F 3 "~" H 1350 3600 50  0001 C CNN
-	1    1350 3600
+P 1275 3600
+F 0 "R?" V 1175 3600 50  0000 C CNN
+F 1 "10k" V 1275 3600 50  0000 C CNN
+F 2 "" V 1205 3600 50  0001 C CNN
+F 3 "~" H 1275 3600 50  0001 C CNN
+	1    1275 3600
 	0    1    1    0   
 $EndComp
-Text GLabel 1200 3600 0    50   Input ~ 0
+Text GLabel 1125 3600 0    50   Input ~ 0
 square_ctl1
 $Comp
 L power:+3.3V #PWR?
@@ -1110,230 +1110,85 @@ Connection ~ 10525 4400
 $Comp
 L Jumper:Jumper_2_Bridged JP?
 U 1 1 5DD3CFE2
-P 2325 3800
-F 0 "JP?" H 2325 3903 50  0000 C CNN
-F 1 "Jumper_2_Bridged" H 2325 3904 50  0001 C CNN
-F 2 "" H 2325 3800 50  0001 C CNN
-F 3 "~" H 2325 3800 50  0001 C CNN
-	1    2325 3800
+P 2650 3800
+F 0 "JP?" H 2650 3903 50  0000 C CNN
+F 1 "Jumper_2_Bridged" H 2650 3904 50  0001 C CNN
+F 2 "" H 2650 3800 50  0001 C CNN
+F 3 "~" H 2650 3800 50  0001 C CNN
+	1    2650 3800
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C?
 U 1 1 5DD3E1B6
-P 2675 3800
-F 0 "C?" V 2525 3800 50  0000 C CNN
-F 1 "1n" V 2825 3800 50  0000 C CNN
-F 2 "" H 2713 3650 50  0001 C CNN
-F 3 "~" H 2675 3800 50  0001 C CNN
-	1    2675 3800
+P 3000 3800
+F 0 "C?" V 2850 3800 50  0000 C CNN
+F 1 "1n" V 3150 3800 50  0000 C CNN
+F 2 "" H 3038 3650 50  0001 C CNN
+F 3 "~" H 3000 3800 50  0001 C CNN
+	1    3000 3800
 	0    1    1    0   
 $EndComp
 $Comp
 L Transistor_FET:2N7000 Q?
 U 1 1 5DD407CF
-P 3175 3800
-F 0 "Q?" H 3381 3846 50  0000 L CNN
-F 1 "2N7000" H 3381 3755 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3375 3725 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 3175 3800 50  0001 L CNN
-	1    3175 3800
+P 3500 3800
+F 0 "Q?" H 3706 3846 50  0000 L CNN
+F 1 "2N7000" H 3706 3755 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3700 3725 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 3500 3800 50  0001 L CNN
+	1    3500 3800
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:VEE #PWR?
 U 1 1 5DD54441
-P 3275 4100
-F 0 "#PWR?" H 3275 3950 50  0001 C CNN
-F 1 "VEE" H 3293 4273 50  0000 C CNN
-F 2 "" H 3275 4100 50  0001 C CNN
-F 3 "" H 3275 4100 50  0001 C CNN
-	1    3275 4100
+P 3600 4100
+F 0 "#PWR?" H 3600 3950 50  0001 C CNN
+F 1 "VEE" H 3618 4273 50  0000 C CNN
+F 2 "" H 3600 4100 50  0001 C CNN
+F 3 "" H 3600 4100 50  0001 C CNN
+	1    3600 4100
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	3275 4100 3275 4000
+	3600 4100 3600 4000
 $Comp
 L power:VEE #PWR?
 U 1 1 5DD3FBCD
-P 2825 4100
-F 0 "#PWR?" H 2825 3950 50  0001 C CNN
-F 1 "VEE" H 2843 4273 50  0000 C CNN
-F 2 "" H 2825 4100 50  0001 C CNN
-F 3 "" H 2825 4100 50  0001 C CNN
-	1    2825 4100
+P 3150 4100
+F 0 "#PWR?" H 3150 3950 50  0001 C CNN
+F 1 "VEE" H 3168 4273 50  0000 C CNN
+F 2 "" H 3150 4100 50  0001 C CNN
+F 3 "" H 3150 4100 50  0001 C CNN
+	1    3150 4100
 	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5DD3F133
-P 2825 3950
-F 0 "R?" H 2725 4000 50  0000 C CNN
-F 1 "1k" V 2825 3950 50  0000 C CNN
-F 2 "" V 2755 3950 50  0001 C CNN
-F 3 "~" H 2825 3950 50  0001 C CNN
-	1    2825 3950
+P 3150 3950
+F 0 "R?" H 3050 4000 50  0000 C CNN
+F 1 "1k" V 3150 3950 50  0000 C CNN
+F 2 "" V 3080 3950 50  0001 C CNN
+F 3 "~" H 3150 3950 50  0001 C CNN
+	1    3150 3950
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2825 3800 2975 3800
-Connection ~ 2825 3800
-Text GLabel 3325 3550 2    50   Input ~ 0
+	3150 3800 3300 3800
+Connection ~ 3150 3800
+Text GLabel 3650 3550 2    50   Input ~ 0
 sync_out1
 Wire Wire Line
-	3325 3550 3275 3550
+	3650 3550 3600 3550
 Wire Wire Line
-	3275 3550 3275 3600
-Text Notes 2775 3675 0    50   ~ 0
+	3600 3550 3600 3600
+Text Notes 3100 3675 0    50   ~ 0
 sync pulse\ngeneration
-Wire Wire Line
-	2125 3800 1800 3800
-Connection ~ 1800 3800
-Text GLabel 2025 3800 3    50   Input ~ 0
+Connection ~ 1725 3800
+Text GLabel 1950 3800 3    50   Input ~ 0
 square_ctl_buf1
-Text Notes 675  5375 0    50   ~ 0
-transistor buffer.\nsquare_ctl is very sensitive,\nloading it will affect the\nfrequency and pulse width\nof the oscillator
-$Comp
-L power:VEE #PWR?
-U 1 1 5DDBC120
-P 1800 5250
-F 0 "#PWR?" H 1800 5100 50  0001 C CNN
-F 1 "VEE" H 1800 5425 50  0000 C CNN
-F 2 "" H 1800 5250 50  0001 C CNN
-F 3 "" H 1800 5250 50  0001 C CNN
-	1    1800 5250
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5DDBC12A
-P 1800 5100
-F 0 "R?" H 1900 5000 50  0000 C CNN
-F 1 "1k" V 1800 5100 50  0000 C CNN
-F 2 "" V 1730 5100 50  0001 C CNN
-F 3 "~" H 1800 5100 50  0001 C CNN
-	1    1800 5100
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:VCC #PWR?
-U 1 1 5DDBC134
-P 1800 4550
-F 0 "#PWR?" H 1800 4400 50  0001 C CNN
-F 1 "VCC" H 1800 4725 50  0000 C CNN
-F 2 "" H 1800 4550 50  0001 C CNN
-F 3 "" H 1800 4550 50  0001 C CNN
-	1    1800 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_BJT:BC547 Q?
-U 1 1 5DDBC13E
-P 1700 4750
-F 0 "Q?" H 1891 4796 50  0000 L CNN
-F 1 "BC547" H 1891 4705 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 1900 4675 50  0001 L CIN
-F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 1700 4750 50  0001 L CNN
-	1    1700 4750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5DDBC148
-P 1350 4750
-F 0 "R?" V 1250 4750 50  0000 C CNN
-F 1 "10k" V 1350 4750 50  0000 C CNN
-F 2 "" V 1280 4750 50  0001 C CNN
-F 3 "~" H 1350 4750 50  0001 C CNN
-	1    1350 4750
-	0    1    1    0   
-$EndComp
-Text GLabel 1200 4750 0    50   Input ~ 0
-square_ctl2
-$Comp
-L Jumper:Jumper_2_Bridged JP?
-U 1 1 5DDBC153
-P 2325 4950
-F 0 "JP?" H 2325 5053 50  0000 C CNN
-F 1 "Jumper_2_Bridged" H 2325 5054 50  0001 C CNN
-F 2 "" H 2325 4950 50  0001 C CNN
-F 3 "~" H 2325 4950 50  0001 C CNN
-	1    2325 4950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C?
-U 1 1 5DDBC15D
-P 2675 4950
-F 0 "C?" V 2525 4950 50  0000 C CNN
-F 1 "1n" V 2825 4950 50  0000 C CNN
-F 2 "" H 2713 4800 50  0001 C CNN
-F 3 "~" H 2675 4950 50  0001 C CNN
-	1    2675 4950
-	0    1    1    0   
-$EndComp
-$Comp
-L Transistor_FET:2N7000 Q?
-U 1 1 5DDBC167
-P 3175 4950
-F 0 "Q?" H 3381 4996 50  0000 L CNN
-F 1 "2N7000" H 3381 4905 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3375 4875 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 3175 4950 50  0001 L CNN
-	1    3175 4950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VEE #PWR?
-U 1 1 5DDBC171
-P 3275 5250
-F 0 "#PWR?" H 3275 5100 50  0001 C CNN
-F 1 "VEE" H 3293 5423 50  0000 C CNN
-F 2 "" H 3275 5250 50  0001 C CNN
-F 3 "" H 3275 5250 50  0001 C CNN
-	1    3275 5250
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3275 5250 3275 5150
-$Comp
-L power:VEE #PWR?
-U 1 1 5DDBC17C
-P 2825 5250
-F 0 "#PWR?" H 2825 5100 50  0001 C CNN
-F 1 "VEE" H 2843 5423 50  0000 C CNN
-F 2 "" H 2825 5250 50  0001 C CNN
-F 3 "" H 2825 5250 50  0001 C CNN
-	1    2825 5250
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5DDBC186
-P 2825 5100
-F 0 "R?" H 2725 5150 50  0000 C CNN
-F 1 "1k" V 2825 5100 50  0000 C CNN
-F 2 "" V 2755 5100 50  0001 C CNN
-F 3 "~" H 2825 5100 50  0001 C CNN
-	1    2825 5100
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2825 4950 2975 4950
-Connection ~ 2825 4950
-Text GLabel 3325 4700 2    50   Input ~ 0
-sync_out2
-Wire Wire Line
-	3325 4700 3275 4700
-Wire Wire Line
-	3275 4700 3275 4750
-Text Notes 2775 4825 0    50   ~ 0
-sync pulse\ngeneration
-Wire Wire Line
-	2125 4950 1800 4950
-Connection ~ 1800 4950
-Text GLabel 2025 4950 3    50   Input ~ 0
-square_ctl_buf2
 Text Notes 9850 2225 2    50   ~ 0
 current mirror as\nvoltage controlled\ncurrent source
 Text Notes 9475 4325 1    50   ~ 0
@@ -1449,28 +1304,17 @@ Wire Wire Line
 	5650 4225 5650 4175
 Wire Wire Line
 	5650 4175 5600 4175
-$Comp
-L Connector_Generic:Conn_02x03_Odd_Even J?
-U 1 1 5DFAB719
-P 1500 5900
-F 0 "J?" H 1550 6125 50  0000 C CNN
-F 1 "Conn_02x03_Odd_Even" H 1550 6126 50  0001 C CNN
-F 2 "" H 1500 5900 50  0001 C CNN
-F 3 "~" H 1500 5900 50  0001 C CNN
-	1    1500 5900
-	1    0    0    -1  
-$EndComp
-Text GLabel 1300 5800 0    50   Input ~ 0
+Text GLabel 1225 5775 0    50   Input ~ 0
 square_ctl1
-Text GLabel 1300 5900 0    50   Input ~ 0
+Text GLabel 1225 5875 0    50   Input ~ 0
 square_ctl_buf1
-Text GLabel 1300 6000 0    50   Input ~ 0
+Text GLabel 1225 6275 0    50   Input ~ 0
 sync_out1
-Text GLabel 1800 6000 2    50   Input ~ 0
+Text GLabel 1725 6275 2    50   Input ~ 0
 sync_out2
-Text GLabel 1800 5900 2    50   Input ~ 0
+Text GLabel 1725 5875 2    50   Input ~ 0
 square_ctl_buf2
-Text GLabel 1800 5800 2    50   Input ~ 0
+Text GLabel 1725 5775 2    50   Input ~ 0
 square_ctl2
 $Comp
 L power:GND #PWR?
@@ -1516,16 +1360,6 @@ F 3 "~" H 975 7325 50  0001 C CNN
 	1    975  7325
 	1    0    0    -1  
 $EndComp
-Text Notes 4625 2525 0    50   ~ 0
-TODO: vca_ctl and vcf_ctl connectors,\n       mixer, vca, vcf inputs and outputs
-Wire Notes Line
-	625  6100 625  3150
-Wire Notes Line
-	625  3150 3800 3150
-Wire Notes Line
-	3800 3150 3800 6100
-Wire Notes Line
-	3800 6100 625  6100
 $Comp
 L Device:C C?
 U 1 1 5E0FF54D
@@ -1755,8 +1589,6 @@ offset compensation: the OpAmp would\nneed to output exactly Vcc - 0.7V (i.e., t
 Connection ~ 8750 1425
 Wire Wire Line
 	9650 1425 8750 1425
-Text Notes 6425 700  0    50   ~ 0
-TODO: expo converter for the VCF input
 $Comp
 L power:VEE #PWR?
 U 1 1 5E3C6C3C
@@ -1857,8 +1689,6 @@ Wire Notes Line
 	9775 2325 10150 2325
 Wire Notes Line
 	10150 2325 10150 3125
-Text Notes 2350 5825 0    50   ~ 0
-TODO: more square_ctl_buf outputs.\nor add the clamping circuitry here
 $Comp
 L Transistor_BJT:BC557 Q?
 U 1 1 5E667B2B
@@ -2230,7 +2060,7 @@ Wire Notes Line
 Wire Notes Line
 	6325 4650 6325 6150
 Text Notes 450  -575 0    50   ~ 0
-TODO\n- expo for filter\n- what to do about the clamping?\n- connectors
+TODO\n- expo for filter\n- connectors
 Text Notes 7350 1950 0    50   ~ 0
 or connect (-) with ~~100k to VEE\n(like the VCA)
 $Comp
@@ -2371,4 +2201,300 @@ F 3 "" H 5725 875 50  0001 C CNN
 $EndComp
 Text GLabel 1050 1050 0    50   Input ~ 0
 vca_ctl2
+$Comp
+L Device:R R?
+U 1 1 5DEBC798
+P 2350 3950
+F 0 "R?" H 2450 3850 50  0000 C CNN
+F 1 "10k" V 2350 3950 50  0000 C CNN
+F 2 "" V 2280 3950 50  0001 C CNN
+F 3 "~" H 2350 3950 50  0001 C CNN
+	1    2350 3950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:D_Zener D?
+U 1 1 5DEBD121
+P 2275 4250
+F 0 "D?" V 2225 4075 50  0000 L CNN
+F 1 "3V3" V 2325 4025 50  0000 L CNN
+F 2 "" H 2275 4250 50  0001 C CNN
+F 3 "~" H 2275 4250 50  0001 C CNN
+	1    2275 4250
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N5817 D?
+U 1 1 5DEBDEB7
+P 2425 4250
+F 0 "D?" V 2379 4329 50  0000 L CNN
+F 1 "1N5817" V 2470 4329 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 2425 4075 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 2425 4250 50  0001 C CNN
+	1    2425 4250
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DEC1769
+P 2350 4400
+F 0 "#PWR?" H 2350 4150 50  0001 C CNN
+F 1 "GND" H 2355 4227 50  0001 C CNN
+F 2 "" H 2350 4400 50  0001 C CNN
+F 3 "" H 2350 4400 50  0001 C CNN
+	1    2350 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2275 4400 2350 4400
+Connection ~ 2350 4400
+Wire Wire Line
+	2350 4400 2425 4400
+Wire Wire Line
+	2275 4100 2350 4100
+Connection ~ 2350 4100
+Wire Wire Line
+	2350 4100 2425 4100
+Wire Wire Line
+	1725 3800 2350 3800
+Connection ~ 2350 3800
+Wire Wire Line
+	2350 3800 2450 3800
+Text GLabel 2425 4100 2    50   Input ~ 0
+clamped1
+Text GLabel 1225 5975 0    50   Input ~ 0
+square_ctl_buf1
+Text GLabel 1225 6075 0    50   Input ~ 0
+square_ctl_buf1
+Text GLabel 1225 6175 0    50   Input ~ 0
+clamped1
+$Comp
+L Connector_Generic:Conn_02x06_Odd_Even J?
+U 1 1 5DF1903C
+P 1425 5975
+F 0 "J?" H 1475 6300 50  0000 C CNN
+F 1 "Conn_02x06_Odd_Even" H 1475 6301 50  0001 C CNN
+F 2 "" H 1425 5975 50  0001 C CNN
+F 3 "~" H 1425 5975 50  0001 C CNN
+	1    1425 5975
+	1    0    0    -1  
+$EndComp
+Text GLabel 1725 5975 2    50   Input ~ 0
+square_ctl_buf2
+Text GLabel 1725 6075 2    50   Input ~ 0
+square_ctl_buf2
+Text GLabel 1725 6175 2    50   Input ~ 0
+clamped2
+$Comp
+L power:VEE #PWR?
+U 1 1 5DF1DC09
+P 1725 5250
+F 0 "#PWR?" H 1725 5100 50  0001 C CNN
+F 1 "VEE" H 1725 5425 50  0000 C CNN
+F 2 "" H 1725 5250 50  0001 C CNN
+F 3 "" H 1725 5250 50  0001 C CNN
+	1    1725 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DF1DC13
+P 1725 5100
+F 0 "R?" H 1825 5000 50  0000 C CNN
+F 1 "1k" V 1725 5100 50  0000 C CNN
+F 2 "" V 1655 5100 50  0001 C CNN
+F 3 "~" H 1725 5100 50  0001 C CNN
+	1    1725 5100
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5DF1DC1D
+P 1725 4550
+F 0 "#PWR?" H 1725 4400 50  0001 C CNN
+F 1 "VCC" H 1725 4725 50  0000 C CNN
+F 2 "" H 1725 4550 50  0001 C CNN
+F 3 "" H 1725 4550 50  0001 C CNN
+	1    1725 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC547 Q?
+U 1 1 5DF1DC27
+P 1625 4750
+F 0 "Q?" H 1816 4796 50  0000 L CNN
+F 1 "BC547" H 1816 4705 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 1825 4675 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 1625 4750 50  0001 L CNN
+	1    1625 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DF1DC31
+P 1275 4750
+F 0 "R?" V 1175 4750 50  0000 C CNN
+F 1 "10k" V 1275 4750 50  0000 C CNN
+F 2 "" V 1205 4750 50  0001 C CNN
+F 3 "~" H 1275 4750 50  0001 C CNN
+	1    1275 4750
+	0    1    1    0   
+$EndComp
+Text GLabel 1125 4750 0    50   Input ~ 0
+square_ctl2
+$Comp
+L Jumper:Jumper_2_Bridged JP?
+U 1 1 5DF1DC3C
+P 2650 4950
+F 0 "JP?" H 2650 5053 50  0000 C CNN
+F 1 "Jumper_2_Bridged" H 2650 5054 50  0001 C CNN
+F 2 "" H 2650 4950 50  0001 C CNN
+F 3 "~" H 2650 4950 50  0001 C CNN
+	1    2650 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5DF1DC46
+P 3000 4950
+F 0 "C?" V 2850 4950 50  0000 C CNN
+F 1 "1n" V 3150 4950 50  0000 C CNN
+F 2 "" H 3038 4800 50  0001 C CNN
+F 3 "~" H 3000 4950 50  0001 C CNN
+	1    3000 4950
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_FET:2N7000 Q?
+U 1 1 5DF1DC50
+P 3500 4950
+F 0 "Q?" H 3706 4996 50  0000 L CNN
+F 1 "2N7000" H 3706 4905 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3700 4875 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 3500 4950 50  0001 L CNN
+	1    3500 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR?
+U 1 1 5DF1DC5A
+P 3600 5250
+F 0 "#PWR?" H 3600 5100 50  0001 C CNN
+F 1 "VEE" H 3618 5423 50  0000 C CNN
+F 2 "" H 3600 5250 50  0001 C CNN
+F 3 "" H 3600 5250 50  0001 C CNN
+	1    3600 5250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3600 5250 3600 5150
+$Comp
+L power:VEE #PWR?
+U 1 1 5DF1DC65
+P 3150 5250
+F 0 "#PWR?" H 3150 5100 50  0001 C CNN
+F 1 "VEE" H 3168 5423 50  0000 C CNN
+F 2 "" H 3150 5250 50  0001 C CNN
+F 3 "" H 3150 5250 50  0001 C CNN
+	1    3150 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DF1DC6F
+P 3150 5100
+F 0 "R?" H 3050 5150 50  0000 C CNN
+F 1 "1k" V 3150 5100 50  0000 C CNN
+F 2 "" V 3080 5100 50  0001 C CNN
+F 3 "~" H 3150 5100 50  0001 C CNN
+	1    3150 5100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3150 4950 3300 4950
+Connection ~ 3150 4950
+Text GLabel 3650 4700 2    50   Input ~ 0
+sync_out2
+Wire Wire Line
+	3650 4700 3600 4700
+Wire Wire Line
+	3600 4700 3600 4750
+Text Notes 3100 4825 0    50   ~ 0
+sync pulse\ngeneration
+Connection ~ 1725 4950
+Text GLabel 1925 4950 3    50   Input ~ 0
+square_ctl_buf2
+$Comp
+L Device:R R?
+U 1 1 5DF1DC81
+P 2350 5100
+F 0 "R?" H 2450 5000 50  0000 C CNN
+F 1 "10k" V 2350 5100 50  0000 C CNN
+F 2 "" V 2280 5100 50  0001 C CNN
+F 3 "~" H 2350 5100 50  0001 C CNN
+	1    2350 5100
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:D_Zener D?
+U 1 1 5DF1DC8B
+P 2275 5400
+F 0 "D?" V 2225 5225 50  0000 L CNN
+F 1 "3V3" V 2325 5175 50  0000 L CNN
+F 2 "" H 2275 5400 50  0001 C CNN
+F 3 "~" H 2275 5400 50  0001 C CNN
+	1    2275 5400
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N5817 D?
+U 1 1 5DF1DC95
+P 2425 5400
+F 0 "D?" V 2379 5479 50  0000 L CNN
+F 1 "1N5817" V 2470 5479 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 2425 5225 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 2425 5400 50  0001 C CNN
+	1    2425 5400
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DF1DC9F
+P 2350 5550
+F 0 "#PWR?" H 2350 5300 50  0001 C CNN
+F 1 "GND" H 2355 5377 50  0001 C CNN
+F 2 "" H 2350 5550 50  0001 C CNN
+F 3 "" H 2350 5550 50  0001 C CNN
+	1    2350 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2275 5550 2350 5550
+Connection ~ 2350 5550
+Wire Wire Line
+	2350 5550 2425 5550
+Wire Wire Line
+	2275 5250 2350 5250
+Connection ~ 2350 5250
+Wire Wire Line
+	2350 5250 2425 5250
+Wire Wire Line
+	1725 4950 2350 4950
+Connection ~ 2350 4950
+Wire Wire Line
+	2350 4950 2450 4950
+Text GLabel 2425 5250 2    50   Input ~ 0
+clamped2
+Text Notes 2200 3750 0    50   ~ 0
+clamp\nfor the\nSTM32\nmeasure-\nment pin
+Wire Notes Line
+	550  6400 550  3150
+Wire Notes Line
+	550  3150 4125 3150
+Wire Notes Line
+	4125 3150 4125 6400
+Wire Notes Line
+	4125 6400 550  6400
+Text Notes 2400 6375 0    39   ~ 0
+square_ctl swings between Vee and Vcc - 1.5V (circa).\nGNDREF is at (Vcc+Vee)/2, i.e. PE7 sees at least 3V for\nVcc-Vee = 9V.\nThe diodes protect the MCU pin from overvoltage (D1)\nand undervoltage (D2): The schottky diode D2 clamps\naway negative voltages (to approx. -200mV), while the\nzener diode D1 limits the voltage to 3.3V. That's within\nthe MCU specs.
 $EndSCHEMATC

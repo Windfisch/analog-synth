@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:schem-cache
+LIBS:control_board_prototype-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -82,74 +82,10 @@ $EndComp
 NoConn ~ 1175 7550
 Text GLabel 775  6550 1    50   Input ~ 0
 Envelope
-Text Notes 8200 6475 0    50   ~ 0
-square_ctl swings between Vee and Vcc - 1.5V (circa).\nGNDREF is at (Vcc+Vee)/2, i.e. PE7 sees at least 3V for\nVcc-Vee = 9V.\nThe diodes protect the MCU pin from overvoltage (D1)\nand undervoltage (D2): The schottky diode D2 clamps\naway negative voltages (to approx. -200mV), while the\nzener diode D1 limits. That's within the MCU specs.\nthe voltage to 3.3V
-$Comp
-L power:GND #PWR?
-U 1 1 5DC28148
-P 10250 5550
-F 0 "#PWR?" H 10250 5300 50  0001 C CNN
-F 1 "GND" H 10255 5377 50  0000 C CNN
-F 2 "" H 10250 5550 50  0001 C CNN
-F 3 "" H 10250 5550 50  0001 C CNN
-	1    10250 5550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10175 5175 10325 5175
-Wire Wire Line
-	10175 5225 10175 5175
-Wire Wire Line
-	10250 5525 10325 5525
-Connection ~ 10250 5525
-Wire Wire Line
-	10250 5550 10250 5525
-Wire Wire Line
-	10175 5525 10250 5525
-$Comp
-L Device:D_Zener D?
-U 1 1 5D432ACA
-P 10175 5375
-F 0 "D?" V 10125 5200 50  0000 L CNN
-F 1 "3V3" V 10225 5150 50  0000 L CNN
-F 2 "" H 10175 5375 50  0001 C CNN
-F 3 "~" H 10175 5375 50  0001 C CNN
-	1    10175 5375
-	0    1    1    0   
-$EndComp
-Text Notes 10525 5075 0    50   ~ 0
+Text Notes 10500 5075 0    50   ~ 0
 measurement pin
-Wire Wire Line
-	10325 5175 10325 5125
-Connection ~ 10325 5175
-Wire Wire Line
-	10575 5175 10325 5175
-Text GLabel 10575 5175 2    50   Input ~ 0
+Text GLabel 10550 5175 2    50   Input ~ 0
 PB9
-Wire Wire Line
-	10325 5225 10325 5175
-$Comp
-L Device:R R?
-U 1 1 5D20E97C
-P 10325 4975
-F 0 "R?" H 10395 5021 50  0000 L CNN
-F 1 "10k" V 10325 4900 50  0000 L CNN
-F 2 "" V 10255 4975 50  0001 C CNN
-F 3 "~" H 10325 4975 50  0001 C CNN
-	1    10325 4975
-	1    0    0    -1  
-$EndComp
-$Comp
-L Diode:1N5817 D?
-U 1 1 5D20D972
-P 10325 5375
-F 0 "D?" V 10279 5454 50  0000 L CNN
-F 1 "1N5817" V 10370 5454 50  0000 L CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 10325 5200 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 10325 5375 50  0001 C CNN
-	1    10325 5375
-	0    1    1    0   
-$EndComp
 Wire Notes Line
 	8150 625  11050 625 
 Wire Notes Line
