@@ -1418,8 +1418,6 @@ F 3 "~" H 5650 3525 50  0001 C CNN
 	1    5650 3525
 	0    -1   1    0   
 $EndComp
-Text Notes 5450 3775 0    50   ~ 0
-TODO: raw in
 Text Notes 4975 3025 0    50   ~ 0
 mixer
 Text GLabel 5800 3175 2    50   Input ~ 0
@@ -1686,8 +1684,6 @@ Wire Notes Line
 	450  3075 4450 3075
 Wire Notes Line
 	450  725  4450 725 
-Text Notes 500  675  0    50   ~ 0
-TODO: replace that 50k poti\nwith input adjusts at  vca_ctl
 $Comp
 L Device:R R?
 U 1 1 5E3EFEBB
@@ -1761,37 +1757,17 @@ Wire Wire Line
 	9650 1425 8750 1425
 Text Notes 6425 700  0    50   ~ 0
 TODO: expo converter for the VCF input
-Text Notes 6425 1825 0    50   ~ 0
-set such, that with zero control input, the\noutput of the op amp is just at maximum\n(i.e., Vcc minus like 1 V or so)
-Connection ~ 8150 1325
-$Comp
-L Device:RTRIM R?
-U 1 1 5E3D0F12
-P 8000 1325
-F 0 "R?" V 7900 1200 50  0000 C CNN
-F 1 "200k" V 7900 1375 50  0000 C CNN
-F 2 "" V 7930 1325 50  0001 C CNN
-F 3 "~" H 8000 1325 50  0001 C CNN
-	1    8000 1325
-	0    1    -1   0   
-$EndComp
-Wire Wire Line
-	7800 1325 7850 1325
-Wire Wire Line
-	7800 1375 7800 1325
 $Comp
 L power:VEE #PWR?
 U 1 1 5E3C6C3C
-P 7800 1375
-F 0 "#PWR?" H 7800 1225 50  0001 C CNN
-F 1 "VEE" H 7818 1548 50  0000 C CNN
-F 2 "" H 7800 1375 50  0001 C CNN
-F 3 "" H 7800 1375 50  0001 C CNN
-	1    7800 1375
+P 7500 1650
+F 0 "#PWR?" H 7500 1500 50  0001 C CNN
+F 1 "VEE" H 7625 1750 50  0000 C CNN
+F 2 "" H 7500 1650 50  0001 C CNN
+F 3 "" H 7500 1650 50  0001 C CNN
+	1    7500 1650
 	-1   0    0    1   
 $EndComp
-Text Notes 7325 1375 0    50   ~ 0
-set to 100k
 Connection ~ 8150 1000
 $Comp
 L power:GND #PWR?
@@ -1883,8 +1859,6 @@ Wire Notes Line
 	10150 2325 10150 3125
 Text Notes 2350 5825 0    50   ~ 0
 TODO: more square_ctl_buf outputs.\nor add the clamping circuitry here
-Text Notes 6225 1525 0    50   ~ 0
-TODO: or just put a resistor here\nor a proper poti for opening the filter.
 $Comp
 L Transistor_BJT:BC557 Q?
 U 1 1 5E667B2B
@@ -1975,8 +1949,6 @@ Wire Wire Line
 Connection ~ 2650 1275
 Text Notes 3625 1025 3    50   ~ 0
 set to ~~47k
-Text Notes -500 1450 0    50   ~ 0
-TODO: or just put a resistor here\nor a proper poti for opening the filter.
 Text GLabel 1175 800  0    50   Input ~ 0
 vca_ctl_raw
 Wire Wire Line
@@ -2262,5 +2234,47 @@ Wire Notes Line
 Text Notes 475  300  0    50   ~ 0
 TODO: some input preattenuators for all control inputs
 Text Notes 450  -575 0    50   ~ 0
-TODO\n- input preattenuators\n- input pre-bias\n- expo for filter\n- what to do about the clamping?\n- connectors
+TODO\n- input preattenuators\n- expo for filter\n- what to do about the clamping?\n- connectors
+Text Notes 7350 1950 0    50   ~ 0
+or connect (-) with ~~100k to VEE\n(like the VCA)
+$Comp
+L Device:R_POT RV?
+U 1 1 5DCFDA87
+P 7500 1500
+F 0 "RV?" H 7625 1625 50  0000 C CNN
+F 1 "100k" V 7500 1500 50  0000 C CNN
+F 2 "" H 7500 1500 50  0001 C CNN
+F 3 "~" H 7500 1500 50  0001 C CNN
+	1    7500 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5DD3D8B2
+P 8000 1325
+F 0 "R?" V 7950 1425 50  0000 L CNN
+F 1 "47k" V 8000 1250 50  0000 L CNN
+F 2 "" V 7930 1325 50  0001 C CNN
+F 3 "~" H 8000 1325 50  0001 C CNN
+	1    8000 1325
+	0    -1   1    0   
+$EndComp
+Connection ~ 8150 1325
+$Comp
+L power:VCC #PWR?
+U 1 1 5DD4583C
+P 7500 1350
+F 0 "#PWR?" H 7500 1200 50  0001 C CNN
+F 1 "VCC" H 7375 1425 50  0000 C CNN
+F 2 "" H 7500 1350 50  0001 C CNN
+F 3 "" H 7500 1350 50  0001 C CNN
+	1    7500 1350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7850 1325 7775 1325
+Wire Wire Line
+	7775 1325 7775 1500
+Wire Wire Line
+	7775 1500 7650 1500
 $EndSCHEMATC
