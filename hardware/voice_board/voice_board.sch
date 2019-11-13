@@ -1983,8 +1983,6 @@ F 3 "~" H 1275 1050 50  0001 C CNN
 	1    1275 1050
 	0    -1   1    0   
 $EndComp
-Text GLabel 1050 1050 0    50   Input ~ 0
-vca_ctl2
 $Comp
 L Amplifier_Operational:TL074 U?
 U 1 1 5E667BAE
@@ -2231,10 +2229,8 @@ Wire Notes Line
 	7625 6150 6325 6150
 Wire Notes Line
 	6325 4650 6325 6150
-Text Notes 475  300  0    50   ~ 0
-TODO: some input preattenuators for all control inputs
 Text Notes 450  -575 0    50   ~ 0
-TODO\n- input preattenuators\n- expo for filter\n- what to do about the clamping?\n- connectors
+TODO\n- expo for filter\n- what to do about the clamping?\n- connectors
 Text Notes 7350 1950 0    50   ~ 0
 or connect (-) with ~~100k to VEE\n(like the VCA)
 $Comp
@@ -2277,4 +2273,102 @@ Wire Wire Line
 	7775 1325 7775 1500
 Wire Wire Line
 	7775 1500 7650 1500
+Text GLabel 5575 1775 2    50   Input ~ 0
+vcf_ctl2
+$Comp
+L Device:R_POT R?
+U 1 1 5DDA947B
+P 5575 1925
+F 0 "R?" V 5475 1950 50  0000 C CNN
+F 1 "10k" V 5575 1925 50  0000 C CNN
+F 2 "" H 5575 1925 50  0001 C CNN
+F 3 "~" H 5575 1925 50  0001 C CNN
+	1    5575 1925
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DDF0531
+P 5725 1925
+F 0 "#PWR?" H 5725 1675 50  0001 C CNN
+F 1 "GND" H 5730 1752 50  0001 C CNN
+F 2 "" H 5725 1925 50  0001 C CNN
+F 3 "" H 5725 1925 50  0001 C CNN
+	1    5725 1925
+	1    0    0    -1  
+$EndComp
+Text GLabel 5575 1425 2    50   Input ~ 0
+vcf_ctl1
+$Comp
+L Device:R_POT R?
+U 1 1 5DDF0D1B
+P 5575 1575
+F 0 "R?" V 5475 1600 50  0000 C CNN
+F 1 "10k" V 5575 1575 50  0000 C CNN
+F 2 "" H 5575 1575 50  0001 C CNN
+F 3 "~" H 5575 1575 50  0001 C CNN
+	1    5575 1575
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DDF0D25
+P 5725 1575
+F 0 "#PWR?" H 5725 1325 50  0001 C CNN
+F 1 "GND" H 5730 1402 50  0001 C CNN
+F 2 "" H 5725 1575 50  0001 C CNN
+F 3 "" H 5725 1575 50  0001 C CNN
+	1    5725 1575
+	1    0    0    -1  
+$EndComp
+Text GLabel 5575 1075 2    50   Input ~ 0
+vca_ctl2
+$Comp
+L Device:R_POT R?
+U 1 1 5DE0C3D1
+P 5575 1225
+F 0 "R?" V 5475 1250 50  0000 C CNN
+F 1 "10k" V 5575 1225 50  0000 C CNN
+F 2 "" H 5575 1225 50  0001 C CNN
+F 3 "~" H 5575 1225 50  0001 C CNN
+	1    5575 1225
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DE0C3D7
+P 5725 1225
+F 0 "#PWR?" H 5725 975 50  0001 C CNN
+F 1 "GND" H 5730 1052 50  0001 C CNN
+F 2 "" H 5725 1225 50  0001 C CNN
+F 3 "" H 5725 1225 50  0001 C CNN
+	1    5725 1225
+	1    0    0    -1  
+$EndComp
+Text GLabel 5575 725  2    50   Input ~ 0
+vca_ctl1
+$Comp
+L Device:R_POT R?
+U 1 1 5DE0C3DE
+P 5575 875
+F 0 "R?" V 5475 900 50  0000 C CNN
+F 1 "10k" V 5575 875 50  0000 C CNN
+F 2 "" H 5575 875 50  0001 C CNN
+F 3 "~" H 5575 875 50  0001 C CNN
+	1    5575 875 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DE0C3E4
+P 5725 875
+F 0 "#PWR?" H 5725 625 50  0001 C CNN
+F 1 "GND" H 5730 702 50  0001 C CNN
+F 2 "" H 5725 875 50  0001 C CNN
+F 3 "" H 5725 875 50  0001 C CNN
+	1    5725 875 
+	1    0    0    -1  
+$EndComp
+Text GLabel 1050 1050 0    50   Input ~ 0
+vca_ctl2
 $EndSCHEMATC
