@@ -33,17 +33,6 @@ Wire Wire Line
 Wire Wire Line
 	2350 1600 2475 1600
 $Comp
-L power:GNDREF #PWR09
-U 1 1 5D95F82A
-P 2775 1800
-F 0 "#PWR09" H 2775 1550 50  0001 C CNN
-F 1 "GNDREF" H 2780 1627 50  0001 C CNN
-F 2 "" H 2775 1800 50  0001 C CNN
-F 3 "" H 2775 1800 50  0001 C CNN
-	1    2775 1800
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Transistor_BJT:BC327 Q3
 U 1 1 5D96447B
 P 2575 1800
@@ -198,17 +187,6 @@ Wire Wire Line
 	2225 2000 2225 2275
 Text Notes 3100 1550 2    50   ~ 0
 current mirror as\nvoltage controlled\ncurrent source
-$Comp
-L power:GNDREF #PWR05
-U 1 1 5D9C7217
-P 1725 2725
-F 0 "#PWR05" H 1725 2475 50  0001 C CNN
-F 1 "GNDREF" H 1730 2552 50  0001 C CNN
-F 2 "" H 1725 2725 50  0001 C CNN
-F 3 "" H 1725 2725 50  0001 C CNN
-	1    1725 2725
-	1    0    0    -1  
-$EndComp
 Text Notes 1650 2750 1    50   ~ 0
 input preattenuation.\ncontrols distortion
 $Comp
@@ -239,7 +217,7 @@ U 1 1 5D9A8C32
 P 1725 2275
 F 0 "R7" H 1775 2275 50  0000 L CNN
 F 1 "100k" H 1775 2200 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 1655 2275 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 1655 2275 50  0001 C CNN
 F 3 "~" H 1725 2275 50  0001 C CNN
 	1    1725 2275
 	1    0    0    -1  
@@ -502,7 +480,7 @@ U 1 1 5DC870E1
 P 7650 2125
 F 0 "R21" V 7825 2100 50  0000 L CNN
 F 1 "1Meg" V 7750 1975 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7580 2125 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 7580 2125 50  0001 C CNN
 F 3 "~" H 7650 2125 50  0001 C CNN
 	1    7650 2125
 	0    1    -1   0   
@@ -622,7 +600,7 @@ U 1 1 5DDF90E1
 P 9525 2325
 F 0 "R35" V 9425 2250 50  0000 L CNN
 F 1 "470" V 9525 2250 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9455 2325 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 9455 2325 50  0001 C CNN
 F 3 "~" H 9525 2325 50  0001 C CNN
 	1    9525 2325
 	0    1    -1   0   
@@ -942,7 +920,7 @@ U 1 1 5DF87DEF
 P 9900 2275
 F 0 "R40" H 10028 2321 50  0000 L CNN
 F 1 "100k" H 9975 2225 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9830 2275 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 9830 2275 50  0001 C CNN
 F 3 "~" H 9900 2275 50  0001 C CNN
 	1    9900 2275
 	1    0    0    -1  
@@ -1529,7 +1507,7 @@ U 1 1 5E3EFEC5
 P 9875 1525
 F 0 "R39" H 9925 1525 50  0000 L CNN
 F 1 "10k" H 9925 1450 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9805 1525 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 9805 1525 50  0001 C CNN
 F 3 "~" H 9875 1525 50  0001 C CNN
 	1    9875 1525
 	1    0    0    -1  
@@ -1722,7 +1700,7 @@ U 1 1 5E667B4A
 P 3300 1100
 F 0 "R16" H 3350 1100 50  0000 L CNN
 F 1 "100k" H 3350 1025 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3230 1100 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 3230 1100 50  0001 C CNN
 F 3 "~" H 3300 1100 50  0001 C CNN
 	1    3300 1100
 	1    0    0    -1  
@@ -1877,7 +1855,7 @@ U 1 1 5E667B7B
 P 1275 1075
 F 0 "R5" V 1175 950 50  0000 C CNN
 F 1 "200k" V 1175 1125 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 1205 1075 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 1205 1075 50  0001 C CNN
 F 3 "~" H 1275 1075 50  0001 C CNN
 	1    1275 1075
 	0    1    -1   0   
@@ -1916,7 +1894,7 @@ U 1 1 5E7BA9B6
 P 6625 4875
 F 0 "R65" V 6675 5050 50  0000 C CNN
 F 1 "any" V 6500 4800 50  0001 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6555 4875 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 6555 4875 50  0001 C CNN
 F 3 "~" H 6625 4875 50  0001 C CNN
 	1    6625 4875
 	0    1    -1   0   
@@ -1938,7 +1916,7 @@ U 1 1 5E7D565D
 P 6625 4700
 F 0 "R64" V 6675 4875 50  0000 C CNN
 F 1 "any" V 6500 4625 50  0001 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6555 4700 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 6555 4700 50  0001 C CNN
 F 3 "~" H 6625 4700 50  0001 C CNN
 	1    6625 4700
 	0    1    -1   0   
@@ -1986,7 +1964,7 @@ U 1 1 5E7F515B
 P 6625 4525
 F 0 "R63" V 6675 4700 50  0000 C CNN
 F 1 "any" V 6500 4450 50  0001 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6555 4525 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" V 6555 4525 50  0001 C CNN
 F 3 "~" H 6625 4525 50  0001 C CNN
 	1    6625 4525
 	0    1    -1   0   
@@ -2553,4 +2531,26 @@ Wire Notes Line
 	11175 525  11175 5575
 Text Notes 10225 5550 0    50   ~ 0
 voltage controlled filter
+$Comp
+L power:GND #PWR0101
+U 1 1 5DEAC77F
+P 2775 1800
+F 0 "#PWR0101" H 2775 1550 50  0001 C CNN
+F 1 "GND" H 2775 1650 50  0001 C CNN
+F 2 "" H 2775 1800 50  0001 C CNN
+F 3 "" H 2775 1800 50  0001 C CNN
+	1    2775 1800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DEDEEFF
+P 1725 2725
+F 0 "#PWR?" H 1725 2475 50  0001 C CNN
+F 1 "GND" H 1725 2575 50  0001 C CNN
+F 2 "" H 1725 2725 50  0001 C CNN
+F 3 "" H 1725 2725 50  0001 C CNN
+	1    1725 2725
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
