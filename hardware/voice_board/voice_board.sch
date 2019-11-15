@@ -450,17 +450,6 @@ Wire Wire Line
 Connection ~ 3675 6625
 Wire Wire Line
 	1725 1825 1425 1825
-$Comp
-L power:GNDREF #PWR016
-U 1 1 5DC870C2
-P 7800 2425
-F 0 "#PWR016" H 7800 2175 50  0001 C CNN
-F 1 "GNDREF" H 7805 2252 50  0001 C CNN
-F 2 "" H 7800 2425 50  0001 C CNN
-F 3 "" H 7800 2425 50  0001 C CNN
-	1    7800 2425
-	1    0    0    -1  
-$EndComp
 Text Notes 7675 2975 1    50   ~ 0
 input preattenuation.\ncontrols distortion
 $Comp
@@ -2553,4 +2542,34 @@ F 3 "" H 1725 2725 50  0001 C CNN
 	1    1725 2725
 	-1   0    0    -1  
 $EndComp
+$Comp
+L power:GND #PWR05
+U 1 1 5DFD1A89
+P 7800 2425
+F 0 "#PWR05" H 7800 2175 50  0001 C CNN
+F 1 "GND" H 7805 2252 50  0001 C CNN
+F 2 "" H 7800 2425 50  0001 C CNN
+F 3 "" H 7800 2425 50  0001 C CNN
+	1    7800 2425
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x02_Odd_Even J6
+U 1 1 5DD854EC
+P 4775 5850
+F 0 "J6" H 4825 5975 50  0000 C CNN
+F 1 "Conn_02x02_Odd_Even" H 4825 5976 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 4775 5850 50  0001 C CNN
+F 3 "~" H 4775 5850 50  0001 C CNN
+	1    4775 5850
+	1    0    0    -1  
+$EndComp
+Text GLabel 4575 5850 0    50   Input ~ 0
+vco1_in
+Text GLabel 4575 5950 0    50   Input ~ 0
+vco2_in
+Text GLabel 5075 5850 2    50   Input ~ 0
+vco3_in
+Text GLabel 5075 5950 2    50   Input ~ 0
+mixer_out
 $EndSCHEMATC
