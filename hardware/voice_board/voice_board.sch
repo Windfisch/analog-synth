@@ -2021,7 +2021,7 @@ Wire Notes Line
 Wire Notes Line
 	6275 4000 6275 5500
 Text Notes 450  300  0    50   ~ 0
-TODO\n- expo for filter\n- connectors
+TODO\n- expo for filter\n- connectors\n- some potis
 Text Notes 7400 1700 0    50   ~ 0
 or connect (-) with ~~100k to VEE\n(like the VCA)
 $Comp
