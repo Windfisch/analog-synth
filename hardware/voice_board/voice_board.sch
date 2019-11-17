@@ -2638,4 +2638,37 @@ F 3 "" H 6150 6400 50  0001 C CNN
 	1    6150 6400
 	1    0    0    -1  
 $EndComp
+$Comp
+L Amplifier_Operational:TL074 U1
+U 5 1 5DD2A120
+P 1525 1175
+F 0 "U1" H 1550 1350 50  0001 C CNN
+F 1 "TL074" H 1500 1175 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 1475 1275 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 1575 1375 50  0001 C CNN
+	5    1525 1175
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5DD9046C
+P 1625 875
+F 0 "#PWR?" H 1625 725 50  0001 C CNN
+F 1 "VCC" H 1642 1048 50  0000 C CNN
+F 2 "" H 1625 875 50  0001 C CNN
+F 3 "" H 1625 875 50  0001 C CNN
+	1    1625 875 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR?
+U 1 1 5DD917F4
+P 1625 1475
+F 0 "#PWR?" H 1625 1325 50  0001 C CNN
+F 1 "VEE" H 1643 1648 50  0000 C CNN
+F 2 "" H 1625 1475 50  0001 C CNN
+F 3 "" H 1625 1475 50  0001 C CNN
+	1    1625 1475
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
