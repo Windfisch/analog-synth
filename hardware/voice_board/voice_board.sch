@@ -2650,10 +2650,10 @@ F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 1575 1375 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:VCC #PWR?
+L power:VCC #PWR0107
 U 1 1 5DD9046C
 P 1625 875
-F 0 "#PWR?" H 1625 725 50  0001 C CNN
+F 0 "#PWR0107" H 1625 725 50  0001 C CNN
 F 1 "VCC" H 1642 1048 50  0000 C CNN
 F 2 "" H 1625 875 50  0001 C CNN
 F 3 "" H 1625 875 50  0001 C CNN
@@ -2661,14 +2661,329 @@ F 3 "" H 1625 875 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:VEE #PWR?
+L power:VEE #PWR0108
 U 1 1 5DD917F4
 P 1625 1475
-F 0 "#PWR?" H 1625 1325 50  0001 C CNN
+F 0 "#PWR0108" H 1625 1325 50  0001 C CNN
 F 1 "VEE" H 1643 1648 50  0000 C CNN
 F 2 "" H 1625 1475 50  0001 C CNN
 F 3 "" H 1625 1475 50  0001 C CNN
 	1    1625 1475
 	-1   0    0    1   
+$EndComp
+$Comp
+L Amplifier_Operational:LM324 U3
+U 4 1 5DE2AE72
+P 4150 -1500
+F 0 "U3" H 4225 -1325 50  0000 C CNN
+F 1 "LM324" H 4125 -1500 50  0000 C CNN
+F 2 "" H 4100 -1400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 4200 -1300 50  0001 C CNN
+	4    4150 -1500
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R69
+U 1 1 5DE2B845
+P 3600 -1600
+F 0 "R69" V 3650 -1500 50  0000 L CNN
+F 1 "1Meg" V 3600 -1700 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3530 -1600 50  0001 C CNN
+F 3 "~" H 3600 -1600 50  0001 C CNN
+	1    3600 -1600
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	3750 -1600 3800 -1600
+$Comp
+L power:VCC #PWR056
+U 1 1 5DE49D6E
+P 3450 -1600
+F 0 "#PWR056" H 3450 -1750 50  0001 C CNN
+F 1 "VCC" H 3467 -1427 50  0000 C CNN
+F 2 "" H 3450 -1600 50  0001 C CNN
+F 3 "" H 3450 -1600 50  0001 C CNN
+	1    3450 -1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC547 Q22
+U 1 1 5DE4BFE5
+P 4875 -2000
+F 0 "Q22" H 4725 -1850 50  0000 L CNN
+F 1 "BC547" H 5050 -2050 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 5075 -2075 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 4875 -2000 50  0001 L CNN
+	1    4875 -2000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC547 Q21
+U 1 1 5DE4B810
+P 4275 -2000
+F 0 "Q21" H 4100 -1850 50  0000 L CNN
+F 1 "BC547" H 4466 -2045 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 4475 -2075 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 4275 -2000 50  0001 L CNN
+	1    4275 -2000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4775 -1800 4575 -1800
+$Comp
+L Device:R R70
+U 1 1 5DE87C76
+P 4575 -1650
+F 0 "R70" H 4375 -1600 50  0000 L CNN
+F 1 "1k" V 4575 -1700 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 4505 -1650 50  0001 C CNN
+F 3 "~" H 4575 -1650 50  0001 C CNN
+	1    4575 -1650
+	-1   0    0    -1  
+$EndComp
+Connection ~ 4575 -1800
+Wire Wire Line
+	4575 -1800 4375 -1800
+Wire Wire Line
+	4575 -1500 4450 -1500
+Wire Wire Line
+	3800 -1600 3800 -2200
+Wire Wire Line
+	3800 -2200 4375 -2200
+Connection ~ 3800 -1600
+Wire Wire Line
+	3800 -1600 3850 -1600
+$Comp
+L power:GND #PWR058
+U 1 1 5DEFA4E1
+P 5075 -2000
+F 0 "#PWR058" H 5075 -2250 50  0001 C CNN
+F 1 "GND" H 5080 -2173 50  0000 C CNN
+F 2 "" H 5075 -2000 50  0001 C CNN
+F 3 "" H 5075 -2000 50  0001 C CNN
+	1    5075 -2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR057
+U 1 1 5DEFB852
+P 3850 -1400
+F 0 "#PWR057" H 3850 -1650 50  0001 C CNN
+F 1 "GND" H 3855 -1573 50  0000 C CNN
+F 2 "" H 3850 -1400 50  0001 C CNN
+F 3 "" H 3850 -1400 50  0001 C CNN
+	1    3850 -1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Operational:LM324 U3
+U 3 1 5DEFBCC5
+P 5750 -2100
+F 0 "U3" H 5825 -1925 50  0000 C CNN
+F 1 "LM324" H 5725 -2100 50  0000 C CNN
+F 2 "" H 5700 -2000 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5800 -1900 50  0001 C CNN
+	3    5750 -2100
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	4775 -2200 5375 -2200
+$Comp
+L power:GND #PWR059
+U 1 1 5DF17395
+P 5450 -2000
+F 0 "#PWR059" H 5450 -2250 50  0001 C CNN
+F 1 "GND" H 5455 -2173 50  0000 C CNN
+F 2 "" H 5450 -2000 50  0001 C CNN
+F 3 "" H 5450 -2000 50  0001 C CNN
+	1    5450 -2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:RTRIM R71
+U 1 1 5DF198D4
+P 5800 -2450
+F 0 "R71" V 5900 -2475 50  0000 C CNN
+F 1 "10k" V 5700 -2450 50  0000 C CNN
+F 2 "" V 5730 -2450 50  0001 C CNN
+F 3 "~" H 5800 -2450 50  0001 C CNN
+	1    5800 -2450
+	0    1    -1   0   
+$EndComp
+Text Notes 5575 -2600 0    50   ~ 0
+set to 2.18k
+Wire Wire Line
+	5650 -2450 5375 -2450
+Wire Wire Line
+	5375 -2450 5375 -2200
+Connection ~ 5375 -2200
+Wire Wire Line
+	5375 -2200 5450 -2200
+Wire Wire Line
+	5950 -2450 6050 -2450
+Wire Wire Line
+	6050 -2450 6050 -2100
+Text GLabel 6050 -2100 2    50   Input ~ 0
+expo_out
+$Comp
+L Amplifier_Operational:LM324 U3
+U 1 1 5DDB1C06
+P 3175 -2000
+F 0 "U3" H 3250 -1825 50  0000 C CNN
+F 1 "LM324" H 3150 -2000 50  0000 C CNN
+F 2 "" H 3125 -1900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 3225 -1800 50  0001 C CNN
+	1    3175 -2000
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R68
+U 1 1 5DDE34A9
+P 3225 -2500
+F 0 "R68" V 3175 -2400 50  0000 L CNN
+F 1 "2.5k" V 3225 -2575 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3155 -2500 50  0001 C CNN
+F 3 "~" H 3225 -2500 50  0001 C CNN
+	1    3225 -2500
+	0    -1   1    0   
+$EndComp
+$Comp
+L Amplifier_Operational:LM324 U3
+U 5 1 5DDE56F6
+P 2975 -2000
+F 0 "U3" H 3050 -1825 50  0001 C CNN
+F 1 "LM324" H 2950 -2000 50  0001 C CNN
+F 2 "" H 2925 -1900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 3025 -1800 50  0001 C CNN
+	5    2975 -2000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR054
+U 1 1 5DE04C76
+P 3075 -2300
+F 0 "#PWR054" H 3075 -2450 50  0001 C CNN
+F 1 "VCC" H 3200 -2225 50  0000 C CNN
+F 2 "" H 3075 -2300 50  0001 C CNN
+F 3 "" H 3075 -2300 50  0001 C CNN
+	1    3075 -2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR055
+U 1 1 5DE05514
+P 3075 -1700
+F 0 "#PWR055" H 3075 -1850 50  0001 C CNN
+F 1 "VEE" H 2950 -1625 50  0000 C CNN
+F 2 "" H 3075 -1700 50  0001 C CNN
+F 3 "" H 3075 -1700 50  0001 C CNN
+	1    3075 -1700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3475 -2000 3475 -2500
+Wire Wire Line
+	3475 -2500 3375 -2500
+Wire Wire Line
+	3075 -2500 2875 -2500
+$Comp
+L power:GND #PWR053
+U 1 1 5DE28EC7
+P 2875 -1900
+F 0 "#PWR053" H 2875 -2150 50  0001 C CNN
+F 1 "GND" H 2880 -2073 50  0000 C CNN
+F 2 "" H 2875 -1900 50  0001 C CNN
+F 3 "" H 2875 -1900 50  0001 C CNN
+	1    2875 -1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3475 -2000 4075 -2000
+Connection ~ 3475 -2000
+Wire Wire Line
+	2875 -2500 2875 -2100
+$Comp
+L Device:RTRIM R67
+U 1 1 5DF55135
+P 2725 -2100
+F 0 "R67" V 2825 -2125 50  0000 C CNN
+F 1 "200k" V 2625 -2100 50  0000 C CNN
+F 2 "" V 2655 -2100 50  0001 C CNN
+F 3 "~" H 2725 -2100 50  0001 C CNN
+	1    2725 -2100
+	0    1    -1   0   
+$EndComp
+Connection ~ 2875 -2100
+Text GLabel 2575 -2100 0    50   Input ~ 0
+expo_in
+$Comp
+L Device:R_POT R72
+U 1 1 5E094049
+P 2425 -2500
+F 0 "R72" H 2356 -2454 50  0000 R CNN
+F 1 "10k" H 2356 -2545 50  0000 R CNN
+F 2 "" H 2425 -2500 50  0001 C CNN
+F 3 "~" H 2425 -2500 50  0001 C CNN
+	1    2425 -2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR016
+U 1 1 5E0952C6
+P 2425 -2350
+F 0 "#PWR016" H 2425 -2500 50  0001 C CNN
+F 1 "VEE" H 2300 -2275 50  0000 C CNN
+F 2 "" H 2425 -2350 50  0001 C CNN
+F 3 "" H 2425 -2350 50  0001 C CNN
+	1    2425 -2350
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR09
+U 1 1 5E096167
+P 2425 -2650
+F 0 "#PWR09" H 2425 -2800 50  0001 C CNN
+F 1 "VCC" H 2550 -2575 50  0000 C CNN
+F 2 "" H 2425 -2650 50  0001 C CNN
+F 3 "" H 2425 -2650 50  0001 C CNN
+	1    2425 -2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R66
+U 1 1 5E097563
+P 2725 -2500
+F 0 "R66" V 2625 -2550 50  0000 L CNN
+F 1 "100k" V 2725 -2600 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2655 -2500 50  0001 C CNN
+F 3 "~" H 2725 -2500 50  0001 C CNN
+	1    2725 -2500
+	0    -1   1    0   
+$EndComp
+Connection ~ 2875 -2500
+Text GLabel 2575 -1950 0    50   Input ~ 0
+expo_raw
+Wire Wire Line
+	2575 -1950 2875 -1950
+Wire Wire Line
+	2875 -1950 2875 -2100
+Text GLabel 4175 -2475 0    50   Input ~ 0
+expo_in
+Text GLabel 4175 -2375 0    50   Input ~ 0
+expo_raw
+Text GLabel 4675 -2475 2    50   Input ~ 0
+expo_out
+Text GLabel 4675 -2375 2    50   Input ~ 0
+expo_out
+$Comp
+L Connector_Generic:Conn_02x02_Odd_Even J7
+U 1 1 5E0D1463
+P 4375 -2475
+F 0 "J7" H 4425 -2350 50  0000 C CNN
+F 1 "Conn_02x02_Odd_Even" H 4425 -2349 50  0001 C CNN
+F 2 "" H 4375 -2475 50  0001 C CNN
+F 3 "~" H 4375 -2475 50  0001 C CNN
+	1    4375 -2475
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 29 0
+LIBS:expo-cache
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -24,7 +25,7 @@ F 3 "~" H 7850 2200 50  0001 C CNN
 F 4 "Q" H 7850 2200 50  0001 C CNN "Spice_Primitive"
 F 5 "BC546B" H 7850 2200 50  0001 C CNN "Spice_Model"
 F 6 "Y" H 7850 2200 50  0001 C CNN "Spice_Netlist_Enabled"
-F 7 "/home/flo/kicad/synth/simulation/lib/BC546.lib" H 7850 2200 50  0001 C CNN "Spice_Lib_File"
+F 7 "../lib/BC546.lib" H 7850 2200 50  0001 C CNN "Spice_Lib_File"
 	1    7850 2200
 	1    0    0    -1  
 $EndComp
@@ -39,7 +40,7 @@ F 3 "~" H 8950 2200 50  0001 C CNN
 F 4 "Q" H 8950 2200 50  0001 C CNN "Spice_Primitive"
 F 5 "BC546B" H 8950 2200 50  0001 C CNN "Spice_Model"
 F 6 "Y" H 8950 2200 50  0001 C CNN "Spice_Netlist_Enabled"
-F 7 "/home/flo/kicad/synth/simulation/lib/BC546.lib" H 8950 2200 50  0001 C CNN "Spice_Lib_File"
+F 7 "../lib/BC546.lib" H 8950 2200 50  0001 C CNN "Spice_Lib_File"
 	1    8950 2200
 	-1   0    0    -1  
 $EndComp
@@ -71,7 +72,7 @@ F 4 "X" H 7350 3000 50  0001 C CNN "Spice_Primitive"
 F 5 "LM324" H 7350 3000 50  0001 C CNN "Spice_Model"
 F 6 "Y" H 7350 3000 50  0001 C CNN "Spice_Netlist_Enabled"
 F 7 "1 2 4 5 3" H 7350 3000 50  0001 C CNN "Spice_Node_Sequence"
-F 8 "/home/flo/kicad/synth/simulation/lib/LM324.ti.lib" H 7350 3000 50  0001 C CNN "Spice_Lib_File"
+F 8 "../lib/LM324.ti.lib" H 7350 3000 50  0001 C CNN "Spice_Lib_File"
 	1    7350 3000
 	1    0    0    1   
 $EndComp
@@ -206,7 +207,7 @@ F 4 "X" H 9950 1700 50  0001 C CNN "Spice_Primitive"
 F 5 "LM324" H 9950 1700 50  0001 C CNN "Spice_Model"
 F 6 "Y" H 9950 1700 50  0001 C CNN "Spice_Netlist_Enabled"
 F 7 "1 2 4 5 3" H 9950 1700 50  0001 C CNN "Spice_Node_Sequence"
-F 8 "/home/flo/kicad/synth/simulation/lib/LM324.ti.lib" H 9950 1700 50  0001 C CNN "Spice_Lib_File"
+F 8 "../lib/LM324.ti.lib" H 9950 1700 50  0001 C CNN "Spice_Lib_File"
 	1    9950 1700
 	1    0    0    1   
 $EndComp
@@ -313,7 +314,7 @@ F 4 "X" H 5050 1750 50  0001 C CNN "Spice_Primitive"
 F 5 "LM324" H 5050 1750 50  0001 C CNN "Spice_Model"
 F 6 "Y" H 5050 1750 50  0001 C CNN "Spice_Netlist_Enabled"
 F 7 "1 2 4 5 3" H 5050 1750 50  0001 C CNN "Spice_Node_Sequence"
-F 8 "/home/flo/kicad/synth/simulation/lib/LM324.ti.lib" H 5050 1750 50  0001 C CNN "Spice_Lib_File"
+F 8 "../lib/LM324.ti.lib" H 5050 1750 50  0001 C CNN "Spice_Lib_File"
 	1    5050 1750
 	1    0    0    1   
 $EndComp
