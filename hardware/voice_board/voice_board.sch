@@ -2021,7 +2021,7 @@ Wire Notes Line
 Wire Notes Line
 	6275 4000 6275 5500
 Text Notes 450  300  0    50   ~ 0
-TODO\n- expo for filter\n- connectors\n- some potis
+TODO\n- connectors\n- some potis
 Text Notes 7400 1700 0    50   ~ 0
 or connect (-) with ~~100k to VEE\n(like the VCA)
 $Comp
@@ -2677,7 +2677,7 @@ U 4 1 5DE2AE72
 P 4150 -1500
 F 0 "U3" H 4225 -1325 50  0000 C CNN
 F 1 "LM324" H 4125 -1500 50  0000 C CNN
-F 2 "" H 4100 -1400 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 4100 -1400 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 4200 -1300 50  0001 C CNN
 	4    4150 -1500
 	1    0    0    1   
@@ -2781,7 +2781,7 @@ U 3 1 5DEFBCC5
 P 5750 -2100
 F 0 "U3" H 5825 -1925 50  0000 C CNN
 F 1 "LM324" H 5725 -2100 50  0000 C CNN
-F 2 "" H 5700 -2000 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 5700 -2000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 5800 -1900 50  0001 C CNN
 	3    5750 -2100
 	1    0    0    1   
@@ -2805,7 +2805,7 @@ U 1 1 5DF198D4
 P 5800 -2450
 F 0 "R71" V 5900 -2475 50  0000 C CNN
 F 1 "10k" V 5700 -2450 50  0000 C CNN
-F 2 "" V 5730 -2450 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" V 5730 -2450 50  0001 C CNN
 F 3 "~" H 5800 -2450 50  0001 C CNN
 	1    5800 -2450
 	0    1    -1   0   
@@ -2831,7 +2831,7 @@ U 1 1 5DDB1C06
 P 3175 -2000
 F 0 "U3" H 3250 -1825 50  0000 C CNN
 F 1 "LM324" H 3150 -2000 50  0000 C CNN
-F 2 "" H 3125 -1900 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 3125 -1900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 3225 -1800 50  0001 C CNN
 	1    3175 -2000
 	1    0    0    1   
@@ -2846,17 +2846,6 @@ F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3155 -2500 50  
 F 3 "~" H 3225 -2500 50  0001 C CNN
 	1    3225 -2500
 	0    -1   1    0   
-$EndComp
-$Comp
-L Amplifier_Operational:LM324 U3
-U 5 1 5DDE56F6
-P 2975 -2000
-F 0 "U3" H 3050 -1825 50  0001 C CNN
-F 1 "LM324" H 2950 -2000 50  0001 C CNN
-F 2 "" H 2925 -1900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 3025 -1800 50  0001 C CNN
-	5    2975 -2000
-	-1   0    0    -1  
 $EndComp
 $Comp
 L power:VCC #PWR054
@@ -2908,7 +2897,7 @@ U 1 1 5DF55135
 P 2725 -2100
 F 0 "R67" V 2825 -2125 50  0000 C CNN
 F 1 "200k" V 2625 -2100 50  0000 C CNN
-F 2 "" V 2655 -2100 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" V 2655 -2100 50  0001 C CNN
 F 3 "~" H 2725 -2100 50  0001 C CNN
 	1    2725 -2100
 	0    1    -1   0   
@@ -2916,17 +2905,6 @@ $EndComp
 Connection ~ 2875 -2100
 Text GLabel 2575 -2100 0    50   Input ~ 0
 expo_in
-$Comp
-L Device:R_POT R72
-U 1 1 5E094049
-P 2425 -2500
-F 0 "R72" H 2356 -2454 50  0000 R CNN
-F 1 "10k" H 2356 -2545 50  0000 R CNN
-F 2 "" H 2425 -2500 50  0001 C CNN
-F 3 "~" H 2425 -2500 50  0001 C CNN
-	1    2425 -2500
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:VEE #PWR016
 U 1 1 5E0952C6
@@ -2967,23 +2945,47 @@ Wire Wire Line
 	2575 -1950 2875 -1950
 Wire Wire Line
 	2875 -1950 2875 -2100
-Text GLabel 4175 -2475 0    50   Input ~ 0
-expo_in
 Text GLabel 4175 -2375 0    50   Input ~ 0
+expo_in
+Text GLabel 4175 -2475 0    50   Input ~ 0
 expo_raw
 Text GLabel 4675 -2475 2    50   Input ~ 0
 expo_out
 Text GLabel 4675 -2375 2    50   Input ~ 0
 expo_out
 $Comp
+L Amplifier_Operational:LM324 U3
+U 5 1 5DDE56F6
+P 3175 -2000
+F 0 "U3" H 3250 -1825 50  0001 C CNN
+F 1 "LM324" H 3150 -2000 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 3125 -1900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 3225 -1800 50  0001 C CNN
+	5    3175 -2000
+	1    0    0    1   
+$EndComp
+Text Notes 3150 -2200 0    50   ~ 0
+TODO wrong
+$Comp
 L Connector_Generic:Conn_02x02_Odd_Even J7
 U 1 1 5E0D1463
 P 4375 -2475
 F 0 "J7" H 4425 -2350 50  0000 C CNN
 F 1 "Conn_02x02_Odd_Even" H 4425 -2349 50  0001 C CNN
-F 2 "" H 4375 -2475 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 4375 -2475 50  0001 C CNN
 F 3 "~" H 4375 -2475 50  0001 C CNN
 	1    4375 -2475
 	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_POT R72
+U 1 1 5E094049
+P 2425 -2500
+F 0 "R72" H 2356 -2546 50  0000 R CNN
+F 1 "10k" H 2356 -2455 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 2425 -2500 50  0001 C CNN
+F 3 "~" H 2425 -2500 50  0001 C CNN
+	1    2425 -2500
+	1    0    0    1   
 $EndComp
 $EndSCHEMATC
