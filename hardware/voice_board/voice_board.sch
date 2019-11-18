@@ -185,19 +185,6 @@ Wire Wire Line
 	2225 1950 2225 2225
 Text Notes 3100 1500 2    50   ~ 0
 current mirror as\nvoltage controlled\ncurrent source
-Text Notes 1650 2700 1    50   ~ 0
-input preattenuation.\ncontrols distortion
-$Comp
-L Device:C C1
-U 1 1 5D9A8C50
-P 1725 1925
-F 0 "C1" H 1775 2025 50  0000 C CNN
-F 1 "470n" H 1825 1825 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1763 1775 50  0001 C CNN
-F 3 "~" H 1725 1925 50  0001 C CNN
-	1    1725 1925
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:R R8
 U 1 1 5D9A8C46
@@ -483,7 +470,7 @@ U 1 1 5DC91769
 P 8325 2125
 F 0 "C2" V 8250 2000 50  0000 C CNN
 F 1 "470u" V 8400 1975 50  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_8x5.4" H 8363 1975 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_D7.5mm_P2.50mm" H 8363 1975 50  0001 C CNN
 F 3 "~" H 8325 2125 50  0001 C CNN
 	1    8325 2125
 	0    1    -1   0   
@@ -731,7 +718,7 @@ U 1 1 5E098487
 P 9525 2125
 F 0 "C7" V 9450 2300 50  0000 C CNN
 F 1 "470u" V 9600 2275 50  0000 C CNN
-F 2 "Capacitor_SMD:CP_Elec_8x5.4" H 9563 1975 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_D7.5mm_P2.50mm" H 9563 1975 50  0001 C CNN
 F 3 "~" H 9525 2125 50  0001 C CNN
 	1    9525 2125
 	0    1    -1   0   
@@ -2928,8 +2915,6 @@ F 3 "~" H 775 6500 50  0001 C CNN
 	1    775  6500
 	1    0    0    1   
 $EndComp
-Text Notes 975  2350 0    50   ~ 0
-TODO: Elko
 Wire Notes Line
 	500  7775 500  6200
 Wire Notes Line
@@ -3007,7 +2992,7 @@ U 1 1 5E93751C
 P 6550 6350
 F 0 "JP3" V 6650 6100 50  0000 R CNN
 F 1 "Conn_01x04_Male" V 6703 6062 50  0001 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 6550 6350 50  0001 C CNN
+F 2 "footprints:SolderDipJumper4alt" H 6550 6350 50  0001 C CNN
 F 3 "~" H 6550 6350 50  0001 C CNN
 	1    6550 6350
 	0    -1   1    0   
@@ -3090,4 +3075,17 @@ Text Notes 6200 4850 0    50   ~ 0
 place close\nto U2
 Text Notes 5075 8500 0    50   ~ 0
 TODO prototyping area
+$Comp
+L Device:CP C1
+U 1 1 5F07C9B6
+P 1725 1925
+F 0 "C1" H 1600 2025 50  0000 C CNN
+F 1 "470n" H 1825 2025 50  0000 C CNN
+F 2 "Capacitor_THT:CP_Radial_D7.5mm_P2.50mm" H 1763 1775 50  0001 C CNN
+F 3 "~" H 1725 1925 50  0001 C CNN
+	1    1725 1925
+	-1   0    0    -1  
+$EndComp
+Text Notes 1650 2700 1    50   ~ 0
+input preattenuation.\ncontrols distortion
 $EndSCHEMATC
