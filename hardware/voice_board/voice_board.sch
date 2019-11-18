@@ -2615,13 +2615,13 @@ F 3 "" H 1625 1425 50  0001 C CNN
 $EndComp
 $Comp
 L Amplifier_Operational:LM324 U3
-U 4 1 5DE2AE72
+U 2 1 5DE2AE72
 P 2500 7500
 F 0 "U3" H 2575 7675 50  0000 C CNN
 F 1 "LM324" H 2475 7500 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 2450 7600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 2550 7700 50  0001 C CNN
-	4    2500 7500
+	2    2500 7500
 	1    0    0    1   
 $EndComp
 $Comp
@@ -2719,13 +2719,13 @@ F 3 "" H 2200 7600 50  0001 C CNN
 $EndComp
 $Comp
 L Amplifier_Operational:LM324 U3
-U 3 1 5DEFBCC5
+U 1 1 5DEFBCC5
 P 4100 6900
 F 0 "U3" H 4175 7075 50  0000 C CNN
 F 1 "LM324" H 4075 6900 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 4050 7000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 4150 7100 50  0001 C CNN
-	3    4100 6900
+	1    4100 6900
 	1    0    0    1   
 $EndComp
 Wire Wire Line
@@ -2769,13 +2769,13 @@ Text GLabel 4400 6900 2    50   Input ~ 0
 expo_out
 $Comp
 L Amplifier_Operational:LM324 U3
-U 1 1 5DDB1C06
+U 3 1 5DDB1C06
 P 1525 7000
 F 0 "U3" H 1600 7175 50  0000 C CNN
 F 1 "LM324" H 1500 7000 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 1475 7100 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 1575 7200 50  0001 C CNN
-	1    1525 7000
+	3    1525 7000
 	1    0    0    1   
 $EndComp
 $Comp
@@ -2898,16 +2898,14 @@ expo_out
 $Comp
 L Amplifier_Operational:LM324 U3
 U 5 1 5DDE56F6
-P 1525 7000
-F 0 "U3" H 1600 7175 50  0001 C CNN
-F 1 "LM324" H 1500 7000 50  0001 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm" H 1475 7100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 1575 7200 50  0001 C CNN
-	5    1525 7000
-	1    0    0    1   
+P 1325 7000
+F 0 "U3" H 1400 7175 50  0001 C CNN
+F 1 "LM324" H 1300 7000 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 1275 7100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 1375 7200 50  0001 C CNN
+	5    1325 7000
+	-1   0    0    -1  
 $EndComp
-Text Notes 1500 6800 0    50   ~ 0
-TODO wrong
 $Comp
 L Connector_Generic:Conn_02x02_Odd_Even J7
 U 1 1 5E0D1463
