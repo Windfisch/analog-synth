@@ -1979,12 +1979,12 @@ $Comp
 L Device:R_POT R20
 U 1 1 5DCFDA87
 P 7550 1250
-F 0 "R20" H 7675 1375 50  0000 C CNN
+F 0 "R20" H 7675 1325 50  0000 C CNN
 F 1 "100k" V 7550 1250 50  0000 C CNN
 F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 7550 1250 50  0001 C CNN
 F 3 "~" H 7550 1250 50  0001 C CNN
 	1    7550 1250
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 $Comp
 L Device:R R25
@@ -2015,43 +2015,6 @@ Wire Wire Line
 	7825 1075 7825 1250
 Wire Wire Line
 	7825 1250 7700 1250
-Text GLabel 10625 2675 2    50   Input ~ 0
-vcf_ctl2
-$Comp
-L Device:R_POT R19
-U 1 1 5DDA947B
-P 10625 2825
-F 0 "R19" V 10525 2850 50  0000 C CNN
-F 1 "10k" V 10625 2825 50  0000 C CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 10625 2825 50  0001 C CNN
-F 3 "~" H 10625 2825 50  0001 C CNN
-	1    10625 2825
-	0    -1   -1   0   
-$EndComp
-Text GLabel 10625 2325 2    50   Input ~ 0
-vcf_ctl1
-$Comp
-L Device:R_POT R18
-U 1 1 5DDF0D1B
-P 10625 2475
-F 0 "R18" V 10525 2500 50  0000 C CNN
-F 1 "10k" V 10625 2475 50  0000 C CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 10625 2475 50  0001 C CNN
-F 3 "~" H 10625 2475 50  0001 C CNN
-	1    10625 2475
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:GND #PWR012
-U 1 1 5DDF0D25
-P 10775 2475
-F 0 "#PWR012" H 10775 2225 50  0001 C CNN
-F 1 "GND" H 10780 2302 50  0001 C CNN
-F 2 "" H 10775 2475 50  0001 C CNN
-F 3 "" H 10775 2475 50  0001 C CNN
-	1    10775 2475
-	1    0    0    -1  
-$EndComp
 Text GLabel 4050 975  2    50   Input ~ 0
 vca_ctl2
 $Comp
@@ -3031,17 +2994,6 @@ TODO remove
 Text Notes 3575 2775 0    50   ~ 0
 TODO remove 2x
 $Comp
-L power:GND #PWR0110
-U 1 1 5ED2CF70
-P 10775 2825
-F 0 "#PWR0110" H 10775 2575 50  0001 C CNN
-F 1 "GND" H 10780 2652 50  0001 C CNN
-F 2 "" H 10775 2825 50  0001 C CNN
-F 3 "" H 10775 2825 50  0001 C CNN
-	1    10775 2825
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_02x02_Odd_Even J9
 U 1 1 5ED3A0C3
 P 10375 3125
@@ -3088,4 +3040,52 @@ F 3 "~" H 1725 1925 50  0001 C CNN
 $EndComp
 Text Notes 1650 2700 1    50   ~ 0
 input preattenuation.\ncontrols distortion
+Text GLabel 10625 2325 2    50   Input ~ 0
+vcf_ctl2
+$Comp
+L Device:R_POT R19
+U 1 1 5DDA947B
+P 10625 2475
+F 0 "R19" V 10525 2500 50  0000 C CNN
+F 1 "10k" V 10625 2475 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 10625 2475 50  0001 C CNN
+F 3 "~" H 10625 2475 50  0001 C CNN
+	1    10625 2475
+	0    -1   -1   0   
+$EndComp
+Text GLabel 10625 2675 2    50   Input ~ 0
+vcf_ctl1
+$Comp
+L Device:R_POT R18
+U 1 1 5DDF0D1B
+P 10625 2825
+F 0 "R18" V 10525 2850 50  0000 C CNN
+F 1 "10k" V 10625 2825 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 10625 2825 50  0001 C CNN
+F 3 "~" H 10625 2825 50  0001 C CNN
+	1    10625 2825
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR012
+U 1 1 5DDF0D25
+P 10775 2825
+F 0 "#PWR012" H 10775 2575 50  0001 C CNN
+F 1 "GND" H 10780 2652 50  0001 C CNN
+F 2 "" H 10775 2825 50  0001 C CNN
+F 3 "" H 10775 2825 50  0001 C CNN
+	1    10775 2825
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0110
+U 1 1 5ED2CF70
+P 10775 2475
+F 0 "#PWR0110" H 10775 2225 50  0001 C CNN
+F 1 "GND" H 10780 2302 50  0001 C CNN
+F 2 "" H 10775 2475 50  0001 C CNN
+F 3 "" H 10775 2475 50  0001 C CNN
+	1    10775 2475
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
