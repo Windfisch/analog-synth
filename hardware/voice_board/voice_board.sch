@@ -114,13 +114,13 @@ Wire Wire Line
 	3100 2025 3175 2025
 $Comp
 L Amplifier_Operational:TL074 U1
-U 2 1 5DD7C0CD
+U 1 1 5DD7C0CD
 P 3550 2125
 F 0 "U1" H 3575 2300 50  0000 C CNN
 F 1 "TL074" H 3525 2125 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 3500 2225 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 3600 2325 50  0001 C CNN
-	2    3550 2125
+	1    3550 2125
 	1    0    0    1   
 $EndComp
 $Comp
@@ -953,13 +953,13 @@ Wire Wire Line
 	9825 4375 9900 4375
 $Comp
 L Amplifier_Operational:TL074 U1
-U 3 1 5DF27280
+U 4 1 5DF27280
 P 10275 4475
 F 0 "U1" H 10300 4650 50  0000 C CNN
 F 1 "TL074" H 10250 4475 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 10225 4575 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 10325 4675 50  0001 C CNN
-	3    10275 4475
+	4    10275 4475
 	1    0    0    1   
 $EndComp
 $Comp
@@ -1567,13 +1567,13 @@ Wire Wire Line
 	7825 875  7900 875 
 $Comp
 L Amplifier_Operational:TL074 U1
-U 4 1 5E371BA8
+U 3 1 5E371BA8
 P 8500 1175
 F 0 "U1" H 8525 1350 50  0000 C CNN
 F 1 "TL074" H 8475 1175 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 8450 1275 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 8550 1375 50  0001 C CNN
-	4    8500 1175
+	3    8500 1175
 	1    0    0    1   
 $EndComp
 Text GLabel 7825 875  0    50   Input ~ 0
@@ -1740,13 +1740,13 @@ F 3 "~" H 1275 825 50  0001 C CNN
 $EndComp
 $Comp
 L Amplifier_Operational:TL074 U1
-U 1 1 5E667BAE
+U 2 1 5E667BAE
 P 1725 1125
 F 0 "U1" H 1750 1300 50  0000 C CNN
 F 1 "TL074" H 1700 1125 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 1675 1225 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 1775 1325 50  0001 C CNN
-	1    1725 1125
+	2    1725 1125
 	1    0    0    1   
 $EndComp
 Wire Wire Line
