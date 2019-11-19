@@ -2889,23 +2889,6 @@ Wire Notes Line
 Text Notes 525  7750 0    50   ~ 0
 Expo converter
 $Comp
-L Connector_Generic:Conn_02x03_Odd_Even J8
-U 1 1 5E5C9875
-P 4275 1950
-F 0 "J8" V 4325 1925 50  0000 L CNN
-F 1 "Conn_02x03_Odd_Even" H 4325 2176 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical" H 4275 1950 50  0001 C CNN
-F 3 "~" H 4275 1950 50  0001 C CNN
-	1    4275 1950
-	0    1    1    0   
-$EndComp
-Text GLabel 4375 1750 1    50   Input ~ 0
-vca_ctl_raw
-Text GLabel 4375 2250 3    50   Input ~ 0
-vca_audio_in
-Text GLabel 4275 2250 3    50   Input ~ 0
-vca_audio_out
-$Comp
 L power:GND #PWR0109
 U 1 1 5E5E1A0F
 P 4175 2250
@@ -3088,4 +3071,17 @@ F 3 "" H 10775 2475 50  0001 C CNN
 	1    10775 2475
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic:Conn_02x02_Odd_Even J8
+U 1 1 5F18BCB6
+P 4275 1950
+F 0 "J8" H 4325 2075 50  0000 C CNN
+F 1 "Conn_02x02_Odd_Even" H 4325 2076 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 4275 1950 50  0001 C CNN
+F 3 "~" H 4275 1950 50  0001 C CNN
+	1    4275 1950
+	0    1    1    0   
+$EndComp
+Text GLabel 4275 2250 3    50   Input ~ 0
+vca_ctl_raw
 $EndSCHEMATC
