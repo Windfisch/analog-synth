@@ -1972,7 +1972,7 @@ Wire Notes Line
 Wire Notes Line
 	4900 6275 4900 7775
 Text Notes 450  300  0    50   ~ 0
-TODO\n- some potis
+TODO\n- some potis\n- prototyping area
 Text Notes 7400 1700 0    50   ~ 0
 or connect (-) with ~~100k to VEE\n(like the VCA)
 $Comp
@@ -3004,8 +3004,6 @@ F 3 "" H 10375 3425 50  0001 C CNN
 $EndComp
 Text Notes 6200 4850 0    50   ~ 0
 place close\nto U2
-Text Notes 5075 8500 0    50   ~ 0
-TODO prototyping area
 $Comp
 L Device:CP C1
 U 1 1 5F07C9B6
@@ -3080,6 +3078,4 @@ F 3 "~" H 4275 1950 50  0001 C CNN
 	1    4275 1950
 	0    1    1    0   
 $EndComp
-Text Notes 1250 200  0    50   ~ 0
-TODO: separate grounds
 $EndSCHEMATC
