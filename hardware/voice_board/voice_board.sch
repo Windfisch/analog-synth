@@ -3080,8 +3080,6 @@ F 3 "~" H 4275 1950 50  0001 C CNN
 	1    4275 1950
 	0    1    1    0   
 $EndComp
-Text Notes 6975 1900 0    50   ~ 0
-TODO: move to the right on the layout
 Text Notes 1250 200  0    50   ~ 0
 TODO: separate grounds
 $EndSCHEMATC
