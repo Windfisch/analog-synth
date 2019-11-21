@@ -3056,8 +3056,6 @@ Text Notes 6500 5775 0    50   ~ 0
 TODO: keep or remove ground connection
 Text Notes 9025 875  0    50   ~ 0
 TODO: support film caps
-Text Notes 4850 -675 0    50   ~ 0
-filter: 100% confirmed (audio in, ctl in, structure, feedback)\nvca: TODO\nmixer: confirmed.\ndac: confirmed.\nsquare_ctl: confirmed.\nexpo: ?\ngen purp. filters: confirmed.
 $Comp
 L Device:R R15
 U 1 1 5DD7C0FB
