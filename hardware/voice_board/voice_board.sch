@@ -2972,10 +2972,6 @@ Wire Notes Line
 	5850 2850 5850 500 
 Wire Notes Line
 	4525 500  4525 2850
-Text Notes 5375 2875 0    50   ~ 0
-TODO remove
-Text Notes 3575 2775 0    50   ~ 0
-TODO remove 2x
 $Comp
 L Connector_Generic:Conn_02x02_Odd_Even J9
 U 1 1 5ED3A0C3
@@ -3071,6 +3067,8 @@ F 3 "" H 10775 2475 50  0001 C CNN
 	1    10775 2475
 	1    0    0    -1  
 $EndComp
+Text GLabel 4275 2250 3    50   Input ~ 0
+vca_ctl_raw
 $Comp
 L Connector_Generic:Conn_02x02_Odd_Even J8
 U 1 1 5F18BCB6
@@ -3082,6 +3080,8 @@ F 3 "~" H 4275 1950 50  0001 C CNN
 	1    4275 1950
 	0    1    1    0   
 $EndComp
-Text GLabel 4275 2250 3    50   Input ~ 0
-vca_ctl_raw
+Text Notes 6975 1900 0    50   ~ 0
+TODO: move to the right on the layout
+Text Notes 1250 200  0    50   ~ 0
+TODO: separate grounds
 $EndSCHEMATC
