@@ -14,7 +14,7 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text GLabel 7650 8350 0    50   Input ~ 0
+Text GLabel 2500 -1050 0    50   Input ~ 0
 Envelope
 Connection ~ 2350 1550
 $Comp
@@ -159,17 +159,6 @@ $EndComp
 Connection ~ 3175 2025
 Wire Wire Line
 	3175 2025 3250 2025
-$Comp
-L Device:R R15
-U 1 1 5DD7C0FB
-P 3175 2475
-F 0 "R15" H 3000 2425 50  0000 L CNN
-F 1 "100k" V 3175 2375 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3105 2475 50  0001 C CNN
-F 3 "~" H 3175 2475 50  0001 C CNN
-	1    3175 2475
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
 	3175 2325 3175 2225
 Connection ~ 3175 2225
@@ -344,95 +333,95 @@ $EndComp
 $Comp
 L Device:R_POT R55
 U 1 1 5DC6E5D7
-P 7800 8500
-F 0 "R55" H 7730 8546 50  0000 R CNN
-F 1 "1k" V 7800 8550 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 7800 8500 50  0001 C CNN
-F 3 "~" H 7800 8500 50  0001 C CNN
-	1    7800 8500
+P 2650 -900
+F 0 "R55" H 2580 -854 50  0000 R CNN
+F 1 "1k" V 2650 -850 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 2650 -900 50  0001 C CNN
+F 3 "~" H 2650 -900 50  0001 C CNN
+	1    2650 -900
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR045
 U 1 1 5DC78980
-P 7800 8650
-F 0 "#PWR045" H 7800 8400 50  0001 C CNN
-F 1 "GND" H 7805 8477 50  0000 C CNN
-F 2 "" H 7800 8650 50  0001 C CNN
-F 3 "" H 7800 8650 50  0001 C CNN
-	1    7800 8650
+P 2650 -750
+F 0 "#PWR045" H 2650 -1000 50  0001 C CNN
+F 1 "GND" H 2655 -923 50  0000 C CNN
+F 2 "" H 2650 -750 50  0001 C CNN
+F 3 "" H 2650 -750 50  0001 C CNN
+	1    2650 -750
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R56
 U 1 1 5DC7A310
-P 8100 8500
-F 0 "R56" V 8000 8475 50  0000 L CNN
-F 1 "10k" V 8100 8425 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8030 8500 50  0001 C CNN
-F 3 "~" H 8100 8500 50  0001 C CNN
-	1    8100 8500
+P 2950 -900
+F 0 "R56" V 2850 -925 50  0000 L CNN
+F 1 "10k" V 2950 -975 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2880 -900 50  0001 C CNN
+F 3 "~" H 2950 -900 50  0001 C CNN
+	1    2950 -900
 	0    -1   1    0   
 $EndComp
 $Comp
 L Device:C C12
 U 1 1 5DC7AF18
-P 8250 8650
-F 0 "C12" H 8365 8696 50  0000 L CNN
-F 1 "100n" H 8365 8605 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8288 8500 50  0001 C CNN
-F 3 "~" H 8250 8650 50  0001 C CNN
-	1    8250 8650
+P 3100 -750
+F 0 "C12" H 3215 -704 50  0000 L CNN
+F 1 "100n" H 3215 -795 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3138 -900 50  0001 C CNN
+F 3 "~" H 3100 -750 50  0001 C CNN
+	1    3100 -750
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR046
 U 1 1 5DC7B326
-P 8250 8800
-F 0 "#PWR046" H 8250 8550 50  0001 C CNN
-F 1 "GND" H 8255 8627 50  0000 C CNN
-F 2 "" H 8250 8800 50  0001 C CNN
-F 3 "" H 8250 8800 50  0001 C CNN
-	1    8250 8800
+P 3100 -600
+F 0 "#PWR046" H 3100 -850 50  0001 C CNN
+F 1 "GND" H 3105 -773 50  0000 C CNN
+F 2 "" H 3100 -600 50  0001 C CNN
+F 3 "" H 3100 -600 50  0001 C CNN
+	1    3100 -600
 	1    0    0    -1  
 $EndComp
-Text Notes 7600 9525 0    50   ~ 0
+Text Notes 2450 125  0    50   ~ 0
 Low-pass filter for fast\nattacking envelopes.\nTime constant T =\n10kOhm * 100nF = \n1ms. This removes\npops, but is still ballsy.
 Wire Wire Line
-	7650 8350 7800 8350
-Text GLabel 6600 8975 0    50   Input ~ 0
+	2500 -1050 2650 -1050
+Text GLabel 1450 -425 0    50   Input ~ 0
 LFO
 $Comp
 L Device:R_POT R52
 U 1 1 5DC95C10
-P 6700 9125
-F 0 "R52" H 6630 9171 50  0000 R CNN
-F 1 "1k" V 6700 9175 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 6700 9125 50  0001 C CNN
-F 3 "~" H 6700 9125 50  0001 C CNN
-	1    6700 9125
+P 1550 -275
+F 0 "R52" H 1480 -229 50  0000 R CNN
+F 1 "1k" V 1550 -225 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 1550 -275 50  0001 C CNN
+F 3 "~" H 1550 -275 50  0001 C CNN
+	1    1550 -275
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6700 8975 6600 8975
+	1550 -425 1450 -425
 $Comp
 L power:GND #PWR041
 U 1 1 5DC985D7
-P 6700 9275
-F 0 "#PWR041" H 6700 9025 50  0001 C CNN
-F 1 "GND" H 6705 9102 50  0000 C CNN
-F 2 "" H 6700 9275 50  0001 C CNN
-F 3 "" H 6700 9275 50  0001 C CNN
-	1    6700 9275
+P 1550 -125
+F 0 "#PWR041" H 1550 -375 50  0001 C CNN
+F 1 "GND" H 1555 -298 50  0000 C CNN
+F 2 "" H 1550 -125 50  0001 C CNN
+F 3 "" H 1550 -125 50  0001 C CNN
+	1    1550 -125
 	1    0    0    -1  
 $EndComp
-Text GLabel 6850 9125 2    50   Input ~ 0
+Text GLabel 1700 -275 2    50   Input ~ 0
 PWM
 Text GLabel 3775 5050 2    50   Input ~ 0
 VCA_ctl
 Wire Wire Line
-	8350 8500 8250 8500
-Connection ~ 8250 8500
+	3200 -900 3100 -900
+Connection ~ 3100 -900
 Wire Wire Line
 	1725 1775 1425 1775
 Text Notes 7675 2975 1    50   ~ 0
@@ -1120,7 +1109,7 @@ $Comp
 L Device:R R50
 U 1 1 5DD3F133
 P 3100 3700
-F 0 "R50" H 3000 3750 50  0000 C CNN
+F 0 "R50" H 2975 3750 50  0000 C CNN
 F 1 "1k" V 3100 3700 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3030 3700 50  0001 C CNN
 F 3 "~" H 3100 3700 50  0001 C CNN
@@ -1627,7 +1616,7 @@ $Comp
 L Device:R R14
 U 1 1 5E667B40
 P 3125 1050
-F 0 "R14" H 3025 1200 50  0000 L CNN
+F 0 "R14" V 3075 1150 50  0000 L CNN
 F 1 "100k" V 3125 950 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3055 1050 50  0001 C CNN
 F 3 "~" H 3125 1050 50  0001 C CNN
@@ -1971,7 +1960,7 @@ Wire Notes Line
 	6200 7775 4900 7775
 Wire Notes Line
 	4900 6275 4900 7775
-Text Notes 450  300  0    50   ~ 0
+Text Notes 1275 -875 0    50   ~ 0
 TODO\n- some potis\n- prototyping area
 Text Notes 7400 1700 0    50   ~ 0
 or connect (-) with ~~100k to VEE\n(like the VCA)
@@ -2256,7 +2245,7 @@ $Comp
 L Device:R R51
 U 1 1 5DF1DC6F
 P 3100 4850
-F 0 "R51" H 3000 4900 50  0000 C CNN
+F 0 "R51" H 2975 4900 50  0000 C CNN
 F 1 "1k" V 3100 4850 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3030 4850 50  0001 C CNN
 F 3 "~" H 3100 4850 50  0001 C CNN
@@ -2889,17 +2878,6 @@ Wire Notes Line
 Text Notes 525  7750 0    50   ~ 0
 Expo converter
 $Comp
-L power:GND #PWR0109
-U 1 1 5E5E1A0F
-P 4175 2250
-F 0 "#PWR0109" H 4175 2000 50  0001 C CNN
-F 1 "GND" H 4180 2077 50  0001 C CNN
-F 2 "" H 4175 2250 50  0001 C CNN
-F 3 "" H 4175 2250 50  0001 C CNN
-	1    4175 2250
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R_POT R2
 U 1 1 5DE0C3D1
 P 4050 1125
@@ -2930,8 +2908,6 @@ Wire Notes Line
 	5850 2850 4525 2850
 Text Notes 5625 600  0    50   ~ 0
 Mixer
-Text Notes 7700 8150 0    50   ~ 0
-TODO
 $Comp
 L Connector:Conn_01x04_Male JP3
 U 1 1 5E93751C
@@ -2964,8 +2940,6 @@ Wire Notes Line
 	6875 6150 6875 4350
 Wire Notes Line
 	6875 4350 4150 4350
-Text Notes 4250 5925 0    50   ~ 0
-TODO check
 Text Notes 4200 6100 0    50   ~ 0
 control voltage DAC
 Wire Notes Line
@@ -3077,5 +3051,56 @@ F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 4275 1950 50 
 F 3 "~" H 4275 1950 50  0001 C CNN
 	1    4275 1950
 	0    1    1    0   
+$EndComp
+Text Notes 6500 5775 0    50   ~ 0
+TODO: keep or remove ground connection
+Text Notes 9025 875  0    50   ~ 0
+TODO: support film caps
+Text Notes 4850 -675 0    50   ~ 0
+filter: 100% confirmed (audio in, ctl in, structure, feedback)\nvca: TODO\nmixer: confirmed.\ndac: confirmed.\nsquare_ctl: confirmed.\nexpo: ?\ngen purp. filters: confirmed.
+$Comp
+L Device:R R15
+U 1 1 5DD7C0FB
+P 3175 2475
+F 0 "R15" H 2975 2425 50  0000 L CNN
+F 1 "100k" V 3175 2375 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3105 2475 50  0001 C CNN
+F 3 "~" H 3175 2475 50  0001 C CNN
+	1    3175 2475
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Male J10
+U 1 1 5F459B04
+P 3850 1600
+F 0 "J10" V 3775 1600 50  0000 R CNN
+F 1 "Conn_01x02_Male" V 4003 1412 50  0001 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3850 1600 50  0001 C CNN
+F 3 "~" H 3850 1600 50  0001 C CNN
+	1    3850 1600
+	0    -1   1    0   
+$EndComp
+Connection ~ 3850 1800
+$Comp
+L power:GND #PWR060
+U 1 1 5F472444
+P 4175 2250
+F 0 "#PWR060" H 4175 2000 50  0001 C CNN
+F 1 "GND" H 4175 2100 50  0001 C CNN
+F 2 "" H 4175 2250 50  0001 C CNN
+F 3 "" H 4175 2250 50  0001 C CNN
+	1    4175 2250
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR013
+U 1 1 5F472959
+P 3950 1800
+F 0 "#PWR013" H 3950 1550 50  0001 C CNN
+F 1 "GND" H 3950 1650 50  0001 C CNN
+F 2 "" H 3950 1800 50  0001 C CNN
+F 3 "" H 3950 1800 50  0001 C CNN
+	1    3950 1800
+	-1   0    0    -1  
 $EndComp
 $EndSCHEMATC
