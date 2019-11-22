@@ -612,7 +612,7 @@ U 1 1 5DD09867
 P 8925 2575
 F 0 "C3" V 8875 2800 50  0000 C CNN
 F 1 "47n" V 8950 2825 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8963 2425 50  0001 C CNN
+F 2 "footprints:C_rect_smd_combo" H 8963 2425 50  0001 C CNN
 F 3 "~" H 8925 2575 50  0001 C CNN
 	1    8925 2575
 	0    1    1    0   
@@ -623,7 +623,7 @@ U 1 1 5DCDA152
 P 8925 3200
 F 0 "C4" V 8875 3425 50  0000 C CNN
 F 1 "47n" V 8950 3450 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8963 3050 50  0001 C CNN
+F 2 "footprints:C_rect_smd_combo" H 8963 3050 50  0001 C CNN
 F 3 "~" H 8925 3200 50  0001 C CNN
 	1    8925 3200
 	0    1    1    0   
@@ -634,7 +634,7 @@ U 1 1 5DC993CD
 P 8925 3825
 F 0 "C5" V 8875 4050 50  0000 C CNN
 F 1 "47n" V 8950 4075 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8963 3675 50  0001 C CNN
+F 2 "footprints:C_rect_smd_combo" H 8963 3675 50  0001 C CNN
 F 3 "~" H 8925 3825 50  0001 C CNN
 	1    8925 3825
 	0    1    1    0   
@@ -1017,7 +1017,7 @@ U 1 1 5DCE35D7
 P 8925 4575
 F 0 "C6" V 8875 4350 50  0000 C CNN
 F 1 "47n" V 8975 4325 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8963 4425 50  0001 C CNN
+F 2 "footprints:C_rect_smd_combo" H 8963 4425 50  0001 C CNN
 F 3 "~" H 8925 4575 50  0001 C CNN
 	1    8925 4575
 	0    -1   1    0   
