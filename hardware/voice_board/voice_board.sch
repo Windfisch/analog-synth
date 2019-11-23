@@ -14,8 +14,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text GLabel 2500 -1050 0    50   Input ~ 0
-Envelope
 Connection ~ 2350 1550
 $Comp
 L Device:R R10
@@ -330,98 +328,8 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf" H 5900 5025 
 	1    5100 5325
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R_POT R55
-U 1 1 5DC6E5D7
-P 2650 -900
-F 0 "R55" H 2580 -854 50  0000 R CNN
-F 1 "1k" V 2650 -850 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 2650 -900 50  0001 C CNN
-F 3 "~" H 2650 -900 50  0001 C CNN
-	1    2650 -900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR045
-U 1 1 5DC78980
-P 2650 -750
-F 0 "#PWR045" H 2650 -1000 50  0001 C CNN
-F 1 "GND" H 2655 -923 50  0000 C CNN
-F 2 "" H 2650 -750 50  0001 C CNN
-F 3 "" H 2650 -750 50  0001 C CNN
-	1    2650 -750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R56
-U 1 1 5DC7A310
-P 2950 -900
-F 0 "R56" V 2850 -925 50  0000 L CNN
-F 1 "10k" V 2950 -975 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2880 -900 50  0001 C CNN
-F 3 "~" H 2950 -900 50  0001 C CNN
-	1    2950 -900
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:C C12
-U 1 1 5DC7AF18
-P 3100 -750
-F 0 "C12" H 3215 -704 50  0000 L CNN
-F 1 "100n" H 3215 -795 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3138 -900 50  0001 C CNN
-F 3 "~" H 3100 -750 50  0001 C CNN
-	1    3100 -750
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR046
-U 1 1 5DC7B326
-P 3100 -600
-F 0 "#PWR046" H 3100 -850 50  0001 C CNN
-F 1 "GND" H 3105 -773 50  0000 C CNN
-F 2 "" H 3100 -600 50  0001 C CNN
-F 3 "" H 3100 -600 50  0001 C CNN
-	1    3100 -600
-	1    0    0    -1  
-$EndComp
-Text Notes 2450 125  0    50   ~ 0
-Low-pass filter for fast\nattacking envelopes.\nTime constant T =\n10kOhm * 100nF = \n1ms. This removes\npops, but is still ballsy.
-Wire Wire Line
-	2500 -1050 2650 -1050
-Text GLabel 1450 -425 0    50   Input ~ 0
-LFO
-$Comp
-L Device:R_POT R52
-U 1 1 5DC95C10
-P 1550 -275
-F 0 "R52" H 1480 -229 50  0000 R CNN
-F 1 "1k" V 1550 -225 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 1550 -275 50  0001 C CNN
-F 3 "~" H 1550 -275 50  0001 C CNN
-	1    1550 -275
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1550 -425 1450 -425
-$Comp
-L power:GND #PWR041
-U 1 1 5DC985D7
-P 1550 -125
-F 0 "#PWR041" H 1550 -375 50  0001 C CNN
-F 1 "GND" H 1555 -298 50  0000 C CNN
-F 2 "" H 1550 -125 50  0001 C CNN
-F 3 "" H 1550 -125 50  0001 C CNN
-	1    1550 -125
-	1    0    0    -1  
-$EndComp
-Text GLabel 1700 -275 2    50   Input ~ 0
-PWM
 Text GLabel 3775 5050 2    50   Input ~ 0
 VCA_ctl
-Wire Wire Line
-	3200 -900 3100 -900
-Connection ~ 3100 -900
 Wire Wire Line
 	1725 1775 1425 1775
 Text Notes 7675 2975 1    50   ~ 0
@@ -1960,8 +1868,6 @@ Wire Notes Line
 	6200 7775 4900 7775
 Wire Notes Line
 	4900 6275 4900 7775
-Text Notes 1275 -875 0    50   ~ 0
-TODO\n- some potis\n- prototyping area
 Text Notes 7400 1700 0    50   ~ 0
 or connect (-) with ~~100k to VEE\n(like the VCA)
 $Comp
