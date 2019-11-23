@@ -458,7 +458,7 @@ $Comp
 L Device:R R27
 U 1 1 5DDF220D
 P 8325 2325
-F 0 "R27" V 8325 2050 50  0000 L CNN
+F 0 "R27" V 8325 2025 50  0000 L CNN
 F 1 "470" V 8325 2250 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8255 2325 50  0001 C CNN
 F 3 "~" H 8325 2325 50  0001 C CNN
@@ -2960,8 +2960,6 @@ F 3 "~" H 4275 1950 50  0001 C CNN
 $EndComp
 Text Notes 6500 5775 0    50   ~ 0
 TODO: keep or remove ground connection
-Text Notes 9025 875  0    50   ~ 0
-TODO: support film caps
 $Comp
 L Device:R R15
 U 1 1 5DD7C0FB
