@@ -2397,4 +2397,50 @@ Connection ~ 750  2225
 Connection ~ 1250 2925
 Connection ~ 2000 2225
 Connection ~ 2250 2925
+$Comp
+L power:+3.3V #PWR069
+U 1 1 5DFC25C8
+P 4800 2425
+F 0 "#PWR069" H 4800 2275 50  0001 C CNN
+F 1 "+3.3V" H 4950 2500 50  0000 C CNN
+F 2 "" H 4800 2425 50  0001 C CNN
+F 3 "" H 4800 2425 50  0001 C CNN
+	1    4800 2425
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x04_Odd_Even J12
+U 1 1 5DFC639E
+P 5000 2625
+F 0 "J12" V 5050 2805 50  0000 L CNN
+F 1 "Conn_02x04_Odd_Even" V 5095 2805 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical" H 5000 2625 50  0001 C CNN
+F 3 "~" H 5000 2625 50  0001 C CNN
+	1    5000 2625
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5100 2425 5000 2425
+Wire Wire Line
+	4700 2425 4700 2925
+Wire Wire Line
+	4700 2925 4800 2925
+Connection ~ 4800 2425
+Wire Wire Line
+	4800 2425 4700 2425
+Connection ~ 4900 2425
+Wire Wire Line
+	4900 2425 4800 2425
+Connection ~ 5000 2425
+Wire Wire Line
+	5000 2425 4900 2425
+Connection ~ 4800 2925
+Wire Wire Line
+	4800 2925 4900 2925
+Connection ~ 4900 2925
+Wire Wire Line
+	4900 2925 5000 2925
+Connection ~ 5000 2925
+Wire Wire Line
+	5000 2925 5100 2925
 $EndSCHEMATC
