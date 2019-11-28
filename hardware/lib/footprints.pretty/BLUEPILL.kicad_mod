@@ -1,4 +1,4 @@
-(module BLUEPILL (layer F.Cu) (tedit 5DBF1D38)
+(module BLUEPILL (layer F.Cu) (tedit 5DDFD0B8)
   (fp_text reference REF** (at 0 25.4) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
@@ -53,12 +53,12 @@
   (pad G thru_hole circle (at 7.62 -24.13) (size 1.524 1.524) (drill 0.762) (layers *.Cu *.Mask))
   (pad 5V thru_hole circle (at -7.62 19.05) (size 1.524 1.524) (drill 0.762) (layers *.Cu *.Mask))
   (model ${KISYS3DMOD}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x20_P2.54mm_Vertical.step
-    (offset (xyz 7.62 25.4 0))
+    (offset (xyz 7.62 24.13 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))
   )
   (model ${KISYS3DMOD}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x20_P2.54mm_Vertical.step
-    (offset (xyz -7.62 25.4 0))
+    (offset (xyz -7.62 24.13 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))
   )
