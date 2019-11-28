@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name footprints)(type KiCad)(uri ${KIPRJMOD}/../../lib/footprints.pretty)(options "")(descr ""))
+  (lib (name windfisch)(type KiCad)(uri ${KIPRJMOD}/../../lib/windfisch.pretty)(options "")(descr ""))
+)

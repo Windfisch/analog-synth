@@ -6,5 +6,4 @@ generated.*.ld
 __pycache__
 *.bak
 *-bak
-fp-lib-table
 fp-info-cache
