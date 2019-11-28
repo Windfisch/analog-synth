@@ -53,10 +53,14 @@ the pitch deviation of the VCO.
 [hardware/](hardware/) contains the actual hardware boards and drafts:
 
   - The [VCO development board mk I](hardware/vco_mk1).
+    ![render of the board](hardware/img/vco_red.jpg)
+    ![render of the board](hardware/img/vco_blue.jpg)
   - A [voice supplement board](hardware/voice_board) containing a VCA, VCF and
     some utility functions.
+    ![render of the board](hardware/img/voiceboard.jpg)
   - A [main control board](hardware/control_board_prototype) with a STM32 blue
     pill board, utility DACs and the supply voltage generation.
+    ![render of the board](hardware/img/mainboard.jpg)
 
 ## Setup
 
