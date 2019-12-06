@@ -5,6 +5,8 @@ The main board of the synth: It accepts a STM32F103 Blue Pill board and offers
 two 10-channel DACs. Additionally, it contains a voltage converter, a virtual
 ground circuit and pin headers for power distribution.
 
+![render of the board](../img/mainboard.jpg)
+
 Setup
 -----
 

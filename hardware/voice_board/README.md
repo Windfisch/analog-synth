@@ -14,6 +14,7 @@ following features:
   - a 2-channel MCP4822 DAC for VCO control voltage generation
   - three general-purpose RC low pass filters
 
+![render of the board](../img/voiceboard.jpg)
 
 The gerber outputs used for fabrication with [JLCPCB](https://jlcpcb.com) are
 located under `fab/`.
