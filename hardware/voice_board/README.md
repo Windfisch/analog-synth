@@ -18,3 +18,6 @@ following features:
 
 The gerber outputs used for fabrication with [JLCPCB](https://jlcpcb.com) are
 located under `fab/`.
+
+The fabrication layers indicating which component values to put where
+are [here](../voice_and_control_board_fab.pdf).
