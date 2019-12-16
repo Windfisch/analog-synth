@@ -18,9 +18,10 @@ While both variants are affected by the
 this.
 
 However, the "round switch" variant appears to be of worse build quality: All two
-boards failed to provide reliable USB connectivity, one even failed to provide a
-reliable +5V power to the STM32.
+boards I bought failed to provide reliable USB connectivity, one even failed to
+provide a reliable +5V power to the STM32.
 
-I had no problems with the "white switch" variant, so I recommend using these.
+I had no problems with my four samples of the "white switch" variant, so I
+recommend using these.
 
-[See also](https://wiki.relativty.net/index.php/STM32)
+[See also](https://wiki.relativty.net/index.php/STM32#Purchasing_your_STM32_board)
