@@ -35,7 +35,9 @@ amps, and BC547 / 2N3904 bipolar-junction-transistors and 2N7000 MOSFETs.
 
 The control logic and its firmware is currently based upon a STM32F103 based
 *"blue pill"* board, which can be sourced for less than 2 EUR from your
-favourite chinese seller. Previous versions were developed for the
+favourite chinese seller. ([Note](bluepill.md): look for those boards with a rectangular white reset
+switch, not a flat round one.)
+Previous versions were developed for the
 [STM32F411 discovery board](https://www.st.com/en/evaluation-tools/32f411ediscovery.html),
 which should still work after adjusting the Makefile.
 
