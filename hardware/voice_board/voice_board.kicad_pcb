@@ -1,4 +1,4 @@
-(kicad_pcb (version 20171130) (host pcbnew 5.1.4)
+(kicad_pcb (version 20171130) (host pcbnew 5.1.5)
 
   (general
     (thickness 1.6)
@@ -6,10 +6,16 @@
     (tracks 888)
     (zones 0)
     (modules 131)
-    (nets 97)
+    (nets 98)
   )
 
   (page A4)
+  (title_block
+    (title "voice board")
+    (rev 02-pre)
+    (company Windfisch)
+  )
+
   (layers
     (0 F.Cu signal)
     (31 B.Cu signal)
@@ -190,6 +196,7 @@
   (net 94 "Net-(J9-Pad1)")
   (net 95 "Net-(J8-Pad1)")
   (net 96 "Net-(J10-Pad1)")
+  (net 97 "Net-(J3-Pad2)")
 
   (net_class Default "This is the default net class."
     (clearance 0.2)
@@ -223,6 +230,7 @@
     (add_net "Net-(C9-Pad1)")
     (add_net "Net-(C9-Pad2)")
     (add_net "Net-(J10-Pad1)")
+    (add_net "Net-(J3-Pad2)")
     (add_net "Net-(J4-Pad1)")
     (add_net "Net-(J4-Pad2)")
     (add_net "Net-(J5-Pad1)")
@@ -3752,7 +3760,7 @@
     (fp_text reference R51 (at 2.785 -2.159) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 1k (at 3.039 0.254) (layer F.Fab)
+    (fp_text value 10k (at 3.039 0.254) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text user %R (at 0 0) (layer F.Fab)
@@ -3788,7 +3796,7 @@
     (fp_text reference R50 (at 2.531 2.159) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 1k (at 0 1.65) (layer F.Fab)
+    (fp_text value 10k (at 0 1.65) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text user %R (at 0 0) (layer F.Fab)
@@ -3824,7 +3832,7 @@
     (fp_text reference R49 (at -0.771 1.778) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 10k (at 0 1.65) (layer F.Fab)
+    (fp_text value 1k (at 0 1.65) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text user %R (at 0 0) (layer F.Fab)
@@ -3860,7 +3868,7 @@
     (fp_text reference R48 (at 0 -1.65) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 10k (at -3.057 -0.254) (layer F.Fab)
+    (fp_text value 1k (at -3.057 -0.254) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text user %R (at 0 0) (layer F.Fab)
@@ -6012,7 +6020,8 @@
       (net 19 GND))
     (pad 3 thru_hole oval (at 0 -2.54 270) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 37 VEE))
-    (pad 2 thru_hole oval (at 2.54 0 270) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask))
+    (pad 2 thru_hole oval (at 2.54 0 270) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
+      (net 97 "Net-(J3-Pad2)"))
     (pad 1 thru_hole rect (at 0 0 270) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 38 VCC))
     (model ${KISYS3DMOD}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_2x02_P2.54mm_Vertical.wrl

@@ -1,14 +1,13 @@
 EESchema Schematic File Version 4
-LIBS:voice_board-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
+Title "voice board"
 Date ""
-Rev ""
-Comp ""
+Rev "02"
+Comp "Windfisch"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -328,8 +327,6 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf" H 5900 5025 
 	1    5100 5325
 	1    0    0    -1  
 $EndComp
-Text GLabel 3775 5050 2    50   Input ~ 0
-VCA_ctl
 Wire Wire Line
 	1725 1775 1425 1775
 Text Notes 7675 2975 1    50   ~ 0
@@ -1018,7 +1015,7 @@ L Device:R R50
 U 1 1 5DD3F133
 P 3100 3700
 F 0 "R50" H 2975 3750 50  0000 C CNN
-F 1 "1k" V 3100 3700 50  0000 C CNN
+F 1 "10k" V 3100 3700 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3030 3700 50  0001 C CNN
 F 3 "~" H 3100 3700 50  0001 C CNN
 	1    3100 3700
@@ -1954,7 +1951,7 @@ L Device:R R48
 U 1 1 5DEBC798
 P 2300 3700
 F 0 "R48" H 2400 3600 50  0000 C CNN
-F 1 "10k" V 2300 3700 50  0000 C CNN
+F 1 "1k" V 2300 3700 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2230 3700 50  0001 C CNN
 F 3 "~" H 2300 3700 50  0001 C CNN
 	1    2300 3700
@@ -2152,7 +2149,7 @@ L Device:R R51
 U 1 1 5DF1DC6F
 P 3100 4850
 F 0 "R51" H 2975 4900 50  0000 C CNN
-F 1 "1k" V 3100 4850 50  0000 C CNN
+F 1 "10k" V 3100 4850 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3030 4850 50  0001 C CNN
 F 3 "~" H 3100 4850 50  0001 C CNN
 	1    3100 4850
@@ -2177,7 +2174,7 @@ L Device:R R49
 U 1 1 5DF1DC81
 P 2300 4850
 F 0 "R49" H 2400 4750 50  0000 C CNN
-F 1 "10k" V 2300 4850 50  0000 C CNN
+F 1 "1k" V 2300 4850 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2230 4850 50  0001 C CNN
 F 3 "~" H 2300 4850 50  0001 C CNN
 	1    2300 4850
