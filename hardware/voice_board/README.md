@@ -21,3 +21,9 @@ located under `fab/`.
 
 The fabrication layers indicating which component values to put where
 are [here](../voice_and_control_board_fab.pdf).
+
+Errata (rev01)
+--------------
+
+Some resistors in the sync pulse circuitry are wrong. R48 and R49 must
+be changed from 10k to 1k. R50 and R51 must be changed from 1k to 10k.
