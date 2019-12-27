@@ -71,10 +71,11 @@ Differences from the schematic (rev01)
   - Q1 was equipped, J5, Q2 and Q3 weren't
   - R2 was replaced by a 20k poti
   - R15 was not equipped (no rossum compensation)
-  - R4-6 and R18-20 were not equipped yet
+  - R18-20 were not equipped yet
   - R10 is missing (no thermal compensation)
   - R9 was replaced by a 100 Ohm resistor
   - R8 was replaced by 10k
+  - R4,5,6 were populated with 470k, 220k and 100k, respectively
 
 Testing the board
 -----------------

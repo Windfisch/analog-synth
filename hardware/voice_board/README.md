@@ -39,3 +39,17 @@ Errata (rev01)
 Some resistors in the sync pulse circuitry are wrong. R48 and R49 must
 be changed from 10k to 1k. R50 and R51 must be changed from 1k to 10k.
 This has been fixed in rev02.
+
+R53 and R54's values are too weak, leading to very bad DAC performance
+(e.g., non-monotonic DAC behaviour every 4 code points). Maybe a 100k
+poti would work better; I fixed it by de-soldering the potis and wiring
+U2's DAC output pins 6 and 8 to the connector J4 directly.
+
+Errata (rev01)
+--------------
+
+R53 and R54's values are too weak, leading to very bad DAC performance
+(e.g., non-monotonic DAC behaviour every 4 code points). Maybe a 100k
+poti would work better; I fixed it by de-soldering the potis and wiring
+U2's DAC output pins 6 and 8 to the connector J4 directly.
+
