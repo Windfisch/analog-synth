@@ -36,7 +36,8 @@ rev01 has been used successfully with the following configuration:
 - JP1 closed, U3 not equipped.
 - JP2 (dgnd select) in *sep* configuration.
 - JP3 (Vdd select) in *blue pill* configuration.
-- DAC section (i.e. U4,U5, >=R6, >=C5) not populated.
+- right half of the DAC section (i.e. J8, J10 and associated resistors
+  and capacitors) not populated.
 
 Fabrication
 -----------
