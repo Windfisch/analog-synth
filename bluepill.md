@@ -7,12 +7,15 @@ manufacturers.
 - The "white switch" variant has a rectangular, high-profile white reset
   switch located close to the USB port. Also, the USB port has two mounting
   pads (one at each side). The silk screen is layouted carefully.
+  ![bad board](https://web.archive.org/web/20200103224615im_/https://wiki.relativty.net/images/thumb/f/f7/Bluepillrect.png/682px-Bluepillrect.png)
 - The "round switch" variant has a flat and round reset switch at the same
   location. The USB port has four mounting pads. The silk screen at the pin
   headers ("B12 B13...") is uneven, the letters don't share a common baseline.
+  ![good board](https://web.archive.org/web/20200103224615im_/https://wiki.relativty.net/images/thumb/6/68/Bluepillround.png/669px-Bluepillround.png)
 
 While both variants are affected by the
 [wrong USB resistor issue](https://amitesh-singh.github.io/stm32/2017/05/27/Overcoming-wrong-pullup-in-blue-pill.html)
+[(or on archive.org)](https://web.archive.org/web/20190401142745/https://amitesh-singh.github.io/stm32/2017/05/27/Overcoming-wrong-pullup-in-blue-pill.html)
 (tl;dr: The USB D+ pull up resistor R10 should be 1.5k, but it's populated with
 10k. Some hosts don't like this, others don't care), I never had a problem with
 this.
@@ -25,3 +28,4 @@ I had no problems with my four samples of the "white switch" variant, so I
 recommend using these.
 
 [See also](https://wiki.relativty.net/index.php/STM32#Purchasing_your_STM32_board)
+[(or on archive.org)](https://web.archive.org/web/20200103224615/https://wiki.relativty.net/index.php/STM32)

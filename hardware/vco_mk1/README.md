@@ -11,7 +11,8 @@ features:
   - selectable capacitor-coupling for the triangle wave using JP5
   - Boundary adjust: R27-R31. (Increases triangle amplitude while
     lowering its frequency)
-  - Rossum compensation ([details](https://www.schmitzbits.de/expo_tutorial/))
+  - Rossum compensation ([details](https://www.schmitzbits.de/expo_tutorial/)
+    [(or on archive.org)](https://web.archive.org/web/20191216173852/https://www.schmitzbits.de/expo_tutorial/))
     for compensating the pitch drop at higher pitches. Can be enabled by
     closing JP2 and disabled by closing JP1 instead. Optionally, R13-15 and
     D1 need not be equipped when disabled
