@@ -21,6 +21,22 @@ whether DGND is a separate buffered voltage source.
 Similarly, JP3 allows to switch between the analog supply voltage and the
 blue pill board's 5V supply voltage.
 
+Recommended configuration
+-------------------------
+
+**Use Vdd = Vcc (JP3).** Taking Vdd from the blue pill board creates weird
+"digital singing" on the audio signal.
+
+**Use a separate dgnd (JP2).** Joining agnd and dgnd together causes strong
+humming (approx. 100Hz; I measured 116Hz?!) and buzzing (from the SPI
+bus; completely goes away as long the BU2505FV DAC isn't used (i.e.,
+during startup/init), reduced when the MCP4822 isn't connected to the
+SPI bus, very present when it is). Using a separate GND completely
+cancels the humming, and reduces the buzzing to ~-70-80dB when the
+VCA is closed, but still audible if the VCA is open).
+
+A **TLE2426** ground splitter (U3) seems to be **unneccessary**.
+
 Revisions
 ---------
 
