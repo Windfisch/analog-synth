@@ -49,6 +49,10 @@ simulation).
 Most importantly, `simulation/vco` shows a functional exponential VCO. There
 are detailed annotations on which part serves which purpose.
 
+[simulation/software/](simulation/software/) contains tooling to do transient
+simulation on parts of the synth with different control voltages and to further analyze
+the results.
+
 Under `measure_vco/` you can find the tooling and test results for measuring
 the pitch deviation of the VCO.
 
