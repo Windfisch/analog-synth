@@ -20,4 +20,4 @@ The joblist can be executed with either `parallel < /tmp/jobs.txt` or `bash /tmp
 
 Results are placed in `/tmp/analog-synth-spice/`.
 
-TODO: tooling for further analysis
+tooling for further analysis: run `bash generate_joblist.sh ../vco/vco.cir v2 -2 2.8 0.1 triangle sawtooth square_ctl V_control V_expo GNDREF`
