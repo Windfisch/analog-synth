@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Usage: $0 cirfile.cir running_variable first_value last_value stepsize variable [variable] ...
+
 CIRPATH="$(realpath "$1")"
 CIRDIR="$(dirname "$CIRPATH")"
 CIRBASE="$(basename "$CIRPATH")"
