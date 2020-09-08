@@ -9,6 +9,6 @@ flash.%: %.bin
 .PHONY: target/thumbv7m-none-eabi/debug/analog-synth-firmware
 .PHONY: target/thumbv7m-none-eabi/release/analog-synth-firmware
 target/thumbv7m-none-eabi/debug/analog-synth-firmware:
-	cargo build
+	cargo build --target=thumbv7m-none-eabi
 target/thumbv7m-none-eabi/release/analog-synth-firmware:
-	cargo build --release
+	cargo build --release --target=thumbv7m-none-eabi

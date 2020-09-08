@@ -193,7 +193,10 @@ const APP: () = {
 		);
 		let (mut tx, _rx) = serial.split();
 		writeln!(tx, "usart initialized").ok();
-
+		writeln!(tx, "========================================================").ok();
+		writeln!(tx, "analog-synth @ {}", env!("VERGEN_SHA")).ok();
+		writeln!(tx, "      built on {}", env!("VERGEN_BUILD_TIMESTAMP")).ok();
+		writeln!(tx, "========================================================\n").ok();
 		
 		// Configure USB
 		// BluePill board has a pull-up resistor on the D+ line.
