@@ -338,9 +338,9 @@ const APP: () = {
 		static mut i : u32 = 0;
 		let spi_devices = vcos(c.resources.vco_token);
 
-		*i = (*i+1)%50;
+		*i = (*i+1)%10000;
 		if *i == 0 {
-			//writeln!(c.resources.tx, "envelope update: {}", c.resources.test_env.value10bit());
+			writeln!(c.resources.tx, "envelope update: {}", c.resources.test_env.value10bit());
 		}
 		spi_devices.bu2505.set(2, c.resources.test_env.value10bit(), &mut spi_devices.spi_accessor, SYSCLK.0);
 		c.resources.test_env.tick();
