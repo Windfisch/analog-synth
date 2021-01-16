@@ -1239,64 +1239,8 @@ Wire Wire Line
 	5600 5225 5900 5225
 Wire Wire Line
 	5900 5225 5900 5600
-$Comp
-L Device:R_POT R53
-U 1 1 5E12A7CE
-P 6200 5675
-F 0 "R53" H 6150 5750 50  0000 R CNN
-F 1 "1k" V 6200 5725 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 6200 5675 50  0001 C CNN
-F 3 "~" H 6200 5675 50  0001 C CNN
-	1    6200 5675
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_POT R54
-U 1 1 5E1317B6
-P 6475 5375
-F 0 "R54" H 6425 5450 50  0000 R CNN
-F 1 "1k" V 6475 5425 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 6475 5375 50  0001 C CNN
-F 3 "~" H 6475 5375 50  0001 C CNN
-	1    6475 5375
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5675 5525 6200 5525
 Connection ~ 5675 5525
-Wire Wire Line
-	5900 5225 6475 5225
 Connection ~ 5900 5225
-Wire Wire Line
-	6475 5525 6475 5825
-$Comp
-L power:GND #PWR043
-U 1 1 5E14B5EA
-P 6200 5825
-F 0 "#PWR043" H 6200 5575 50  0001 C CNN
-F 1 "GND" H 6205 5652 50  0000 C CNN
-F 2 "" H 6200 5825 50  0001 C CNN
-F 3 "" H 6200 5825 50  0001 C CNN
-	1    6200 5825
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR044
-U 1 1 5E14B87F
-P 6475 5825
-F 0 "#PWR044" H 6475 5575 50  0001 C CNN
-F 1 "GND" H 6480 5652 50  0000 C CNN
-F 2 "" H 6475 5825 50  0001 C CNN
-F 3 "" H 6475 5825 50  0001 C CNN
-	1    6475 5825
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6625 5375 6725 5375
-Wire Wire Line
-	6825 5675 6825 5375
-Wire Wire Line
-	6350 5675 6825 5675
 $Comp
 L Connector_Generic:Conn_02x02_Odd_Even J2
 U 1 1 5E187B3E
@@ -2829,12 +2773,12 @@ Wire Notes Line
 $Comp
 L Connector:Conn_01x02_Male J4
 U 1 1 5E1550B9
-P 6725 5175
-F 0 "J4" V 6625 5175 50  0000 R CNN
-F 1 "Conn_01x02_Male" V 6878 5219 50  0001 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6725 5175 50  0001 C CNN
-F 3 "~" H 6725 5175 50  0001 C CNN
-	1    6725 5175
+P 6725 5025
+F 0 "J4" V 6625 5025 50  0000 R CNN
+F 1 "Conn_01x02_Male" V 6878 5069 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6725 5025 50  0001 C CNN
+F 3 "~" H 6725 5025 50  0001 C CNN
+	1    6725 5025
 	0    -1   1    0   
 $EndComp
 Wire Notes Line
@@ -2955,8 +2899,6 @@ F 3 "~" H 4275 1950 50  0001 C CNN
 	1    4275 1950
 	0    1    1    0   
 $EndComp
-Text Notes 6500 5775 0    50   ~ 0
-TODO: keep or remove ground connection
 $Comp
 L Device:R R15
 U 1 1 5DD7C0FB
@@ -3002,4 +2944,42 @@ F 3 "" H 3950 1800 50  0001 C CNN
 	1    3950 1800
 	-1   0    0    -1  
 $EndComp
+$Comp
+L Amplifier_Operational:LM324 U3
+U 4 1 600A4073
+P 7475 6175
+F 0 "U3" H 7550 6350 50  0000 C CNN
+F 1 "LM324" H 7450 6175 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 7425 6275 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2902-n.pdf" H 7525 6375 50  0001 C CNN
+	4    7475 6175
+	1    0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 600A9C22
+P 7175 6275
+F 0 "#PWR?" H 7175 6025 50  0001 C CNN
+F 1 "GND" H 7180 6102 50  0000 C CNN
+F 2 "" H 7175 6275 50  0001 C CNN
+F 3 "" H 7175 6275 50  0001 C CNN
+	1    7175 6275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7175 6075 7150 6075
+Wire Wire Line
+	7150 6075 7150 5900
+Wire Wire Line
+	7150 5900 7825 5900
+Wire Wire Line
+	7825 5900 7825 6175
+Wire Wire Line
+	7825 6175 7775 6175
+Wire Wire Line
+	5675 5525 6825 5525
+Wire Wire Line
+	5900 5225 6725 5225
+Wire Wire Line
+	6825 5225 6825 5525
 $EndSCHEMATC
