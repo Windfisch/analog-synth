@@ -651,8 +651,6 @@ Wire Wire Line
 Wire Wire Line
 	8475 3075 8475 2850
 Wire Wire Line
-	9375 2325 9375 2225
-Wire Wire Line
 	8475 2325 8475 2225
 $Comp
 L Transistor_BJT:BC557 Q8
@@ -746,17 +744,6 @@ F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 8675 2225 50  0001 L CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L Transistor_BJT:BC557 Q11
-U 1 1 5E3B0CD3
-P 9175 2225
-F 0 "Q11" H 9000 2350 50  0000 L CNN
-F 1 "BC557" H 9366 2180 50  0001 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9375 2150 50  0001 L CIN
-F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 9175 2225 50  0001 L CNN
-	1    9175 2225
-	-1   0    0    1   
-$EndComp
-$Comp
 L Transistor_BJT:BC557 Q10
 U 1 1 5E3BC860
 P 9025 1525
@@ -779,9 +766,6 @@ Wire Wire Line
 Connection ~ 8475 4825
 Wire Wire Line
 	8475 4825 8475 4725
-Connection ~ 9375 2225
-Wire Wire Line
-	9375 2225 9375 2125
 $Comp
 L Device:R_Variable R40
 U 1 1 5DF87DEF
@@ -869,7 +853,7 @@ $Comp
 L Device:R R43
 U 1 1 5DF2729E
 P 10250 4150
-F 0 "R43" V 10350 4075 50  0000 L CNN
+F 0 "R43" V 10150 4075 50  0000 L CNN
 F 1 "100k" V 10250 4050 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 10180 4150 50  0001 C CNN
 F 3 "~" H 10250 4150 50  0001 C CNN
@@ -949,7 +933,7 @@ Wire Wire Line
 Wire Wire Line
 	9375 4375 9525 4375
 Wire Wire Line
-	10575 4150 10575 3825
+	10575 4150 10575 4050
 Wire Wire Line
 	10575 3825 9900 3825
 Connection ~ 10575 4150
@@ -2982,4 +2966,119 @@ Wire Wire Line
 	5900 5225 6725 5225
 Wire Wire Line
 	6825 5225 6825 5525
+$Comp
+L Device:C_Small C?
+U 1 1 601F797F
+P 9275 1975
+F 0 "C?" H 9367 2021 50  0001 L CNN
+F 1 "4.7n" V 9375 1900 50  0000 L CNN
+F 2 "" H 9275 1975 50  0001 C CNN
+F 3 "~" H 9275 1975 50  0001 C CNN
+	1    9275 1975
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9375 2225 9375 2125
+Wire Wire Line
+	9375 2325 9375 2225
+Connection ~ 9375 2225
+$Comp
+L Transistor_BJT:BC557 Q11
+U 1 1 5E3B0CD3
+P 9175 2225
+F 0 "Q11" H 9000 2350 50  0000 L CNN
+F 1 "BC557" H 9366 2180 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9375 2150 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 9175 2225 50  0001 L CNN
+	1    9175 2225
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9375 1975 9375 2125
+Connection ~ 9375 2125
+$Comp
+L power:GND #PWR?
+U 1 1 6022405F
+P 9175 1975
+F 0 "#PWR?" H 9175 1725 50  0001 C CNN
+F 1 "GND" H 9180 1802 50  0001 C CNN
+F 2 "" H 9175 1975 50  0001 C CNN
+F 3 "" H 9175 1975 50  0001 C CNN
+	1    9175 1975
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 60224C0A
+P 8675 1975
+F 0 "C?" H 8767 2021 50  0001 L CNN
+F 1 "4.7n" V 8575 1850 50  0000 L CNN
+F 2 "" H 8675 1975 50  0001 C CNN
+F 3 "~" H 8675 1975 50  0001 C CNN
+	1    8675 1975
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8775 2025 8775 1975
+Connection ~ 8775 2025
+$Comp
+L power:GND #PWR?
+U 1 1 60236998
+P 8575 1975
+F 0 "#PWR?" H 8575 1725 50  0001 C CNN
+F 1 "GND" H 8580 1802 50  0001 C CNN
+F 2 "" H 8575 1975 50  0001 C CNN
+F 3 "" H 8575 1975 50  0001 C CNN
+	1    8575 1975
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6023C519
+P 8475 2025
+F 0 "C?" H 8567 2071 50  0001 L CNN
+F 1 "4.7n" H 8500 1950 50  0001 L CNN
+F 2 "" H 8475 2025 50  0001 C CNN
+F 3 "~" H 8475 2025 50  0001 C CNN
+	1    8475 2025
+	-1   0    0    1   
+$EndComp
+Connection ~ 8475 2125
+Wire Wire Line
+	8575 1975 8575 1925
+Wire Wire Line
+	8575 1925 8475 1925
+Connection ~ 8575 1975
+$Comp
+L Device:C_Small C?
+U 1 1 60250ED8
+P 10050 4050
+F 0 "C?" V 9925 4050 50  0001 C CNN
+F 1 "C_Small" V 10000 4250 50  0001 C CNN
+F 2 "" H 10050 4050 50  0001 C CNN
+F 3 "~" H 10050 4050 50  0001 C CNN
+	1    10050 4050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9900 4150 9900 4050
+Wire Wire Line
+	9900 4050 9950 4050
+Connection ~ 9900 4150
+Wire Wire Line
+	10150 4050 10575 4050
+Connection ~ 10575 4050
+Wire Wire Line
+	10575 4050 10575 3825
+$Comp
+L Device:C_Small C?
+U 1 1 60295CCD
+P 9900 4475
+F 0 "C?" V 9775 4475 50  0001 C CNN
+F 1 "27p" H 10050 4475 50  0000 C CNN
+F 2 "" H 9900 4475 50  0001 C CNN
+F 3 "~" H 9900 4475 50  0001 C CNN
+	1    9900 4475
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
