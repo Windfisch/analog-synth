@@ -21,8 +21,8 @@ pub enum Edge {
 	Falling
 }
 
-const N_PERIODS : usize = 15;
-const N_DROPPED_PERIODS : usize = 5;
+const N_PERIODS : usize = 15; // for a more conservative calibration, try 50
+const N_DROPPED_PERIODS : usize = 5; // for a more conservative calibration, try 25
 
 pub struct MeasurementState {
 	periods : [Period; N_PERIODS],
@@ -224,7 +224,8 @@ where
 		// Fine calibration
 		let timer_clock = mytimer.lock(|t|{t.clk()});
 		for i in 0..N_MEASUREMENTS {
-			let val = reverse_bits(i as u16, 12);
+			let val = reverse_bits(i as u16, 12); // for jumpy calibration. prefer this
+			//let val = (i*4096/N_MEASUREMENTS) as u16; // for linear calibration
 			let expected_freq = expected_frequency(val, PROBE1, coarse_calibration_1, PROBE2, coarse_calibration_2);
 			let prescaler = prescaler_for_freq((expected_freq * 2.0 * 32768.0) as u32, timer_clock);
 			writeln!(tx, "val {} will be around {}Hz -> choosing a prescaler of {}", val, expected_freq as u32, prescaler);

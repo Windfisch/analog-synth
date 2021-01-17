@@ -1,4 +1,4 @@
-#[derive(PartialEq)]
+#[derive(PartialEq,Copy,Clone)]
 enum Phase {
 	ATTACK,
 	DECAY,
@@ -8,6 +8,7 @@ enum Phase {
 }
 use Phase::*;
 
+#[derive(Copy,Clone)]
 pub struct Envelope
 {
 	pub attack : u16, // milliseconds

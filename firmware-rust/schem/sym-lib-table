@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name schematic-symbols)(type Legacy)(uri /home/flo/analog-synth/hardware/lib/schematic-symbols.lib)(options "")(descr ""))
+  (lib (name schem-rescue)(type Legacy)(uri ${KIPRJMOD}/schem-rescue.lib)(options "")(descr ""))
 )
