@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:control_board_prototype-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -1661,12 +1660,12 @@ LD2
 Text GLabel 6325 2225 0    50   Input ~ 0
 LD1
 Wire Wire Line
-	6375 4225 6750 4225
+	6100 4225 6750 4225
 Wire Wire Line
 	6650 4125 6650 3925
 Wire Wire Line
-	6375 4125 6650 4125
-Text GLabel 6375 4125 0    50   Input ~ 0
+	6100 4125 6650 4125
+Text GLabel 6100 4125 0    50   Input ~ 0
 MISO
 Wire Wire Line
 	3450 1325 3400 1325
@@ -2006,12 +2005,12 @@ $EndComp
 $Comp
 L power:VCC #PWR03
 U 1 1 5FA03DB1
-P 1475 825
-F 0 "#PWR03" H 1475 675 50  0001 C CNN
-F 1 "VCC" H 1492 998 50  0000 C CNN
-F 2 "" H 1475 825 50  0001 C CNN
-F 3 "" H 1475 825 50  0001 C CNN
-	1    1475 825 
+P 1475 625
+F 0 "#PWR03" H 1475 475 50  0001 C CNN
+F 1 "VCC" H 1600 700 50  0000 C CNN
+F 2 "" H 1475 625 50  0001 C CNN
+F 3 "" H 1475 625 50  0001 C CNN
+	1    1475 625 
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -2135,9 +2134,7 @@ F 3 "~" H 1475 1275 50  0001 C CNN
 	1    1475 1275
 	1    0    0    -1  
 $EndComp
-Text GLabel 6375 4025 0    50   Input ~ 0
-SCK
-Text GLabel 6375 4225 0    50   Input ~ 0
+Text GLabel 6100 4225 0    50   Input ~ 0
 MOSI
 Wire Wire Line
 	8425 3175 8300 3175
@@ -2188,8 +2185,6 @@ Wire Wire Line
 Text Notes 2375 775  0    50   ~ 0
 Rail splitter:\nVirtual Ground
 Connection ~ 2125 1225
-Wire Wire Line
-	2125 1225 2325 1225
 $Comp
 L Device:CP C1
 U 1 1 5DC6DF25
@@ -2205,15 +2200,13 @@ Wire Wire Line
 	2525 825  2525 1025
 Connection ~ 2125 825 
 Wire Wire Line
-	2125 825  2525 825 
-Wire Wire Line
 	2125 1225 2125 1275
 $Comp
 L Device:R R5
 U 1 1 5CF0529A
 P 2125 1425
 F 0 "R5" H 1975 1375 50  0000 L CNN
-F 1 "100k" V 2125 1325 50  0000 L CNN
+F 1 "2.2k" V 2125 1350 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2055 1425 50  0001 C CNN
 F 3 "~" H 2125 1425 50  0001 C CNN
 	1    2125 1425
@@ -2228,7 +2221,7 @@ L Device:R R4
 U 1 1 5CF04A0E
 P 2125 1025
 F 0 "R4" H 1975 1075 50  0000 L CNN
-F 1 "100k" V 2125 925 50  0000 L CNN
+F 1 "2.2k" V 2125 950 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2055 1025 50  0001 C CNN
 F 3 "~" H 2125 1025 50  0001 C CNN
 	1    2125 1025
@@ -2293,7 +2286,7 @@ Connection ~ 1475 1725
 Text Notes 575  1375 0    50   ~ 0
 To power supply.\nE.g. a 12V LiPo\nor a lab PSU
 Wire Wire Line
-	650  1725 1475 1725
+	650  1725 1375 1725
 $Comp
 L power:-VDC #PWR01
 U 1 1 5D6E27EB
@@ -2443,4 +2436,78 @@ Wire Wire Line
 Connection ~ 5000 2925
 Wire Wire Line
 	5000 2925 5100 2925
+$Comp
+L Device:C_Small C?
+U 1 1 600A4DC0
+P 1900 1425
+F 0 "C?" H 1925 1575 50  0001 L CNN
+F 1 "4.7n" H 1900 1500 50  0000 L CNN
+F 2 "" H 1900 1425 50  0001 C CNN
+F 3 "~" H 1900 1425 50  0001 C CNN
+	1    1900 1425
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 600EF493
+P 1325 625
+F 0 "D?" H 1325 842 50  0001 C CNN
+F 1 "D" H 1325 725 50  0001 C CNN
+F 2 "" H 1325 625 50  0001 C CNN
+F 3 "~" H 1325 625 50  0001 C CNN
+	1    1325 625 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1475 625  1475 825 
+Connection ~ 1475 625 
+Wire Wire Line
+	1175 625  775  625 
+Wire Wire Line
+	775  625  775  825 
+Connection ~ 775  825 
+$Comp
+L Device:C_Small C?
+U 1 1 6013C8D9
+P 1375 1425
+F 0 "C?" H 1400 1575 50  0001 L CNN
+F 1 "100n" H 1150 1350 50  0000 L CNN
+F 2 "" H 1375 1425 50  0001 C CNN
+F 3 "~" H 1375 1425 50  0001 C CNN
+	1    1375 1425
+	1    0    0    -1  
+$EndComp
+Connection ~ 1375 825 
+Wire Wire Line
+	1375 1525 1375 1725
+Connection ~ 1375 1725
+Wire Wire Line
+	1375 1725 1475 1725
+Wire Wire Line
+	1375 825  1375 1325
+Text GLabel 6075 4025 0    50   Input ~ 0
+SCK
+$Comp
+L Device:R R?
+U 1 1 6020E31A
+P 6225 4025
+F 0 "R?" V 6125 4050 50  0001 C CNN
+F 1 "47" V 6225 4025 50  0000 C CNN
+F 2 "" V 6155 4025 50  0001 C CNN
+F 3 "~" H 6225 4025 50  0001 C CNN
+	1    6225 4025
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2125 825  2525 825 
+Wire Wire Line
+	2125 1225 2325 1225
+Wire Wire Line
+	2125 1225 1900 1225
+Wire Wire Line
+	1900 1225 1900 1325
+Wire Wire Line
+	1900 1525 1900 1625
+Wire Wire Line
+	1900 1625 2125 1625
 $EndSCHEMATC
