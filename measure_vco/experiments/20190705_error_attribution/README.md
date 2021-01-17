@@ -51,6 +51,8 @@ that the wiggle would align perfectly, if the X axis would show the code point,
 not something proportional to the voltage through U8.
 
 **The wiggle is a DAC linearity error and must be compensated for in firmware.**
+The MCP4822 data sheet confirms this with figure 2-6 which describes "the 64 code
+effect".
 
 The overall frequency deviation perfectly aligns across the four curves.
 **While it can be compensated for in firmware, it should be adressed in the

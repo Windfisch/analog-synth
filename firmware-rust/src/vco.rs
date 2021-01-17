@@ -45,6 +45,8 @@ impl MeasurementState {
 
 type ExtiPinType = Pxx<Input<Floating>>;
 
+// MEASUREMENT_STEP must be 64 or more. See Figure 2-6 in the MCP4822's data sheet
+// which describes the 64 code effect.
 const N_MEASUREMENTS : usize = 64;
 const MEASUREMENT_STEP : u16 = 4096 / N_MEASUREMENTS as u16;
 
