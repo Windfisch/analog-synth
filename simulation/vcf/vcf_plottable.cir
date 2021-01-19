@@ -1,0 +1,37 @@
+.title KiCad schematic
+.include "/home/flo/analog-synth/simulation/lib/BC547_557.lib"
+.include "/home/flo/analog-synth/simulation/lib/LM324.ti.lib"
+Q4 diff1 Net-_Q2-Pad2_ Net-_C4-Pad1_ NC_01 BC557b
+Q2 diff2 Net-_Q2-Pad2_ Net-_C4-Pad2_ NC_02 BC557b
+R3 0 signal_preatt 1k
+V4 signal_in 0 SIN(0 2 1000)
+Q12 VEE foo diff1 NC_03 BC557b
+Q8 VEE foo diff2 NC_04 BC557b
+Q11 Net-_C4-Pad1_ Net-_Q11-Pad2_ Net-_C3-Pad1_ NC_05 BC557b
+Q7 Net-_C4-Pad2_ Net-_Q11-Pad2_ Net-_C3-Pad2_ NC_06 BC557b
+Q10 Net-_C3-Pad1_ Net-_Q10-Pad2_ Net-_C2-Pad1_ NC_07 BC557b
+Q6 Net-_C3-Pad2_ Net-_Q10-Pad2_ Net-_C2-Pad2_ NC_08 BC557b
+R11 Net-_Q10-Pad2_ Net-_Q11-Pad2_ 150
+R12 Net-_Q11-Pad2_ Net-_Q2-Pad2_ 150
+R13 Net-_Q2-Pad2_ foo 150
+R14 foo VEE 220
+R6 Net-_R15-Pad1_ Net-_Q10-Pad2_ 150
+R4 0 Net-_R15-Pad1_ 180
+Q5 Net-_C2-Pad2_ Net-_C6-Pad1_ Net-_I1-Pad2_ NC_09 BC557b
+R10 signal_out Net-_R10-Pad2_ 500k
+Q9 Net-_C2-Pad1_ Net-_Q9-Pad2_ Net-_I1-Pad2_ NC_10 BC557b
+R2 signal_in signal_preatt 100k
+R15 Net-_R15-Pad1_ Net-_Q9-Pad2_ 470
+R5 Net-_R15-Pad1_ Net-_C6-Pad1_ 470
+C5 diff1 diff2 47n
+V1 VCC 0 5
+V2 0 VEE 5
+C4 Net-_C4-Pad1_ Net-_C4-Pad2_ 47n
+C3 Net-_C3-Pad1_ Net-_C3-Pad2_ 47n
+C2 Net-_C2-Pad1_ Net-_C2-Pad2_ 47n
+I1 0 Net-_I1-Pad2_ 0.01m
+C6 Net-_C6-Pad1_ signal_preatt 10u
+R9 Net-_R7-Pad1_ 0 500k
+XU2 Net-_R7-Pad1_ Net-_R10-Pad2_ VCC VEE signal_out LM324
+R7 Net-_R7-Pad1_ diff1 1k
+R8 Net-_R10-Pad2_ diff2 1k
