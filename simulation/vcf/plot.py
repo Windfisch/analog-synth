@@ -84,6 +84,16 @@ def my_logspace(lo, hi, steps = 50):
 	return np.logspace(np.log10(lo), np.log10(hi), steps)
 
 freqs = my_logspace(50, 5000, 20)
+
+plt.xscale('log')
+
+for current in my_logspace(0.01, 0.5, 5):
+	attns, phases = calc_bode(current, freqs)
+	plt.plot(freqs, attns)
+
+plt.pause(20)
+
+
 attns, phases = calc_bode(0.1, freqs)
 
 #plt.xscale('log')
