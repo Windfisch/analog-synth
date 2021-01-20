@@ -17,8 +17,12 @@ def zero_crossings(a):
 	return np.where(np.diff(np.array(a)>=0.0))[0]
 
 
-def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_ms = 25, debug = False):
+def calc_attenuation(freq, control_current_mA, n_periods = 2, t_skip_ms = 25, debug = False):
+	return calc_attenuation_and_phase(freq, control_current_mA, n_periods, t_skip_ms, 20, debug)[0]
+
+def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_ms = 25, steps_per_period=200, debug = False):
 	period = 1 / freq
+	timestep = period / steps_per_period
 
 	# set the control current
 	printall(ns.cmd("alter i1 %fm" % control_current_mA))
@@ -32,7 +36,8 @@ def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_m
 	actual_t_skip_ms = skip_periods / freq * 1000
 	t_run_ms = actual_t_skip_ms + n_periods / freq * 1000
 
-	ns.cmd("tran 10u %fm %fm" % (t_run_ms, actual_t_skip_ms))
+	ns.cmd("tran %fu %fm %fm" % (timestep*1000000, t_run_ms, actual_t_skip_ms))
+	print("tran %fu %fm %fm" % (timestep*1000000, t_run_ms, actual_t_skip_ms))
 
 	signal_in = ns.vector('signal_in')
 	signal_out = ns.vector('signal_out')
@@ -67,15 +72,17 @@ def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_m
 	
 	return attenuation_db, period
 
-#calc_attenuation_and_phase(100, debug=True)
+#calc_attenuation_and_phase(1000, 0.5, n_periods=10, t_skip_ms = 0, debug=True)
+#plt.pause(3)
+#exit()
 
 
-def calc_bode(control_current_mA, freqs):
+def calc_bode(control_current_mA, freqs, steps_per_period = 200):
 	attns = []
 	phases = []
 	for freq in freqs:
 		print(freq)
-		attn, phase = calc_attenuation_and_phase(freq, control_current_mA)
+		attn, phase = calc_attenuation_and_phase(freq, control_current_mA, steps_per_period = steps_per_period)
 		attns.append(attn)
 		phases.append(phase)
 	return attns, phases
@@ -83,14 +90,15 @@ def calc_bode(control_current_mA, freqs):
 def my_logspace(lo, hi, steps = 50):
 	return np.logspace(np.log10(lo), np.log10(hi), steps)
 
-freqs = my_logspace(50, 5000, 20)
+freqs = my_logspace(5, 20000, 50)
 
 plt.xscale('log')
 
-for current in my_logspace(0.01, 0.5, 5):
-	attns, phases = calc_bode(current, freqs)
-	plt.plot(freqs, attns)
+for current in my_logspace(0.001, 1, 15):
+	attns, phases = calc_bode(current, freqs, steps_per_period = 20)
+	plt.plot(freqs, attns, label="%.5fmA" % (current*1000))
 
+plt.legend()
 plt.pause(20)
 
 
