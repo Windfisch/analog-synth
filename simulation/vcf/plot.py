@@ -2,6 +2,8 @@ import ngspyce as ns
 import matplotlib.pyplot as plt
 import math
 import numpy as np
+import scipy.interpolate
+import thd
 
 ns.source("vcf_plottable.cir")
 
@@ -10,22 +12,31 @@ t_skip_ms = 25
 n_periods = 2
 freq = 1013.12
 
+def my_logspace(lo, hi, steps = 50):
+	return np.logspace(np.log10(lo), np.log10(hi), steps)
+
 def printall(l):
 	for x in l: print(x)
 
 def zero_crossings(a):
 	return np.where(np.diff(np.array(a)>=0.0))[0]
 
+def update_amplifier(impedance_ohms, factor):
+	r78 = impedance_ohms
+	r910 = r78 * factor
+	printall(ns.cmd("alter r7 %f" % r78))
+	printall(ns.cmd("alter r8 %f" % r78))
+	printall(ns.cmd("alter r9 %f" % r910))
+	printall(ns.cmd("alter r10 %f" % r910))
 
-def calc_attenuation(freq, control_current_mA, n_periods = 2, t_skip_ms = 25, debug = False):
-	return calc_attenuation_and_phase(freq, control_current_mA, n_periods, t_skip_ms, 20, debug)[0]
+def set_input_amplitude(amplitude):
+	printall(ns.cmd("let tmp =  @v4[sin]"))
+	printall(ns.cmd("let tmp[1] = %f" % amplitude))
+	printall(ns.cmd("alter @v4[sin] = tmp"))
 
-def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_ms = 25, steps_per_period=200, debug = False):
+def simulate_waveform(freq, n_periods = 2, t_skip_ms = 25, steps_per_period=200):
 	period = 1 / freq
 	timestep = period / steps_per_period
-
-	# set the control current
-	printall(ns.cmd("alter i1 %fm" % control_current_mA))
 
 	# set the input frequency
 	printall(ns.cmd("let tmp =  @v4[sin]"))
@@ -36,12 +47,31 @@ def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_m
 	actual_t_skip_ms = skip_periods / freq * 1000
 	t_run_ms = actual_t_skip_ms + n_periods / freq * 1000
 
-	ns.cmd("tran %fu %fm %fm" % (timestep*1000000, t_run_ms, actual_t_skip_ms))
 	print("tran %fu %fm %fm" % (timestep*1000000, t_run_ms, actual_t_skip_ms))
+	ns.cmd("tran %fu %fm %fm" % (timestep*1000000, t_run_ms, actual_t_skip_ms))
 
-	signal_in = ns.vector('signal_in')
-	signal_out = ns.vector('signal_out')
-	time = ns.vector('time') - actual_t_skip_ms/1000
+	return ns.vector('signal_in'), ns.vector('signal_out'), (ns.vector('time') - actual_t_skip_ms/1000)
+
+def interpolate_periodic(x, y, period):
+	x2 = np.append(x-period, np.append(x, x+period))
+	y2 = np.append(y,np.append(y,y))
+	return scipy.interpolate.interp1d(x2, y2, 'cubic', assume_sorted = True)
+
+def calc_thd(freq):
+	steps = 256 # seems to give the same results as 1024
+	_, signal, time = simulate_waveform(freq, n_periods = 1, steps_per_period = steps)
+	interpolator = interpolate_periodic(time, signal, 1/freq)
+	interpolated = [interpolator(x / steps / freq) for x in range(steps)]
+	return thd.thd(interpolated, 1)
+
+def calc_attenuation(freq, control_current_mA, n_periods = 2, t_skip_ms = 25, debug = False):
+	return calc_attenuation_and_phase(freq, control_current_mA, n_periods, t_skip_ms, 20, debug)[0]
+
+def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_ms = 25, steps_per_period=200, debug = False):
+	# set the control current
+	printall(ns.cmd("alter i1 %fm" % control_current_mA))
+
+	signal_in, signal_out, time = simulate_waveform(freq, n_periods, t_skip_ms, steps_per_period)
 
 	amplitude_in = np.max(signal_in) - np.min(signal_in)
 	amplitude_out = np.max(signal_out) - np.min(signal_out)
@@ -55,7 +85,7 @@ def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_m
 		if signal_out[pmax] < signal_out[pmin]:
 			pmin, pmax = pmax, pmin
 		
-		period = ((time[pmax] / period - 1/4) % 1.0) * math.pi * 2
+		period = ((time[pmax] * freq - 1/4) % 1.0) * math.pi * 2
 		if period > math.pi:
 			period -= 2*math.pi
 	else:
@@ -72,9 +102,36 @@ def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_m
 	
 	return attenuation_db, period
 
+set_input_amplitude(10)
+
+_, (thdplot, sinplot) = plt.subplots(1,2)
+thdplot.set_ylabel("thd (dB)")
+thdplot.set_xlabel("control current (mA)")
+thdplot.set_title("total harmonic distortion")
+sinplot.set_xticks([],[])
+sinplot.set_yticks([],[])
+sinplot.set_title("sine shape at cc = 1mA")
+for voltage in np.arange(3,9, 0.5):
+	printall(ns.cmd("alter v1 %f"%voltage))
+	printall(ns.cmd("alter v2 %f"%voltage))
+
+	y=[]
+	x=my_logspace(0.01,1,8)
+	for current in x:
+		printall(ns.cmd("alter i1 %fm" % current))
+		y.append(calc_thd(300))
+
+	_, signal, time = simulate_waveform(300, n_periods = 1)
+
+	thdplot.plot(x, np.log10(y)*10, label="+/- %fV"%voltage)
+	sinplot.plot(time, signal)
+
+thdplot.set_xscale('log')
+thdplot.legend()
+
 #calc_attenuation_and_phase(1000, 0.5, n_periods=10, t_skip_ms = 0, debug=True)
-#plt.pause(3)
-#exit()
+plt.pause(0)
+exit()
 
 
 def calc_bode(control_current_mA, freqs, steps_per_period = 200):
@@ -87,16 +144,20 @@ def calc_bode(control_current_mA, freqs, steps_per_period = 200):
 		phases.append(phase)
 	return attns, phases
 
-def my_logspace(lo, hi, steps = 50):
-	return np.logspace(np.log10(lo), np.log10(hi), steps)
 
-freqs = my_logspace(5, 20000, 50)
+
+update_amplifier(10*1000*1000, 500)
+printall(ns.cmd("alter c6 100u"))
+#printall(ns.cmd("alter v1 3"))
+#printall(ns.cmd("alter v2 3"))
+
+freqs = my_logspace(5, 20000, 20)
 
 plt.xscale('log')
 
-for current in my_logspace(0.001, 1, 15):
+for current in my_logspace(0.001, 1, 5):
 	attns, phases = calc_bode(current, freqs, steps_per_period = 20)
-	plt.plot(freqs, attns, label="%.5fmA" % (current*1000))
+	plt.plot(freqs, attns, label="%5fmA" % (current*1000))
 
 plt.legend()
 plt.pause(20)
