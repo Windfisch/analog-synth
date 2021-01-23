@@ -58,7 +58,7 @@ def interpolate_periodic(x, y, period):
 	return scipy.interpolate.interp1d(x2, y2, 'cubic', assume_sorted = True)
 
 def calc_thd(freq):
-	steps = 256 # seems to give the same results as 1024
+	steps = 64 # 256 seems to give the same results as 1024, 64 seems to be "good enough" and fast.
 	_, signal, time = simulate_waveform(freq, n_periods = 1, steps_per_period = steps)
 	interpolator = interpolate_periodic(time, signal, 1/freq)
 	interpolated = [interpolator(x / steps / freq) for x in range(steps)]
@@ -102,32 +102,36 @@ def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_m
 	
 	return attenuation_db, period
 
+def make_thd_plot(thdplot, sinplot):
+	thdplot.set_ylabel("thd (dB)")
+	thdplot.set_xlabel("control current (mA)")
+	thdplot.set_title("total harmonic distortion")
+	sinplot.set_xticks([],[])
+	sinplot.set_yticks([],[])
+	sinplot.set_title("sine shape at cc = 1mA")
+	for voltage in np.arange(3,7, 0.5):
+		printall(ns.cmd("alter v1 %f"%voltage))
+		printall(ns.cmd("alter v2 %f"%voltage))
+
+		y=[]
+		x=my_logspace(0.01,1,8)
+		for current in x:
+			printall(ns.cmd("alter i1 %fm" % current))
+			y.append(calc_thd(300))
+
+		_, signal, time = simulate_waveform(300, n_periods = 1)
+
+		thdplot.plot(x, np.log10(y)*10, label="+/- %fV"%voltage)
+		sinplot.plot(time, signal)
+
+	thdplot.set_xscale('log')
+	thdplot.legend()
+
 set_input_amplitude(10)
 
 _, (thdplot, sinplot) = plt.subplots(1,2)
-thdplot.set_ylabel("thd (dB)")
-thdplot.set_xlabel("control current (mA)")
-thdplot.set_title("total harmonic distortion")
-sinplot.set_xticks([],[])
-sinplot.set_yticks([],[])
-sinplot.set_title("sine shape at cc = 1mA")
-for voltage in np.arange(3,9, 0.5):
-	printall(ns.cmd("alter v1 %f"%voltage))
-	printall(ns.cmd("alter v2 %f"%voltage))
+make_thd_plot(thdplot, sinplot)
 
-	y=[]
-	x=my_logspace(0.01,1,8)
-	for current in x:
-		printall(ns.cmd("alter i1 %fm" % current))
-		y.append(calc_thd(300))
-
-	_, signal, time = simulate_waveform(300, n_periods = 1)
-
-	thdplot.plot(x, np.log10(y)*10, label="+/- %fV"%voltage)
-	sinplot.plot(time, signal)
-
-thdplot.set_xscale('log')
-thdplot.legend()
 
 #calc_attenuation_and_phase(1000, 0.5, n_periods=10, t_skip_ms = 0, debug=True)
 plt.pause(0)
