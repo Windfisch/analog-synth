@@ -1,5 +1,6 @@
 import ngspyce as ns
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import math
 import numpy as np
 import scipy.interpolate
@@ -7,6 +8,7 @@ import thd
 
 ns.source("vcf_plottable.cir")
 
+plt.rcParams.update({'font.size': 8})
 
 t_skip_ms = 25
 n_periods = 2
@@ -107,9 +109,10 @@ def make_thd_plot(thdplot, sinplot):
 	thdplot.set_xlabel("control current (mA)")
 	thdplot.set_title("total harmonic distortion")
 	sinplot.set_xticks([],[])
-	sinplot.set_yticks([],[])
+	#sinplot.set_yticks([],[])
 	sinplot.set_title("sine shape at cc = 1mA")
-	for voltage in np.arange(3,7, 0.5):
+	#for voltage in np.arange(3,18, 1):
+	for voltage in my_logspace(3,30,4): # FIXME 4 -> 10
 		printall(ns.cmd("alter v1 %f"%voltage))
 		printall(ns.cmd("alter v2 %f"%voltage))
 
@@ -119,18 +122,74 @@ def make_thd_plot(thdplot, sinplot):
 			printall(ns.cmd("alter i1 %fm" % current))
 			y.append(calc_thd(300))
 
-		_, signal, time = simulate_waveform(300, n_periods = 1)
+		_, signal, time = simulate_waveform(300, n_periods = 1, steps_per_period=64)
 
-		thdplot.plot(x, np.log10(y)*10, label="+/- %fV"%voltage)
+		thdplot.plot(x/1000, np.log10(y)*10, label="+/- %fV"%voltage)
 		sinplot.plot(time, signal)
 
 	thdplot.set_xscale('log')
-	thdplot.legend()
 
-set_input_amplitude(10)
+	fmt_mA = ticker.EngFormatter(unit='A')
+	fmt_dB = ticker.FormatStrFormatter('%.0f dB')
+	thdplot.xaxis.set_major_formatter(fmt_mA)
+	thdplot.yaxis.set_major_formatter(fmt_dB)
+	
+	#thdplot.legend()
 
-_, (thdplot, sinplot) = plt.subplots(1,2)
-make_thd_plot(thdplot, sinplot)
+
+amplitudes = [0.5,1,2,4,8,16,32]
+impedances = [100, 1000, 10*1000, 100*1000, 1000*1000]
+#amplitudes = [1,4,16]
+#impedances = [100, 10*1000, 1000*1000]
+#amplitudes = [4,8]
+#impedances = [10*1000,100*1000]
+
+ohmfmt = ticker.EngFormatter(unit="Ω")
+voltfmt = ticker.EngFormatter(unit="V")
+
+_, plots = plt.subplots(len(amplitudes),2*len(impedances))
+
+for x, amplitude in enumerate(amplitudes):
+	for y, impedance in enumerate(impedances):
+		ns.destroy()
+		set_input_amplitude(amplitude)
+		update_amplifier(impedance, 500)
+		thdplot = plots[x][2*y]
+		sinplot = plots[x][2*y+1]
+		make_thd_plot(thdplot, sinplot)
+		thdplot.set_title("%.1fV, %.0fkOhm" % (amplitude, impedance/1000))
+		thdplot.set_ylim([-35,-4])
+		sinplot.set_ylim([-2*amplitude, 2*amplitude])
+
+		#thdplot.tick_params(axis='x', direction='in', pad=-14)
+		#thdplot.tick_params(axis='y', direction='in', pad=-30)
+		#sinplot.tick_params(direction='in', pad=-12)
+
+		sinplot.yaxis.tick_right()
+
+		if x != len(amplitudes)-1:
+			thdplot.set_xlabel(None)
+			thdplot.xaxis.set_major_formatter(plt.NullFormatter())
+		
+		thdplot.set_ylabel(None)
+
+		if x != 0:
+			thdplot.set_title(None)
+			sinplot.set_title(None)
+		else:
+			thdplot.set_title("thd")
+			sinplot.set_title("sin shape @ 1mA")
+			
+			sinplot.text(-0.1, 1.0, 'impedance = %s\n\n' % ohmfmt.format_data(impedance), fontsize=12, horizontalalignment='center', verticalalignment='baseline', transform=sinplot.transAxes)
+
+		if y == 0:
+			thdplot.text(0, 0.5, '%s in\n\n\n' % voltfmt.format_data(amplitude/100), fontsize=10, horizontalalignment='right', verticalalignment='center', transform=thdplot.transAxes, rotation='vertical')
+
+		if y != 0:
+			thdplot.yaxis.set_major_formatter(plt.NullFormatter())
+	
+		if y != len(impedances)-1:
+			sinplot.yaxis.set_major_formatter(plt.NullFormatter())
 
 
 #calc_attenuation_and_phase(1000, 0.5, n_periods=10, t_skip_ms = 0, debug=True)
