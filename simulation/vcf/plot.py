@@ -6,6 +6,9 @@ import numpy as np
 import scipy.interpolate
 import thd
 
+
+DRAFT_MODE=True
+
 ns.source("vcf_plottable.cir")
 
 plt.rcParams.update({'font.size': 8})
@@ -61,6 +64,7 @@ def interpolate_periodic(x, y, period):
 
 def calc_thd(freq):
 	steps = 64 # 256 seems to give the same results as 1024, 64 seems to be "good enough" and fast.
+	if DRAFT_MODE: steps = 32
 	_, signal, time = simulate_waveform(freq, n_periods = 1, steps_per_period = steps)
 	interpolator = interpolate_periodic(time, signal, 1/freq)
 	interpolated = [interpolator(x / steps / freq) for x in range(steps)]
@@ -112,7 +116,7 @@ def make_thd_plot(thdplot, sinplot):
 	#sinplot.set_yticks([],[])
 	#sinplot.set_title("sine shape at cc = 1mA")
 	#for voltage in np.arange(3,18, 1):
-	for voltage in my_logspace(3,30,10):
+	for voltage in my_logspace(3,30,10 if not DRAFT_MODE else 4):
 		printall(ns.cmd("alter v1 %f"%voltage))
 		printall(ns.cmd("alter v2 %f"%voltage))
 
@@ -138,13 +142,14 @@ def make_thd_plot(thdplot, sinplot):
 	
 	#thdplot.legend()
 
-
-amplitudes = [0.5,1,2,4,8,16,32]
-impedances = [100, 1000, 10*1000, 100*1000, 1000*1000]
-#amplitudes = [1,4,16]
-#impedances = [100, 10*1000, 1000*1000]
-#amplitudes = [4,8]
-#impedances = [10*1000,100*1000]
+if not DRAFT_MODE:
+	amplitudes = [0.5,1,2,4,8,16,32]
+	impedances = [100, 1000, 10*1000, 100*1000, 1000*1000]
+else:
+	amplitudes = [4,8]
+	impedances = [10*1000,100*1000]
+	#amplitudes = [1,4,16]
+	#impedances = [100, 10*1000, 1000*1000]
 
 ohmfmt = ticker.EngFormatter(unit="Ω")
 voltfmt = ticker.EngFormatter(unit="V")
