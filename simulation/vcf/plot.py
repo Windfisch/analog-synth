@@ -156,31 +156,31 @@ voltfmt = ticker.EngFormatter(unit="V")
 
 _, plots = plt.subplots(len(amplitudes),2*len(impedances))
 
-for x, amplitude in enumerate(amplitudes):
-	for y, impedance in enumerate(impedances):
+for y, amplitude in enumerate(amplitudes):
+	for x, impedance in enumerate(impedances):
 		ns.destroy()
 		set_input_amplitude(amplitude)
 		update_amplifier(impedance, 500)
-		thdplot = plots[x][2*y]
-		sinplot = plots[x][2*y+1]
+		thdplot = plots[y][2*x]
+		sinplot = plots[y][2*x+1]
 		make_thd_plot(thdplot, sinplot)
 		thdplot.set_title("%.1fV, %.0fkOhm" % (amplitude, impedance/1000))
 		thdplot.set_ylim([-35,-4])
 		sinplot.set_ylim([-2*amplitude, 2*amplitude])
 
-		#thdplot.tick_params(axis='x', direction='in', pad=-14)
-		#thdplot.tick_params(axis='y', direction='in', pad=-30)
+		#thdplot.tick_params(axis='y', direction='in', pad=-14)
+		#thdplot.tick_params(axis='x', direction='in', pad=-30)
 		#sinplot.tick_params(direction='in', pad=-12)
 
 		sinplot.yaxis.tick_right()
 
-		if x != len(amplitudes)-1:
+		if y != len(amplitudes)-1:
 			thdplot.set_xlabel(None)
 			thdplot.xaxis.set_major_formatter(plt.NullFormatter())
 		
 		thdplot.set_ylabel(None)
 
-		if x != 0:
+		if y != 0:
 			thdplot.set_title(None)
 			sinplot.set_title(None)
 		else:
@@ -189,13 +189,13 @@ for x, amplitude in enumerate(amplitudes):
 			
 			sinplot.text(-0.1, 1.0, 'impedance = %s\n\n' % ohmfmt.format_data(impedance), fontsize=12, horizontalalignment='center', verticalalignment='baseline', transform=sinplot.transAxes)
 
-		if y == 0:
+		if x == 0:
 			thdplot.text(0, 0.5, '%s in\n\n\n' % voltfmt.format_data(amplitude/100), fontsize=10, horizontalalignment='right', verticalalignment='center', transform=thdplot.transAxes, rotation='vertical')
 
-		if y != 0:
+		if x != 0:
 			thdplot.yaxis.set_major_formatter(plt.NullFormatter())
 	
-		if y != len(impedances)-1:
+		if x != len(impedances)-1:
 			sinplot.yaxis.set_major_formatter(plt.NullFormatter())
 
 
