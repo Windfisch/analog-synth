@@ -108,7 +108,7 @@ def calc_attenuation_and_phase(freq, control_current_mA, n_periods = 2, t_skip_m
 	
 	return attenuation_db, period
 
-def make_thd_plot(thdplot, sinplot):
+def make_thd_plot(thdplot, sinplot, voltages):
 	thdplot.set_ylabel("thd (dB)")
 	thdplot.set_xlabel("control current (mA)")
 	thdplot.set_title("total harmonic distortion")
@@ -116,7 +116,7 @@ def make_thd_plot(thdplot, sinplot):
 	#sinplot.set_yticks([],[])
 	#sinplot.set_title("sine shape at cc = 1mA")
 	#for voltage in np.arange(3,18, 1):
-	for voltage in my_logspace(3,30,10 if not DRAFT_MODE else 4):
+	for voltage in voltages:
 		printall(ns.cmd("alter v1 %f"%voltage))
 		printall(ns.cmd("alter v2 %f"%voltage))
 
@@ -150,11 +150,12 @@ else:
 	impedances = [10*1000,100*1000]
 	#amplitudes = [1,4,16]
 	#impedances = [100, 10*1000, 1000*1000]
+supply_voltages = my_logspace(3,30,10 if not DRAFT_MODE else 4)
 
 ohmfmt = ticker.EngFormatter(unit="Ω")
 voltfmt = ticker.EngFormatter(unit="V")
 
-_, plots = plt.subplots(len(amplitudes),2*len(impedances))
+_, plots = plt.subplots(len(amplitudes),2*len(impedances)+1)
 
 for y, amplitude in enumerate(amplitudes):
 	for x, impedance in enumerate(impedances):
@@ -163,7 +164,7 @@ for y, amplitude in enumerate(amplitudes):
 		update_amplifier(impedance, 500)
 		thdplot = plots[y][2*x]
 		sinplot = plots[y][2*x+1]
-		make_thd_plot(thdplot, sinplot)
+		make_thd_plot(thdplot, sinplot, supply_voltages)
 		thdplot.set_title("%.1fV, %.0fkOhm" % (amplitude, impedance/1000))
 		thdplot.set_ylim([-35,-4])
 		sinplot.set_ylim([-2*amplitude, 2*amplitude])
@@ -198,6 +199,18 @@ for y, amplitude in enumerate(amplitudes):
 		if x != len(impedances)-1:
 			sinplot.yaxis.set_major_formatter(plt.NullFormatter())
 
+#	lines = ax.plot(range(10), pylab.randn(10), range(10), pylab.randn(10))
+
+for p in plots:
+	p[-1].axis(False)
+
+def make_legend(labels, subplot):
+	lines = [ plt.plot([],[])[0] for i in labels ]
+	subplot.legend(lines, labels, framealpha=1, frameon=False)
+
+make_legend(["%4.2fV" % v for v in supply_voltages], plots[0][-1])
+#fig.show()
+#figlegend.show()
 
 #calc_attenuation_and_phase(1000, 0.5, n_periods=10, t_skip_ms = 0, debug=True)
 plt.pause(0)
