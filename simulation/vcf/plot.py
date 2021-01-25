@@ -110,9 +110,9 @@ def make_thd_plot(thdplot, sinplot):
 	thdplot.set_title("total harmonic distortion")
 	sinplot.set_xticks([],[])
 	#sinplot.set_yticks([],[])
-	sinplot.set_title("sine shape at cc = 1mA")
+	#sinplot.set_title("sine shape at cc = 1mA")
 	#for voltage in np.arange(3,18, 1):
-	for voltage in my_logspace(3,30,4): # FIXME 4 -> 10
+	for voltage in my_logspace(3,30,10):
 		printall(ns.cmd("alter v1 %f"%voltage))
 		printall(ns.cmd("alter v2 %f"%voltage))
 
@@ -122,6 +122,8 @@ def make_thd_plot(thdplot, sinplot):
 			printall(ns.cmd("alter i1 %fm" % current))
 			y.append(calc_thd(300))
 
+		
+		printall(ns.cmd("alter i1 40u"))
 		_, signal, time = simulate_waveform(300, n_periods = 1, steps_per_period=64)
 
 		thdplot.plot(x/1000, np.log10(y)*10, label="+/- %fV"%voltage)
@@ -178,7 +180,7 @@ for x, amplitude in enumerate(amplitudes):
 			sinplot.set_title(None)
 		else:
 			thdplot.set_title("thd")
-			sinplot.set_title("sin shape @ 1mA")
+			sinplot.set_title("sin shape @ 40µA")
 			
 			sinplot.text(-0.1, 1.0, 'impedance = %s\n\n' % ohmfmt.format_data(impedance), fontsize=12, horizontalalignment='center', verticalalignment='baseline', transform=sinplot.transAxes)
 
