@@ -5,14 +5,19 @@ import math
 import numpy as np
 import scipy.interpolate
 import thd
+import sys
+import os
+
+DRAFT_MODE=False
+
+infile = sys.argv[1]
+outfile = os.path.splitext(infile)[0] + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
 
 
-DRAFT_MODE=True
 
-ns.source("vcf_plottable.cir")
+ns.source(infile)
 
 plt.rcParams.update({'font.size': 8})
-
 t_skip_ms = 25
 n_periods = 2
 freq = 1013.12
@@ -142,14 +147,16 @@ def make_thd_plot(thdplot, sinplot, voltages):
 	
 	#thdplot.legend()
 
+#printall(ns.cmd("alter r101 10k"))
+#printall(ns.cmd("alter r102 10k"))
+
 if not DRAFT_MODE:
 	amplitudes = [0.5,1,2,4,8,16,32]
 	impedances = [100, 1000, 10*1000, 100*1000, 1000*1000]
 else:
 	amplitudes = [4,8]
 	impedances = [10*1000,100*1000]
-	#amplitudes = [1,4,16]
-	#impedances = [100, 10*1000, 1000*1000]
+
 supply_voltages = my_logspace(3,30,10 if not DRAFT_MODE else 4)
 
 ohmfmt = ticker.EngFormatter(unit="Ω")
@@ -209,6 +216,10 @@ def make_legend(labels, subplot):
 	subplot.legend(lines, labels, framealpha=1, frameon=False)
 
 make_legend(["%4.2fV" % v for v in supply_voltages], plots[0][-1])
+plots[0][-1].set_title("supply voltage")
+
+plt.gcf().set_size_inches(20,11)
+plt.savefig(outfile)
 #fig.show()
 #figlegend.show()
 
