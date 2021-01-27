@@ -8,20 +8,6 @@ import thd
 import sys
 import os
 
-DRAFT_MODE=False
-
-infile = sys.argv[1]
-outfile = os.path.splitext(infile)[0] + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
-
-
-
-ns.source(infile)
-
-plt.rcParams.update({'font.size': 8})
-t_skip_ms = 25
-n_periods = 2
-freq = 1013.12
-
 def my_logspace(lo, hi, steps = 50):
 	return np.logspace(np.log10(lo), np.log10(hi), steps)
 
@@ -57,6 +43,7 @@ def simulate_waveform(freq, n_periods = 2, t_skip_ms = 25, steps_per_period=200)
 	actual_t_skip_ms = skip_periods / freq * 1000
 	t_run_ms = actual_t_skip_ms + n_periods / freq * 1000
 
+	ns.destroy()
 	print("tran %fu %fm %fm" % (timestep*1000000, t_run_ms, actual_t_skip_ms))
 	ns.cmd("tran %fu %fm %fm" % (timestep*1000000, t_run_ms, actual_t_skip_ms))
 
@@ -147,86 +134,9 @@ def make_thd_plot(thdplot, sinplot, voltages):
 	
 	#thdplot.legend()
 
-#printall(ns.cmd("alter r101 10k"))
-#printall(ns.cmd("alter r102 10k"))
-
-if not DRAFT_MODE:
-	amplitudes = [0.5,1,2,4,8,16,32]
-	impedances = [100, 1000, 10*1000, 100*1000, 1000*1000]
-else:
-	amplitudes = [4,8]
-	impedances = [10*1000,100*1000]
-
-supply_voltages = my_logspace(3,30,10 if not DRAFT_MODE else 4)
-
-ohmfmt = ticker.EngFormatter(unit="Ω")
-voltfmt = ticker.EngFormatter(unit="V")
-
-_, plots = plt.subplots(len(amplitudes),2*len(impedances)+1)
-
-for y, amplitude in enumerate(amplitudes):
-	for x, impedance in enumerate(impedances):
-		ns.destroy()
-		set_input_amplitude(amplitude)
-		update_amplifier(impedance, 500)
-		thdplot = plots[y][2*x]
-		sinplot = plots[y][2*x+1]
-		make_thd_plot(thdplot, sinplot, supply_voltages)
-		thdplot.set_title("%.1fV, %.0fkOhm" % (amplitude, impedance/1000))
-		thdplot.set_ylim([-35,-4])
-		sinplot.set_ylim([-2*amplitude, 2*amplitude])
-
-		#thdplot.tick_params(axis='y', direction='in', pad=-14)
-		#thdplot.tick_params(axis='x', direction='in', pad=-30)
-		#sinplot.tick_params(direction='in', pad=-12)
-
-		sinplot.yaxis.tick_right()
-
-		if y != len(amplitudes)-1:
-			thdplot.set_xlabel(None)
-			thdplot.xaxis.set_major_formatter(plt.NullFormatter())
-		
-		thdplot.set_ylabel(None)
-
-		if y != 0:
-			thdplot.set_title(None)
-			sinplot.set_title(None)
-		else:
-			thdplot.set_title("thd")
-			sinplot.set_title("sin shape @ 40µA")
-			
-			sinplot.text(-0.1, 1.0, 'impedance = %s\n\n' % ohmfmt.format_data(impedance), fontsize=12, horizontalalignment='center', verticalalignment='baseline', transform=sinplot.transAxes)
-
-		if x == 0:
-			thdplot.text(0, 0.5, '%s in\n\n\n' % voltfmt.format_data(amplitude/100), fontsize=10, horizontalalignment='right', verticalalignment='center', transform=thdplot.transAxes, rotation='vertical')
-
-		if x != 0:
-			thdplot.yaxis.set_major_formatter(plt.NullFormatter())
-	
-		if x != len(impedances)-1:
-			sinplot.yaxis.set_major_formatter(plt.NullFormatter())
-
-#	lines = ax.plot(range(10), pylab.randn(10), range(10), pylab.randn(10))
-
-for p in plots:
-	p[-1].axis(False)
-
-def make_legend(labels, subplot):
+def make_thd_legend(labels, subplot):
 	lines = [ plt.plot([],[])[0] for i in labels ]
 	subplot.legend(lines, labels, framealpha=1, frameon=False)
-
-make_legend(["%4.2fV" % v for v in supply_voltages], plots[0][-1])
-plots[0][-1].set_title("supply voltage")
-
-plt.gcf().set_size_inches(20,11)
-plt.savefig(outfile)
-#fig.show()
-#figlegend.show()
-
-#calc_attenuation_and_phase(1000, 0.5, n_periods=10, t_skip_ms = 0, debug=True)
-plt.pause(0)
-exit()
-
 
 def calc_bode(control_current_mA, freqs, steps_per_period = 200):
 	attns = []
@@ -237,27 +147,114 @@ def calc_bode(control_current_mA, freqs, steps_per_period = 200):
 		attns.append(attn)
 		phases.append(phase)
 	return attns, phases
+#printall(ns.cmd("alter r101 10k"))
+#printall(ns.cmd("alter r102 10k"))
+
+
+def plot_thd_grid(outfile):
+	if not DRAFT_MODE:
+		amplitudes = [0.5,1,2,4,8,16,32]
+		impedances = [100, 1000, 10*1000, 100*1000, 1000*1000]
+	else:
+		amplitudes = [4,8]
+		impedances = [10*1000,100*1000]
+
+	supply_voltages = my_logspace(3,30,10 if not DRAFT_MODE else 4)
+
+	ohmfmt = ticker.EngFormatter(unit="Ω")
+	voltfmt = ticker.EngFormatter(unit="V")
+
+	_, plots = plt.subplots(len(amplitudes),2*len(impedances)+1)
+
+	for y, amplitude in enumerate(amplitudes):
+		for x, impedance in enumerate(impedances):
+			ns.destroy()
+			set_input_amplitude(amplitude)
+			update_amplifier(impedance, 500)
+			thdplot = plots[y][2*x]
+			sinplot = plots[y][2*x+1]
+			make_thd_plot(thdplot, sinplot, supply_voltages)
+			thdplot.set_title("%.1fV, %.0fkOhm" % (amplitude, impedance/1000))
+			thdplot.set_ylim([-35,-4])
+			sinplot.set_ylim([-2*amplitude, 2*amplitude])
+
+			sinplot.yaxis.tick_right()
+
+			if y != len(amplitudes)-1:
+				thdplot.set_xlabel(None)
+				thdplot.xaxis.set_major_formatter(plt.NullFormatter())
+			
+			thdplot.set_ylabel(None)
+
+			if y != 0:
+				thdplot.set_title(None)
+				sinplot.set_title(None)
+			else:
+				thdplot.set_title("thd")
+				sinplot.set_title("sin shape @ 40µA")
+				
+				sinplot.text(-0.1, 1.0, 'impedance = %s\n\n' % ohmfmt.format_data(impedance), fontsize=12, horizontalalignment='center', verticalalignment='baseline', transform=sinplot.transAxes)
+
+			if x == 0:
+				thdplot.text(0, 0.5, '%s in\n\n\n' % voltfmt.format_data(amplitude/100), fontsize=10, horizontalalignment='right', verticalalignment='center', transform=thdplot.transAxes, rotation='vertical')
+
+			if x != 0:
+				thdplot.yaxis.set_major_formatter(plt.NullFormatter())
+		
+			if x != len(impedances)-1:
+				sinplot.yaxis.set_major_formatter(plt.NullFormatter())
+
+	for p in plots:
+		p[-1].axis(False)
+
+	make_thd_legend(["%4.2fV" % v for v in supply_voltages], plots[0][-1])
+	plots[0][-1].set_title("supply voltage")
+
+	plt.gcf().set_size_inches(20,11)
+	if outfile is not None:
+		plt.savefig(outfile)
+
+def plot_bode():
+	plt.clf()
+	
+	freqs = my_logspace(5, 20000, 10 if DRAFT_MODE else 30)
+
+	update_amplifier(10*1000*1000, 10)
+	printall(ns.cmd("alter c6 100u"))
+	#printall(ns.cmd("alter v1 3"))
+	#printall(ns.cmd("alter v2 3"))
+
+
+	plt.xscale('log')
+
+	for current in my_logspace(0.001, 1, 5 if DRAFT_MODE else 10):
+		attns, phases = calc_bode(current, freqs, steps_per_period = 20)
+		plt.plot(freqs, attns, label="%5fmA" % (current*1000))
+
+	plt.legend()
 
 
 
-update_amplifier(10*1000*1000, 500)
-printall(ns.cmd("alter c6 100u"))
-#printall(ns.cmd("alter v1 3"))
-#printall(ns.cmd("alter v2 3"))
+DRAFT_MODE = '-D' in sys.argv or '--draft' in sys.argv
+write_outfile = '-p' in sys.argv or '--pdf' in sys.argv
+do_plot_thd = '-t' in sys.argv or '--thd' in sys.argv
+do_plot_bode = '-b' in sys.argv or '--bode' in sys.argv
+infile = [arg for arg in sys.argv[1:] if arg[0] != '-'][0]
+thd_outfile = os.path.splitext(infile)[0] + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
 
-freqs = my_logspace(5, 20000, 20)
+ns.source(infile)
+plt.rcParams.update({'font.size': 8})
 
-plt.xscale('log')
+if do_plot_thd:
+	plot_thd_grid(thd_outfile if write_outfile else None)
 
-for current in my_logspace(0.001, 1, 5):
-	attns, phases = calc_bode(current, freqs, steps_per_period = 20)
-	plt.plot(freqs, attns, label="%5fmA" % (current*1000))
+if do_plot_bode:
+	plot_bode()
 
-plt.legend()
-plt.pause(20)
+plt.show()
 
+exit(0)
 
-attns, phases = calc_bode(0.1, freqs)
 
 #plt.xscale('log')
 #plt.yscale('log')
