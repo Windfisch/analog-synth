@@ -143,7 +143,7 @@ def calc_bode(control_current_mA, freqs, steps_per_period = 200):
 	phases = []
 	for freq in freqs:
 		print(freq)
-		attn, phase = calc_attenuation_and_phase(freq, control_current_mA, steps_per_period = steps_per_period)
+		attn, phase = calc_attenuation_and_phase(freq, control_current_mA, steps_per_period = steps_per_period, t_skip_ms = 1)
 		attns.append(attn)
 		phases.append(phase)
 	return attns, phases
@@ -214,24 +214,33 @@ def plot_thd_grid(outfile):
 	if outfile is not None:
 		plt.savefig(outfile)
 
+def plot_single_bode_family(plot):
+	plot.set_xscale('log')
+
+	freqs = my_logspace(5, 20000, 10 if DRAFT_MODE else 30)
+	for current in my_logspace(0.001, 10, 5 if DRAFT_MODE else 15):
+		attns, phases = calc_bode(current, freqs, steps_per_period = 20)
+		plot.plot(freqs, attns, label="%5fmA" % (current*1000))
+
+	plot.legend()
+
 def plot_bode():
 	plt.clf()
-	
-	freqs = my_logspace(5, 20000, 10 if DRAFT_MODE else 30)
-
-	update_amplifier(10*1000*1000, 10)
 	printall(ns.cmd("alter c6 100u"))
 	#printall(ns.cmd("alter v1 3"))
 	#printall(ns.cmd("alter v2 3"))
 
+	gains = [500 ** (1/n) for n in range(3,0,-1)]
+	impedances = [10*1000, 100*1000, 1000*1000, 10*1000*1000]
+	
+	_, subplots = plt.subplots(len(gains), len(impedances))
+	
+	for y, gain in enumerate(gains):
+		for x, impedance_ohms in enumerate(impedances):
+			update_amplifier(impedance_ohms, gain)
+			plot_single_bode_family(subplots[y][x])
 
-	plt.xscale('log')
 
-	for current in my_logspace(0.001, 1, 5 if DRAFT_MODE else 10):
-		attns, phases = calc_bode(current, freqs, steps_per_period = 20)
-		plt.plot(freqs, attns, label="%5fmA" % (current*1000))
-
-	plt.legend()
 
 
 
