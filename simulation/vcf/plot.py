@@ -134,7 +134,7 @@ def make_thd_plot(thdplot, sinplot, voltages):
 	
 	#thdplot.legend()
 
-def make_thd_legend(labels, subplot):
+def make_legend(labels, subplot):
 	lines = [ plt.plot([],[])[0] for i in labels ]
 	subplot.legend(lines, labels, framealpha=1, frameon=False)
 
@@ -207,22 +207,22 @@ def plot_thd_grid(outfile):
 	for p in plots:
 		p[-1].axis(False)
 
-	make_thd_legend(["%4.2fV" % v for v in supply_voltages], plots[0][-1])
+	make_legend(["%4.2fV" % v for v in supply_voltages], plots[0][-1])
 	plots[0][-1].set_title("supply voltage")
 
 	plt.gcf().set_size_inches(20,11)
 	if outfile is not None:
 		plt.savefig(outfile)
 
-def plot_single_bode_family(plot):
+def plot_single_bode_family(plot, currents):
 	plot.set_xscale('log')
 
 	freqs = my_logspace(5, 20000, 10 if DRAFT_MODE else 30)
-	for current in my_logspace(0.001, 10, 5 if DRAFT_MODE else 15):
+	for current in currents:
 		attns, phases = calc_bode(current, freqs, steps_per_period = 20)
 		plot.plot(freqs, attns, label="%5fmA" % (current*1000))
 
-	plot.legend()
+	#plot.legend()
 
 def plot_bode():
 	plt.clf()
@@ -232,14 +232,36 @@ def plot_bode():
 
 	gains = [500 ** (1/n) for n in range(3,0,-1)]
 	impedances = [10*1000, 100*1000, 1000*1000, 10*1000*1000]
+	currents = my_logspace(0.001, 10, 5 if DRAFT_MODE else 15)
 	
-	_, subplots = plt.subplots(len(gains), len(impedances))
+	_, plots = plt.subplots(len(gains), len(impedances)+1)
 	
+	fmt_Hz = ticker.EngFormatter(unit='Hz')
+	fmt_dB = ticker.EngFormatter(unit='dB')
+	ohmfmt = ticker.EngFormatter(unit="Ω")
+
 	for y, gain in enumerate(gains):
 		for x, impedance_ohms in enumerate(impedances):
 			update_amplifier(impedance_ohms, gain)
-			plot_single_bode_family(subplots[y][x])
+			plot_single_bode_family(plots[y][x], currents)
+			plots[y][x].set_ylim(10*math.log10(gain/500)-55, 10*math.log10(gain/500)+5)
+			plots[y][x].xaxis.set_major_formatter(fmt_Hz)
+			plots[y][x].yaxis.set_major_formatter(fmt_dB)
 
+			if x == 0:
+				plots[y][x].text(0, 0.5, 'gain = %.1f×\n\n\n\n' % gain, fontsize=10, horizontalalignment='right', verticalalignment='center', transform=plots[y][x].transAxes, rotation='vertical')
+
+			if y == 0:
+				plots[y][x].text(0.5, 1.0, 'impedance = %s\n' % ohmfmt.format_data(impedance_ohms), fontsize=10, horizontalalignment='center', verticalalignment='baseline', transform=plots[y][x].transAxes)
+			if y == len(gains)-1:
+				plots[y][x].set_xlabel("Frequency")
+
+	for p in plots:
+		p[-1].axis(False)
+
+	fmt = ticker.EngFormatter(unit="A")
+	make_legend([fmt.format_data(c) for c in currents], plots[0][-1])
+	
 
 
 
