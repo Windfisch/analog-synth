@@ -143,7 +143,7 @@ def calc_bode(control_current_mA, freqs, steps_per_period = 200):
 	phases = []
 	for freq in freqs:
 		print(freq)
-		attn, phase = calc_attenuation_and_phase(freq, control_current_mA, steps_per_period = steps_per_period, t_skip_ms = 1)
+		attn, phase = calc_attenuation_and_phase(freq, control_current_mA, steps_per_period = steps_per_period, t_skip_ms = 1 if DRAFT_MODE else 1, n_periods = 2)
 		attns.append(attn)
 		phases.append(phase)
 	return attns, phases
@@ -217,24 +217,25 @@ def plot_thd_grid(outfile):
 def plot_single_bode_family(plot, currents):
 	plot.set_xscale('log')
 
-	freqs = my_logspace(5, 20000, 10 if DRAFT_MODE else 30)
+	freqs = my_logspace(5, 20000, 10 if DRAFT_MODE else 50)
 	for current in currents:
-		attns, phases = calc_bode(current, freqs, steps_per_period = 20)
+		attns, phases = calc_bode(current, freqs, steps_per_period = 32)
 		plot.plot(freqs, attns, label="%5fmA" % (current*1000))
 
 	#plot.legend()
 
-def plot_bode():
+def plot_bode(outfile):
 	plt.clf()
 	printall(ns.cmd("alter c6 100u"))
 	#printall(ns.cmd("alter v1 3"))
 	#printall(ns.cmd("alter v2 3"))
 
 	gains = [500 ** (1/n) for n in range(3,0,-1)]
-	impedances = [10*1000, 100*1000, 1000*1000, 10*1000*1000]
-	currents = my_logspace(0.001, 10, 5 if DRAFT_MODE else 15)
+	impedances = [1000, 10*1000, 100*1000, 1000*1000, 10*1000*1000]
+	currents_mA = [0] + list(my_logspace(0.0001, 10, 5 if DRAFT_MODE else 16))
 	
-	_, plots = plt.subplots(len(gains), len(impedances)+1)
+	
+	_, plots = plt.subplots(len(gains), len(impedances)+1, gridspec_kw={'width_ratios': [3]*len(impedances) + [1]})
 	
 	fmt_Hz = ticker.EngFormatter(unit='Hz')
 	fmt_dB = ticker.EngFormatter(unit='dB')
@@ -243,7 +244,7 @@ def plot_bode():
 	for y, gain in enumerate(gains):
 		for x, impedance_ohms in enumerate(impedances):
 			update_amplifier(impedance_ohms, gain)
-			plot_single_bode_family(plots[y][x], currents)
+			plot_single_bode_family(plots[y][x], currents_mA)
 			plots[y][x].set_ylim(10*math.log10(gain/500)-55, 10*math.log10(gain/500)+5)
 			plots[y][x].xaxis.set_major_formatter(fmt_Hz)
 			plots[y][x].yaxis.set_major_formatter(fmt_dB)
@@ -260,8 +261,11 @@ def plot_bode():
 		p[-1].axis(False)
 
 	fmt = ticker.EngFormatter(unit="A")
-	make_legend([fmt.format_data(c) for c in currents], plots[0][-1])
-	
+	make_legend([fmt.format_data(c/1000) for c in currents_mA], plots[0][-1])
+
+	plt.gcf().set_size_inches(20,11)
+	if outfile is not None:
+		plt.savefig(outfile)
 
 
 
@@ -271,7 +275,8 @@ write_outfile = '-p' in sys.argv or '--pdf' in sys.argv
 do_plot_thd = '-t' in sys.argv or '--thd' in sys.argv
 do_plot_bode = '-b' in sys.argv or '--bode' in sys.argv
 infile = [arg for arg in sys.argv[1:] if arg[0] != '-'][0]
-thd_outfile = os.path.splitext(infile)[0] + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
+thd_outfile = os.path.splitext(infile)[0] + "_thd" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
+bode_outfile = os.path.splitext(infile)[0] + "_bode" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
 
 ns.source(infile)
 plt.rcParams.update({'font.size': 8})
@@ -280,9 +285,10 @@ if do_plot_thd:
 	plot_thd_grid(thd_outfile if write_outfile else None)
 
 if do_plot_bode:
-	plot_bode()
+	plot_bode(bode_outfile if write_outfile else None)
 
-plt.show()
+if not write_outfile:
+	plt.show()
 
 exit(0)
 
