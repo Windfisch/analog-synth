@@ -691,13 +691,13 @@ L pspice:OPAMP U2
 U 1 1 5CF0F48E
 P 9975 5575
 F 0 "U2" H 10100 5475 50  0000 L CNN
-F 1 "LM324" H 9975 5375 50  0000 L CNN
+F 1 "TL074" H 9975 5375 50  0000 L CNN
 F 2 "" H 9975 5575 50  0001 C CNN
 F 3 "~" H 9975 5575 50  0001 C CNN
 F 4 "X" H 9975 5575 50  0001 C CNN "Spice_Primitive"
-F 5 "LM324" H 9975 5575 50  0001 C CNN "Spice_Model"
+F 5 "TL074" H 9975 5575 50  0001 C CNN "Spice_Model"
 F 6 "Y" H 9975 5575 50  0001 C CNN "Spice_Netlist_Enabled"
-F 7 "/home/flo/analog-synth/simulation/lib/LM324.ti.lib" H 9975 5575 50  0001 C CNN "Spice_Lib_File"
+F 7 "/home/flo/analog-synth/simulation/lib/TL074.ti.lib" H 9975 5575 50  0001 C CNN "Spice_Lib_File"
 F 8 "1,2,4,5,3" H 9975 5575 50  0001 C CNN "Spice_Node_Sequence"
 	1    9975 5575
 	1    0    0    -1  

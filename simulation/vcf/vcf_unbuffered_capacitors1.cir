@@ -1,6 +1,6 @@
 .title KiCad schematic
 .include "/home/flo/analog-synth/simulation/lib/BC547_557.lib"
-.include "/home/flo/analog-synth/simulation/lib/LM324.ti.lib"
+.include "/home/flo/analog-synth/simulation/lib/TL074.ti.lib"
 Q4 diff1 Net-_Q2-Pad2_ Net-_C4-Pad1_ NC_01 BC557b
 Q2 diff2 Net-_Q2-Pad2_ Net-_C4-Pad2_ NC_02 BC557b
 R3 0 signal_preatt 1k
@@ -32,7 +32,7 @@ C2 Net-_C2-Pad1_ Net-_C2-Pad2_ 47n
 I1 0 Net-_I1-Pad2_ 0.01m
 C6 Net-_C6-Pad1_ signal_preatt 10u
 R9 Net-_C101-Pad1_ 0 500k
-XU2 Net-_C101-Pad1_ Net-_C101-Pad2_ VCC VEE signal_out LM324
+XU2 Net-_C101-Pad1_ Net-_C101-Pad2_ VCC VEE signal_out TL074
 R7 Net-_C101-Pad1_ diff1 1k
 R8 Net-_C101-Pad2_ diff2 1k
 C101 Net-_C101-Pad1_ Net-_C101-Pad2_ 27p
