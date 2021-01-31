@@ -18,12 +18,23 @@ def zero_crossings(a):
 	return np.where(np.diff(np.array(a)>=0.0))[0]
 
 def update_amplifier(impedance_ohms, factor):
-	r78 = impedance_ohms
-	r910 = r78 * factor
-	printall(ns.cmd("alter r7 %f" % r78))
-	printall(ns.cmd("alter r8 %f" % r78))
-	printall(ns.cmd("alter r9 %f" % r910))
-	printall(ns.cmd("alter r10 %f" % r910))
+	if not TWO_STAGE_AMP:
+		r78 = impedance_ohms
+		r910 = r78 * factor
+		printall(ns.cmd("alter r7 %f" % r78))
+		printall(ns.cmd("alter r8 %f" % r78))
+		printall(ns.cmd("alter r9 %f" % r910))
+		printall(ns.cmd("alter r10 %f" % r910))
+	else:
+		factor_sqrt = math.sqrt(factor)
+		r78 = impedance_ohms
+		r910 = r78 * factor_sqrt
+		printall(ns.cmd("alter r7 %f" % r78))
+		printall(ns.cmd("alter r8 %f" % r78))
+		printall(ns.cmd("alter r9 %f" % r910))
+		printall(ns.cmd("alter r10 %f" % r910))
+		printall(ns.cmd("alter r101 %f" % r78))
+		printall(ns.cmd("alter r102 %f" % r910))
 
 def set_input_amplitude(amplitude):
 	printall(ns.cmd("let tmp =  @v4[sin]"))
@@ -274,6 +285,7 @@ DRAFT_MODE = '-D' in sys.argv or '--draft' in sys.argv
 write_outfile = '-p' in sys.argv or '--pdf' in sys.argv
 do_plot_thd = '-t' in sys.argv or '--thd' in sys.argv
 do_plot_bode = '-b' in sys.argv or '--bode' in sys.argv
+TWO_STAGE_AMP = '-2' in sys.argv or '--two-stage' in sys.argv
 infile = [arg for arg in sys.argv[1:] if arg[0] != '-'][0]
 thd_outfile = os.path.splitext(infile)[0] + "_thd" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
 bode_outfile = os.path.splitext(infile)[0] + "_bode" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
