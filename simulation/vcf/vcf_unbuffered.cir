@@ -35,3 +35,4 @@ R9 Net-_R7-Pad1_ 0 500k
 XU2 Net-_R7-Pad1_ Net-_R10-Pad2_ VCC VEE signal_out LM324
 R7 Net-_R7-Pad1_ diff1 1k
 R8 Net-_R10-Pad2_ diff2 1k
+.end
