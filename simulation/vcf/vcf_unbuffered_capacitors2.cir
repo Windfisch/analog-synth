@@ -36,8 +36,8 @@ XU2 Net-_C101-Pad1_ Net-_C101-Pad2_ VCC VEE signal_out LM324
 R7 Net-_C101-Pad1_ diff1 1k
 R8 Net-_C101-Pad2_ diff2 1k
 C101 Net-_C101-Pad1_ Net-_C101-Pad2_ 27p
-C102 signal_out Net-_C101-Pad2_ 27p
-C111 Net-_C111-Pad1_ 0 4.7n
+C102 signal_out Net-_C101-Pad2_ 2.2n
+C111 Net-_C111-Pad1_ 0 2.2n
 C113 Net-_C113-Pad1_ 0 4.7n
 C112 0 Net-_C112-Pad2_ 4.7n
 .end
