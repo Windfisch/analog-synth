@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 1 1
 Title "voice board"
 Date ""
-Rev "02"
+Rev "02_patch3"
 Comp "Windfisch"
 Comment1 ""
 Comment2 ""
@@ -576,8 +576,6 @@ F 3 "~" H 9900 2575 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9900 3825 9900 2725
-Wire Wire Line
 	9900 2125 9675 2125
 $Comp
 L power:GND #PWR010
@@ -777,7 +775,7 @@ F 3 "~" H 9900 2275 50  0001 C CNN
 	1    9900 2275
 	1    0    0    -1  
 $EndComp
-Text Notes 9925 3800 0    50   ~ 0
+Text Notes 9825 2725 1    50   ~ 0
 feedback
 $Comp
 L Device:R R31
@@ -814,8 +812,6 @@ F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 9175 4825 50  0001 L CNN
 $EndComp
 Wire Wire Line
 	9975 4575 9900 4575
-Wire Wire Line
-	9825 4375 9900 4375
 $Comp
 L Amplifier_Operational:TL074 U1
 U 4 1 5DF27280
@@ -832,7 +828,7 @@ L Device:R R37
 U 1 1 5DF2728A
 P 9675 4575
 F 0 "R37" V 9575 4550 50  0000 L CNN
-F 1 "1k" V 9675 4525 50  0000 L CNN
+F 1 " " V 9675 4525 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9605 4575 50  0001 C CNN
 F 3 "~" H 9675 4575 50  0001 C CNN
 	1    9675 4575
@@ -843,42 +839,16 @@ L Device:R R36
 U 1 1 5DF27294
 P 9675 4375
 F 0 "R36" V 9775 4350 50  0000 L CNN
-F 1 "1k" V 9675 4325 50  0000 L CNN
+F 1 " " V 9675 4325 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9605 4375 50  0001 C CNN
 F 3 "~" H 9675 4375 50  0001 C CNN
 	1    9675 4375
 	0    1    -1   0   
 $EndComp
-$Comp
-L Device:R R43
-U 1 1 5DF2729E
-P 10250 4150
-F 0 "R43" V 10150 4075 50  0000 L CNN
-F 1 "100k" V 10250 4050 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 10180 4150 50  0001 C CNN
-F 3 "~" H 10250 4150 50  0001 C CNN
-	1    10250 4150
-	0    1    -1   0   
-$EndComp
-Connection ~ 9900 4375
 Wire Wire Line
 	9900 4375 9975 4375
-$Comp
-L Device:R R42
-U 1 1 5DF272AA
-P 9900 4825
-F 0 "R42" H 9975 4800 50  0000 L CNN
-F 1 "100k" V 9900 4725 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9830 4825 50  0001 C CNN
-F 3 "~" H 9900 4825 50  0001 C CNN
-	1    9900 4825
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
 	9900 4675 9900 4575
-Connection ~ 9900 4575
-Wire Wire Line
-	9900 4575 9825 4575
 Text Notes 10000 4875 0    50   ~ 0
 differential to\nsingle-ended
 Wire Wire Line
@@ -916,27 +886,9 @@ Wire Wire Line
 	8775 4575 8775 4625
 Connection ~ 9075 4575
 Wire Wire Line
-	9075 4575 9075 4300
+	9075 4575 9075 4375
 Wire Wire Line
 	9075 4625 9075 4575
-Wire Wire Line
-	9075 4575 9525 4575
-Wire Wire Line
-	8775 4300 8775 4425
-Wire Wire Line
-	9375 4425 8775 4425
-Connection ~ 8775 4425
-Wire Wire Line
-	8775 4425 8775 4575
-Wire Wire Line
-	9375 4425 9375 4375
-Wire Wire Line
-	9375 4375 9525 4375
-Wire Wire Line
-	10575 4150 10575 4050
-Wire Wire Line
-	10575 3825 9900 3825
-Connection ~ 10575 4150
 $Comp
 L Jumper:Jumper_2_Bridged JP1
 U 1 1 5DD3CFE2
@@ -1023,7 +975,7 @@ Text Notes 9900 1975 2    50   ~ 0
 current mirror as\nvoltage controlled\ncurrent source
 Text Notes 9525 4075 1    50   ~ 0
 transistor ladder VCF
-Text GLabel 10575 4475 2    50   Input ~ 0
+Text GLabel 5075 3750 0    50   Input ~ 0
 vcf_audio_out
 Text GLabel 4900 600  0    50   Input ~ 0
 vco1_in
@@ -2966,17 +2918,6 @@ Wire Wire Line
 	5900 5225 6725 5225
 Wire Wire Line
 	6825 5225 6825 5525
-$Comp
-L Device:C_Small C?
-U 1 1 601F797F
-P 9275 1975
-F 0 "C?" H 9367 2021 50  0001 L CNN
-F 1 "4.7n" V 9375 1900 50  0000 L CNN
-F 2 "" H 9275 1975 50  0001 C CNN
-F 3 "~" H 9275 1975 50  0001 C CNN
-	1    9275 1975
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	9375 2225 9375 2125
 Wire Wire Line
@@ -2994,91 +2935,258 @@ F 3 "http://www.fairchildsemi.com/ds/BC/BC557.pdf" H 9175 2225 50  0001 L CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	9375 1975 9375 2125
-Connection ~ 9375 2125
+	8775 4300 8775 4450
+NoConn ~ 9525 4375
+NoConn ~ 9525 4575
+NoConn ~ 9825 4575
+NoConn ~ 9825 4375
+$Comp
+L Amplifier_Operational:TL074 U?
+U 4 1 60235C28
+P 7550 3800
+F 0 "U?" H 7575 3975 50  0000 C CNN
+F 1 "TL074" H 7525 3800 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 7500 3900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 7600 4000 50  0001 C CNN
+	4    7550 3800
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7875 3700 7850 3700
+Wire Wire Line
+	7875 3700 7875 3550
+Wire Wire Line
+	7875 3550 7250 3550
+Wire Wire Line
+	7250 3550 7250 3800
+$Comp
+L Amplifier_Operational:TL074 U?
+U 4 1 6025D195
+P 7550 4350
+F 0 "U?" H 7575 4525 50  0000 C CNN
+F 1 "TL074" H 7525 4350 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 7500 4450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 7600 4550 50  0001 C CNN
+	4    7550 4350
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7875 4250 7850 4250
+Wire Wire Line
+	7875 4250 7875 4100
+Wire Wire Line
+	7875 4100 7250 4100
+Wire Wire Line
+	7250 4100 7250 4350
+Wire Wire Line
+	6675 3750 6750 3750
+$Comp
+L Amplifier_Operational:TL074 U?
+U 4 1 6028A692
+P 6375 3650
+F 0 "U?" H 6400 3825 50  0000 C CNN
+F 1 "TL074" H 6350 3650 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 6325 3750 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 6425 3850 50  0001 C CNN
+	4    6375 3650
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6028A69C
+P 6975 3750
+F 0 "R?" V 6875 3725 50  0000 L CNN
+F 1 "1k" V 6975 3700 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6905 3750 50  0001 C CNN
+F 3 "~" H 6975 3750 50  0001 C CNN
+	1    6975 3750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6028A6A6
+P 6975 3550
+F 0 "R?" V 7075 3525 50  0000 L CNN
+F 1 "1k" V 6975 3500 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6905 3550 50  0001 C CNN
+F 3 "~" H 6975 3550 50  0001 C CNN
+	1    6975 3550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6028A6B0
+P 6400 3325
+F 0 "R?" V 6300 3250 50  0000 L CNN
+F 1 "20k" V 6400 3250 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6330 3325 50  0001 C CNN
+F 3 "~" H 6400 3325 50  0001 C CNN
+	1    6400 3325
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6750 3550 6675 3550
+$Comp
+L Device:R R?
+U 1 1 6028A6BB
+P 6750 4000
+F 0 "R?" H 6825 3975 50  0000 L CNN
+F 1 "20k" V 6750 3925 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6680 4000 50  0001 C CNN
+F 3 "~" H 6750 4000 50  0001 C CNN
+	1    6750 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 3850 6750 3750
+Text Notes 6650 4050 2    50   ~ 0
+differential to\nsingle-ended
+Wire Wire Line
+	6750 3325 6550 3325
+Wire Wire Line
+	6750 3325 6750 3550
 $Comp
 L power:GND #PWR?
-U 1 1 6022405F
-P 9175 1975
-F 0 "#PWR?" H 9175 1725 50  0001 C CNN
-F 1 "GND" H 9180 1802 50  0001 C CNN
-F 2 "" H 9175 1975 50  0001 C CNN
-F 3 "" H 9175 1975 50  0001 C CNN
-	1    9175 1975
+U 1 1 6028A6CB
+P 6750 4150
+F 0 "#PWR?" H 6750 3900 50  0001 C CNN
+F 1 "GND" H 6750 4000 50  0001 C CNN
+F 2 "" H 6750 4150 50  0001 C CNN
+F 3 "" H 6750 4150 50  0001 C CNN
+	1    6750 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7125 3750 7125 4100
+Wire Wire Line
+	7125 4100 7250 4100
+Connection ~ 7250 4100
+Wire Wire Line
+	7125 3550 7250 3550
+Connection ~ 7250 3550
+Wire Wire Line
+	6825 3550 6750 3550
+Connection ~ 6750 3550
+Wire Wire Line
+	6825 3750 6750 3750
+Connection ~ 6750 3750
+Wire Wire Line
+	5675 3850 5725 3850
+$Comp
+L Amplifier_Operational:TL074 U?
+U 4 1 602EE9D5
+P 5375 3750
+F 0 "U?" H 5400 3925 50  0000 C CNN
+F 1 "TL074" H 5350 3750 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 5325 3850 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 5425 3950 50  0001 C CNN
+	4    5375 3750
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 602EE9E9
+P 5875 3650
+F 0 "R?" V 5975 3625 50  0000 L CNN
+F 1 "1k" V 5875 3600 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5805 3650 50  0001 C CNN
+F 3 "~" H 5875 3650 50  0001 C CNN
+	1    5875 3650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 602EE9F3
+P 5400 3425
+F 0 "R?" V 5300 3350 50  0000 L CNN
+F 1 "20k" V 5400 3350 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5330 3425 50  0001 C CNN
+F 3 "~" H 5400 3425 50  0001 C CNN
+	1    5400 3425
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5725 3650 5700 3650
+Wire Wire Line
+	5725 3950 5725 3850
+Wire Wire Line
+	5250 3425 5075 3425
+Wire Wire Line
+	5075 3425 5075 3750
+$Comp
+L power:GND #PWR?
+U 1 1 602EEA0E
+P 5725 3950
+F 0 "#PWR?" H 5725 3700 50  0001 C CNN
+F 1 "GND" H 5725 3800 50  0001 C CNN
+F 2 "" H 5725 3950 50  0001 C CNN
+F 3 "" H 5725 3950 50  0001 C CNN
+	1    5725 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6025 3650 6050 3650
+Wire Wire Line
+	6050 3650 6050 3325
+Wire Wire Line
+	6050 3325 6250 3325
+Connection ~ 6050 3650
+Wire Wire Line
+	6050 3650 6075 3650
+Wire Wire Line
+	5700 3650 5700 3425
+Connection ~ 5700 3650
+Wire Wire Line
+	5700 3650 5675 3650
+Wire Wire Line
+	5700 3425 5550 3425
+Text Notes 6775 3425 0    50   ~ 0
+TODO: amplify at this point \nalready? (needs correct reference\nvoltage, i diode drop above Q9's base).\nOr capacitor?
+Wire Wire Line
+	10575 4475 10700 4475
+Connection ~ 10575 4475
+NoConn ~ 10700 4475
+Wire Wire Line
+	7850 4450 8775 4450
+Connection ~ 8775 4450
+Wire Wire Line
+	8775 4450 8775 4575
+Wire Wire Line
+	9075 4375 7950 4375
+Wire Wire Line
+	7950 4375 7950 3900
+Wire Wire Line
+	7950 3900 7850 3900
+Connection ~ 9075 4375
+Wire Wire Line
+	9075 4375 9075 4300
+Wire Wire Line
+	9900 2725 9900 2925
+Wire Wire Line
+	9900 2925 5075 2925
+Wire Wire Line
+	5075 2925 5075 3425
+Connection ~ 5075 3425
+$Comp
+L Device:R R42
+U 1 1 5DF272AA
+P 9900 4825
+F 0 "R42" H 9975 4800 50  0000 L CNN
+F 1 "100k" V 9900 4725 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9830 4825 50  0001 C CNN
+F 3 "~" H 9900 4825 50  0001 C CNN
+	1    9900 4825
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
-U 1 1 60224C0A
-P 8675 1975
-F 0 "C?" H 8767 2021 50  0001 L CNN
-F 1 "4.7n" V 8575 1850 50  0000 L CNN
-F 2 "" H 8675 1975 50  0001 C CNN
-F 3 "~" H 8675 1975 50  0001 C CNN
-	1    8675 1975
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	8775 2025 8775 1975
-Connection ~ 8775 2025
-$Comp
-L power:GND #PWR?
-U 1 1 60236998
-P 8575 1975
-F 0 "#PWR?" H 8575 1725 50  0001 C CNN
-F 1 "GND" H 8580 1802 50  0001 C CNN
-F 2 "" H 8575 1975 50  0001 C CNN
-F 3 "" H 8575 1975 50  0001 C CNN
-	1    8575 1975
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 6023C519
-P 8475 2025
-F 0 "C?" H 8567 2071 50  0001 L CNN
-F 1 "4.7n" H 8500 1950 50  0001 L CNN
-F 2 "" H 8475 2025 50  0001 C CNN
-F 3 "~" H 8475 2025 50  0001 C CNN
-	1    8475 2025
-	-1   0    0    1   
-$EndComp
-Connection ~ 8475 2125
-Wire Wire Line
-	8575 1975 8575 1925
-Wire Wire Line
-	8575 1925 8475 1925
-Connection ~ 8575 1975
-$Comp
-L Device:C_Small C?
-U 1 1 60250ED8
-P 10050 4050
-F 0 "C?" V 9925 4050 50  0001 C CNN
-F 1 "C_Small" V 10000 4250 50  0001 C CNN
-F 2 "" H 10050 4050 50  0001 C CNN
-F 3 "~" H 10050 4050 50  0001 C CNN
-	1    10050 4050
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9900 4150 9900 4050
-Wire Wire Line
-	9900 4050 9950 4050
-Connection ~ 9900 4150
-Wire Wire Line
-	10150 4050 10575 4050
-Connection ~ 10575 4050
-Wire Wire Line
-	10575 4050 10575 3825
-$Comp
-L Device:C_Small C?
-U 1 1 60295CCD
-P 9900 4475
-F 0 "C?" V 9775 4475 50  0001 C CNN
-F 1 "27p" H 10050 4475 50  0000 C CNN
-F 2 "" H 9900 4475 50  0001 C CNN
-F 3 "~" H 9900 4475 50  0001 C CNN
-	1    9900 4475
-	-1   0    0    1   
+L Device:R R43
+U 1 1 5DF2729E
+P 10250 4150
+F 0 "R43" V 10150 4075 50  0000 L CNN
+F 1 "100k" V 10250 4050 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 10180 4150 50  0001 C CNN
+F 3 "~" H 10250 4150 50  0001 C CNN
+	1    10250 4150
+	0    1    -1   0   
 $EndComp
 $EndSCHEMATC
