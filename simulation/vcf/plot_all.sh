@@ -9,8 +9,17 @@ if [ x`which $PARALLEL` == x ]; then
 	PARALLEL=sh
 fi
 
+if [ x$1 == x-n ] || [ x$1 == --dry-run ]; then
+	PARALLEL=cat
+fi
+
 for plot in --thd --bode; do
 	for file in *.cir; do
-		echo python plot.py $plot $file -p
+		if echo $file | grep -q 2stage; then
+			TWOSTAGE=-2
+		else
+			TWOSTAGE=''
+		fi
+		echo python plot.py $plot $file -p $TWOSTAGE
 	done
-done | parallel
+done | $PARALLEL
