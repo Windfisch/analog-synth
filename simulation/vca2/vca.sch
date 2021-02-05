@@ -1,0 +1,864 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Notes 6925 1325 0    50   ~ 0
+current mirror as\nvoltage controlled\ncurrent source
+Text Notes 8050 1950 2    50   ~ 0
+differential pair\n(current controlled\namplification)
+Text Notes 5325 2575 0    50   ~ 0
+input preattenuation.\ncontrols distortion
+$Comp
+L power:VCC #PWR03
+U 1 1 5D942900
+P 6375 850
+F 0 "#PWR03" H 6375 700 50  0001 C CNN
+F 1 "VCC" H 6392 1023 50  0000 C CNN
+F 2 "" H 6375 850 50  0001 C CNN
+F 3 "" H 6375 850 50  0001 C CNN
+	1    6375 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR07
+U 1 1 5D9809F3
+P 6975 3150
+F 0 "#PWR07" H 6975 3000 50  0001 C CNN
+F 1 "VEE" H 6993 3323 50  0000 C CNN
+F 2 "" H 6975 3150 50  0001 C CNN
+F 3 "" H 6975 3150 50  0001 C CNN
+	1    6975 3150
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VEE #PWR04
+U 1 1 5D9813BC
+P 6675 3150
+F 0 "#PWR04" H 6675 3000 50  0001 C CNN
+F 1 "VEE" H 6693 3323 50  0000 C CNN
+F 2 "" H 6675 3150 50  0001 C CNN
+F 3 "" H 6675 3150 50  0001 C CNN
+	1    6675 3150
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR01
+U 1 1 5CF0E364
+P 10550 1050
+F 0 "#PWR01" H 10550 900 50  0001 C CNN
+F 1 "VCC" H 10567 1223 50  0000 C CNN
+F 2 "" H 10550 1050 50  0001 C CNN
+F 3 "" H 10550 1050 50  0001 C CNN
+	1    10550 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR02
+U 1 1 5CF0FCB5
+P 10550 2250
+F 0 "#PWR02" H 10550 2100 50  0001 C CNN
+F 1 "VEE" H 10568 2423 50  0000 C CNN
+F 2 "" H 10550 2250 50  0001 C CNN
+F 3 "" H 10550 2250 50  0001 C CNN
+	1    10550 2250
+	-1   0    0    1   
+$EndComp
+$Comp
+L pspice:0 #GND01
+U 1 1 5CF02FCA
+P 10900 1700
+F 0 "#GND01" H 10900 1600 50  0001 C CNN
+F 1 "0" H 10850 1800 50  0000 C CNN
+F 2 "" H 10900 1700 50  0001 C CNN
+F 3 "~" H 10900 1700 50  0001 C CNN
+	1    10900 1700
+	1    0    0    -1  
+$EndComp
+Text Notes 10200 650  0    50   ~ 0
+.tran 1u 10m
+$Comp
+L pspice:VSOURCE V1
+U 1 1 5E46A8BC
+P 10550 1350
+F 0 "V1" H 10150 1450 50  0000 L CNN
+F 1 "5" H 10150 1200 50  0000 L CNN
+F 2 "" H 10550 1350 50  0001 C CNN
+F 3 "~" H 10550 1350 50  0001 C CNN
+	1    10550 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L pspice:VSOURCE V2
+U 1 1 5E46AAF2
+P 10550 1950
+F 0 "V2" H 10150 2050 50  0000 L CNN
+F 1 "5" H 10150 1800 50  0000 L CNN
+F 2 "" H 10550 1950 50  0001 C CNN
+F 3 "~" H 10550 1950 50  0001 C CNN
+	1    10550 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR09
+U 1 1 5E46C3BD
+P 11050 1650
+F 0 "#PWR09" H 11050 1400 50  0001 C CNN
+F 1 "GND" H 11055 1477 50  0000 C CNN
+F 2 "" H 11050 1650 50  0001 C CNN
+F 3 "" H 11050 1650 50  0001 C CNN
+	1    11050 1650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10900 1700 10900 1650
+Wire Wire Line
+	10900 1650 11050 1650
+Wire Wire Line
+	10900 1650 10550 1650
+Connection ~ 10900 1650
+Connection ~ 10550 1650
+$Comp
+L pspice:QPNP Q4
+U 1 1 5E490B12
+P 7125 2250
+F 0 "Q4" H 6775 2050 50  0000 L CNN
+F 1 "BC557B" V 7425 2150 50  0000 L CNN
+F 2 "" H 7125 2250 50  0001 C CNN
+F 3 "~" H 7125 2250 50  0001 C CNN
+F 4 "Q" H 7125 2250 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 7125 2250 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 7125 2250 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 7125 2250 50  0001 C CNN "Spice_Lib_File"
+	1    7125 2250
+	-1   0    0    1   
+$EndComp
+$Comp
+L pspice:QPNP Q2
+U 1 1 5E49336A
+P 6525 2250
+F 0 "Q2" H 6525 1875 50  0000 L CNN
+F 1 "BC557B" H 6075 2400 50  0001 L CNN
+F 2 "" H 6525 2250 50  0001 C CNN
+F 3 "~" H 6525 2250 50  0001 C CNN
+F 4 "Q" H 6525 2250 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6525 2250 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6525 2250 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6525 2250 50  0001 C CNN "Spice_Lib_File"
+	1    6525 2250
+	1    0    0    1   
+$EndComp
+$Comp
+L pspice:QPNP Q1
+U 1 1 5E49DE18
+P 6075 1250
+F 0 "Q1" H 5975 1550 50  0000 L CNN
+F 1 "BC557B" H 5625 1125 50  0000 L CNN
+F 2 "" H 6075 1250 50  0001 C CNN
+F 3 "~" H 6075 1250 50  0001 C CNN
+F 4 "Q" H 6075 1250 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6075 1250 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6075 1250 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6075 1250 50  0001 C CNN "Spice_Lib_File"
+	1    6075 1250
+	-1   0    0    1   
+$EndComp
+$Comp
+L pspice:QPNP Q3
+U 1 1 5E49EC2E
+P 6675 1250
+F 0 "Q3" H 6575 1550 50  0000 L CNN
+F 1 "BC557B" H 6225 1400 50  0001 L CNN
+F 2 "" H 6675 1250 50  0001 C CNN
+F 3 "~" H 6675 1250 50  0001 C CNN
+F 4 "Q" H 6675 1250 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6675 1250 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6675 1250 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6675 1250 50  0001 C CNN "Spice_Lib_File"
+	1    6675 1250
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	6375 1250 6375 1600
+Wire Wire Line
+	6375 1600 5925 1600
+Connection ~ 6375 1250
+Wire Wire Line
+	5925 900  5925 850 
+Wire Wire Line
+	5925 850  6375 850 
+Wire Wire Line
+	6825 850  6825 900 
+Connection ~ 6375 850 
+Wire Wire Line
+	6375 850  6825 850 
+Connection ~ 5925 1600
+$Comp
+L Device:R R3
+U 1 1 5E4AA323
+P 6225 2500
+F 0 "R3" H 6300 2450 50  0000 L CNN
+F 1 "1k" V 6225 2450 50  0000 L CNN
+F 2 "" V 6155 2500 50  0001 C CNN
+F 3 "~" H 6225 2500 50  0001 C CNN
+	1    6225 2500
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5E4ABD6D
+P 5975 2250
+F 0 "R2" V 5875 2200 50  0000 L CNN
+F 1 "100k" V 5975 2150 50  0000 L CNN
+F 2 "" V 5905 2250 50  0001 C CNN
+F 3 "~" H 5975 2250 50  0001 C CNN
+	1    5975 2250
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	6125 2250 6225 2250
+Wire Wire Line
+	6225 2250 6225 2350
+Connection ~ 6225 2250
+$Comp
+L Device:C C1
+U 1 1 5E4AE101
+P 5675 2250
+F 0 "C1" V 5423 2250 50  0000 C CNN
+F 1 "470n" V 5514 2250 50  0000 C CNN
+F 2 "" H 5713 2100 50  0001 C CNN
+F 3 "~" H 5675 2250 50  0001 C CNN
+	1    5675 2250
+	0    1    1    0   
+$EndComp
+Text Notes 5175 1475 0    50   ~ 0
+Control voltage:\nVCC=closed
+$Comp
+L pspice:VSOURCE V3
+U 1 1 5E4D9344
+P 4450 1900
+F 0 "V3" H 4050 2000 50  0000 L CNN
+F 1 "PULSE(-5 5 0 10m 10m 0.01m 20m)" H 2975 1575 50  0000 L CNN
+F 2 "" H 4450 1900 50  0001 C CNN
+F 3 "~" H 4450 1900 50  0001 C CNN
+	1    4450 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 1600 5625 1600
+Text GLabel 4825 1600 1    50   Input ~ 0
+cv_pregain
+Text GLabel 5300 2250 1    50   Input ~ 0
+signal_in
+$Comp
+L power:GND #PWR012
+U 1 1 5E4DE552
+P 6225 2650
+F 0 "#PWR012" H 6225 2400 50  0001 C CNN
+F 1 "GND" H 6230 2477 50  0000 C CNN
+F 2 "" H 6225 2650 50  0001 C CNN
+F 3 "" H 6225 2650 50  0001 C CNN
+	1    6225 2650
+	1    0    0    -1  
+$EndComp
+Text GLabel 6225 2250 1    50   Input ~ 0
+signal_preatt
+Text GLabel 7350 2625 1    50   Input ~ 0
+diff1
+Text GLabel 7350 2825 3    50   Input ~ 0
+diff2
+$Comp
+L power:GND #PWR011
+U 1 1 5E4DF6C2
+P 5100 2850
+F 0 "#PWR011" H 5100 2600 50  0001 C CNN
+F 1 "GND" H 5105 2677 50  0000 C CNN
+F 2 "" H 5100 2850 50  0001 C CNN
+F 3 "" H 5100 2850 50  0001 C CNN
+	1    5100 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 5E4DFBDC
+P 4450 2200
+F 0 "#PWR08" H 4450 1950 50  0001 C CNN
+F 1 "GND" H 4455 2027 50  0000 C CNN
+F 2 "" H 4450 2200 50  0001 C CNN
+F 3 "" H 4450 2200 50  0001 C CNN
+	1    4450 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR016
+U 1 1 5E4E179B
+P 7425 2250
+F 0 "#PWR016" H 7425 2000 50  0001 C CNN
+F 1 "GND" H 7430 2077 50  0000 C CNN
+F 2 "" H 7425 2250 50  0001 C CNN
+F 3 "" H 7425 2250 50  0001 C CNN
+	1    7425 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 2250 5525 2250
+Wire Wire Line
+	5825 2250 5825 1900
+Wire Wire Line
+	5525 1900 5525 2250
+Connection ~ 5825 2250
+Connection ~ 5525 2250
+Wire Wire Line
+	5525 1900 5825 1900
+Wire Wire Line
+	6675 1900 6825 1900
+Connection ~ 6825 1900
+Wire Wire Line
+	6825 1900 6975 1900
+$Comp
+L Device:R R1
+U 1 1 5D94CF4E
+P 5775 1600
+F 0 "R1" V 5675 1550 50  0000 L CNN
+F 1 "22k" V 5775 1525 50  0000 L CNN
+F 2 "" V 5705 1600 50  0001 C CNN
+F 3 "~" H 5775 1600 50  0001 C CNN
+	1    5775 1600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5E49C74E
+P 6825 1750
+F 0 "R5" H 6895 1796 50  0000 L CNN
+F 1 "10k" V 6825 1675 50  0000 L CNN
+F 2 "" V 6755 1750 50  0001 C CNN
+F 3 "~" H 6825 1750 50  0001 C CNN
+	1    6825 1750
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 5D97C9D7
+P 6975 3000
+F 0 "R6" H 7045 3046 50  0000 L CNN
+F 1 "10k" V 6975 2925 50  0000 L CNN
+F 2 "" V 6905 3000 50  0001 C CNN
+F 3 "~" H 6975 3000 50  0001 C CNN
+	1    6975 3000
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5D97C329
+P 6675 3000
+F 0 "R4" H 6745 3046 50  0000 L CNN
+F 1 "10k" V 6675 2925 50  0000 L CNN
+F 2 "" V 6605 3000 50  0001 C CNN
+F 3 "~" H 6675 3000 50  0001 C CNN
+	1    6675 3000
+	1    0    0    1   
+$EndComp
+$Comp
+L pspice:VSOURCE V4
+U 1 1 5E4DBEAC
+P 5100 2550
+F 0 "V4" H 4700 2650 50  0000 L CNN
+F 1 "PULSE(-2 2 0 0.1m 0.1m 0.001m 0.2m)" H 4675 1900 50  0000 L CNN
+F 2 "" H 5100 2550 50  0001 C CNN
+F 3 "~" H 5100 2550 50  0001 C CNN
+	1    5100 2550
+	1    0    0    -1  
+$EndComp
+Connection ~ 6675 2625
+Connection ~ 6975 2825
+Wire Wire Line
+	6975 2850 6975 2825
+Wire Wire Line
+	6975 2825 6975 2600
+Wire Wire Line
+	6675 2850 6675 2625
+Wire Wire Line
+	6675 2625 6675 2600
+$Comp
+L Device:R R7
+U 1 1 5D98E38E
+P 8050 2625
+F 0 "R7" V 7950 2600 50  0000 L CNN
+F 1 "10k" V 8050 2525 50  0000 L CNN
+F 2 "" V 7980 2625 50  0001 C CNN
+F 3 "~" H 8050 2625 50  0001 C CNN
+	1    8050 2625
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 5D9923C5
+P 8050 2825
+F 0 "R8" V 8150 2800 50  0000 L CNN
+F 1 "10k" V 8050 2725 50  0000 L CNN
+F 2 "" V 7980 2825 50  0001 C CNN
+F 3 "~" H 8050 2825 50  0001 C CNN
+	1    8050 2825
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 5D9941E7
+P 8275 2375
+F 0 "R9" H 8100 2325 50  0000 L CNN
+F 1 "5k" V 8275 2275 50  0000 L CNN
+F 2 "" V 8205 2375 50  0001 C CNN
+F 3 "~" H 8275 2375 50  0001 C CNN
+	1    8275 2375
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5D992BCF
+P 8625 3325
+F 0 "R10" V 8525 3300 50  0000 L CNN
+F 1 "5k" V 8625 3225 50  0000 L CNN
+F 2 "" V 8555 3325 50  0001 C CNN
+F 3 "~" H 8625 3325 50  0001 C CNN
+	1    8625 3325
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6675 2625 7900 2625
+Wire Wire Line
+	6975 2825 7900 2825
+Wire Wire Line
+	8150 2150 8275 2150
+$Comp
+L power:GND #PWR018
+U 1 1 5E4E0951
+P 8150 2150
+F 0 "#PWR018" H 8150 1900 50  0001 C CNN
+F 1 "GND" H 8155 1977 50  0000 C CNN
+F 2 "" H 8150 2150 50  0001 C CNN
+F 3 "" H 8150 2150 50  0001 C CNN
+	1    8150 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L pspice:OPAMP U2
+U 1 1 5CF0F48E
+P 8650 2725
+F 0 "U2" H 8775 2625 50  0000 L CNN
+F 1 "LM324" H 8650 2525 50  0000 L CNN
+F 2 "" H 8650 2725 50  0001 C CNN
+F 3 "~" H 8650 2725 50  0001 C CNN
+F 4 "X" H 8650 2725 50  0001 C CNN "Spice_Primitive"
+F 5 "LM324" H 8650 2725 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 8650 2725 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/LM324.ti.lib" H 8650 2725 50  0001 C CNN "Spice_Lib_File"
+F 8 "1,2,4,5,3" H 8650 2725 50  0001 C CNN "Spice_Node_Sequence"
+	1    8650 2725
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR06
+U 1 1 5CF1034A
+P 8550 2425
+F 0 "#PWR06" H 8550 2275 50  0001 C CNN
+F 1 "VCC" H 8450 2475 50  0000 C CNN
+F 2 "" H 8550 2425 50  0001 C CNN
+F 3 "" H 8550 2425 50  0001 C CNN
+	1    8550 2425
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR05
+U 1 1 5CF108F1
+P 8550 3025
+F 0 "#PWR05" H 8550 2875 50  0001 C CNN
+F 1 "VEE" H 8650 3075 50  0000 C CNN
+F 2 "" H 8550 3025 50  0001 C CNN
+F 3 "" H 8550 3025 50  0001 C CNN
+	1    8550 3025
+	1    0    0    1   
+$EndComp
+Text Notes 8800 2550 0    50   ~ 0
+differential to\nsingle-ended
+Wire Wire Line
+	8275 2225 8275 2150
+Wire Wire Line
+	8275 2625 8200 2625
+Connection ~ 8275 2625
+Wire Wire Line
+	8275 2525 8275 2625
+Wire Wire Line
+	8950 3325 8950 2725
+Wire Wire Line
+	8775 3325 8950 3325
+Wire Wire Line
+	8275 2825 8350 2825
+Connection ~ 8275 2825
+Wire Wire Line
+	8275 3325 8475 3325
+Wire Wire Line
+	8275 2825 8275 3325
+Wire Wire Line
+	8200 2825 8275 2825
+Wire Wire Line
+	8350 2625 8275 2625
+Text Notes 6925 4250 0    50   ~ 0
+current mirror as\nvoltage controlled\ncurrent source
+$Comp
+L power:VCC #PWR013
+U 1 1 601FFDF6
+P 6375 3775
+F 0 "#PWR013" H 6375 3625 50  0001 C CNN
+F 1 "VCC" H 6392 3948 50  0000 C CNN
+F 2 "" H 6375 3775 50  0001 C CNN
+F 3 "" H 6375 3775 50  0001 C CNN
+	1    6375 3775
+	1    0    0    -1  
+$EndComp
+$Comp
+L pspice:QPNP Q5
+U 1 1 601FFE04
+P 6075 4175
+F 0 "Q5" H 5975 4475 50  0000 L CNN
+F 1 "BC557B" H 5625 4050 50  0000 L CNN
+F 2 "" H 6075 4175 50  0001 C CNN
+F 3 "~" H 6075 4175 50  0001 C CNN
+F 4 "Q" H 6075 4175 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6075 4175 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6075 4175 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6075 4175 50  0001 C CNN "Spice_Lib_File"
+	1    6075 4175
+	-1   0    0    1   
+$EndComp
+$Comp
+L pspice:QPNP Q7
+U 1 1 601FFE12
+P 6675 4175
+F 0 "Q7" H 6575 4475 50  0000 L CNN
+F 1 "BC557B" H 6225 4325 50  0001 L CNN
+F 2 "" H 6675 4175 50  0001 C CNN
+F 3 "~" H 6675 4175 50  0001 C CNN
+F 4 "Q" H 6675 4175 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6675 4175 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6675 4175 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6675 4175 50  0001 C CNN "Spice_Lib_File"
+	1    6675 4175
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	6375 4175 6375 4525
+Wire Wire Line
+	6375 4525 5925 4525
+Connection ~ 6375 4175
+Wire Wire Line
+	5925 3825 5925 3775
+Wire Wire Line
+	5925 3775 6375 3775
+Wire Wire Line
+	6825 3775 6825 3825
+Connection ~ 6375 3775
+Wire Wire Line
+	6375 3775 6825 3775
+Connection ~ 5925 4525
+Text Notes 5175 4400 0    50   ~ 0
+Control voltage:\nVCC=closed
+$Comp
+L pspice:VSOURCE V5
+U 1 1 601FFE26
+P 4450 4825
+F 0 "V5" H 4050 4925 50  0000 L CNN
+F 1 "PULSE(0 5 0 0.5m 0.5m 0.1m 4m)" H 2975 4500 50  0000 L CNN
+F 2 "" H 4450 4825 50  0001 C CNN
+F 3 "~" H 4450 4825 50  0001 C CNN
+	1    4450 4825
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 4525 5625 4525
+Text GLabel 4825 4525 1    50   Input ~ 0
+cv_postgain
+$Comp
+L Device:R R11
+U 1 1 601FFE33
+P 5775 4525
+F 0 "R11" V 5675 4475 50  0000 L CNN
+F 1 "22k" V 5775 4450 50  0000 L CNN
+F 2 "" V 5705 4525 50  0001 C CNN
+F 3 "~" H 5775 4525 50  0001 C CNN
+	1    5775 4525
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R13
+U 1 1 601FFE3D
+P 6825 4675
+F 0 "R13" H 6895 4721 50  0000 L CNN
+F 1 "10k" V 6825 4600 50  0000 L CNN
+F 2 "" V 6755 4675 50  0001 C CNN
+F 3 "~" H 6825 4675 50  0001 C CNN
+	1    6825 4675
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR010
+U 1 1 60203B4A
+P 4450 5125
+F 0 "#PWR010" H 4450 4875 50  0001 C CNN
+F 1 "GND" H 4455 4952 50  0000 C CNN
+F 2 "" H 4450 5125 50  0001 C CNN
+F 3 "" H 4450 5125 50  0001 C CNN
+	1    4450 5125
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR015
+U 1 1 60204C34
+P 6975 6100
+F 0 "#PWR015" H 6975 5950 50  0001 C CNN
+F 1 "VEE" H 6993 6273 50  0000 C CNN
+F 2 "" H 6975 6100 50  0001 C CNN
+F 3 "" H 6975 6100 50  0001 C CNN
+	1    6975 6100
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VEE #PWR014
+U 1 1 60204F14
+P 6675 6100
+F 0 "#PWR014" H 6675 5950 50  0001 C CNN
+F 1 "VEE" H 6693 6273 50  0000 C CNN
+F 2 "" H 6675 6100 50  0001 C CNN
+F 3 "" H 6675 6100 50  0001 C CNN
+	1    6675 6100
+	-1   0    0    1   
+$EndComp
+$Comp
+L pspice:QPNP Q8
+U 1 1 60204F22
+P 7125 5200
+F 0 "Q8" H 6775 5000 50  0000 L CNN
+F 1 "BC557B" V 7425 5100 50  0000 L CNN
+F 2 "" H 7125 5200 50  0001 C CNN
+F 3 "~" H 7125 5200 50  0001 C CNN
+F 4 "Q" H 7125 5200 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 7125 5200 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 7125 5200 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 7125 5200 50  0001 C CNN "Spice_Lib_File"
+	1    7125 5200
+	-1   0    0    1   
+$EndComp
+$Comp
+L pspice:QPNP Q6
+U 1 1 60204F30
+P 6525 5200
+F 0 "Q6" H 6525 4825 50  0000 L CNN
+F 1 "BC557B" H 6075 5350 50  0001 L CNN
+F 2 "" H 6525 5200 50  0001 C CNN
+F 3 "~" H 6525 5200 50  0001 C CNN
+F 4 "Q" H 6525 5200 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6525 5200 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6525 5200 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6525 5200 50  0001 C CNN "Spice_Lib_File"
+	1    6525 5200
+	1    0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR017
+U 1 1 60204F3C
+P 7425 5200
+F 0 "#PWR017" H 7425 4950 50  0001 C CNN
+F 1 "GND" H 7430 5027 50  0000 C CNN
+F 2 "" H 7425 5200 50  0001 C CNN
+F 3 "" H 7425 5200 50  0001 C CNN
+	1    7425 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R14
+U 1 1 60204F46
+P 6975 5950
+F 0 "R14" H 7045 5996 50  0000 L CNN
+F 1 "10k" V 6975 5875 50  0000 L CNN
+F 2 "" V 6905 5950 50  0001 C CNN
+F 3 "~" H 6975 5950 50  0001 C CNN
+	1    6975 5950
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R12
+U 1 1 60204F50
+P 6675 5950
+F 0 "R12" H 6745 5996 50  0000 L CNN
+F 1 "10k" V 6675 5875 50  0000 L CNN
+F 2 "" V 6605 5950 50  0001 C CNN
+F 3 "~" H 6675 5950 50  0001 C CNN
+	1    6675 5950
+	1    0    0    1   
+$EndComp
+Connection ~ 6675 5575
+Connection ~ 6975 5775
+Wire Wire Line
+	6975 5800 6975 5775
+Wire Wire Line
+	6975 5775 6975 5550
+Wire Wire Line
+	6675 5800 6675 5575
+Wire Wire Line
+	6675 5575 6675 5550
+$Comp
+L Device:R R15
+U 1 1 60204F60
+P 8050 5575
+F 0 "R15" V 7950 5550 50  0000 L CNN
+F 1 "10k" V 8050 5475 50  0000 L CNN
+F 2 "" V 7980 5575 50  0001 C CNN
+F 3 "~" H 8050 5575 50  0001 C CNN
+	1    8050 5575
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R16
+U 1 1 60204F6A
+P 8050 5775
+F 0 "R16" V 8150 5750 50  0000 L CNN
+F 1 "10k" V 8050 5675 50  0000 L CNN
+F 2 "" V 7980 5775 50  0001 C CNN
+F 3 "~" H 8050 5775 50  0001 C CNN
+	1    8050 5775
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R17
+U 1 1 60204F74
+P 8275 5325
+F 0 "R17" H 8100 5275 50  0000 L CNN
+F 1 "22k" V 8275 5225 50  0000 L CNN
+F 2 "" V 8205 5325 50  0001 C CNN
+F 3 "~" H 8275 5325 50  0001 C CNN
+	1    8275 5325
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R18
+U 1 1 60204F7E
+P 8625 6275
+F 0 "R18" V 8525 6250 50  0000 L CNN
+F 1 "22k" V 8625 6175 50  0000 L CNN
+F 2 "" V 8555 6275 50  0001 C CNN
+F 3 "~" H 8625 6275 50  0001 C CNN
+	1    8625 6275
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6675 5575 7900 5575
+Wire Wire Line
+	6975 5775 7900 5775
+Wire Wire Line
+	8150 5100 8275 5100
+$Comp
+L power:GND #PWR019
+U 1 1 60204F8B
+P 8150 5100
+F 0 "#PWR019" H 8150 4850 50  0001 C CNN
+F 1 "GND" H 8155 4927 50  0000 C CNN
+F 2 "" H 8150 5100 50  0001 C CNN
+F 3 "" H 8150 5100 50  0001 C CNN
+	1    8150 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L pspice:OPAMP U1
+U 1 1 60204F9A
+P 8650 5675
+F 0 "U1" H 8775 5575 50  0000 L CNN
+F 1 "LM324" H 8650 5475 50  0000 L CNN
+F 2 "" H 8650 5675 50  0001 C CNN
+F 3 "~" H 8650 5675 50  0001 C CNN
+F 4 "X" H 8650 5675 50  0001 C CNN "Spice_Primitive"
+F 5 "LM324" H 8650 5675 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 8650 5675 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/LM324.ti.lib" H 8650 5675 50  0001 C CNN "Spice_Lib_File"
+F 8 "1,2,4,5,3" H 8650 5675 50  0001 C CNN "Spice_Node_Sequence"
+	1    8650 5675
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR020
+U 1 1 60204FA4
+P 8550 5375
+F 0 "#PWR020" H 8550 5225 50  0001 C CNN
+F 1 "VCC" H 8450 5425 50  0000 C CNN
+F 2 "" H 8550 5375 50  0001 C CNN
+F 3 "" H 8550 5375 50  0001 C CNN
+	1    8550 5375
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR021
+U 1 1 60204FAE
+P 8550 5975
+F 0 "#PWR021" H 8550 5825 50  0001 C CNN
+F 1 "VEE" H 8650 6025 50  0000 C CNN
+F 2 "" H 8550 5975 50  0001 C CNN
+F 3 "" H 8550 5975 50  0001 C CNN
+	1    8550 5975
+	1    0    0    1   
+$EndComp
+Text GLabel 8950 5675 2    50   Input ~ 0
+signal_out
+Text Notes 8800 5500 0    50   ~ 0
+differential to\nsingle-ended
+Wire Wire Line
+	8275 5175 8275 5100
+Wire Wire Line
+	8275 5575 8200 5575
+Connection ~ 8275 5575
+Wire Wire Line
+	8275 5475 8275 5575
+Wire Wire Line
+	8950 6275 8950 5675
+Wire Wire Line
+	8775 6275 8950 6275
+Wire Wire Line
+	8275 5775 8350 5775
+Connection ~ 8275 5775
+Wire Wire Line
+	8275 6275 8475 6275
+Wire Wire Line
+	8275 5775 8275 6275
+Wire Wire Line
+	8200 5775 8275 5775
+Wire Wire Line
+	8350 5575 8275 5575
+Wire Wire Line
+	6675 4850 6825 4850
+Wire Wire Line
+	6825 4850 6825 4825
+Connection ~ 6825 4850
+Wire Wire Line
+	6825 4850 6975 4850
+Wire Wire Line
+	8950 2725 9350 2725
+Wire Wire Line
+	9350 2725 9350 3475
+Wire Wire Line
+	9350 3475 5000 3475
+Wire Wire Line
+	5000 3475 5000 5200
+Wire Wire Line
+	5000 5200 6225 5200
+Connection ~ 8950 2725
+Text GLabel 5000 5200 3    50   Input ~ 0
+signal_intermediate
+$EndSCHEMATC
