@@ -159,21 +159,6 @@ F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6525 2250 50  0001 C
 	1    0    0    1   
 $EndComp
 $Comp
-L pspice:QPNP Q1
-U 1 1 5E49DE18
-P 6075 1250
-F 0 "Q1" H 5975 1550 50  0000 L CNN
-F 1 "BC557B" H 5625 1125 50  0000 L CNN
-F 2 "" H 6075 1250 50  0001 C CNN
-F 3 "~" H 6075 1250 50  0001 C CNN
-F 4 "Q" H 6075 1250 50  0001 C CNN "Spice_Primitive"
-F 5 "BC557b" H 6075 1250 50  0001 C CNN "Spice_Model"
-F 6 "Y" H 6075 1250 50  0001 C CNN "Spice_Netlist_Enabled"
-F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6075 1250 50  0001 C CNN "Spice_Lib_File"
-	1    6075 1250
-	-1   0    0    1   
-$EndComp
-$Comp
 L pspice:QPNP Q3
 U 1 1 5E49EC2E
 P 6675 1250
@@ -191,18 +176,9 @@ $EndComp
 Wire Wire Line
 	6375 1250 6375 1600
 Wire Wire Line
-	6375 1600 5925 1600
-Connection ~ 6375 1250
-Wire Wire Line
-	5925 900  5925 850 
-Wire Wire Line
-	5925 850  6375 850 
-Wire Wire Line
 	6825 850  6825 900 
-Connection ~ 6375 850 
 Wire Wire Line
 	6375 850  6825 850 
-Connection ~ 5925 1600
 $Comp
 L Device:R R3
 U 1 1 5E4AA323
@@ -241,21 +217,6 @@ F 3 "~" H 5675 2250 50  0001 C CNN
 	1    5675 2250
 	0    1    1    0   
 $EndComp
-Text Notes 5175 1475 0    50   ~ 0
-Control voltage:\nVCC=closed
-$Comp
-L pspice:VSOURCE V3
-U 1 1 5E4D9344
-P 4450 1900
-F 0 "V3" H 4050 2000 50  0000 L CNN
-F 1 "PULSE(-5 5 0 10m 10m 0.01m 20m)" H 2975 1575 50  0000 L CNN
-F 2 "" H 4450 1900 50  0001 C CNN
-F 3 "~" H 4450 1900 50  0001 C CNN
-	1    4450 1900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4450 1600 5625 1600
 Text GLabel 4825 1600 1    50   Input ~ 0
 cv_pregain
 Text GLabel 5300 2250 1    50   Input ~ 0
@@ -325,17 +286,6 @@ Wire Wire Line
 Connection ~ 6825 1900
 Wire Wire Line
 	6825 1900 6975 1900
-$Comp
-L Device:R R1
-U 1 1 5D94CF4E
-P 5775 1600
-F 0 "R1" V 5675 1550 50  0000 L CNN
-F 1 "22k" V 5775 1525 50  0000 L CNN
-F 2 "" V 5705 1600 50  0001 C CNN
-F 3 "~" H 5775 1600 50  0001 C CNN
-	1    5775 1600
-	0    1    1    0   
-$EndComp
 $Comp
 L Device:R R5
 U 1 1 5E49C74E
@@ -527,21 +477,6 @@ F 3 "" H 6375 3775 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L pspice:QPNP Q5
-U 1 1 601FFE04
-P 6075 4175
-F 0 "Q5" H 5975 4475 50  0000 L CNN
-F 1 "BC557B" H 5625 4050 50  0000 L CNN
-F 2 "" H 6075 4175 50  0001 C CNN
-F 3 "~" H 6075 4175 50  0001 C CNN
-F 4 "Q" H 6075 4175 50  0001 C CNN "Spice_Primitive"
-F 5 "BC557b" H 6075 4175 50  0001 C CNN "Spice_Model"
-F 6 "Y" H 6075 4175 50  0001 C CNN "Spice_Netlist_Enabled"
-F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6075 4175 50  0001 C CNN "Spice_Lib_File"
-	1    6075 4175
-	-1   0    0    1   
-$EndComp
-$Comp
 L pspice:QPNP Q7
 U 1 1 601FFE12
 P 6675 4175
@@ -559,46 +494,13 @@ $EndComp
 Wire Wire Line
 	6375 4175 6375 4525
 Wire Wire Line
-	6375 4525 5925 4525
-Connection ~ 6375 4175
-Wire Wire Line
-	5925 3825 5925 3775
-Wire Wire Line
-	5925 3775 6375 3775
-Wire Wire Line
 	6825 3775 6825 3825
-Connection ~ 6375 3775
 Wire Wire Line
 	6375 3775 6825 3775
-Connection ~ 5925 4525
 Text Notes 5175 4400 0    50   ~ 0
 Control voltage:\nVCC=closed
-$Comp
-L pspice:VSOURCE V5
-U 1 1 601FFE26
-P 4450 4825
-F 0 "V5" H 4050 4925 50  0000 L CNN
-F 1 "PULSE(0 5 0 0.5m 0.5m 0.1m 4m)" H 2975 4500 50  0000 L CNN
-F 2 "" H 4450 4825 50  0001 C CNN
-F 3 "~" H 4450 4825 50  0001 C CNN
-	1    4450 4825
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4450 4525 5625 4525
 Text GLabel 4825 4525 1    50   Input ~ 0
 cv_postgain
-$Comp
-L Device:R R11
-U 1 1 601FFE33
-P 5775 4525
-F 0 "R11" V 5675 4475 50  0000 L CNN
-F 1 "22k" V 5775 4450 50  0000 L CNN
-F 2 "" V 5705 4525 50  0001 C CNN
-F 3 "~" H 5775 4525 50  0001 C CNN
-	1    5775 4525
-	0    1    1    0   
-$EndComp
 $Comp
 L Device:R R13
 U 1 1 601FFE3D
@@ -743,7 +645,7 @@ L Device:R R17
 U 1 1 60204F74
 P 8275 5325
 F 0 "R17" H 8100 5275 50  0000 L CNN
-F 1 "22k" V 8275 5225 50  0000 L CNN
+F 1 "33k" V 8275 5225 50  0000 L CNN
 F 2 "" V 8205 5325 50  0001 C CNN
 F 3 "~" H 8275 5325 50  0001 C CNN
 	1    8275 5325
@@ -754,7 +656,7 @@ L Device:R R18
 U 1 1 60204F7E
 P 8625 6275
 F 0 "R18" V 8525 6250 50  0000 L CNN
-F 1 "22k" V 8625 6175 50  0000 L CNN
+F 1 "33k" V 8625 6175 50  0000 L CNN
 F 2 "" V 8555 6275 50  0001 C CNN
 F 3 "~" H 8625 6275 50  0001 C CNN
 	1    8625 6275
@@ -861,4 +763,89 @@ Wire Wire Line
 Connection ~ 8950 2725
 Text GLabel 5000 5200 3    50   Input ~ 0
 signal_intermediate
+Wire Wire Line
+	4450 4525 5625 4525
+Wire Wire Line
+	6375 4525 5925 4525
+$Comp
+L Device:R R11
+U 1 1 601FFE33
+P 5775 4525
+F 0 "R11" V 5675 4475 50  0000 L CNN
+F 1 "22k" V 5775 4450 50  0000 L CNN
+F 2 "" V 5705 4525 50  0001 C CNN
+F 3 "~" H 5775 4525 50  0001 C CNN
+	1    5775 4525
+	0    1    1    0   
+$EndComp
+$Comp
+L pspice:VSOURCE V5
+U 1 1 601FFE26
+P 4450 4825
+F 0 "V5" H 4050 4925 50  0000 L CNN
+F 1 "PULSE(0 5 0 0.5m 0.5m 0.1m 4m)" H 2975 4500 50  0000 L CNN
+F 2 "" H 4450 4825 50  0001 C CNN
+F 3 "~" H 4450 4825 50  0001 C CNN
+	1    4450 4825
+	1    0    0    -1  
+$EndComp
+Connection ~ 6375 3775
+Wire Wire Line
+	5925 3775 6375 3775
+Wire Wire Line
+	5925 3825 5925 3775
+Connection ~ 6375 4175
+Connection ~ 5925 4525
+$Comp
+L pspice:QPNP Q5
+U 1 1 601FFE04
+P 6075 4175
+F 0 "Q5" H 5975 4475 50  0000 L CNN
+F 1 "BC557B" H 5625 4050 50  0000 L CNN
+F 2 "" H 6075 4175 50  0001 C CNN
+F 3 "~" H 6075 4175 50  0001 C CNN
+F 4 "Q" H 6075 4175 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6075 4175 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6075 4175 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6075 4175 50  0001 C CNN "Spice_Lib_File"
+	1    6075 4175
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4450 1600 5025 1600
+Wire Wire Line
+	5025 1600 5025 2175
+Wire Wire Line
+	5025 2175 4625 2175
+Wire Wire Line
+	4625 2175 4625 2725
+Wire Wire Line
+	4625 2725 4125 2725
+$Comp
+L Device:R R?
+U 1 1 60243ADC
+P 5675 1600
+F 0 "R?" H 5745 1646 50  0000 L CNN
+F 1 "10k" V 5675 1525 50  0000 L CNN
+F 2 "" V 5605 1600 50  0001 C CNN
+F 3 "~" H 5675 1600 50  0001 C CNN
+	1    5675 1600
+	0    1    -1   0   
+$EndComp
+Connection ~ 5025 1600
+Wire Wire Line
+	5525 1600 5025 1600
+Wire Wire Line
+	5825 1600 6375 1600
+$Comp
+L pspice:VSOURCE V3
+U 1 1 5E4D9344
+P 4450 1900
+F 0 "V3" H 4050 2000 50  0000 L CNN
+F 1 "PULSE(4.37 4.45 0 10m 10m 0.01m 20m)" H 2975 1575 50  0000 L CNN
+F 2 "" H 4450 1900 50  0001 C CNN
+F 3 "~" H 4450 1900 50  0001 C CNN
+	1    4450 1900
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
