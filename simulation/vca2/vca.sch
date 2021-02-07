@@ -723,17 +723,6 @@ Wire Wire Line
 Connection ~ 8950 2725
 Text GLabel 5000 5200 3    50   Input ~ 0
 signal_intermediate
-$Comp
-L pspice:VSOURCE V5
-U 1 1 601FFE26
-P 3200 4925
-F 0 "V5" H 2800 5025 50  0000 L CNN
-F 1 "PULSE(1.5 1.5 0 0.5m 0.5m 0.1m 4m)" H 1725 4600 50  0000 L CNN
-F 2 "" H 3200 4925 50  0001 C CNN
-F 3 "~" H 3200 4925 50  0001 C CNN
-	1    3200 4925
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5825 1600 5950 1600
 Wire Wire Line
@@ -793,8 +782,6 @@ F 3 "~" H 4450 1900 50  0001 C CNN
 	1    4450 1900
 	1    0    0    -1  
 $EndComp
-Text Notes 6925 4250 0    50   ~ 0
-current mirror as\nvoltage controlled\ncurrent source
 $Comp
 L power:VCC #PWR013
 U 1 1 602674B9
@@ -945,8 +932,6 @@ F 3 "~" H 4075 5075 50  0001 C CNN
 	1    4075 5075
 	0    1    -1   0   
 $EndComp
-Wire Wire Line
-	3850 4625 3750 4625
 $Comp
 L power:GND #PWR027
 U 1 1 6028F169
@@ -963,19 +948,12 @@ L Device:R R24
 U 1 1 6028F871
 P 3275 3825
 F 0 "R24" V 3150 3775 50  0000 L CNN
-F 1 "10k" V 3275 3750 50  0000 L CNN
+F 1 "9k" V 3275 3750 50  0000 L CNN
 F 2 "" V 3205 3825 50  0001 C CNN
 F 3 "~" H 3275 3825 50  0001 C CNN
 	1    3275 3825
 	0    1    -1   0   
 $EndComp
-Wire Wire Line
-	3750 4625 3750 4450
-Wire Wire Line
-	3750 4450 3550 4450
-Connection ~ 3750 4625
-Wire Wire Line
-	3750 4625 3675 4625
 Text GLabel 925  3425 0    50   Input ~ 0
 cv_pregain
 $Comp
@@ -1018,13 +996,9 @@ Wire Wire Line
 Wire Wire Line
 	3550 4175 3750 4175
 Wire Wire Line
-	3750 4175 3750 4450
-Connection ~ 3750 4450
-Wire Wire Line
 	3425 3825 3750 3825
 Wire Wire Line
 	3750 3825 3750 4175
-Connection ~ 3750 4175
 $Comp
 L Device:R R?
 U 1 1 602BB770
@@ -1036,17 +1010,12 @@ F 3 "~" H 1075 3425 50  0001 C CNN
 	1    1075 3425
 	0    -1   1    0   
 $EndComp
-Wire Wire Line
-	1225 3425 1475 3425
-Connection ~ 1475 3425
-Wire Wire Line
-	1475 3425 2250 3425
 $Comp
 L pspice:VSOURCE V?
 U 1 1 602D7B73
 P 800 2300
 F 0 "V?" H 400 2400 50  0000 L CNN
-F 1 "-0.8" H 425 1875 50  0000 L CNN
+F 1 "-0.66" H 425 1875 50  0000 L CNN
 F 2 "" H 800 2300 50  0001 C CNN
 F 3 "~" H 800 2300 50  0001 C CNN
 	1    800  2300
@@ -1069,60 +1038,10 @@ Wire Wire Line
 	1475 2000 1475 2575
 Text GLabel 2075 3425 1    50   Input ~ 0
 cv_pregain_clamped
-$Comp
-L pspice:OPAMP U?
-U 1 1 602DF9C3
-P 2550 3525
-F 0 "U?" H 2675 3425 50  0000 L CNN
-F 1 "LM324" H 2550 3325 50  0000 L CNN
-F 2 "" H 2550 3525 50  0001 C CNN
-F 3 "~" H 2550 3525 50  0001 C CNN
-F 4 "X" H 2550 3525 50  0001 C CNN "Spice_Primitive"
-F 5 "LM324" H 2550 3525 50  0001 C CNN "Spice_Model"
-F 6 "Y" H 2550 3525 50  0001 C CNN "Spice_Netlist_Enabled"
-F 7 "/home/flo/analog-synth/simulation/lib/LM324.ti.lib" H 2550 3525 50  0001 C CNN "Spice_Lib_File"
-F 8 "1,2,4,5,3" H 2550 3525 50  0001 C CNN "Spice_Node_Sequence"
-	1    2550 3525
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VCC #PWR?
-U 1 1 602DFE9F
-P 2450 3225
-F 0 "#PWR?" H 2450 3075 50  0001 C CNN
-F 1 "VCC" H 2350 3275 50  0000 C CNN
-F 2 "" H 2450 3225 50  0001 C CNN
-F 3 "" H 2450 3225 50  0001 C CNN
-	1    2450 3225
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:VEE #PWR?
-U 1 1 602DFEA9
-P 2450 3825
-F 0 "#PWR?" H 2450 3675 50  0001 C CNN
-F 1 "VEE" H 2550 3875 50  0000 C CNN
-F 2 "" H 2450 3825 50  0001 C CNN
-F 3 "" H 2450 3825 50  0001 C CNN
-	1    2450 3825
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	2250 3625 2250 4025
-Wire Wire Line
-	2250 4025 2850 4025
-Wire Wire Line
-	2850 4025 2850 3525
 Wire Wire Line
 	2850 3525 3125 3525
-Connection ~ 2850 3525
 Wire Wire Line
 	3125 3525 3125 3825
-Wire Wire Line
-	1925 2925 1925 2575
-Wire Wire Line
-	1925 2575 1475 2575
-Connection ~ 1475 2575
 $Comp
 L pspice:QPNP Q?
 U 1 1 602BF238
@@ -1144,6 +1063,32 @@ Wire Wire Line
 	1025 3250 1475 3250
 Wire Wire Line
 	1475 3250 1475 3275
+Wire Wire Line
+	2850 3425 2850 3525
+$Comp
+L pspice:VSOURCE V5
+U 1 1 601FFE26
+P 3200 4925
+F 0 "V5" H 2800 5025 50  0000 L CNN
+F 1 "PULSE(1.5 1.5 0 5.9m 0.01m 0.01m 6m)" H 1725 4600 50  0000 L CNN
+F 2 "" H 3200 4925 50  0001 C CNN
+F 3 "~" H 3200 4925 50  0001 C CNN
+	1    3200 4925
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 4625 3750 4625
+Wire Wire Line
+	3750 4625 3675 4625
+Connection ~ 3750 4625
+Connection ~ 3750 4175
+Wire Wire Line
+	3750 4175 3750 4625
+Wire Wire Line
+	1475 3425 2850 3425
+Wire Wire Line
+	1225 3425 1475 3425
+Connection ~ 1475 3425
 Connection ~ 1475 3275
 Wire Wire Line
 	1475 3275 1475 3425
