@@ -13,23 +13,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Notes 6925 1325 0    50   ~ 0
-current mirror as\nvoltage controlled\ncurrent source
 Text Notes 8050 1950 2    50   ~ 0
 differential pair\n(current controlled\namplification)
 Text Notes 5325 2575 0    50   ~ 0
 input preattenuation.\ncontrols distortion
-$Comp
-L power:VCC #PWR03
-U 1 1 5D942900
-P 5950 700
-F 0 "#PWR03" H 5950 550 50  0001 C CNN
-F 1 "VCC" H 5967 873 50  0000 C CNN
-F 2 "" H 5950 700 50  0001 C CNN
-F 3 "" H 5950 700 50  0001 C CNN
-	1    5950 700 
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:VEE #PWR07
 U 1 1 5D9809F3
@@ -85,8 +72,6 @@ F 3 "~" H 10900 1700 50  0001 C CNN
 	1    10900 1700
 	1    0    0    -1  
 $EndComp
-Text Notes 10200 650  0    50   ~ 0
-.tran 1u 10m
 $Comp
 L pspice:VSOURCE V1
 U 1 1 5E46A8BC
@@ -159,23 +144,6 @@ F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6525 2250 50  0001 C
 	1    0    0    1   
 $EndComp
 $Comp
-L pspice:QPNP Q3
-U 1 1 5E49EC2E
-P 6675 1250
-F 0 "Q3" H 6575 1550 50  0000 L CNN
-F 1 "BC557B" H 6225 1400 50  0001 L CNN
-F 2 "" H 6675 1250 50  0001 C CNN
-F 3 "~" H 6675 1250 50  0001 C CNN
-F 4 "Q" H 6675 1250 50  0001 C CNN "Spice_Primitive"
-F 5 "BC557b" H 6675 1250 50  0001 C CNN "Spice_Model"
-F 6 "Y" H 6675 1250 50  0001 C CNN "Spice_Netlist_Enabled"
-F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6675 1250 50  0001 C CNN "Spice_Lib_File"
-	1    6675 1250
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	6825 850  6825 900 
-$Comp
 L Device:R R3
 U 1 1 5E4AA323
 P 6225 2500
@@ -213,8 +181,6 @@ F 3 "~" H 5675 2250 50  0001 C CNN
 	1    5675 2250
 	0    1    1    0   
 $EndComp
-Text GLabel 4825 1600 1    50   Input ~ 0
-cv_pregain
 Text GLabel 5300 2250 1    50   Input ~ 0
 signal_in
 $Comp
@@ -246,17 +212,6 @@ F 3 "" H 5100 2850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR08
-U 1 1 5E4DFBDC
-P 4450 2200
-F 0 "#PWR08" H 4450 1950 50  0001 C CNN
-F 1 "GND" H 4455 2027 50  0000 C CNN
-F 2 "" H 4450 2200 50  0001 C CNN
-F 3 "" H 4450 2200 50  0001 C CNN
-	1    4450 2200
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR016
 U 1 1 5E4E179B
 P 7425 2250
@@ -277,44 +232,6 @@ Connection ~ 5825 2250
 Connection ~ 5525 2250
 Wire Wire Line
 	5525 1900 5825 1900
-Wire Wire Line
-	6675 1900 6825 1900
-Connection ~ 6825 1900
-Wire Wire Line
-	6825 1900 6975 1900
-$Comp
-L Device:R R5
-U 1 1 5E49C74E
-P 6825 1750
-F 0 "R5" H 6895 1796 50  0000 L CNN
-F 1 "10k" V 6825 1675 50  0000 L CNN
-F 2 "" V 6755 1750 50  0001 C CNN
-F 3 "~" H 6825 1750 50  0001 C CNN
-	1    6825 1750
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R R6
-U 1 1 5D97C9D7
-P 6975 3000
-F 0 "R6" H 7045 3046 50  0000 L CNN
-F 1 "10k" V 6975 2925 50  0000 L CNN
-F 2 "" V 6905 3000 50  0001 C CNN
-F 3 "~" H 6975 3000 50  0001 C CNN
-	1    6975 3000
-	1    0    0    1   
-$EndComp
-$Comp
-L Device:R R4
-U 1 1 5D97C329
-P 6675 3000
-F 0 "R4" H 6745 3046 50  0000 L CNN
-F 1 "10k" V 6675 2925 50  0000 L CNN
-F 2 "" V 6605 3000 50  0001 C CNN
-F 3 "~" H 6675 3000 50  0001 C CNN
-	1    6675 3000
-	1    0    0    1   
-$EndComp
 $Comp
 L pspice:VSOURCE V4
 U 1 1 5E4DBEAC
@@ -336,50 +253,6 @@ Wire Wire Line
 	6675 2850 6675 2625
 Wire Wire Line
 	6675 2625 6675 2600
-$Comp
-L Device:R R7
-U 1 1 5D98E38E
-P 8050 2625
-F 0 "R7" V 7950 2600 50  0000 L CNN
-F 1 "10k" V 8050 2525 50  0000 L CNN
-F 2 "" V 7980 2625 50  0001 C CNN
-F 3 "~" H 8050 2625 50  0001 C CNN
-	1    8050 2625
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R8
-U 1 1 5D9923C5
-P 8050 2825
-F 0 "R8" V 8150 2800 50  0000 L CNN
-F 1 "10k" V 8050 2725 50  0000 L CNN
-F 2 "" V 7980 2825 50  0001 C CNN
-F 3 "~" H 8050 2825 50  0001 C CNN
-	1    8050 2825
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R9
-U 1 1 5D9941E7
-P 8275 2375
-F 0 "R9" H 8100 2325 50  0000 L CNN
-F 1 "5k" V 8275 2275 50  0000 L CNN
-F 2 "" V 8205 2375 50  0001 C CNN
-F 3 "~" H 8275 2375 50  0001 C CNN
-	1    8275 2375
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R R10
-U 1 1 5D992BCF
-P 8625 3325
-F 0 "R10" V 8525 3300 50  0000 L CNN
-F 1 "5k" V 8625 3225 50  0000 L CNN
-F 2 "" V 8555 3325 50  0001 C CNN
-F 3 "~" H 8625 3325 50  0001 C CNN
-	1    8625 3325
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	6675 2625 7900 2625
 Wire Wire Line
@@ -723,65 +596,6 @@ Wire Wire Line
 Connection ~ 8950 2725
 Text GLabel 5000 5200 3    50   Input ~ 0
 signal_intermediate
-Wire Wire Line
-	5825 1600 5950 1600
-Wire Wire Line
-	6375 1025 5950 1025
-Wire Wire Line
-	5950 1025 5950 1000
-Wire Wire Line
-	6375 1025 6375 1250
-Wire Wire Line
-	5950 1025 5950 1600
-Connection ~ 5950 1025
-Text GLabel 5950 1275 0    50   Input ~ 0
-cv_pregain2
-$Comp
-L power:VCC #PWR022
-U 1 1 6025EFEC
-P 6825 850
-F 0 "#PWR022" H 6825 700 50  0001 C CNN
-F 1 "VCC" H 6842 1023 50  0000 C CNN
-F 2 "" H 6825 850 50  0001 C CNN
-F 3 "" H 6825 850 50  0001 C CNN
-	1    6825 850 
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4450 1600 5525 1600
-$Comp
-L Device:R R19
-U 1 1 6024AD39
-P 5950 850
-F 0 "R19" H 6020 896 50  0000 L CNN
-F 1 "1k" V 5950 775 50  0000 L CNN
-F 2 "" V 5880 850 50  0001 C CNN
-F 3 "~" H 5950 850 50  0001 C CNN
-	1    5950 850 
-	1    0    0    1   
-$EndComp
-$Comp
-L Device:R R1
-U 1 1 60243ADC
-P 5675 1600
-F 0 "R1" H 5745 1646 50  0000 L CNN
-F 1 "10k" V 5675 1525 50  0000 L CNN
-F 2 "" V 5605 1600 50  0001 C CNN
-F 3 "~" H 5675 1600 50  0001 C CNN
-	1    5675 1600
-	0    1    -1   0   
-$EndComp
-$Comp
-L pspice:VSOURCE V3
-U 1 1 5E4D9344
-P 4450 1900
-F 0 "V3" H 4050 2000 50  0000 L CNN
-F 1 "PULSE(-2 0 0 10m 10m 0.01m 20m)" H 2975 1575 50  0000 L CNN
-F 2 "" H 4450 1900 50  0001 C CNN
-F 3 "~" H 4450 1900 50  0001 C CNN
-	1    4450 1900
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:VCC #PWR013
 U 1 1 602674B9
@@ -832,28 +646,6 @@ F 3 "" H 6825 3775 50  0001 C CNN
 	1    6825 3775
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R20
-U 1 1 602674E2
-P 5950 3775
-F 0 "R20" H 6020 3821 50  0000 L CNN
-F 1 "1k" V 5950 3700 50  0000 L CNN
-F 2 "" V 5880 3775 50  0001 C CNN
-F 3 "~" H 5950 3775 50  0001 C CNN
-	1    5950 3775
-	1    0    0    1   
-$EndComp
-$Comp
-L Device:R R11
-U 1 1 602674EC
-P 5675 4525
-F 0 "R11" H 5745 4571 50  0000 L CNN
-F 1 "10k" V 5675 4450 50  0000 L CNN
-F 2 "" V 5605 4525 50  0001 C CNN
-F 3 "~" H 5675 4525 50  0001 C CNN
-	1    5675 4525
-	0    1    -1   0   
-$EndComp
 Wire Wire Line
 	5825 4525 5950 4525
 Wire Wire Line
@@ -901,7 +693,7 @@ L Device:R R21
 U 1 1 60276668
 P 3525 4625
 F 0 "R21" V 3400 4575 50  0000 L CNN
-F 1 "10k" V 3525 4550 50  0000 L CNN
+F 1 "100k" V 3525 4550 50  0000 L CNN
 F 2 "" V 3455 4625 50  0001 C CNN
 F 3 "~" H 3525 4625 50  0001 C CNN
 	1    3525 4625
@@ -922,17 +714,6 @@ Connection ~ 3850 4625
 Wire Wire Line
 	3375 4625 3200 4625
 $Comp
-L Device:R R22
-U 1 1 60280E78
-P 4075 5075
-F 0 "R22" H 4145 5121 50  0000 L CNN
-F 1 "10k" V 4075 5000 50  0000 L CNN
-F 2 "" V 4005 5075 50  0001 C CNN
-F 3 "~" H 4075 5075 50  0001 C CNN
-	1    4075 5075
-	0    1    -1   0   
-$EndComp
-$Comp
 L power:GND #PWR027
 U 1 1 6028F169
 P 3850 4425
@@ -943,17 +724,6 @@ F 3 "" H 3850 4425 50  0001 C CNN
 	1    3850 4425
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R24
-U 1 1 6028F871
-P 3275 3825
-F 0 "R24" V 3150 3775 50  0000 L CNN
-F 1 "9k" V 3275 3750 50  0000 L CNN
-F 2 "" V 3205 3825 50  0001 C CNN
-F 3 "~" H 3275 3825 50  0001 C CNN
-	1    3275 3825
-	0    1    -1   0   
-$EndComp
 Text GLabel 925  3425 0    50   Input ~ 0
 cv_pregain
 $Comp
@@ -961,22 +731,11 @@ L Device:R R23
 U 1 1 602AD329
 P 3400 4175
 F 0 "R23" V 3275 4125 50  0000 L CNN
-F 1 "15k" V 3400 4100 50  0000 L CNN
+F 1 "10k" V 3400 4100 50  0000 L CNN
 F 2 "" V 3330 4175 50  0001 C CNN
 F 3 "~" H 3400 4175 50  0001 C CNN
 	1    3400 4175
 	0    1    -1   0   
-$EndComp
-$Comp
-L pspice:VSOURCE V6
-U 1 1 602AD672
-P 2475 4525
-F 0 "V6" H 2075 4625 50  0000 L CNN
-F 1 "2" H 2225 4175 50  0000 L CNN
-F 2 "" H 2475 4525 50  0001 C CNN
-F 3 "~" H 2475 4525 50  0001 C CNN
-	1    2475 4525
-	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR024
@@ -1000,10 +759,10 @@ Wire Wire Line
 Wire Wire Line
 	3750 3825 3750 4175
 $Comp
-L Device:R R?
+L Device:R R25
 U 1 1 602BB770
 P 1075 3425
-F 0 "R?" V 950 3375 50  0000 L CNN
+F 0 "R25" V 950 3375 50  0000 L CNN
 F 1 "1k" V 1075 3350 50  0000 L CNN
 F 2 "" V 1005 3425 50  0001 C CNN
 F 3 "~" H 1075 3425 50  0001 C CNN
@@ -1011,21 +770,21 @@ F 3 "~" H 1075 3425 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L pspice:VSOURCE V?
+L pspice:VSOURCE V7
 U 1 1 602D7B73
 P 800 2300
-F 0 "V?" H 400 2400 50  0000 L CNN
-F 1 "-0.66" H 425 1875 50  0000 L CNN
+F 0 "V7" H 400 2400 50  0000 L CNN
+F 1 "2.6" H 425 1875 50  0000 L CNN
 F 2 "" H 800 2300 50  0001 C CNN
 F 3 "~" H 800 2300 50  0001 C CNN
 	1    800  2300
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR028
 U 1 1 602D8405
 P 800 2600
-F 0 "#PWR?" H 800 2350 50  0001 C CNN
+F 0 "#PWR028" H 800 2350 50  0001 C CNN
 F 1 "GND" H 805 2427 50  0000 C CNN
 F 2 "" H 800 2600 50  0001 C CNN
 F 3 "" H 800 2600 50  0001 C CNN
@@ -1043,10 +802,10 @@ Wire Wire Line
 Wire Wire Line
 	3125 3525 3125 3825
 $Comp
-L pspice:QPNP Q?
+L pspice:QPNP Q5
 U 1 1 602BF238
 P 1325 2925
-F 0 "Q?" H 1325 2550 50  0000 L CNN
+F 0 "Q5" H 1325 2550 50  0000 L CNN
 F 1 "BC557B" H 875 3075 50  0001 L CNN
 F 2 "" H 1325 2925 50  0001 C CNN
 F 3 "~" H 1325 2925 50  0001 C CNN
@@ -1062,8 +821,6 @@ Wire Wire Line
 Wire Wire Line
 	1025 3250 1475 3250
 Wire Wire Line
-	1475 3250 1475 3275
-Wire Wire Line
 	2850 3425 2850 3525
 $Comp
 L pspice:VSOURCE V5
@@ -1076,14 +833,323 @@ F 3 "~" H 3200 4925 50  0001 C CNN
 	1    3200 4925
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:R R20
+U 1 1 602674E2
+P 5950 3775
+F 0 "R20" H 6020 3821 50  0000 L CNN
+F 1 "1k" V 5950 3700 50  0000 L CNN
+F 2 "" V 5880 3775 50  0001 C CNN
+F 3 "~" H 5950 3775 50  0001 C CNN
+	1    5950 3775
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R11
+U 1 1 602674EC
+P 5675 4525
+F 0 "R11" H 5745 4571 50  0000 L CNN
+F 1 "10k" V 5675 4450 50  0000 L CNN
+F 2 "" V 5605 4525 50  0001 C CNN
+F 3 "~" H 5675 4525 50  0001 C CNN
+	1    5675 4525
+	0    1    -1   0   
+$EndComp
 Wire Wire Line
-	3850 4625 3750 4625
+	6825 4525 7475 4525
 Wire Wire Line
-	3750 4625 3675 4625
+	7475 4525 7475 4175
+Connection ~ 6825 4525
+$Comp
+L Device:R R26
+U 1 1 6030A4C3
+P 7750 4350
+F 0 "R26" H 7820 4396 50  0000 L CNN
+F 1 "1.5Meg" V 7750 4250 50  0000 L CNN
+F 2 "" V 7680 4350 50  0001 C CNN
+F 3 "~" H 7750 4350 50  0001 C CNN
+	1    7750 4350
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	7750 4200 7750 4175
+Wire Wire Line
+	7750 4175 7475 4175
+$Comp
+L power:VEE #PWR029
+U 1 1 60309CC1
+P 7750 4500
+F 0 "#PWR029" H 7750 4350 50  0001 C CNN
+F 1 "VEE" H 7768 4673 50  0000 C CNN
+F 2 "" H 7750 4500 50  0001 C CNN
+F 3 "" H 7750 4500 50  0001 C CNN
+	1    7750 4500
+	-1   0    0    1   
+$EndComp
+Text GLabel 6825 1025 2    50   Input ~ 0
+R5top
+Text GLabel 6975 1900 2    50   Input ~ 0
+R5bot
+$Comp
+L power:GND #PWR030
+U 1 1 60326C76
+P 650 -3025
+F 0 "#PWR030" H 650 -3275 50  0001 C CNN
+F 1 "GND" H 655 -3198 50  0000 C CNN
+F 2 "" H 650 -3025 50  0001 C CNN
+F 3 "" H 650 -3025 50  0001 C CNN
+	1    650  -3025
+	1    0    0    -1  
+$EndComp
+$Comp
+L pspice:VSOURCE V8
+U 1 1 603A0D49
+P 650 -3325
+F 0 "V8" H 878 -3279 50  0000 L CNN
+F 1 "2.5" H 878 -3370 50  0000 L CNN
+F 2 "" H 650 -3325 50  0001 C CNN
+F 3 "~" H 650 -3325 50  0001 C CNN
+	1    650  -3325
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+2V5 #PWR032
+U 1 1 603A2390
+P 650 -3625
+F 0 "#PWR032" H 650 -3775 50  0001 C CNN
+F 1 "+2V5" H 665 -3452 50  0000 C CNN
+F 2 "" H 650 -3625 50  0001 C CNN
+F 3 "" H 650 -3625 50  0001 C CNN
+	1    650  -3625
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7275 425  7500 425 
+$Comp
+L pspice:QPNP Q10
+U 1 1 603B4FBA
+P 6975 425
+F 0 "Q10" H 6875 725 50  0000 L CNN
+F 1 "BC557B" H 6525 575 50  0001 L CNN
+F 2 "" H 6975 425 50  0001 C CNN
+F 3 "~" H 6975 425 50  0001 C CNN
+F 4 "Q" H 6975 425 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6975 425 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6975 425 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6975 425 50  0001 C CNN "Spice_Lib_File"
+	1    6975 425 
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR033
+U 1 1 603B8389
+P 6125 125
+F 0 "#PWR033" H 6125 -25 50  0001 C CNN
+F 1 "VCC" H 6140 298 50  0000 C CNN
+F 2 "" H 6125 125 50  0001 C CNN
+F 3 "" H 6125 125 50  0001 C CNN
+	1    6125 125 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR036
+U 1 1 603B786E
+P 6125 725
+F 0 "#PWR036" H 6125 475 50  0001 C CNN
+F 1 "GND" H 6130 552 50  0000 C CNN
+F 2 "" H 6125 725 50  0001 C CNN
+F 3 "" H 6125 725 50  0001 C CNN
+	1    6125 725 
+	1    0    0    -1  
+$EndComp
+Connection ~ 6125 425 
+$Comp
+L Device:R R29
+U 1 1 603B65D2
+P 6125 275
+F 0 "R29" H 6195 321 50  0000 L CNN
+F 1 "2.2k" V 6125 200 50  0000 L CNN
+F 2 "" V 6055 275 50  0001 C CNN
+F 3 "~" H 6125 275 50  0001 C CNN
+	1    6125 275 
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5625 925  6575 925 
+Connection ~ 5625 925 
+Wire Wire Line
+	5625 825  5625 925 
+Wire Wire Line
+	5625 400  5625 525 
+Connection ~ 5625 400 
+Wire Wire Line
+	5625 -225 5625 400 
+$Comp
+L Device:C C2
+U 1 1 603AC914
+P 5625 675
+F 0 "C2" H 5740 721 50  0000 L CNN
+F 1 "10n" H 5740 630 50  0000 L CNN
+F 2 "" H 5663 525 50  0001 C CNN
+F 3 "~" H 5625 675 50  0001 C CNN
+	1    5625 675 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR035
+U 1 1 603585FF
+P 5225 700
+F 0 "#PWR035" H 5225 550 50  0001 C CNN
+F 1 "VEE" H 5325 750 50  0000 C CNN
+F 2 "" H 5225 700 50  0001 C CNN
+F 3 "" H 5225 700 50  0001 C CNN
+	1    5225 700 
+	1    0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR034
+U 1 1 603585F5
+P 5225 100
+F 0 "#PWR034" H 5225 -50 50  0001 C CNN
+F 1 "VCC" H 5125 150 50  0000 C CNN
+F 2 "" H 5225 100 50  0001 C CNN
+F 3 "" H 5225 100 50  0001 C CNN
+	1    5225 100 
+	-1   0    0    -1  
+$EndComp
+$Comp
+L pspice:OPAMP U4
+U 1 1 6035806F
+P 5325 400
+F 0 "U4" H 5450 300 50  0000 L CNN
+F 1 "LM324" H 5325 200 50  0000 L CNN
+F 2 "" H 5325 400 50  0001 C CNN
+F 3 "~" H 5325 400 50  0001 C CNN
+F 4 "X" H 5325 400 50  0001 C CNN "Spice_Primitive"
+F 5 "LM324" H 5325 400 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 5325 400 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/LM324.ti.lib" H 5325 400 50  0001 C CNN "Spice_Lib_File"
+F 8 "1,2,4,5,3" H 5325 400 50  0001 C CNN "Spice_Node_Sequence"
+	1    5325 400 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VEE #PWR031
+U 1 1 60396BF2
+P 4575 500
+F 0 "#PWR031" H 4575 350 50  0001 C CNN
+F 1 "VEE" H 4450 550 50  0000 C CNN
+F 2 "" H 4575 500 50  0001 C CNN
+F 3 "" H 4575 500 50  0001 C CNN
+	1    4575 500 
+	1    0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR037
+U 1 1 60390EE7
+P 5025 300
+F 0 "#PWR037" H 5025 50  50  0001 C CNN
+F 1 "GND" H 4925 350 50  0000 C CNN
+F 2 "" H 5025 300 50  0001 C CNN
+F 3 "" H 5025 300 50  0001 C CNN
+	1    5025 300 
+	1    0    0    -1  
+$EndComp
+Text GLabel 6025 925  3    50   Input ~ 0
+opampminus
+Text GLabel 5775 -225 3    50   Input ~ 0
+opamp
+Wire Wire Line
+	6575 775  6575 925 
+Wire Wire Line
+	4950 925  5625 925 
+Wire Wire Line
+	5625 -225 6700 -225
+Wire Wire Line
+	4950 500  5025 500 
+Connection ~ 4950 500 
+Wire Wire Line
+	4950 500  4950 925 
+Wire Wire Line
+	4875 500  4950 500 
+Text GLabel 6825 75   1    50   Input ~ 0
+bla1
+Wire Wire Line
+	6700 75   6825 75  
+Connection ~ 6700 75  
+Wire Wire Line
+	6575 75   6700 75  
+$Comp
+L pspice:QPNP Q9
+U 1 1 6031A579
+P 6425 425
+F 0 "Q9" H 6325 725 50  0000 L CNN
+F 1 "BC557B" H 5975 575 50  0001 L CNN
+F 2 "" H 6425 425 50  0001 C CNN
+F 3 "~" H 6425 425 50  0001 C CNN
+F 4 "Q" H 6425 425 50  0001 C CNN "Spice_Primitive"
+F 5 "BC557b" H 6425 425 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 6425 425 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "/home/flo/analog-synth/simulation/lib/BC547_557.lib" H 6425 425 50  0001 C CNN "Spice_Lib_File"
+	1    6425 425 
+	1    0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 5E4DFBDC
+P 7500 1025
+F 0 "#PWR08" H 7500 775 50  0001 C CNN
+F 1 "GND" H 7505 852 50  0000 C CNN
+F 2 "" H 7500 1025 50  0001 C CNN
+F 3 "" H 7500 1025 50  0001 C CNN
+	1    7500 1025
+	-1   0    0    -1  
+$EndComp
+Text GLabel 7450 425  1    50   Input ~ 0
+cv_pregain
+$Comp
+L pspice:VSOURCE V6
+U 1 1 602AD672
+P 2475 4525
+F 0 "V6" H 2075 4625 50  0000 L CNN
+F 1 "-2.55" H 2225 4175 50  0000 L CNN
+F 2 "" H 2475 4525 50  0001 C CNN
+F 3 "~" H 2475 4525 50  0001 C CNN
+	1    2475 4525
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R24
+U 1 1 6028F871
+P 3275 3825
+F 0 "R24" V 3150 3775 50  0000 L CNN
+F 1 "9k" V 3275 3750 50  0000 L CNN
+F 2 "" V 3205 3825 50  0001 C CNN
+F 3 "~" H 3275 3825 50  0001 C CNN
+	1    3275 3825
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R R22
+U 1 1 60280E78
+P 4075 5075
+F 0 "R22" H 4145 5121 50  0000 L CNN
+F 1 "100k" V 4075 5000 50  0000 L CNN
+F 2 "" V 4005 5075 50  0001 C CNN
+F 3 "~" H 4075 5075 50  0001 C CNN
+	1    4075 5075
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	3750 4625 3850 4625
+Wire Wire Line
+	3675 4625 3750 4625
 Connection ~ 3750 4625
 Connection ~ 3750 4175
 Wire Wire Line
 	3750 4175 3750 4625
+Wire Wire Line
+	1475 3250 1475 3275
 Wire Wire Line
 	1475 3425 2850 3425
 Wire Wire Line
@@ -1092,4 +1158,161 @@ Connection ~ 1475 3425
 Connection ~ 1475 3275
 Wire Wire Line
 	1475 3275 1475 3425
+$Comp
+L Device:R R27
+U 1 1 6031E760
+P 6700 -75
+F 0 "R27" H 6770 -29 50  0000 L CNN
+F 1 "100" V 6700 -150 50  0000 L CNN
+F 2 "" V 6630 -75 50  0001 C CNN
+F 3 "~" H 6700 -75 50  0001 C CNN
+	1    6700 -75 
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5D992BCF
+P 8625 3325
+F 0 "R10" V 8525 3300 50  0000 L CNN
+F 1 "5k" V 8625 3225 50  0000 L CNN
+F 2 "" V 8555 3325 50  0001 C CNN
+F 3 "~" H 8625 3325 50  0001 C CNN
+	1    8625 3325
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 5D9941E7
+P 8275 2375
+F 0 "R9" H 8100 2325 50  0000 L CNN
+F 1 "5k" V 8275 2275 50  0000 L CNN
+F 2 "" V 8205 2375 50  0001 C CNN
+F 3 "~" H 8275 2375 50  0001 C CNN
+	1    8275 2375
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 5D9923C5
+P 8050 2825
+F 0 "R8" V 8150 2800 50  0000 L CNN
+F 1 "10k" V 8050 2725 50  0000 L CNN
+F 2 "" V 7980 2825 50  0001 C CNN
+F 3 "~" H 8050 2825 50  0001 C CNN
+	1    8050 2825
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 5D98E38E
+P 8050 2625
+F 0 "R7" V 7950 2600 50  0000 L CNN
+F 1 "10k" V 8050 2525 50  0000 L CNN
+F 2 "" V 7980 2625 50  0001 C CNN
+F 3 "~" H 8050 2625 50  0001 C CNN
+	1    8050 2625
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5E49C74E
+P 6825 1350
+F 0 "R5" H 6895 1396 50  0000 L CNN
+F 1 "100" V 6825 1275 50  0000 L CNN
+F 2 "" V 6755 1350 50  0001 C CNN
+F 3 "~" H 6825 1350 50  0001 C CNN
+	1    6825 1350
+	-1   0    0    -1  
+$EndComp
+Text Notes 10200 650  0    50   ~ 0
+.temp 30\n.tran 1u 10m
+$Comp
+L Device:R R4
+U 1 1 5D97C329
+P 6675 3000
+F 0 "R4" H 6745 3046 50  0000 L CNN
+F 1 "10k" V 6675 2925 50  0000 L CNN
+F 2 "" V 6605 3000 50  0001 C CNN
+F 3 "~" H 6675 3000 50  0001 C CNN
+	1    6675 3000
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 5D97C9D7
+P 6975 3000
+F 0 "R6" H 7045 3046 50  0000 L CNN
+F 1 "10k" V 6975 2925 50  0000 L CNN
+F 2 "" V 6905 3000 50  0001 C CNN
+F 3 "~" H 6975 3000 50  0001 C CNN
+	1    6975 3000
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	6825 775  6825 1200
+Wire Wire Line
+	6675 1900 6825 1900
+Connection ~ 6825 1900
+Wire Wire Line
+	6825 1900 6975 1900
+$Comp
+L power:GND #PWR?
+U 1 1 6044FF5D
+P 7125 1600
+F 0 "#PWR?" H 7125 1350 50  0001 C CNN
+F 1 "GND" H 7130 1427 50  0000 C CNN
+F 2 "" H 7125 1600 50  0001 C CNN
+F 3 "" H 7125 1600 50  0001 C CNN
+	1    7125 1600
+	1    0    0    -1  
+$EndComp
+Connection ~ 6825 1600
+Wire Wire Line
+	6825 1600 6825 1900
+Wire Wire Line
+	6825 1500 6825 1600
+$Comp
+L Device:R R28
+U 1 1 60363D99
+P 4725 500
+F 0 "R28" H 4795 546 50  0000 L CNN
+F 1 "100k" V 4725 425 50  0000 L CNN
+F 2 "" V 4655 500 50  0001 C CNN
+F 3 "~" H 4725 500 50  0001 C CNN
+	1    4725 500 
+	0    1    -1   0   
+$EndComp
+$Comp
+L pspice:VSOURCE V3
+U 1 1 5E4D9344
+P 7500 725
+F 0 "V3" H 7100 825 50  0000 L CNN
+F 1 "PULSE(2.4 2.5 0 10m 10m 0.01m 20m)" H 5800 400 50  0000 L CNN
+F 2 "" H 7500 725 50  0001 C CNN
+F 3 "~" H 7500 725 50  0001 C CNN
+	1    7500 725 
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R555
+U 1 1 6043EEE6
+P 6975 1600
+F 0 "R555" V 6850 1450 50  0000 L CNN
+F 1 "10k" V 6975 1525 50  0000 L CNN
+F 2 "" V 6905 1600 50  0001 C CNN
+F 3 "~" H 6975 1600 50  0001 C CNN
+	1    6975 1600
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R R30
+U 1 1 603B6C93
+P 6125 575
+F 0 "R30" H 6195 621 50  0000 L CNN
+F 1 "2.2k" V 6125 500 50  0000 L CNN
+F 2 "" V 6055 575 50  0001 C CNN
+F 3 "~" H 6125 575 50  0001 C CNN
+	1    6125 575 
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
