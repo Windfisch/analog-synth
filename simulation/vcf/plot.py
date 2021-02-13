@@ -18,6 +18,7 @@ def zero_crossings(a):
 	return np.where(np.diff(np.array(a)>=0.0))[0]
 
 def update_amplifier(impedance_ohms, factor):
+	factor /= PREGAIN
 	if not TWO_STAGE_AMP:
 		r78 = impedance_ohms
 		r910 = r78 * factor
@@ -286,6 +287,7 @@ write_outfile = '-p' in sys.argv or '--pdf' in sys.argv
 do_plot_thd = '-t' in sys.argv or '--thd' in sys.argv
 do_plot_bode = '-b' in sys.argv or '--bode' in sys.argv
 TWO_STAGE_AMP = '-2' in sys.argv or '--two-stage' in sys.argv
+PREGAIN = 21 if ('-i' in sys.argv or '--instrumentation-amplifier' in sys.argv) else 1
 infile = [arg for arg in sys.argv[1:] if arg[0] != '-'][0]
 thd_outfile = os.path.splitext(infile)[0] + "_thd" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
 bode_outfile = os.path.splitext(infile)[0] + "_bode" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
