@@ -279,6 +279,42 @@ def plot_bode(outfile):
 	if outfile is not None:
 		plt.savefig(outfile)
 
+def plot_bode2(outfile):
+	plt.clf()
+	printall(ns.cmd("alter c6 100u"))
+
+	currents_mA = [0] + list(my_logspace(0.0001, 0.1, 5 if DRAFT_MODE else 16))
+	headroom = 1 # set to 2.5 possibly
+	update_amplifier(10000, 500 / headroom)
+
+	if DRAFT_MODE:
+		xlen, ylen = 3,2
+	else:
+		xlen, ylen = 7,5
+	
+	max_resonance_gain = 1/25 * headroom
+	resonance_gains = list(np.arange(0, max_resonance_gain, max_resonance_gain / (xlen*ylen)))
+	_, plots = plt.subplots(xlen, ylen)
+	
+	fmt_Hz = ticker.EngFormatter(unit='Hz')
+	fmt_dB = ticker.EngFormatter(unit='dB')
+	ohmfmt = ticker.EngFormatter(unit="Ω")
+
+	for i, resonance_gain in enumerate(resonance_gains):
+		x = i % ylen
+		y = int(i / ylen)
+		print ("\n######\n####### %s\n######\n" % resonance_gain)
+		printall(ns.cmd("alter r122 %f" % (100000 * resonance_gain)))
+		plot_single_bode_family(plots[y][x], currents_mA)
+		plots[y][x].set_ylim(-55, 15)
+		plots[y][x].xaxis.set_major_formatter(fmt_Hz)
+		plots[y][x].yaxis.set_major_formatter(fmt_dB)
+		plots[y][x].set_title("gain = %7.5f" % resonance_gain, y=1.0, pad=-14)
+
+	plt.gcf().set_size_inches(20,11)
+	if outfile is not None:
+		plt.savefig(outfile)
+
 
 
 
@@ -286,11 +322,13 @@ DRAFT_MODE = '-D' in sys.argv or '--draft' in sys.argv
 write_outfile = '-p' in sys.argv or '--pdf' in sys.argv
 do_plot_thd = '-t' in sys.argv or '--thd' in sys.argv
 do_plot_bode = '-b' in sys.argv or '--bode' in sys.argv
+do_plot_bode_resonance = '-r' in sys.argv or '--bode-resonance' in sys.argv
 TWO_STAGE_AMP = '-2' in sys.argv or '--two-stage' in sys.argv
 PREGAIN = 21 if ('-i' in sys.argv or '--instrumentation-amplifier' in sys.argv) else 1
 infile = [arg for arg in sys.argv[1:] if arg[0] != '-'][0]
 thd_outfile = os.path.splitext(infile)[0] + "_thd" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
 bode_outfile = os.path.splitext(infile)[0] + "_bode" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
+bode2_outfile = os.path.splitext(infile)[0] + "_bode_reso" + ("_DRAFT" if DRAFT_MODE else "") + ".pdf"
 
 ns.source(infile)
 plt.rcParams.update({'font.size': 8})
@@ -300,6 +338,9 @@ if do_plot_thd:
 
 if do_plot_bode:
 	plot_bode(bode_outfile if write_outfile else None)
+
+if do_plot_bode_resonance:
+	plot_bode2(bode2_outfile if write_outfile else None)
 
 if not write_outfile:
 	plt.show()

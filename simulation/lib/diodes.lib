@@ -1,0 +1,3 @@
+.model 12v D(bv=12v)
+.model 3v3 D(bv=3.3v)
+.model 1v8 D(bv=1.8v)
